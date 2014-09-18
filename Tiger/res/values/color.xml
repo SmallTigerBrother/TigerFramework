@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="mjet_white">#FFFFFF</color>
+    <color name="mjet_red">#FF0000</color>
+    <color name="mjet_black">#000000</color>
+    <color name="mjet_black_shadow">#9F9F9F</color>
+    <color name="mjet_viewfinder_mask">#60000000</color>
+    <color name="mjet_result_view">#b0000000</color>
+    <color name="mjet_forestgreen">#228b22</color>
+ <!-- 森林 -->
+    <color name="mjet_viewfinder_laser">#ffff0000</color>
+    <color name="mjet_possible_result_points">#c0ffff00</color>
+    <color name="mjet_cell_seprate">#a0a0a0</color>
+    <color name="mjet_bg_color">#efefef</color>
+
+    <!-- baseDalog -->
+    <color name="mjet_x414141">#414141</color>
+    <color name="mjet_x1e1e1e">#1e1e1e</color>
+
+    <!-- horizontal_progress_dialog -->
+    <color name="mjet_x434343">#434343</color>
+
+    <!-- login -->
+    <color name="mjet_xf8f8f8">#f8f8f8</color>
+    <color name="mjet_xdbdbdb">#dbdbdb</color>
+    <color name="mjet_x555555">#555555</color>
+    <color name="mjet_x1b1b1b">#1b1b1b</color>
+
+</resources>

@@ -1,0 +1,49 @@
+package com.mn.tiger.service;
+
+import android.os.RemoteException;
+
+import com.mn.tiger.task.invoke.TGTaskInvoker;
+import com.mn.tiger.task.invoke.TGTaskParams;
+import com.mn.tiger.utility.LogTools;
+
+/**
+ * 
+ * 该类作用及功能说明 远程服务的aidl接口,是数据的通道 在绑定到service时,具体返回的对象
+ * 
+ * @author pWX219598
+ * @date 2014年5月15日
+ */
+public class TGRemoteBinder extends TGRemoteService.Stub
+{
+	/**
+	 * 日志标签
+	 */
+	private final String LOG_TAG = this.getClass().getSimpleName();
+	/**
+	 * 上下文
+	 */
+	private TGTaskService context;
+
+	/**
+	 * 构造函数
+	 * @author pWX197040
+	 * @date 2014年6月28日
+	 * @param context
+	 */
+	public TGRemoteBinder(TGTaskService context)
+	{
+		this.context = context;
+	}
+
+	@Override
+	public void invoke(TGTaskParams taskParams) throws RemoteException
+	{
+		LogTools.d(LOG_TAG, "[Method:invoke]");
+		TGTaskInvoker.invokeTask(context, taskParams);
+	}
+	
+	public TGTaskService getContext()
+	{
+		return context;
+	}
+}

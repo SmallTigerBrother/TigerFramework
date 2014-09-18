@@ -1,0 +1,6 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="false" android:state_focused="false" 
+        android:drawable="@drawable/mjet_leftbtn_normal_blue" />
+    <item android:state_pressed="true" 
+        android:drawable="@drawable/mjet_leftbtn_press_blue" />
+</selector>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mjet_pull_to_refresh_pull_label">Pull to refresh&#8230;</string>
+    <string name="mjet_pull_to_refresh_release_label">Release to refresh&#8230;</string>
+    <string name="mjet_pull_to_refresh_refreshing_label">Loading&#8230;</string>
+    <string name="mjet_more_to_refresh_pull_label">More&#8230;</string>
+    <string name="mjet_pull_to_refresh_tap_label">Tap to refresh&#8230;</string>
+    <string name="mjet_pull_to_refresh_no_data">No Data&#8230;</string>
+    <string name="mjet_pull_to_refresh_already_firstpage">Pull To First Page Already&#8230;</string>
+    <string name="mjet_pull_to_refresh_already_lastpage">Pull To Last Page Already&#8230;</string>
+    
+</resources>

@@ -1,0 +1,33 @@
+<resources>
+    <string name="mjet_app_name">mjet</string>
+	
+	<!-- request提示 -->
+	<string name="mjet_network_alert">抱歉,当前没有网络支持!</string>
+	<string name="mjet_colse">关闭</string>
+	<string name="mjet_alertdialog_str_un">抱歉,请稍后再试!</string>
+	<string name="mjet_alert_dialog_title_network_error">联网提示</string>
+	<string name="mjet_nodata">没有找到数据！</string>
+	
+	<!-- crash -->
+	<string name="mjet_program_error">程序出错啦!</string>
+	
+	<!--提示框消息 -->
+    <string name="mjet_alert_dialog_cancel">取消</string>
+    <string name="mjet_alert_dialog_title_warn_error">提示</string>
+	<string name="mjet_alert_dialog_ok">确定</string>
+	
+	
+	  <string name="mjet_hello">hello</string>
+    <string name="mjet_dialog_text_waiting">正在加载数据......</string>
+
+    <!-- NetworkUtils -->
+    <string name="mjet_alert_dialog_colse">关闭</string>
+
+    <!-- 数据请求 -->
+    <string name="mjet_request_data_error">请求异常，请稍后再试！</string>
+
+    <!-- 提示框提示信息 -->
+    <string name="mjet_alert_dialog_yes_no_title">您真的要退出吗?</string>
+    
+    <string name="mjet_not_space" >空间不足,下载失败!</string>
+</resources>
