@@ -21,7 +21,7 @@ import com.mn.tiger.utility.CR;
  * 
  * @date 2014-2-26
  */
-public class MPLetterView extends View
+public class TGLetterView extends View
 {
 	private WindowManager manager;
 	/**
@@ -69,19 +69,19 @@ public class MPLetterView extends View
 	 */
 	private Typeface typeface = null;
 
-	public MPLetterView(Context context, AttributeSet attrs, int defStyle)
+	public TGLetterView(Context context, AttributeSet attrs, int defStyle)
 	{
 		super(context, attrs, defStyle);
 		initOverlay();
 	}
 
-	public MPLetterView(Context context, AttributeSet attrs)
+	public TGLetterView(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
 		initOverlay();
 	}
 
-	public MPLetterView(Context context)
+	public TGLetterView(Context context)
 	{
 		super(context);
 		initOverlay();

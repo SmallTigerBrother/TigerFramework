@@ -19,7 +19,7 @@ import android.widget.TextView;
  * @see JDK1.6,android-8
  * @date 2013-8-30
  */
-public class MPNavigationBar extends RelativeLayout
+public class TGNavigationBar extends RelativeLayout
 {	
 	/**
 	 * 日志标签
@@ -64,25 +64,25 @@ public class MPNavigationBar extends RelativeLayout
 	/**
 	 * 默认左导航按钮
 	 */
-	private MPImageButton leftNaviButton;
+	private TGImageButton leftNaviButton;
 	
 	/**
 	 * 默认右导航按钮
 	 */
-	private MPImageButton rightNaviButton;
+	private TGImageButton rightNaviButton;
 	
 	/**
 	 * 中间标题TextView
 	 */
 	private TextView middleTextView;
 	
-	public MPNavigationBar(Context context) 
+	public TGNavigationBar(Context context) 
 	{
 		super(context);
 		setupViews();
 	}
 
-	public MPNavigationBar(Context context, AttributeSet attrs)
+	public TGNavigationBar(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
 		setupViews();
@@ -186,11 +186,11 @@ public class MPNavigationBar extends RelativeLayout
 	 * @date 2013-8-30
 	 * @return
 	 */
-	public MPImageButton getLeftNaviButton()
+	public TGImageButton getLeftNaviButton()
 	{
 		if(null == leftNaviButton)
 		{
-			leftNaviButton = new MPImageButton(getContext());
+			leftNaviButton = new TGImageButton(getContext());
 			leftNaviButton.setVisibility(View.INVISIBLE);
 			leftNaviButton.setTextColor(BUTTON_TEXT_COLOR);
 			leftNaviButton.setTextSize(BUTTON_TEXT_SIZE);
@@ -205,7 +205,7 @@ public class MPNavigationBar extends RelativeLayout
 	 * @date 2014年3月23日
 	 * @param leftNaviButton
 	 */
-	public void setLeftNaviButton(MPImageButton leftNaviButton)
+	public void setLeftNaviButton(TGImageButton leftNaviButton)
 	{
 		leftNaviLayout.removeAllViews();
 		this.leftNaviButton = leftNaviButton;
@@ -218,11 +218,11 @@ public class MPNavigationBar extends RelativeLayout
 	 * @date 2013-8-30
 	 * @return
 	 */
-	public MPImageButton getRightNaviButton()
+	public TGImageButton getRightNaviButton()
 	{
 		if(null == rightNaviButton)
 		{
-			rightNaviButton = new MPImageButton(getContext());
+			rightNaviButton = new TGImageButton(getContext());
 			rightNaviButton.setVisibility(View.INVISIBLE);
 			rightNaviButton.setTextColor(BUTTON_TEXT_COLOR);
 			rightNaviButton.setTextSize(BUTTON_TEXT_SIZE);
@@ -237,7 +237,7 @@ public class MPNavigationBar extends RelativeLayout
 	 * @date 2014年3月23日
 	 * @param rightNaviButton
 	 */
-	public void setRightNaviButton(MPImageButton rightNaviButton)
+	public void setRightNaviButton(TGImageButton rightNaviButton)
 	{
 		rightNaviLayout.removeAllViews();
 		this.rightNaviButton = rightNaviButton;
@@ -254,7 +254,7 @@ public class MPNavigationBar extends RelativeLayout
 	{
 		if(null == middleTextView)
 		{
-			middleTextView = new MPMarqueeText(getContext());
+			middleTextView = new TGMarqueeText(getContext());
 			middleTextView.setSingleLine();
 			middleTextView.setTextColor(MIDDLE_TEXT_COLOR);
 			middleTextView.setTextSize(MIDDLE_TEXT_SIZE);

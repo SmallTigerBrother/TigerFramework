@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
-public class MPImageButton extends LinearLayout
+public class TGImageButton extends LinearLayout
 {
 	private final int TEXT_VIEW = 1;
 	private final int IMAGE_VIEW = 2;
@@ -23,17 +23,17 @@ public class MPImageButton extends LinearLayout
 	private TextView textView;
 
 	/** 徽章视图 */
-	private MPBadgeView badgeView;
+	private TGBadgeView badgeView;
 
 	private float textSize = 18f;
 	private int textColor = Color.BLACK;
 
-	public MPImageButton(Context context)
+	public TGImageButton(Context context)
 	{
 		this(context, null);
 	}
 
-	public MPImageButton(Context context, AttributeSet attrs)
+	public TGImageButton(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
 		mContext = context;
@@ -215,7 +215,7 @@ public class MPImageButton extends LinearLayout
 	{
 		if (getContentView() != null)
 		{
-			badgeView = new MPBadgeView(mContext, getContentView());
+			badgeView = new TGBadgeView(mContext, getContentView());
 			badgeView.setFocusable(false);
 			badgeView.setClickable(false);
 		}

@@ -26,7 +26,7 @@ import android.widget.TextView;
  * runtime rather than included in XML layouts.
  * 
  */
-public class MPBadgeView extends MPImageButton
+public class TGBadgeView extends TGImageButton
 {
 	/** 显示在左上角 */
 	public static final int POSITION_TOP_LEFT = 1;
@@ -76,12 +76,12 @@ public class MPBadgeView extends MPImageButton
 
 	private int targetTabIndex;
 
-	public MPBadgeView(Context context)
+	public TGBadgeView(Context context)
 	{
 		this(context, (AttributeSet) null, android.R.attr.textViewStyle);
 	}
 
-	public MPBadgeView(Context context, AttributeSet attrs)
+	public TGBadgeView(Context context, AttributeSet attrs)
 	{
 		this(context, attrs, android.R.attr.textViewStyle);
 	}
@@ -97,7 +97,7 @@ public class MPBadgeView extends MPImageButton
 	 * @param target
 	 *            the View to attach the badge to.
 	 */
-	public MPBadgeView(Context context, View target)
+	public TGBadgeView(Context context, View target)
 	{
 		this(context, null, android.R.attr.textViewStyle, target, 0);
 	}
@@ -115,17 +115,17 @@ public class MPBadgeView extends MPImageButton
 	 * @param index
 	 *            the position of the tab within the target.
 	 */
-	public MPBadgeView(Context context, TabWidget target, int index)
+	public TGBadgeView(Context context, TabWidget target, int index)
 	{
 		this(context, null, android.R.attr.textViewStyle, target, index);
 	}
 
-	public MPBadgeView(Context context, AttributeSet attrs, int defStyle)
+	public TGBadgeView(Context context, AttributeSet attrs, int defStyle)
 	{
 		this(context, attrs, defStyle, null, 0);
 	}
 
-	public MPBadgeView(Context context, AttributeSet attrs, int defStyle, View target, int tabIndex)
+	public TGBadgeView(Context context, AttributeSet attrs, int defStyle, View target, int tabIndex)
 	{
 		super(context, attrs);
 		init(context, target, tabIndex);

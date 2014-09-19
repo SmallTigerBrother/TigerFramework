@@ -11,19 +11,19 @@ import android.widget.TextView;
  * @version V2.0
  * @see JDK1.6,android-8
  */
-public class MPMarqueeText extends TextView
+public class TGMarqueeText extends TextView
 {
-	public MPMarqueeText(Context con)
+	public TGMarqueeText(Context con)
 	{
 		super(con);
 	}
 
-	public MPMarqueeText(Context context, AttributeSet attrs)
+	public TGMarqueeText(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
 	}
 
-	public MPMarqueeText(Context context, AttributeSet attrs, int defStyle)
+	public TGMarqueeText(Context context, AttributeSet attrs, int defStyle)
 	{
 		super(context, attrs, defStyle);
 	}
