@@ -5,10 +5,6 @@ import java.util.List;
 import android.content.Context;
 import android.widget.BaseAdapter;
 
-import com.mn.tiger.request.error.IHttpErrorHandler;
-import com.mn.tiger.widget.pulltorefresh.library.model.PageModel;
-import com.mn.tiger.widget.pulltorefresh.pullinterface.IPullToRefreshController;
-import com.mn.tiger.widget.pulltorefresh.pullinterface.IPullToRefreshDataController;
 
 /**
  * 该类作用及功能说明
@@ -30,8 +26,7 @@ public class FirstPageRefreshListAdapter<T> extends TGPullToRefreshListAdapter<T
 	 * @param adapter 其他Adapter
 	 * @param httpErrorHandler 错误处理接口
 	 */
-	public FirstPageRefreshListAdapter(Context context, BaseAdapter adapter, 
-			IHttpErrorHandler httpErrorHandler)
+	public FirstPageRefreshListAdapter(Context context, BaseAdapter adapter)
 	{
 		super(context, adapter);
 	}
@@ -39,18 +34,39 @@ public class FirstPageRefreshListAdapter<T> extends TGPullToRefreshListAdapter<T
 	@Override
 	public void onPullDownToRefresh(int currentPage)
 	{
-		IPullToRefreshController pullToRefreshController = getListView().getPullToRefreshController();
-		
 		//若当前页码小于起始页码时，执行网络请求，重置当前列表
-		if(currentPage < pullToRefreshController.getStartPageNum())
+		if(currentPage < getStartPageNum())
 		{
-			excuteRequest(getRequestUrl(), getRequestParams(pullToRefreshController.getStartPageNum()), 
-					IPullToRefreshDataController.REFRESH_LISTVIEW_RESET);
+			excuteRequest(getRequestUrl(), getRequestParams(getStartPageNum()), 
+					REFRESH_LISTVIEW_RESET);
 		}
 		else 
 		{
 			super.onPullDownToRefresh(currentPage);
 		}
+	}
+	
+	@Override
+	public int countCurPagePullDownAfterPullUp(int currentPage)
+	{
+		//当前页码小于等于  起始页码-1  时，直接返回当前页码
+		currentPage = currentPage - getShowPageMost();
+		if(currentPage <= getStartPageNum() - 1)
+		{
+			return currentPage;
+		}
+		else
+		{
+			setCurPullOrientation(PULL_ORIENTATION_DOWN);
+		}
 		
+		return currentPage;
+	}
+	
+	@Override
+	public int countCurPagePullDownAfterPullDown(int currentPage)
+	{
+		currentPage = currentPage - 1;
+		return currentPage;
 	}
 }

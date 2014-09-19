@@ -2,10 +2,14 @@ package com.mn.tiger.widget.pulltorefresh.library.model;
 
 import java.util.ArrayList;
 
+/**
+ * 列表分页模型
+ * @author Dalang
+ *
+ * @param <T>
+ */
 public class PageModel<T>
 {
-	private int listViewRefreshTpye;
-	
 	private int totalPage;
 	
 	private int currentPage;
@@ -40,15 +44,5 @@ public class PageModel<T>
 	public void setPage(ArrayList<T> page)
 	{
 		this.page = page;
-	}
-
-	public int getListViewRefreshTpye()
-	{
-		return listViewRefreshTpye;
-	}
-
-	public void setListViewRefreshTpye(int listViewRefreshTpye)
-	{
-		this.listViewRefreshTpye = listViewRefreshTpye;
 	}
 }

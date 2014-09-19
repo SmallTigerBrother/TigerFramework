@@ -156,6 +156,11 @@ public class TGListAdapter<T> extends BaseAdapter
 		return this.items;
 	}
 	
+	public BaseAdapter getDecoratedAdapter()
+	{
+		return adapter;
+	}
+	
 	/**
 	 * 该方法的作用:
 	 * 设置Context

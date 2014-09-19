@@ -26,6 +26,9 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 */
 	private InternalAsyncTask asyncTask;
 	
+	/**
+	 * 取消监听接口
+	 */
 	private OnCancelListener cancelListener;
 	
 	/**
