@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: D:\\GitHub\\SmallTiger\\Tiger\\src\\com\\mn\\tiger\\service\\TGRemoteService.aidl
+ * Original file: E:\\newTiger\\TigerFramework\\Tiger\\src\\com\\mn\\tiger\\service\\TGRemoteService.aidl
  */
 package com.mn.tiger.service;
 public interface TGRemoteService extends android.os.IInterface
