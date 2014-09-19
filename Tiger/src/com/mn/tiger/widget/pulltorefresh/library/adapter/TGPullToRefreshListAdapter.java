@@ -71,7 +71,7 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	/**
 	 * 请求类型
 	 */
-	private int requestType = TGHttpRequest.REQUEST_GET;
+	private int requestType = TGHttpRequest.REQUEST_UNKNOWN;
 	
 	/**
 	 * 请求参数
@@ -136,47 +136,7 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	 */
 	public void excuteRequest(String requestUrl, Object params, int listViewRefreshType)
 	{
-		Commons.cancelAsyncTask(requester);
-		
-		this.listViewRefreshType = listViewRefreshType;
-		
-		if(null != requester && null != params)
-		{
-			switch (requestType)
-			{
-				case TGHttpRequest.REQUEST_GET:
-					requester.get(requestUrl, PageModel.class.getName(), params, this);
-					break;
-
-				case TGHttpRequest.REQUEST_POST:
-					requester.post(requestUrl, PageModel.class.getName(), params, this);
-					break;
-
-				case TGHttpRequest.REQUEST_PUT:
-					requester.put(requestUrl, PageModel.class.getName(), params, this);
-
-					break;
-
-				case TGHttpRequest.REQUEST_DELETE:
-					requester.delete(requestUrl, PageModel.class.getName(), params, this);
-					
-					break;
-
-				default:
-					break;
-			}
-		}
-		else 
-		{
-			if(null == requester)
-			{
-				throw new NullPointerException("The requester should not be null");
-			}
-			if(null == params)
-			{
-				throw new NullPointerException("The request params should not be null");
-			}
-		}
+		excuteRequest(requester, requestUrl, params, listViewRefreshType);
 	}
 	
 	/**
@@ -197,25 +157,25 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 			switch (requestType)
 			{
 				case TGHttpRequest.REQUEST_GET:
-					requester.get(requestUrl, PageModel.class.getName(), params, this);
+					requester.get(requestUrl, PageModel.class, params, this);
 					break;
 
 				case TGHttpRequest.REQUEST_POST:
-					requester.post(requestUrl, PageModel.class.getName(), params, this);
+					requester.post(requestUrl, PageModel.class, params, this);
 					break;
 
 				case TGHttpRequest.REQUEST_PUT:
-					requester.put(requestUrl, PageModel.class.getName(), params, this);
+					requester.put(requestUrl, PageModel.class, params, this);
 
 					break;
 
 				case TGHttpRequest.REQUEST_DELETE:
-					requester.delete(requestUrl, PageModel.class.getName(), params, this);
+					requester.delete(requestUrl, PageModel.class, params, this);
 					
 					break;
 
 				default:
-					break;
+					throw new RuntimeException("You must set requestType before use this method");
 			}
 		}
 		else 

@@ -52,14 +52,15 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	/**
 	 * 执行get请求
 	 * @param requestUrl 请求url
-	 * @param resultClsName 解析结果类名
+	 * @param clazz 解析结果类名
 	 * @param params 请求参数
 	 * @param listener 请求回调方法
 	 */
-	public void get(String requestUrl, String resultClsName, Object params, 
+	@SuppressWarnings("rawtypes")
+	public void get(String requestUrl, Class clazz, Object params, 
 			RequestListener<T> listener)
 	{
-		execute(TGHttpRequest.REQUEST_GET, requestUrl, resultClsName, params, listener);
+		execute(TGHttpRequest.REQUEST_GET, requestUrl, clazz.getName(), params, listener);
 	}
 	
 	/**
@@ -69,10 +70,11 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 * @param params 请求参数
 	 * @param listener 请求回调方法
 	 */
-	public void post(String requestUrl, String resultClsName, Object params, 
+	@SuppressWarnings("rawtypes")
+	public void post(String requestUrl, Class clazz, Object params, 
 			RequestListener<T> listener)
 	{
-		execute(TGHttpRequest.REQUEST_POST, requestUrl, resultClsName, params, listener);
+		execute(TGHttpRequest.REQUEST_POST, requestUrl, clazz.getName(), params, listener);
 	}
 	
 	/**
@@ -82,10 +84,11 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 * @param params 请求参数
 	 * @param listener 请求回调方法
 	 */
-	public void put(String requestUrl, String resultClsName, Object params, 
+	@SuppressWarnings("rawtypes")
+	public void put(String requestUrl, Class clazz, Object params, 
 			RequestListener<T> listener)
 	{
-		execute(TGHttpRequest.REQUEST_PUT, requestUrl, resultClsName, params, listener);
+		execute(TGHttpRequest.REQUEST_PUT, requestUrl, clazz.getName(), params, listener);
 	}
 	
 	/**
@@ -95,10 +98,11 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 * @param params 请求参数
 	 * @param listener 请求回调方法
 	 */
-	public void delete(String requestUrl, String resultClsName, Object params, 
+	@SuppressWarnings("rawtypes")
+	public void delete(String requestUrl, Class clazz, Object params, 
 			RequestListener<T> listener)
 	{
-		execute(TGHttpRequest.REQUEST_DELETE, requestUrl, resultClsName, params, listener);
+		execute(TGHttpRequest.REQUEST_DELETE, requestUrl, clazz.getName(), params, listener);
 	}
 	
 	/**
