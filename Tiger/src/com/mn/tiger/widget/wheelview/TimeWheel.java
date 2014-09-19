@@ -24,12 +24,9 @@ import com.mn.tiger.widget.wheelview.adapters.NumericWheelAdapterForTime;
  * 
  * 该类作用及功能说明 A view for selecting a month / year / day based on a calendar like
  * layout. For a dialog using this view, see
- * {@link huawei.w3.customview.DateWheelDialog}.
  * 
  * @version V2.0
  * @see JDK1.6,android-8
- * @date 2013-2-6 Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights
- *       reserved.
  */
 
 public class TimeWheel extends FrameLayout
@@ -425,8 +422,6 @@ public class TimeWheel extends FrameLayout
 	 * 
 	 * @version V2.0
 	 * @see JDK1.6,android-8
-	 * @date 2013-2-2 Copyright Huawei Technologies Co., Ltd. 1998-2011. All
-	 *       rights reserved.
 	 */
 	private class DateNumericAdapter extends NumericWheelAdapterForTime
 	{
@@ -471,8 +466,6 @@ public class TimeWheel extends FrameLayout
 	 * 
 	 * @version V2.0
 	 * @see JDK1.6,android-8
-	 * @date 2013-2-2 Copyright Huawei Technologies Co., Ltd. 1998-2011. All
-	 *       rights reserved.
 	 */
 	@SuppressWarnings("unused")
 	private class DateArrayAdapter extends ArrayWheelAdapter<String>

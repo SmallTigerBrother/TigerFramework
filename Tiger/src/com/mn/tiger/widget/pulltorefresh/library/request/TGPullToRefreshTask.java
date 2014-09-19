@@ -14,7 +14,6 @@ import com.mn.tiger.widget.pulltorefresh.pullinterface.IPullToRefreshDataControl
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2013-10-26
- * Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights reserved.
  */
 public abstract class TGPullToRefreshTask<Result> extends TGAsyncTask<Result> 
 {

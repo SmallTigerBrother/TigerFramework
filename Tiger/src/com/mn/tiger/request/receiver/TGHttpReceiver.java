@@ -9,7 +9,6 @@ import com.mn.tiger.request.method.TGHttpMethod;
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2013-12-1
- * Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights reserved.
  */
 public abstract class TGHttpReceiver 
 {

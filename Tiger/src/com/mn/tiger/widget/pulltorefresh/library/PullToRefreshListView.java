@@ -22,8 +22,6 @@ import com.mn.tiger.widget.pulltorefresh.library.internal.OriginalLoadingLayout;
  * 
  * @version V2.0
  * @see JDK1.6,android-8
- * @date 2012-6-19 Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights
- *       reserved.
  */
 public class PullToRefreshListView extends
 		PullToRefreshAdapterViewBase<ListView> {
@@ -35,14 +33,10 @@ public class PullToRefreshListView extends
 	private boolean mAddedLvFooter = false;
 
 	/**
-	 * 
-	 * 
 	 * 该类作用及功能说明:listview为空时显示的view
 	 * 
 	 * @version V2.0
 	 * @see JDK1.6,android-8
-	 * @date 2012-6-19 Copyright Huawei Technologies Co., Ltd. 1998-2011. All
-	 *       rights reserved.
 	 */
 	class InternalListView extends ListView implements EmptyViewMethodAccessor {
 

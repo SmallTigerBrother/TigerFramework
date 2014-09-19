@@ -9,7 +9,6 @@ import java.util.List;
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2013-11-12
- * Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights reserved.
  */
 public class TGMemoryPageCache<T> implements IPageCache<T>
 {

@@ -13,7 +13,6 @@ import com.mn.tiger.widget.pulltorefresh.pullinterface.IPullToRefreshController;
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2014年2月10日
- * Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights reserved.
  */
 public class AutoPullToRefreshListView extends PullToRefreshListView
 {
@@ -164,7 +163,6 @@ public class AutoPullToRefreshListView extends PullToRefreshListView
 	 * @version V2.0
 	 * @see JDK1.6,android-8
 	 * @date 2013-11-1
-	 * Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights reserved.
 	 */
 	public interface OnRefreshListenerPlus
 	{

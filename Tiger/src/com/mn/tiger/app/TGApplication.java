@@ -11,15 +11,12 @@ import android.content.Context;
 import com.mn.tiger.system.AppConfiguration;
 import com.mn.tiger.task.invoke.TGTaskInvoker;
 import com.mn.tiger.utility.LogTools;
-//import com.huawei.mjet.system.MPMjetProperties;
 
 /**
  * 该类作用及功能说明 应用App类
  * 
  * @version V2.0
  * @see JDK1.6,android-8
- * @date 2014年2月10日 Copyright Huawei Technologies Co., Ltd. 1998-2011. All
- *       rights reserved.
  */
 public class TGApplication extends Application implements IApplication
 {

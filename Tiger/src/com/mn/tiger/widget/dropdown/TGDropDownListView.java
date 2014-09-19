@@ -20,8 +20,6 @@ import com.mn.tiger.utility.CR;
  * 
  * @version V2.0
  * @see JDK1.6,android-8
- * @date 2012-9-25 Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights
- *       reserved.
  */
 public class TGDropDownListView extends TGDropDownAdapterView
 {

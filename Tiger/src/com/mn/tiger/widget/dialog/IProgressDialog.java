@@ -7,7 +7,6 @@ package com.mn.tiger.widget.dialog;
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2014年2月10日
- * Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights reserved.
  */
 public interface IProgressDialog extends IDialog
 {

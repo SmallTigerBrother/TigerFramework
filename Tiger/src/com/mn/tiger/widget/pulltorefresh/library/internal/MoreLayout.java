@@ -15,8 +15,6 @@ import com.mn.tiger.utility.CR;
  * 
  * @version V2.0
  * @see JDK1.6,android-8
- * @date 2012-4-6 Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights
- *       reserved.
  */
 
 public class MoreLayout extends OriginalLoadingLayout {
@@ -133,14 +131,7 @@ public class MoreLayout extends OriginalLoadingLayout {
 		mFooterText.setTextColor(color);
 	}
 
-	/*
-	 * <p>Title: setRefreshingLabel</p> <p>Description: </p>
-	 * 
-	 * @see huawei.w3.pulltorefresh.library.internal.OriginalLoadingLayout#
-	 * setRefreshingLabel()
-	 */
 	/**
-	 * 
 	 * 该方法的作用:设置第二个文本 在什么情况下调用:
 	 * 
 	 * @date 2012-6-11

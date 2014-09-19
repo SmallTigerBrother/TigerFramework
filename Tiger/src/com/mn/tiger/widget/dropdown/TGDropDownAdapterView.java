@@ -9,7 +9,6 @@ import android.widget.ListAdapter;
  * 下拉列表基类，实现下拉列表的基本功能
  * @see JDK1.6,android-8
  * @date 2012-9-25
- * Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights reserved.
  */
 public abstract class TGDropDownAdapterView extends TGDropDownView
 {

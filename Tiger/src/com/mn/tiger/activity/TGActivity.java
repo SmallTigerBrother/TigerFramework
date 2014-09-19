@@ -23,8 +23,6 @@ import com.mn.tiger.widget.MPNavigationBar;
  * 
  * @version V2.0
  * @see JDK1.6,android-8
- * @date 2013-11-8 Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights
- *       reserved.
  */
 public class TGActivity extends Activity
 {
