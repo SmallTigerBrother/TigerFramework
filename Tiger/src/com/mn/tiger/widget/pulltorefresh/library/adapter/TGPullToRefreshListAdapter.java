@@ -1,6 +1,5 @@
 package com.mn.tiger.widget.pulltorefresh.library.adapter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,15 +8,18 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.BaseAdapter;
 
-import com.mn.tiger.request.async.TGHttpAsyncTask;
-import com.mn.tiger.request.error.IHttpErrorHandler;
+import com.mn.tiger.request.TGHttpRequest;
+import com.mn.tiger.request.async.TGHttpAsyncRequester;
+import com.mn.tiger.request.async.TGHttpAsyncRequester.OnCancelListener;
+import com.mn.tiger.request.async.TGHttpAsyncRequester.RequestListener;
 import com.mn.tiger.utility.Commons;
 import com.mn.tiger.widget.adpter.TGListAdapter;
 import com.mn.tiger.widget.pulltorefresh.AutoPullToRefreshListView.OnRefreshListenerPlus;
 import com.mn.tiger.widget.pulltorefresh.TGPullToRefreshListView;
-import com.mn.tiger.widget.pulltorefresh.library.request.TGPullToRefreshTask;
+import com.mn.tiger.widget.pulltorefresh.library.model.PageModel;
 import com.mn.tiger.widget.pulltorefresh.pullinterface.IPullToRefreshDataController;
 import com.mn.tiger.widget.pulltorefresh.pullinterface.TGCacheDataController;
+import com.squareup.otto.Bus;
 
 /**
  * 该类作用及功能说明
@@ -26,7 +28,8 @@ import com.mn.tiger.widget.pulltorefresh.pullinterface.TGCacheDataController;
  * @see JDK1.6,android-8
  * @date 2013-10-26
  */
-public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements OnRefreshListenerPlus
+public class TGPullToRefreshListAdapter<T extends Object> extends TGListAdapter<T> implements OnRefreshListenerPlus, 
+    RequestListener<PageModel<T>>, OnCancelListener
 {
 	/**
 	 * 拖动刷新列表
@@ -41,17 +44,12 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	/**
 	 * 请求任务
 	 */
-	private TGPullToRefreshTask<List<T>> requestTask = null;
-	
-	/**
-	 * 错误处理接口
-	 */
-	private IHttpErrorHandler httpErrorHandler;
+	private TGHttpAsyncRequester<PageModel<T>> requester = null;
 	
 	/**
 	 * 请求类型
 	 */
-	private int requestType = TGHttpAsyncTask.REQUEST_GET;
+	private int requestType = TGHttpRequest.REQUEST_GET;
 	
 	/**
 	 * 是否绑定服务
@@ -63,10 +61,16 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	 */
 	private Object requestParams = new HashMap<String, String>();
 	
+	private String parserClsName = "";
+	
 	/**
 	 * 当前页码的请求参数Key值
 	 */
 	private String currentPageKey = null;
+	
+	private Bus eventBus;
+	
+	private int listViewRefreshType = IPullToRefreshDataController.REFRESH_LISTVIEW_RESET;
 	
 	/**
 	 * @date 2013-10-26
@@ -75,14 +79,10 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	 * @param items 列表数据
 	 * @param httpErrorHandler 错误处理接口
 	 */
-	public TGPullToRefreshListAdapter(Context context, List<T> items, 
-			IHttpErrorHandler httpErrorHandler) 
+	public TGPullToRefreshListAdapter(Context context, List<T> items) 
 	{
 		super(context, items);
-		
-		this.httpErrorHandler = httpErrorHandler;
-		
-		requestTask = initRequestTask(httpErrorHandler);
+		eventBus = new Bus();
 	}
 	
 	/**
@@ -91,31 +91,10 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	 * @param adapter 其他Adapter
 	 * @param httpErrorHandler 错误处理接口
 	 */
-	public TGPullToRefreshListAdapter(Context context, BaseAdapter adapter, 
-			IHttpErrorHandler httpErrorHandler)
+	public TGPullToRefreshListAdapter(Context context, BaseAdapter adapter)
 	{
 		super(context, adapter);
-		
-		this.httpErrorHandler = httpErrorHandler;
-		
-		requestTask = initRequestTask(httpErrorHandler);
-	}
-	
-	@Override
-	public Object getItem(int position) 
-	{
-		return super.getItem(position - 1);
-	}
-	
-	/**
-	 * 该方法的作用:
-	 * 初始化请求任务，绑定服务时，必须重载该方法，必须返回一个new的对象
-	 * @date 2013-10-26
-	 * @param httpErrorHandler 错误处理接口
-	 */
-	protected TGPullToRefreshTask<List<T>> initRequestTask(IHttpErrorHandler httpErrorHandler)
-	{
-		return null;
+		eventBus = new Bus();
 	}
 	
 	/**
@@ -155,10 +134,6 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	public void bindListView(TGPullToRefreshListView<T> listView) 
 	{
 		this.listView = listView;
-		if(null != requestTask && null != this.listView)
-		{
-			requestTask.setHandler(this.listView.getRefreshHandler());
-		}
 	}
 
 	/**
@@ -171,33 +146,6 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	{
 		return listView;
 	}
-
-	/**
-	 * 该方法的作用:
-	 * 设置请求Url
-	 * @date 2013-10-26
-	 * @param requestUrl
-	 */
-	public void setRequestUrl(String requestUrl) 
-	{
-		this.requestUrl = requestUrl;
-		
-		if(null != requestTask)
-		{
-			requestTask.setRequestUrl(requestUrl);
-		}
-	}
-
-	/**
-	 * 该方法的作用:
-	 * 获取请求Url
-	 * @date 2013-10-26
-	 * @return
-	 */
-	public String getRequestUrl() 
-	{
-		return requestUrl;
-	}
 	
 	/**
 	 * 该方法的作用:
@@ -208,22 +156,6 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	public void setRequestType(int requestType)
 	{
 		this.requestType = requestType;
-		
-		if(null != requestTask)
-		{
-			requestTask.setRequestType(requestType);
-		}
-	}
-	
-	/**
-	 * 该方法的作用:
-	 * 获取请求类型
-	 * @date 2013-10-26
-	 * @return
-	 */
-	public int getRequestType()
-	{
-		return requestType;
 	}
 	
 	/**
@@ -232,60 +164,79 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	 * @date 2013-10-26
 	 * @param params
 	 */
-	public void excuteRequestTask(Object params, int listViewRefreshType)
+	protected void excuteRequest(String requestUrl, Object params, int listViewRefreshType)
 	{
-		Commons.cancelAsyncTask(requestTask);
+		Commons.cancelAsyncTask(requester);
 		
-		requestTask = initRequestTask(httpErrorHandler);
+		this.listViewRefreshType = listViewRefreshType;
 		
-		if(null != requestTask && null != params)
+		if(null != requester && null != params)
 		{
-			requestTask.setListViewRefreshType(listViewRefreshType);
-			requestTask.execute(params);
+			switch (requestType)
+			{
+				case TGHttpRequest.REQUEST_GET:
+					
+					requester.get(requestUrl, PageModel.class.getName(), params, this);
+					break;
+
+				case TGHttpRequest.REQUEST_POST:
+
+					requester.post(requestUrl, PageModel.class.getName(), params, this);
+					break;
+
+				case TGHttpRequest.REQUEST_PUT:
+					requester.put(requestUrl, PageModel.class.getName(), params, this);
+
+					break;
+
+				case TGHttpRequest.REQUEST_DELETE:
+					requester.delete(requestUrl, PageModel.class.getName(), params, this);
+					
+					break;
+
+				default:
+					break;
+			}
 		}
 		else 
 		{
-			if(bindRequestTask && null == requestTask)
+			if(bindRequestTask && null == requester)
 			{
 				throw new RuntimeException("The bind requestTask should not be null");
 			}
-			
-			if(null == params)
-			{
-				throw new RuntimeException("The params should not be null");
-			}
 		}
 	}
 	
-	/**
-	 * 该方法的作用:
-	 * 执行网络请求任务
-	 * @date 2013-10-26
-	 * @param requestTask
-	 * @param params
-	 */
-	public void excuteRequestTask(TGPullToRefreshTask<ArrayList<T>> requestTask, 
-			HashMap<String, String> params, int listViewRefreshType)
+	@Override
+	public void onRequestStart()
 	{
-		Commons.cancelAsyncTask(requestTask);
-		
-		if(null != requestTask)
-		{
-			requestTask.setListViewRefreshType(listViewRefreshType);
-			requestTask.setHandler(getListviewRefreshHandler());
-			requestTask.execute(params);
-		}
+		//TODO 显示对话框
+	}
+
+	@Override
+	public void onRequestSuccess(PageModel<T> result)
+	{
+		//消失对话框
+		//TODO 刷新列表
+		//停止拖动
+		result.setListViewRefreshTpye(listViewRefreshType);
+		eventBus.post(result);
+	}
+
+	@Override
+	public void onRequestError(int code, String message)
+	{
+		//TODO 消失对话框
+		//TODO 停止拖动
+		//TODO 提示异常
+		eventBus.post(message);
 	}
 	
-	/**
-	 * 该方法的作用:
-	 * 获取请求任务
-	 * @date 2013-10-26
-	 * @return
-	 */
-	public TGPullToRefreshTask<List<T>> getRequestTask()
+	@Override
+	public void onRequestCancel()
 	{
-		return requestTask;
+		//TODO 停止拖动
+		eventBus.post(null);
 	}
 	
 	/**
@@ -293,12 +244,9 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	 * 取消请求任务
 	 * @date 2013-11-8
 	 */
-	public void cancelRequestTask()
+	public void cancelRequester()
 	{
-		if(null != requestTask)
-		{
-			Commons.cancelAsyncTask(requestTask);
-		}
+		Commons.cancelAsyncTask(requester);
 	}
 	
 	/**
@@ -341,13 +289,13 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 			}
 			else 
 			{
-				excuteRequestTask(getRequestParams(currentPage), 
+				excuteRequest(requestUrl, getRequestParams(currentPage),
 						IPullToRefreshDataController.REFRESH_LISTVIEW_APPEND);
 			}
 		}
 		else 
 		{
-			excuteRequestTask(getRequestParams(currentPage), 
+			excuteRequest(requestUrl, getRequestParams(currentPage), 
 					IPullToRefreshDataController.REFRESH_LISTVIEW_APPEND);
 		}
 	}
@@ -374,13 +322,13 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 			}
 			else 
 			{
-				excuteRequestTask(getRequestParams(currentPage), 
+				excuteRequest(requestUrl, getRequestParams(currentPage),
 						IPullToRefreshDataController.REFRESH_LISTVIEW_APPEND);
 			}
 		}
 		else
 		{
-			excuteRequestTask(getRequestParams(currentPage), 
+			excuteRequest(requestUrl, getRequestParams(currentPage), 
 					IPullToRefreshDataController.REFRESH_LISTVIEW_APPEND);
 		}
 		
@@ -447,5 +395,25 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	protected String getCurrentPageKey()
 	{
 		return currentPageKey;
+	}
+	
+	public Bus getEventBus()
+	{
+		return eventBus;
+	}
+
+	public String getParserClsName()
+	{
+		return parserClsName;
+	}
+
+	public void setParserClsName(String parserClsName)
+	{
+		this.parserClsName = parserClsName;
+	}
+	
+	public String getRequestUrl()
+	{
+		return requestUrl;
 	}
 }

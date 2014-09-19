@@ -10,12 +10,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.AsyncTask;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
 
 import com.mn.tiger.app.IApplication;
 import com.mn.tiger.app.TGApplication;
+import com.mn.tiger.request.async.TGHttpAsyncRequester;
 import com.mn.tiger.request.async.TGHttpAsyncTask;
 import com.mn.tiger.system.AppConfiguration;
 import com.mn.tiger.widget.dialog.IDialogContext;
@@ -136,17 +136,12 @@ public class Commons
 	 * 该方法的作用: 取消异步任务
 	 * 
 	 * @date 2014年1月7日
-	 * @param task
 	 */
-	public static void cancelAsyncTask(@SuppressWarnings("rawtypes") AsyncTask task)
+	public static void cancelAsyncTask(@SuppressWarnings("rawtypes") TGHttpAsyncRequester requester)
 	{
-		if (null != task)
+		if (null != requester)
 		{
-			if(AsyncTask.Status.RUNNING == task.getStatus())
-			{
-				task.cancel(true);
-			}
-			task = null;
+			requester.cancel();
 		}
 	}
 	
@@ -156,11 +151,10 @@ public class Commons
 	 * @date 2014年1月7日
 	 * @param task
 	 */
-	public static void cancelAsyncTask(@SuppressWarnings("rawtypes") TGAsyncTask task)
+	public static void cancelAsyncTask(@SuppressWarnings("rawtypes") TGHttpAsyncTask task)
 	{
 		if (null != task)
 		{
-			task.cancel(true);
 			task = null;
 		}
 	}

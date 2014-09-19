@@ -176,7 +176,7 @@ public class TGPullToRefreshListView<T> extends AutoPullToRefreshListView
 
 		if (null != adapter)
 		{
-			adapter.cancelRequestTask();
+			adapter.cancelRequester();
 		}
 	}
 

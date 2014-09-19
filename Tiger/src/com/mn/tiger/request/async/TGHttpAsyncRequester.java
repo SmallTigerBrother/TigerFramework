@@ -66,7 +66,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 * @param params 请求参数
 	 * @param listener 请求回调方法
 	 */
-	public void post( String requestUrl, String resultClsName, Object params, 
+	public void post(String requestUrl, String resultClsName, Object params, 
 			RequestListener<T> listener)
 	{
 		execute(TGHttpRequest.REQUEST_POST, requestUrl, resultClsName, params, listener);
@@ -145,7 +145,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 		asyncTask.cancel();
 		if(null != cancelListener)
 		{
-			cancelListener.onCancel();
+			cancelListener.onRequestCancel();
 		}
 	}
 	
@@ -193,20 +193,20 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 		/**
 		 * 启动任务时回调
 		 */
-		public void onStart();
+		public void onRequestStart();
 		
 		/**
 		 * 请求成功时回调
 		 * @param result 请求结果
 		 */
-		public void onSuccess(T result);
+		public void onRequestSuccess(T result);
 		
 		/**
 		 * 请求出现异常时回调
 		 * @param code 错误码
 		 * @param message 异常信息
 		 */
-		public void onError(int code, String message);
+		public void onRequestError(int code, String message);
 	}
 
 	/**
@@ -216,7 +216,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 */
 	public static interface OnCancelListener
 	{
-		public void onCancel();
+		public void onRequestCancel();
 	}
 
 	/**

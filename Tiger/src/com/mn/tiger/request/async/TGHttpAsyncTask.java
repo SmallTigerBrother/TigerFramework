@@ -27,7 +27,7 @@ import com.mn.tiger.utility.LogTools;
  * @see JDK1.6,android-8
  * @date 2014年2月10日
  */
-class TGHttpAsyncTask<Result>
+public class TGHttpAsyncTask<Result>
 {
 	/**
 	 * 日志标签
@@ -82,7 +82,7 @@ class TGHttpAsyncTask<Result>
 			//解析请求结果
 			if(!isCancelled())
 			{
-				listener.onSuccess(httpResult.getObjectResult());
+				listener.onRequestSuccess(httpResult.getObjectResult());
 			}
 		}
 		
@@ -92,7 +92,7 @@ class TGHttpAsyncTask<Result>
 			//解析请求结果
 			if(!isCancelled())
 			{
-				listener.onError(httpResult.getResponseCode(), httpResult.getResult());
+				listener.onRequestError(httpResult.getResponseCode(), httpResult.getResult());
 			}
 		}
 	};
@@ -137,7 +137,7 @@ class TGHttpAsyncTask<Result>
 	{
 		if(null != listener)
 		{
-			listener.onStart();
+			listener.onRequestStart();
 		}
 	}
 	

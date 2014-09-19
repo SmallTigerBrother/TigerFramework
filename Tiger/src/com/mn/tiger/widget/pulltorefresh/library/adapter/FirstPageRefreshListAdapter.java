@@ -6,6 +6,7 @@ import android.content.Context;
 import android.widget.BaseAdapter;
 
 import com.mn.tiger.request.error.IHttpErrorHandler;
+import com.mn.tiger.widget.pulltorefresh.library.model.PageModel;
 import com.mn.tiger.widget.pulltorefresh.pullinterface.IPullToRefreshController;
 import com.mn.tiger.widget.pulltorefresh.pullinterface.IPullToRefreshDataController;
 
@@ -18,9 +19,9 @@ import com.mn.tiger.widget.pulltorefresh.pullinterface.IPullToRefreshDataControl
  */
 public class FirstPageRefreshListAdapter<T> extends TGPullToRefreshListAdapter<T>
 {
-	public FirstPageRefreshListAdapter(Context context, List<T> items, IHttpErrorHandler httpErrorHandler)
+	public FirstPageRefreshListAdapter(Context context, List<T> items)
 	{
-		super(context, items, httpErrorHandler);
+		super(context, items);
 	}
 	
 	/**
@@ -32,7 +33,7 @@ public class FirstPageRefreshListAdapter<T> extends TGPullToRefreshListAdapter<T
 	public FirstPageRefreshListAdapter(Context context, BaseAdapter adapter, 
 			IHttpErrorHandler httpErrorHandler)
 	{
-		super(context, adapter, httpErrorHandler);
+		super(context, adapter);
 	}
 	
 	@Override
@@ -43,7 +44,7 @@ public class FirstPageRefreshListAdapter<T> extends TGPullToRefreshListAdapter<T
 		//若当前页码小于起始页码时，执行网络请求，重置当前列表
 		if(currentPage < pullToRefreshController.getStartPageNum())
 		{
-			excuteRequestTask(getRequestParams(pullToRefreshController.getStartPageNum()), 
+			excuteRequest(getRequestUrl(), getRequestParams(pullToRefreshController.getStartPageNum()), 
 					IPullToRefreshDataController.REFRESH_LISTVIEW_RESET);
 		}
 		else 
