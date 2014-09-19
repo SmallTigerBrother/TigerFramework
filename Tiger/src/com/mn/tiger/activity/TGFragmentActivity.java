@@ -15,8 +15,8 @@ import com.mn.tiger.app.IApplication;
 import com.mn.tiger.request.error.IHttpErrorHandler;
 import com.mn.tiger.request.error.TGHttpErrorHandler;
 import com.mn.tiger.utility.CR;
-import com.mn.tiger.widget.MPImageButton;
-import com.mn.tiger.widget.MPNavigationBar;
+import com.mn.tiger.widget.TGImageButton;
+import com.mn.tiger.widget.TGNavigationBar;
 
 public class TGFragmentActivity extends FragmentActivity
 {
@@ -28,7 +28,7 @@ public class TGFragmentActivity extends FragmentActivity
 	/**
 	 * 导航条
 	 */
-	private MPNavigationBar navigationBar;
+	private TGNavigationBar navigationBar;
 
 	/**
 	 * 是否显示导航条
@@ -76,7 +76,7 @@ public class TGFragmentActivity extends FragmentActivity
 
 			panelContent.addView(view, new LayoutParams(LayoutParams.MATCH_PARENT,
 					LayoutParams.MATCH_PARENT));
-			navigationBar = (MPNavigationBar) findViewById(CR.getIdId(this, "mjet_navigationbar"));
+			navigationBar = (TGNavigationBar) findViewById(CR.getIdId(this, "mjet_navigationbar"));
 			initNavigationResource(navigationBar);
 		}
 		else if(getNavigationBarVisibility() == View.GONE)
@@ -92,7 +92,7 @@ public class TGFragmentActivity extends FragmentActivity
 
 			panelContent.addView(view, new LayoutParams(LayoutParams.MATCH_PARENT,
 					LayoutParams.MATCH_PARENT));
-			navigationBar = (MPNavigationBar) findViewById(CR.getIdId(this, "mjet_navigationbar"));
+			navigationBar = (TGNavigationBar) findViewById(CR.getIdId(this, "mjet_navigationbar"));
 			initNavigationResource(navigationBar);
 			navigationBar.setVisibility(View.GONE);
 		}
@@ -110,7 +110,7 @@ public class TGFragmentActivity extends FragmentActivity
 	 * @date 2013-11-8
 	 * @param navigationBar
 	 */
-	protected void initNavigationResource(MPNavigationBar navigationBar)
+	protected void initNavigationResource(TGNavigationBar navigationBar)
 	{
 		navigationBar.setBackgroundResource(CR.getDrawableId(this,
 				"mjet_header_background"));
@@ -139,7 +139,7 @@ public class TGFragmentActivity extends FragmentActivity
 	 * @date 2013-11-18
 	 * @return
 	 */
-	public MPImageButton getLeftBarButton()
+	public TGImageButton getLeftBarButton()
 	{
 		if (null != navigationBar)
 		{
@@ -155,7 +155,7 @@ public class TGFragmentActivity extends FragmentActivity
 	 * @date 2013-11-18
 	 * @return
 	 */
-	public MPImageButton getRightBarButton()
+	public TGImageButton getRightBarButton()
 	{
 		if (null != navigationBar)
 		{
@@ -171,7 +171,7 @@ public class TGFragmentActivity extends FragmentActivity
 	 * @date 2013-11-8
 	 * @return
 	 */
-	public MPNavigationBar getNavigationBar()
+	public TGNavigationBar getNavigationBar()
 	{
 		return navigationBar;
 	}
@@ -219,7 +219,7 @@ public class TGFragmentActivity extends FragmentActivity
 	 */
 	public void showLeftBarButton(boolean show)
 	{
-		MPImageButton leftButton = getLeftBarButton();
+		TGImageButton leftButton = getLeftBarButton();
 		if (null != leftButton)
 		{
 			if (show)
@@ -241,7 +241,7 @@ public class TGFragmentActivity extends FragmentActivity
 	 */
 	public void showRightBarButton(boolean show)
 	{
-		MPImageButton rightButton = getRightBarButton();
+		TGImageButton rightButton = getRightBarButton();
 		if (null != rightButton)
 		{
 			if (show)

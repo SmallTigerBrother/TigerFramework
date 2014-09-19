@@ -15,8 +15,8 @@ import com.mn.tiger.app.IApplication;
 import com.mn.tiger.request.error.IHttpErrorHandler;
 import com.mn.tiger.request.error.TGHttpErrorHandler;
 import com.mn.tiger.utility.CR;
-import com.mn.tiger.widget.MPImageButton;
-import com.mn.tiger.widget.MPNavigationBar;
+import com.mn.tiger.widget.TGImageButton;
+import com.mn.tiger.widget.TGNavigationBar;
 
 /**
  * 该类作用及功能说明 Activity基类，重载导航条方法
@@ -44,7 +44,7 @@ public class TGActivity extends Activity
 	/**
 	 * 导航条
 	 */
-	private MPNavigationBar navigationBar;
+	private TGNavigationBar navigationBar;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -86,7 +86,7 @@ public class TGActivity extends Activity
 
 			panelContent.addView(view, new LayoutParams(LayoutParams.MATCH_PARENT,
 					LayoutParams.MATCH_PARENT));
-			navigationBar = (MPNavigationBar) findViewById(CR.getIdId(this, "mjet_navigationbar"));
+			navigationBar = (TGNavigationBar) findViewById(CR.getIdId(this, "mjet_navigationbar"));
 			initNavigationResource(navigationBar);
 		}
 		else if(getNavigationBarVisibility() == View.GONE)
@@ -102,7 +102,7 @@ public class TGActivity extends Activity
 
 			panelContent.addView(view, new LayoutParams(LayoutParams.MATCH_PARENT,
 					LayoutParams.MATCH_PARENT));
-			navigationBar = (MPNavigationBar) findViewById(CR.getIdId(this, "mjet_navigationbar"));
+			navigationBar = (TGNavigationBar) findViewById(CR.getIdId(this, "mjet_navigationbar"));
 			initNavigationResource(navigationBar);
 			navigationBar.setVisibility(View.GONE);
 		}
@@ -120,7 +120,7 @@ public class TGActivity extends Activity
 	 * @date 2013-11-8
 	 * @param navigationBar
 	 */
-	protected void initNavigationResource(MPNavigationBar navigationBar)
+	protected void initNavigationResource(TGNavigationBar navigationBar)
 	{
 		navigationBar.setBackgroundResource(CR.getDrawableId(this, "mjet_header_background"));
 
@@ -195,7 +195,7 @@ public class TGActivity extends Activity
 		super.onDestroy();
 	}
 	
-	public MPImageButton getLeftBarButton()
+	public TGImageButton getLeftBarButton()
 	{
 		if (null != navigationBar)
 		{
@@ -205,7 +205,7 @@ public class TGActivity extends Activity
 		return null;
 	}
 
-	public MPImageButton getRightBarButton()
+	public TGImageButton getRightBarButton()
 	{
 		if (null != navigationBar)
 		{
@@ -221,7 +221,7 @@ public class TGActivity extends Activity
 	 * @date 2013-11-8
 	 * @return
 	 */
-	public MPNavigationBar getNavigationBar()
+	public TGNavigationBar getNavigationBar()
 	{
 		return navigationBar;
 	}
@@ -249,7 +249,7 @@ public class TGActivity extends Activity
 
 	public void showLeftBarButton(boolean show)
 	{
-		MPImageButton leftButton = getLeftBarButton();
+		TGImageButton leftButton = getLeftBarButton();
 		if (null != leftButton)
 		{
 			if (show)
@@ -265,7 +265,7 @@ public class TGActivity extends Activity
 
 	public void showRightBarButton(boolean show)
 	{
-		MPImageButton rightButton = getRightBarButton();
+		TGImageButton rightButton = getRightBarButton();
 		if (null != rightButton)
 		{
 			if (show)
