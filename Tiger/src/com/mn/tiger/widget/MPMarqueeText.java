@@ -8,7 +8,6 @@ import android.widget.TextView;
 /**
  * 该类作用及功能说明 走马灯视图
  * 
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2013-10-23 Copyright Huawei Technologies Co., Ltd. 1998-2011. All

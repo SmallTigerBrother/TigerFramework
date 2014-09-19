@@ -19,7 +19,6 @@ import com.mn.tiger.utility.LogTools;
  * 
  * 该类作用及功能说明: 上传具体策略
  * 
- * @author pWX197040
  * @date 2014年7月30日
  */
 public class TGUploadStrategy implements IUploadStrategy
@@ -56,7 +55,6 @@ public class TGUploadStrategy implements IUploadStrategy
 
 	/**
 	 * 构造函数
-	 * @author pWX197040
 	 * @date 2014年8月5日
 	 * @param context
 	 * @param uploadTask
@@ -86,7 +84,6 @@ public class TGUploadStrategy implements IUploadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 获取上传信息
-	 * @author pWX197040
 	 * @date 2014年8月18日
 	 * @param mpUploadParams
 	 * @return
@@ -123,7 +120,6 @@ public class TGUploadStrategy implements IUploadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 请求上传
-	 * @author pWX197040
 	 * @date 2014年8月5日
 	 * @param context
 	 * @param uploader
@@ -156,7 +152,6 @@ public class TGUploadStrategy implements IUploadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 设置请求头参数
-	 * @author pWX197040
 	 * @date 2014年8月26日
 	 * @param postMethod
 	 */
@@ -168,7 +163,6 @@ public class TGUploadStrategy implements IUploadStrategy
 	/**
 	 * 该方法的作用:处理请求结果
 	 * 
-	 * @author yWX158243
 	 * @date 2014年4月3日
 	 * @param uploader
 	 * @param httpResult
@@ -187,7 +181,6 @@ public class TGUploadStrategy implements IUploadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 获取上下文信息
-	 * @author pWX197040
 	 * @date 2014年7月31日
 	 * @return
 	 */
@@ -249,7 +242,6 @@ public class TGUploadStrategy implements IUploadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 上传过程中
-	 * @author pWX197040
 	 * @date 2014年8月19日
 	 * @param uploader
 	 */
@@ -264,7 +256,6 @@ public class TGUploadStrategy implements IUploadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 上传文件完成，删除数据库记录
-	 * @author pWX197040
 	 * @date 2014年8月19日
 	 * @param uploader
 	 */
@@ -288,7 +279,6 @@ public class TGUploadStrategy implements IUploadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 上传文件过程中出现异常，如果不是断点上传，删除本地文件
-	 * @author pWX197040
 	 * @date 2014年8月19日
 	 * @param uploader
 	 */
@@ -315,7 +305,6 @@ public class TGUploadStrategy implements IUploadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 停止上传，如果不是断点上传，删除本地文件
-	 * @author pWX197040
 	 * @date 2014年8月19日
 	 * @param uploader
 	 */
@@ -342,7 +331,6 @@ public class TGUploadStrategy implements IUploadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 取消上传，直接删除本地文件和数据库记录
-	 * @author pWX197040
 	 * @date 2014年8月19日
 	 * @param uploader
 	 */

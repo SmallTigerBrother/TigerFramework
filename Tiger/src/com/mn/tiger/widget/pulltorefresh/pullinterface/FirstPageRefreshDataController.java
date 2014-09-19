@@ -4,21 +4,20 @@ import java.util.List;
 
 import android.content.Context;
 
-import com.mn.tiger.widget.pulltorefresh.MPPullToRefreshListView;
+import com.mn.tiger.widget.pulltorefresh.TGPullToRefreshListView;
 
 /**
  * 该类作用及功能说明
  * 首页刷新数据控制器
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2014年2月10日
  * Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights reserved.
  */
-public class FirstPageRefreshDataController<T> extends MPPullToRefreshDataController<T>
+public class FirstPageRefreshDataController<T> extends TGPullToRefreshDataController<T>
 {
 
-	public FirstPageRefreshDataController(Context context, MPPullToRefreshListView<T> listView)
+	public FirstPageRefreshDataController(Context context, TGPullToRefreshListView<T> listView)
 	{
 		super(context, listView);
 	}

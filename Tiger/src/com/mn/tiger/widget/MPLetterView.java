@@ -19,7 +19,6 @@ import com.mn.tiger.utility.CR;
 /**
  * 该类作用及功能说明:通讯录索引条
  * 
- * @author zWX200279
  * @date 2014-2-26
  */
 public class MPLetterView extends View
@@ -118,7 +117,6 @@ public class MPLetterView extends View
 	/**
 	 * 该方法的作用:初始化画笔
 	 * 
-	 * @author zWX200279
 	 * @date 2014-3-12
 	 */
 	private void initPaint()
@@ -141,7 +139,6 @@ public class MPLetterView extends View
 	/**
 	 * 该方法的作用:设置LetterView中字体的样式
 	 * 
-	 * @author zWX200279
 	 * @date 2014-3-12
 	 * @param typeface
 	 */
@@ -153,7 +150,6 @@ public class MPLetterView extends View
 	/**
 	 * 该方法的作用:设置背景颜色
 	 * 
-	 * @author zWX200279
 	 * @date 2014-2-26
 	 * @param bgColor
 	 */
@@ -165,7 +161,6 @@ public class MPLetterView extends View
 	/**
 	 * 该方法的作用:设置要显示的字体颜色
 	 * 
-	 * @author zWX200279
 	 * @date 2014-2-26
 	 * @param i
 	 */
@@ -193,7 +188,6 @@ public class MPLetterView extends View
 	/**
 	 * 该方法的作用:设置选中item字体颜色的变化
 	 * 
-	 * @author zWX200279
 	 * @date 2014-2-26
 	 * @param selectTextColor
 	 */
@@ -205,7 +199,6 @@ public class MPLetterView extends View
 	/**
 	 * 该方法的作用:计算平均每个item所占的位置高度
 	 * 
-	 * @author zWX200279
 	 * @date 2014-2-26
 	 * @return
 	 */
@@ -218,7 +211,6 @@ public class MPLetterView extends View
 	/**
 	 * 该方法的作用:设置LetterView中每个item的字体大小
 	 * 
-	 * @author zWX200279
 	 * @date 2014-2-26
 	 * @param size
 	 */
@@ -230,7 +222,6 @@ public class MPLetterView extends View
 	/**
 	 * 该方法的作用:获取letterview自身的高度
 	 * 
-	 * @author zWX200279
 	 * @date 2014-3-12
 	 * @return
 	 */
@@ -242,7 +233,6 @@ public class MPLetterView extends View
 	/**
 	 * 该方法的作用:获取letterview自身的宽度
 	 * 
-	 * @author zWX200279
 	 * @date 2014-3-12
 	 * @return
 	 */
@@ -254,7 +244,6 @@ public class MPLetterView extends View
 	/**
 	 * 该方法的作用:设置item的默认颜色
 	 * 
-	 * @author zWX200279
 	 * @date 2014-2-26
 	 * @param textColor
 	 */
@@ -266,7 +255,6 @@ public class MPLetterView extends View
 	/**
 	 * 该方法的作用:设置要显示的内容集合
 	 * 
-	 * @author zWX200279
 	 * @date 2014-2-26
 	 * @param strings
 	 */
@@ -320,11 +308,9 @@ public class MPLetterView extends View
 	/**
 	 * 该方法的作用:计算单前触摸的位置
 	 * 
-	 * @author zWX200279
 	 * @date 2014-2-26
 	 * @param event
 	 */
-
 	private void computeTouchPosition(MotionEvent event)
 	{
 		if (strings != null && strings.length > 0)
@@ -348,7 +334,6 @@ public class MPLetterView extends View
 	/**
 	 * 该方法的作用:初始化中间显示的TextView视图
 	 * 
-	 * @author zWX200279
 	 * @date 2014-3-12
 	 */
 	private void initOverlay()
@@ -379,7 +364,6 @@ public class MPLetterView extends View
 	/**
 	 * 该方法的作用:修改中间显示的TextView的字體颜色
 	 * 
-	 * @author zWX200279
 	 * @date 2014-3-12
 	 * @param color
 	 */
@@ -398,7 +382,6 @@ public class MPLetterView extends View
 		/**
 		 * 该方法的作用:向用户返回当前触摸的字符
 		 * 
-		 * @author zWX200279
 		 * @date 2014-3-13
 		 * @param string
 		 */

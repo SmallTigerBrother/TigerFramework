@@ -29,7 +29,6 @@ public class Commons
 	/**
 	 * 该方法的作用:获取配置的登陆界面class包名 + 类名
 	 * 
-	 * @author l00220455
 	 * @date 2013-11-21
 	 * @param context
 	 * @param name
@@ -44,7 +43,6 @@ public class Commons
 	/**
 	 * 该方法的作用:获取客户端版本号
 	 * 
-	 * @author l00220455
 	 * @date 2013-11-18
 	 * @param context
 	 * @return
@@ -71,7 +69,6 @@ public class Commons
 	/**
 	 * 该方法的作用:获取系统语言
 	 * 
-	 * @author zWX200279
 	 * @date 2014年6月10日
 	 * @param context
 	 * @return
@@ -87,7 +84,6 @@ public class Commons
 	/**
 	 * 该方法的作用:获取本地的设备ID
 	 * 
-	 * @author yWX158243
 	 * @date 2014年2月15日
 	 * @param context
 	 * @return
@@ -139,7 +135,6 @@ public class Commons
 	/**
 	 * 该方法的作用: 取消异步任务
 	 * 
-	 * @author l00220455
 	 * @date 2014年1月7日
 	 * @param task
 	 */
@@ -158,7 +153,6 @@ public class Commons
 	/**
 	 * 该方法的作用: 取消异步任务
 	 * 
-	 * @author l00220455
 	 * @date 2014年1月7日
 	 * @param task
 	 */
@@ -174,7 +168,6 @@ public class Commons
 	/**
 	 * 该方法的作用:关闭输入流
 	 * 
-	 * @author l00220455
 	 * @date 2013-3-10
 	 * @param stream
 	 */
@@ -196,7 +189,6 @@ public class Commons
 	/**
 	 * 该方法的作用:关闭输出流
 	 * 
-	 * @author l00220455
 	 * @date 2013-3-10
 	 * @param stream
 	 */
@@ -224,7 +216,6 @@ public class Commons
 	/**
 	 * 该方法的作用: 切换系统语言
 	 * 
-	 * @author l00220455
 	 * @date 2014年1月7日
 	 * @param context
 	 * @param language
@@ -247,7 +238,6 @@ public class Commons
 	/**
 	 * 
 	 * 该方法的作用:检测当前创建或显示Dialog的Context是否有效
-	 * @author zWX215434
 	 * @date 2014年8月12日
 	 * @param context
 	 * @return true有效可以创建或显示，fasle则相反

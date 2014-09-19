@@ -26,7 +26,6 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView> extend
 	
 	/**
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-19
 	 * 构造函数
 	 * @param context
@@ -37,7 +36,6 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView> extend
 	}
 	/**
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-19
 	 * 构造函数
 	 * @param context
@@ -48,7 +46,6 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView> extend
 	}
 	/**
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-19
 	 * 构造函数
 	 * @param context
@@ -156,13 +153,7 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView> extend
 		return isLastItemVisible();
 	}
 	/**
-	 * 
 	 * 该方法的作用:是否为第一个项，用于下拉分界点
-	 * 参数:
-	 * 返回值:
-	 * 异常:
-	 * 在什么情况下调用:
-	 * @author nKF50342
 	 * @date 2012-6-19
 	 * @return
 	 */
@@ -181,13 +172,7 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView> extend
 		return false;
 	}
 	/**
-	 * 
 	 * 该方法的作用:是否为最后项，用于上拉分界点
-	 * 参数:
-	 * 返回值:
-	 * 异常:
-	 * 在什么情况下调用:
-	 * @author nKF50342
 	 * @date 2012-6-19
 	 * @return
 	 */

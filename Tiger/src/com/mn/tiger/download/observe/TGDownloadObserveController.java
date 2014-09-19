@@ -14,7 +14,6 @@ import com.mn.tiger.utility.StringUtils;
  * 
  * 该类作用及功能说明: Observer控制器，负责注册、分发观察者
  * 
- * @author pWX197040
  * @date 2014年3月31日
  */
 public class TGDownloadObserveController
@@ -45,7 +44,6 @@ public class TGDownloadObserveController
 	 * 
 	 * 该方法的作用: 获取控制器实例
 	 * 
-	 * @author pWX197040
 	 * @date 2014年3月31日
 	 * @return ObserveControll
 	 */
@@ -62,7 +60,6 @@ public class TGDownloadObserveController
 	 * 
 	 * 该方法的作用: 根据传入的key，注册数据观察者
 	 * 
-	 * @author pWX197040
 	 * @date 2014年3月31日
 	 * @param entityType
 	 * @param observer
@@ -103,7 +100,6 @@ public class TGDownloadObserveController
 	 * 
 	 * 该方法的作用: 取消注册observer
 	 * 
-	 * @author pWX197040
 	 * @date 2014年3月31日
 	 * @param observer
 	 */
@@ -132,7 +128,6 @@ public class TGDownloadObserveController
 	 * 
 	 * 该方法的作用: 取消注册observer
 	 * 
-	 * @author pWX197040
 	 * @date 2014年3月31日
 	 * @param key
 	 */
@@ -160,7 +155,6 @@ public class TGDownloadObserveController
 	 * 
 	 * 该方法的作用: 通知key对应的所有观察者，数据发生改变
 	 * 
-	 * @author pWX197040
 	 * @date 2014年3月31日
 	 * @param entityType
 	 */

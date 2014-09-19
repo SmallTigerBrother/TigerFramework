@@ -19,7 +19,6 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 该类作用及功能说明 文件上传post请求类
  * 
- * @author yWX158243
  * @date 2014年3月28日
  */
 public class TGUploadPostMethod extends TGPostMethod
@@ -49,7 +48,6 @@ public class TGUploadPostMethod extends TGPostMethod
 	
 	/**
 	 * 构造函数
-	 * @author pWX197040
 	 * @date 2014年7月30日
 	 * @param context
 	 * @param uploader
@@ -125,7 +123,6 @@ public class TGUploadPostMethod extends TGPostMethod
 	/**
 	 * 该方法的作用:输出文件数据
 	 * 
-	 * @author yWX158243
 	 * @date 2014年3月28日
 	 * @param outputStream
 	 * @param boundary
@@ -197,7 +194,6 @@ public class TGUploadPostMethod extends TGPostMethod
 	/**
 	 * 该方法的作用:输出字符串数据
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月27日
 	 * @param connection
 	 * @param boundary
@@ -276,7 +272,6 @@ public class TGUploadPostMethod extends TGPostMethod
 	/**
 	 * 该方法的作用:获取分隔符
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月27日
 	 * @return
 	 */
@@ -298,7 +293,6 @@ public class TGUploadPostMethod extends TGPostMethod
 	/**
 	 * 该类作用及功能说明 上传数据监听类
 	 * 
-	 * @author yWX158243
 	 * @date 2014年1月8日
 	 */
 	public interface IUploadSendListener
@@ -306,7 +300,6 @@ public class TGUploadPostMethod extends TGPostMethod
 		/**
 		 * 该方法的作用:正在上传文件流
 		 * 
-		 * @author yWX158243
 		 * @date 2014年1月22日
 		 * @param uploader
 		 *            上传信息
@@ -316,7 +309,6 @@ public class TGUploadPostMethod extends TGPostMethod
 		/**
 		 * 该方法的作用:上传文件流结束
 		 * 
-		 * @author yWX158243
 		 * @date 2014年1月22日
 		 * @param uploader
 		 *            上传信息
@@ -326,7 +318,6 @@ public class TGUploadPostMethod extends TGPostMethod
 		/**
 		 * 该方法的作用:下载出错
 		 * 
-		 * @author yWX158243
 		 * @date 2014年1月22日
 		 * @param uploader
 		 *            上传信息
@@ -336,7 +327,6 @@ public class TGUploadPostMethod extends TGPostMethod
 		/**
 		 * 该方法的作用:下载停止
 		 * 
-		 * @author yWX158243
 		 * @date 2014年1月22日
 		 * @param uploader
 		 *            上传信息

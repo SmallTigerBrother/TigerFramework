@@ -4,7 +4,6 @@ package com.mn.tiger.widget.pulltorefresh.pullinterface;
 /**
  * 该类作用及功能说明
  * 拖动刷新控制器
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2014年2月10日
@@ -25,7 +24,6 @@ public interface IPullToRefreshController
 	/**
 	 * 该方法的作用:
 	 * 设置总页数
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @param totalPage
 	 */
@@ -34,7 +32,6 @@ public interface IPullToRefreshController
 	/**
 	 * 该方法的作用:
 	 * 获取总页数
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @return
 	 */
@@ -43,7 +40,6 @@ public interface IPullToRefreshController
 	/**
 	 * 该方法的作用:
 	 * 设置当前页码
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @param currentPage
 	 */
@@ -52,7 +48,6 @@ public interface IPullToRefreshController
 	/**
 	 * 该方法的作用:
 	 * 获取可以显示的最大页数
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @return
 	 */
@@ -61,7 +56,6 @@ public interface IPullToRefreshController
 	/**
 	 * 该方法的作用:
 	 * 获取当前拖动方向
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @return
 	 */
@@ -70,7 +64,6 @@ public interface IPullToRefreshController
 	/**
 	 * 该方法的作用:
 	 * 获取当前页码
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @return
 	 */
@@ -79,7 +72,6 @@ public interface IPullToRefreshController
 	/**
 	 * 该方法的作用:
 	 * 获取每页显示的行数
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @return
 	 */
@@ -88,7 +80,6 @@ public interface IPullToRefreshController
 	/**
 	 * 该方法的作用:
 	 * 获取当前显示的总页数
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @return
 	 */
@@ -97,7 +88,6 @@ public interface IPullToRefreshController
 	/**
 	 * 该方法的作用:
 	 * 获取起始页码
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @return
 	 */
@@ -106,7 +96,6 @@ public interface IPullToRefreshController
 	/**
 	 * 该方法的作用:
 	 * 检测向上拖动时是否需要刷新列表
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @return
 	 */
@@ -115,7 +104,6 @@ public interface IPullToRefreshController
 	/**
 	 * 该方法的作用:
 	 * 检测向下拖动时是否需要刷新列表
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @return
 	 */
@@ -124,7 +112,6 @@ public interface IPullToRefreshController
 	/**
 	 * 该方法的作用:
 	 * 无网络时向下拖动刷新列表
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 */
 	void onPullDownToRefreshWithoutNetwork();
@@ -132,7 +119,6 @@ public interface IPullToRefreshController
 	/**
 	 * 该方法的作用:
 	 * 无网络时向上拖动刷新列表
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 */
 	void onPullUpToRefreshWithoutNetwork();
@@ -140,7 +126,6 @@ public interface IPullToRefreshController
 	/**
 	 * 该方法的作用:
 	 * 重置列表刷新控制参数
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 */
 	void reset();

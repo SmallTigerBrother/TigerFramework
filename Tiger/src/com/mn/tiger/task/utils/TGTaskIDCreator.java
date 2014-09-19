@@ -3,7 +3,6 @@ package com.mn.tiger.task.utils;
 /**
  * 该类作用及功能说明 任务ID创造器
  * 
- * @author l00220455
  * @date 2014年3月17日
  */
 public class TGTaskIDCreator
@@ -13,7 +12,6 @@ public class TGTaskIDCreator
 	/**
 	 * 该方法的作用: 自动生成一个任务的ID
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @return
 	 */

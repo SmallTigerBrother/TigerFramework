@@ -58,7 +58,6 @@ public class TGTaskManager
 	/**
 	 * 
 	 * 该方法的作用: 添加开始任务
-	 * @author pWX197040
 	 * @date 2014年8月11日
 	 * @param task
 	 * @return
@@ -78,7 +77,6 @@ public class TGTaskManager
 	
 	/**
 	 * 取消任务
-	 * @author pWX219598
 	 * @date 2014年5月21日
 	 * @param task
 	 */
@@ -100,7 +98,6 @@ public class TGTaskManager
 	
 	/**
 	 * 停止任务
-	 * @author pWX219598
 	 * @date 2014年5月21日
 	 * @param task
 	 */
@@ -122,7 +119,6 @@ public class TGTaskManager
 	
 	/**
 	 * 停止任务
-	 * @author pWX219598
 	 * @date 2014年5月21日
 	 * @param task
 	 */
@@ -144,7 +140,6 @@ public class TGTaskManager
 	
 	/**
 	 * 该方法的作用:创建任务参数
-	 * @author pWX219598
 	 * @date 2014年6月3日
 	 * @param params
 	 *            hashmap
@@ -160,7 +155,6 @@ public class TGTaskManager
 
 	/**
 	 * 该方法的作用:创建任务参数
-	 * @author pWX219598
 	 * @date 2014年6月3日
 	 * @param params
 	 *            hashmap
@@ -177,7 +171,6 @@ public class TGTaskManager
 	
 	/**
 	 * 该方法的作用:创建任务参数
-	 * @author pWX219598
 	 * @date 2014年6月3日
 	 * @param params
 	 *            hashmap
@@ -210,7 +203,6 @@ public class TGTaskManager
 	
 	/**
 	 * 该方法的作用:创建任务参数
-	 * @author pWX219598
 	 * @date 2014年6月3日
 	 * @param param
 	 *            String
@@ -226,7 +218,6 @@ public class TGTaskManager
 	
 	/**
 	 * 该方法的作用:创建任务参数
-	 * @author pWX219598
 	 * @date 2014年6月3日
 	 * @param param
 	 *            String
@@ -243,7 +234,6 @@ public class TGTaskManager
 	
 	/**
 	 * 该方法的作用:创建任务参数
-	 * @author pWX219598
 	 * @date 2014年6月3日
 	 * @param param
 	 *            String
@@ -276,7 +266,6 @@ public class TGTaskManager
 
 	/**
 	 * 该方法的作用:创建任务参数
-	 * @author pWX219598
 	 * @date 2014年6月3日
 	 * @param params
 	 *            Bundle
@@ -292,7 +281,6 @@ public class TGTaskManager
 	
 	/**
 	 * 该方法的作用:创建任务参数
-	 * @author pWX219598
 	 * @date 2014年6月3日
 	 * @param params
 	 *            Bundle
@@ -309,7 +297,6 @@ public class TGTaskManager
 	
 	/**
 	 * 该方法的作用:创建任务参数
-	 * @author pWX219598
 	 * @date 2014年6月3日
 	 * @param params
 	 *            Bundle

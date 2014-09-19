@@ -11,7 +11,6 @@ import com.mn.tiger.datastorage.db.annotation.Transient;
  * 
  * 该类作用及功能说明: 下载任务记录
  * 
- * @author pWX197040
  * @date 2014年8月18日
  */
 @Table(name = "Downloader", execAfterTableCreated = "CREATE INDEX index_name ON Downloader(urlstring,params)")

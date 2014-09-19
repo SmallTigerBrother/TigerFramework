@@ -20,7 +20,6 @@ import com.mn.tiger.utility.StringUtils;
 /**
  * 该类作用及功能说明 Put请求方法类
  * 
- * @author pwx197040
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2014-05-19 Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights
@@ -31,7 +30,6 @@ public class TGPutMethod extends TGHttpMethod
 	/**
 	 * 构造函数
 	 * 
-	 * @author pWX197040
 	 * @date 2014年5月20日
 	 * @param context
 	 * @param url
@@ -44,7 +42,6 @@ public class TGPutMethod extends TGHttpMethod
 	/**
 	 * 构造函数
 	 * 
-	 * @author pWX197040
 	 * @date 2014年5月20日
 	 * @param context
 	 * @param url
@@ -89,7 +86,6 @@ public class TGPutMethod extends TGHttpMethod
 	/**
 	 * 
 	 * 该方法的作用: 将请求参数添加到请求中
-	 * @author pWX197040
 	 * @throws BusinessException 
 	 * @date 2014年5月20日
 	 */
@@ -147,7 +143,6 @@ public class TGPutMethod extends TGHttpMethod
 	/**
 	 * 
 	 * 该方法的作用: 转换put提交的数据
-	 * @author pWX197040
 	 * @date 2014年5月20日
 	 * @param parameters
 	 * @return
@@ -175,7 +170,6 @@ public class TGPutMethod extends TGHttpMethod
 	/**
 	 * 
 	 * 该方法的作用: put提交中的数据
-	 * @author pWX197040
 	 * @date 2014年5月20日
 	 * @param parameters
 	 * @return

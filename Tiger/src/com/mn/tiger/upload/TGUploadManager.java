@@ -19,7 +19,6 @@ import com.mn.tiger.utility.LogTools;
  * 
  * 该类作用及功能说明: 上传管理类
  * 
- * @author pWX197040
  * @date 2014年6月18日
  */
 public class TGUploadManager
@@ -51,7 +50,6 @@ public class TGUploadManager
 	
 	/**
 	 * 构造方法
-	 * @author pWX197040
 	 * @date 2014年6月24日
 	 * @param context
 	 */
@@ -63,7 +61,6 @@ public class TGUploadManager
 	/**
 	 * 
 	 * 该方法的作用: 开始上传
-	 * @author pWX197040
 	 * @date 2014年6月20日
 	 * @param uploadParams
 	 */
@@ -75,7 +72,6 @@ public class TGUploadManager
 	/**
 	 * 
 	 * 该方法的作用: 取消上传
-	 * @author pWX197040
 	 * @date 2014年6月20日
 	 * @param taskId
 	 */
@@ -87,7 +83,6 @@ public class TGUploadManager
 	/**
 	 * 
 	 * 该方法的作用: 停止上传
-	 * @author pWX197040
 	 * @date 2014年6月20日
 	 * @param taskId
 	 */
@@ -100,7 +95,6 @@ public class TGUploadManager
 	 * 
 	 * 该方法的作用: 启动传入类型所有上传任务
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月26日
 	 */
 	public void startAll(String type)
@@ -131,7 +125,6 @@ public class TGUploadManager
 	 * 
 	 * 该方法的作用: 取消传入类型所有上传任务
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月26日
 	 */
 	public void cancelAll(String type)
@@ -148,10 +141,8 @@ public class TGUploadManager
 	}
 
 	/**
-	 * 
 	 * 该方法的作用: 停止传入类型所有上传任务
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月26日
 	 */
 	public void pauseAll(String type)
@@ -171,7 +162,6 @@ public class TGUploadManager
 	 * 
 	 * 该方法的作用: 启动所有上传任务
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月26日
 	 */
 	public void startAll()
@@ -199,10 +189,8 @@ public class TGUploadManager
 	}
 
 	/**
-	 * 
 	 * 该方法的作用: 取消所有上传任务
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月26日
 	 */
 	public void cancelAll()
@@ -221,7 +209,6 @@ public class TGUploadManager
 	 * 
 	 * 该方法的作用: 停止所有上传任务
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月26日
 	 */
 	public void pauseAll()
@@ -240,7 +227,6 @@ public class TGUploadManager
 	/**
 	 * 
 	 * 该方法的作用: 把Uploader任务添加到上传队列，返回任务id
-	 * @author pWX197040
 	 * @date 2014年6月18日
 	 * @param uploader
 	 * @return
@@ -278,7 +264,6 @@ public class TGUploadManager
 	 * 
 	 * 该方法的作用: 根据传入的key，注册数据观察者
 	 * 
-	 * @author pWX197040
 	 * @date 2014年3月31日
 	 * @param entityType
 	 * @param observer
@@ -292,7 +277,6 @@ public class TGUploadManager
 	/**
 	 * 该方法的作用: 取消注册observer
 	 * 
-	 * @author pWX197040
 	 * @date 2014年3月31日
 	 * @param observer
 	 */
@@ -305,7 +289,6 @@ public class TGUploadManager
 	 * 
 	 * 该方法的作用:获取文件上传信息
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月19日
 	 * @param filePath
 	 * @return
@@ -322,7 +305,6 @@ public class TGUploadManager
 	 * 
 	 * 该方法的作用: 根据上传类型查询上传任务信息
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月24日
 	 * @param uploadType
 	 * @return

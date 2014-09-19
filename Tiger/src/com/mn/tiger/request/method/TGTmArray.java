@@ -9,7 +9,6 @@ import javax.net.ssl.X509TrustManager;
  * 信任所有主机-对于任何证书都不做检查
  * 
  * 
- * @author pWX197040
  * @since 2014年1月9日
  */
 public class TGTmArray implements X509TrustManager {

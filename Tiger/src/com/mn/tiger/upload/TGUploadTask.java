@@ -12,7 +12,6 @@ import com.mn.tiger.utility.LogTools;
  * 
  * 该类作用及功能说明: 上传任务类
  * 
- * @author pWX197040
  * @date 2014年6月28日
  */
 public class TGUploadTask extends TGTask
@@ -44,7 +43,6 @@ public class TGUploadTask extends TGTask
 	
 	/**
 	 * 构造函数
-	 * @author pWX197040
 	 * @date 2014年6月28日
 	 */
 	public TGUploadTask()
@@ -56,7 +54,6 @@ public class TGUploadTask extends TGTask
 	/**
 	 * 该方法的作用:
 	 * 执行自身（任务真正的执行方法）
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @return
 	 */
@@ -72,7 +69,6 @@ public class TGUploadTask extends TGTask
 	/**
 	 * 
 	 * 该方法的作用: 后台执行上传任务
-	 * @author pWX197040
 	 * @date 2014年6月28日
 	 * @return
 	 */
@@ -87,7 +83,6 @@ public class TGUploadTask extends TGTask
 	/**
 	 * 
 	 * 该方法的作用: 获取上传任务参数
-	 * @author pWX197040
 	 * @date 2014年6月19日
 	 * @return
 	 */
@@ -107,7 +102,6 @@ public class TGUploadTask extends TGTask
 	/**
 	 * 
 	 * 该方法的作用: 执行上传任务
-	 * @author pWX197040
 	 * @date 2014年7月23日
 	 */
 	protected void executeUpload()
@@ -140,7 +134,6 @@ public class TGUploadTask extends TGTask
 	 * 
 	 * 该类作用及功能说明: 默认上传监听
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月25日
 	 */
 	public class DefaultUploadListener implements IUploadListener

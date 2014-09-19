@@ -107,7 +107,6 @@ public class TGFragmentActivity extends FragmentActivity
 	/**
 	 * 该方法的作用: 初始化导航条资源
 	 * 
-	 * @author l00220455
 	 * @date 2013-11-8
 	 * @param navigationBar
 	 */
@@ -137,7 +136,6 @@ public class TGFragmentActivity extends FragmentActivity
 	/**
 	 * 该方法的作用: 获取导航条左按钮
 	 * 
-	 * @author l00220455
 	 * @date 2013-11-18
 	 * @return
 	 */
@@ -154,7 +152,6 @@ public class TGFragmentActivity extends FragmentActivity
 	/**
 	 * 该方法的作用: 获取导航条右按钮
 	 * 
-	 * @author l00220455
 	 * @date 2013-11-18
 	 * @return
 	 */
@@ -171,7 +168,6 @@ public class TGFragmentActivity extends FragmentActivity
 	/**
 	 * 该方法的作用: 获取导航条
 	 * 
-	 * @author l00220455
 	 * @date 2013-11-8
 	 * @return
 	 */
@@ -183,7 +179,6 @@ public class TGFragmentActivity extends FragmentActivity
 	/**
 	 * 该方法的作用: 获取导航条中间TextView
 	 * 
-	 * @author l00220455
 	 * @date 2013-11-18
 	 * @return
 	 */
@@ -200,7 +195,6 @@ public class TGFragmentActivity extends FragmentActivity
 	/**
 	 * 该方法的作用: 设置导航条标题文本
 	 * 
-	 * @author l00220455
 	 * @date 2013-11-18
 	 * @param titleText
 	 * @return
@@ -220,7 +214,6 @@ public class TGFragmentActivity extends FragmentActivity
 	/**
 	 * 该方法的作用: 显示导航条左按钮
 	 * 
-	 * @author l00220455
 	 * @date 2013-11-18
 	 * @param show
 	 */
@@ -243,7 +236,6 @@ public class TGFragmentActivity extends FragmentActivity
 	/**
 	 * 该方法的作用: 显示导航条右按钮
 	 * 
-	 * @author l00220455
 	 * @date 2013-11-18
 	 * @param show
 	 */

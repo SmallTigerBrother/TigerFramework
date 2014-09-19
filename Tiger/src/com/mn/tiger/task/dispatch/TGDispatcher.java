@@ -13,7 +13,6 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 该类作用及功能说明 任务分发管理器
  * 
- * @author l00220455
  * @date 2014年3月17日
  */
 public class TGDispatcher
@@ -46,7 +45,6 @@ public class TGDispatcher
 	/**
 	 * 该方法的作用: 获取单例对象
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @return
 	 */
@@ -65,7 +63,6 @@ public class TGDispatcher
 	/**
 	 * 构造方法
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 */
 	private TGDispatcher(Context context)
@@ -76,7 +73,6 @@ public class TGDispatcher
 	/**
 	 * 该方法的作用: 分配并执行任务
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @param task
 	 */
@@ -100,7 +96,6 @@ public class TGDispatcher
 	/**
 	 * 该方法的作用:
 	 * 根据任务类型获取TaskQueue
-	 * @author l00220455
 	 * @date 2014年8月15日
 	 * @param taskType
 	 * @return
@@ -155,7 +150,6 @@ public class TGDispatcher
 	/**
 	 * 该方法的作用:
 	 * 获取任务队列列表
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @return
 	 */
@@ -171,7 +165,6 @@ public class TGDispatcher
 	
 	/**
 	 * 该方法的作用: 执行所有任务队列
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 */
 	public void executeAllTaskQueues()
@@ -188,7 +181,6 @@ public class TGDispatcher
 	/**
 	 * 该方法的作用: 暂停所有任务队列
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 */
 	public void pauseAllTaskQueues()
@@ -205,7 +197,6 @@ public class TGDispatcher
 	/**
 	 * 该方法的作用:
 	 * 根据任务类型暂停任务队列
-	 * @author l00220455
 	 * @date 2014年9月4日
 	 * @param taskType
 	 */
@@ -222,7 +213,6 @@ public class TGDispatcher
 	
 	/**
 	 * 该方法的作用:
-	 * @author l00220455
 	 * @date 2014年9月4日
 	 */
 	public void cancelAllTasks()
@@ -239,12 +229,9 @@ public class TGDispatcher
 		}
 	}
 	
-	
-	
 	/**
 	 * 该方法的作用:
 	 * 取消任务
-	 * @author l00220455
 	 * @date 2014年3月20日
 	 * @param task
 	 * @return
@@ -275,7 +262,6 @@ public class TGDispatcher
 	/**
 	 * 该方法的作用:
 	 * 暂停任务
-	 * @author l00220455
 	 * @date 2014年3月20日
 	 * @param task
 	 * @return
@@ -306,7 +292,6 @@ public class TGDispatcher
 	/**
 	 * 该方法的作用:
 	 * 停止任务
-	 * @author l00220455
 	 * @date 2014年3月20日
 	 * @param task
 	 * @return
@@ -337,7 +322,6 @@ public class TGDispatcher
 	/**
 	 * 该方法的作用: 对分发器加锁，暂停所有已派发任务
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @return
 	 */
@@ -368,7 +352,6 @@ public class TGDispatcher
 	/**
 	 * 该方法的作用: 对分发器解锁
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @return
 	 */
@@ -399,7 +382,6 @@ public class TGDispatcher
 	/**
 	 * 该方法的作用: 获取锁
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @return
 	 */
@@ -416,7 +398,6 @@ public class TGDispatcher
 	/**
 	 * 该方法的作用: 设置锁
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @param lock
 	 */

@@ -16,7 +16,6 @@ import com.mn.tiger.utility.NetworkUtils;
 /**
  * 该类作用及功能说明
  * 简单网络连接执行器
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2013-12-1
@@ -25,7 +24,6 @@ import com.mn.tiger.utility.NetworkUtils;
 public class DefaultHttpClient extends TGHttpClient 
 {
 	/**
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * 构造函数
 	 * @param context
@@ -130,7 +128,6 @@ public class DefaultHttpClient extends TGHttpClient
 	/**
 	 * 该方法的作用:
 	 * 初始化网络请求结果
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @return
 	 */

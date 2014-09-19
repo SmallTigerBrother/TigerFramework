@@ -14,7 +14,6 @@ import com.mn.tiger.utility.LogTools;
  * 
  * 该类作用及功能说明: MemoryCache缓存,主要缓存图片到内存
  * 
- * @author zWX215434
  * @date 2014年3月26日
  */
 public class MemoryCache
@@ -48,7 +47,6 @@ public class MemoryCache
 	 * 
 	 * 该方法的作用: 设置最大堆内存
 	 * 
-	 * @author zWX215434
 	 * @date 2014年3月26日
 	 * @param new_limit
 	 */
@@ -61,7 +59,6 @@ public class MemoryCache
 	 * 
 	 * 该方法的作用:从缓存中读取图片
 	 * 
-	 * @author zWX215434
 	 * @date 2014年3月26日
 	 * @param id
 	 * @return
@@ -85,7 +82,6 @@ public class MemoryCache
 	 * 
 	 * 该方法的作用:保存图片到缓存
 	 * 
-	 * @author zWX215434
 	 * @date 2014年3月26日
 	 * @param id
 	 * @param bitmap
@@ -111,7 +107,6 @@ public class MemoryCache
 	 * 
 	 * 该方法的作用:严格控制堆内存，如果超过将首先替换最近最少使用的那个图片缓存
 	 * 
-	 * @author zWX215434
 	 * @date 2014年3月26日
 	 */
 	private void checkSize()
@@ -140,7 +135,6 @@ public class MemoryCache
 	 * 
 	 * 该方法的作用:图片占用的内存
 	 * 
-	 * @author zWX215434
 	 * @date 2014年3月26日
 	 * @param bitmap
 	 * @return

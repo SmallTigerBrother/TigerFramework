@@ -24,7 +24,6 @@ import com.mn.tiger.core.encode.TGEncode;
  * 
  * 该类作用及功能说明 文件和文件夹相关的操作
  * 
- * @author zWX200279
  * @date 2014-2-11
  */
 public class FileUtils
@@ -37,7 +36,6 @@ public class FileUtils
 	/**
 	 * 该方法的作用:获取SD卡路径
 	 * 
-	 * @author yWX158243
 	 * @date 2014年1月17日
 	 * @return
 	 */
@@ -49,7 +47,6 @@ public class FileUtils
 	/**
 	 * 该方法的作用: 判断SD卡是否可用
 	 * 
-	 * @author l00220455
 	 * @date 2013-10-28
 	 * @return
 	 */
@@ -66,7 +63,6 @@ public class FileUtils
 	/**
 	 * 该方法的作用: 获取SD卡剩余空间,单位byte，若SD卡不可用，返回0
 	 * 
-	 * @author l00220455
 	 * @date 2013-10-28
 	 * @return
 	 */
@@ -88,7 +84,6 @@ public class FileUtils
 	/**
 	 * 该方法的作用: 获取SD卡的总容量，单位byte，若SD卡不可用，返回0
 	 * 
-	 * @author l00220455
 	 * @date 2013-10-28
 	 * @return
 	 */
@@ -109,7 +104,6 @@ public class FileUtils
 	/**
 	 * 该方法的作用:获取指定路径所在空间的剩余可用容量字节数
 	 * 
-	 * @author zWX200279
 	 * @date 2014-1-23
 	 * @param filePath
 	 * @return 容量字节 SDCard可用空间，内部存储可用空间
@@ -133,7 +127,6 @@ public class FileUtils
 	/**
 	 * 该方法的作用:拷贝文件，通过返回值判断是否拷贝成功
 	 * 
-	 * @author zWX200279
 	 * @date 2014-1-23
 	 * @param sourcePath
 	 *            源文件路径
@@ -216,7 +209,6 @@ public class FileUtils
 	/**
 	 * 该方法的作用:删除文件
 	 * 
-	 * @author zWX200279
 	 * @date 2014-1-23
 	 * @param path
 	 * @return
@@ -273,7 +265,6 @@ public class FileUtils
 	/**
 	 * 该方法的作用: 拷贝目录
 	 * 
-	 * @author zWX200279
 	 * @date 2014-1-23
 	 * @param sourceFile
 	 * @param targetFile
@@ -331,7 +322,6 @@ public class FileUtils
 	/**
 	 * 该方法的作用:剪切目录，先将目录拷贝完后再删除源目录
 	 * 
-	 * @author zWX200279
 	 * @date 2014-1-23
 	 * @param sourceDirectory
 	 * @param targetDirectory
@@ -353,7 +343,6 @@ public class FileUtils
 	 * 
 	 * 该方法的作用:删除目录
 	 * 
-	 * @author zWX200279
 	 * @date 2014-2-12
 	 * @param targetDirectory
 	 * @return
@@ -401,7 +390,6 @@ public class FileUtils
 	 * 
 	 * 该方法的作用:将流写入指定文件
 	 * 
-	 * @author zWX200279
 	 * @date 2014-2-12
 	 * @param inputStream
 	 * @param path
@@ -453,7 +441,6 @@ public class FileUtils
 	/**
 	 * 该方法的作用:创建目录
 	 * 
-	 * @author zWX200279
 	 * @date 2014-1-23
 	 * @param path
 	 */
@@ -469,7 +456,6 @@ public class FileUtils
 	/**
 	 * 该方法的作用:修改文件读写权限
 	 * 
-	 * @author yWX158243
 	 * @date 2013-3-7
 	 * @param fileAbsPath
 	 * @param mode
@@ -490,7 +476,6 @@ public class FileUtils
 	/**
 	 * 该方法的作用:创建文件，并写入指定内容
 	 * 
-	 * @author yWX158243
 	 * @date 2013-3-7
 	 * @param path
 	 * @param content
@@ -544,7 +529,6 @@ public class FileUtils
 	 * 
 	 * 该方法的作用:将object对象写入outFile文件
 	 * 
-	 * @author zWX200279
 	 * @date 2014-2-12
 	 * @param outFile
 	 * @param object
@@ -597,7 +581,6 @@ public class FileUtils
 	 * 
 	 * 该方法的作用:从outFile文件读取对象
 	 * 
-	 * @author zWX200279
 	 * @date 2014-2-12
 	 * @param filePath
 	 * @param context
@@ -656,7 +639,6 @@ public class FileUtils
 	/**
 	 * 该方法的作用:读取指定路径下的文件内容
 	 * 
-	 * @author yWX158243
 	 * @date 2013-3-7
 	 * @param path
 	 * @return 文件内容
@@ -701,7 +683,6 @@ public class FileUtils
 	/**
 	 * 该方法的作用:创建文件，并修改读写权限
 	 * 
-	 * @author yWX158243
 	 * @date 2013-3-7
 	 * @param filePath
 	 * @param mode
@@ -736,7 +717,6 @@ public class FileUtils
 	/**
 	 * 该方法的作用:根据指定路径，创建父目录及文件
 	 * 
-	 * @author yWX158243
 	 * @date 2013-3-6
 	 * @param filePath
 	 * @return File 如果创建失败的话，返回null
@@ -749,7 +729,6 @@ public class FileUtils
 	/**
 	 * 该方法的作用:获取系统存储路径
 	 * 
-	 * @author zWX200279
 	 * @date 2014-1-23
 	 * @return
 	 */
@@ -761,7 +740,6 @@ public class FileUtils
 	/**
 	 * 该方法的作用:获取外部存储路径
 	 * 
-	 * @author zWX200279
 	 * @date 2014-1-23
 	 * @return
 	 */
@@ -772,7 +750,6 @@ public class FileUtils
 	
 	/**
 	 * 该方法的作用: 将Url转换成文件名
-	 * @author l00220455
 	 * @date 2014年1月7日
 	 * @param url
 	 * @return
@@ -793,7 +770,6 @@ public class FileUtils
 	/**
 	 * 
 	 * 该方法的作用: 根据文件路径获取文件大小
-	 * @author pWX197040
 	 * @date 2014年7月16日
 	 * @param path
 	 * @return
@@ -812,7 +788,6 @@ public class FileUtils
 	/**
 	 * 
 	 * 该方法的作用: 根据路径获取文件名
-	 * @author pWX197040
 	 * @date 2014年7月16日
 	 * @param path
 	 * @return
@@ -831,7 +806,6 @@ public class FileUtils
 	/**
 	 * 
 	 * 该方法的作用: 根据路径获取文件
-	 * @author pWX197040
 	 * @date 2014年7月16日
 	 * @param path
 	 * @return

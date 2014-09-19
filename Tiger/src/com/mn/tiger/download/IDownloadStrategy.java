@@ -4,7 +4,6 @@ package com.mn.tiger.download;
  * 
  * 该类作用及功能说明: 下载策略接口
  * 
- * @author pWX197040
  * @date 2014年8月18日
  */
 public interface IDownloadStrategy

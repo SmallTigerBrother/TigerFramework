@@ -11,7 +11,6 @@ import com.mn.tiger.utility.LogTools;
  * 该类作用及功能说明:使用FastJson库来解析JSON数据： 支持： 1.Json转List 2.Json转Map 3.Object转Json
  * 4.Json转Object
  * 
- * @author zWX215434
  * @date 2014年4月16日
  */
 public class TGJsonUtils
@@ -22,7 +21,6 @@ public class TGJsonUtils
 	 * 
 	 * 该方法的作用:Json转List
 	 * 
-	 * @author zWX215434
 	 * @date 2014年6月17日
 	 * @param json
 	 * @param mClass
@@ -47,7 +45,6 @@ public class TGJsonUtils
 	/**
 	 * 该方法的作用:Json转Map
 	 * 
-	 * @author zWX215434
 	 * @date 2014年4月16日
 	 * @param json
 	 * @return
@@ -67,7 +64,6 @@ public class TGJsonUtils
 	/**
 	 * 该方法的作用:Object转Json
 	 * 
-	 * @author zWX215434
 	 * @date 2014年4月16日
 	 * @param object
 	 * @return
@@ -85,7 +81,6 @@ public class TGJsonUtils
 	/**
 	 * 该方法的作用:Json转Object
 	 * 
-	 * @author zWX215434
 	 * @date 2014年4月16日
 	 * @param json
 	 * @param mClass
@@ -110,7 +105,6 @@ public class TGJsonUtils
 	/**
 	 * 该方法的作用:Json转Object
 	 * 
-	 * @author zWX215434
 	 * @date 2014年4月16日
 	 * @param json
 	 * @param className

@@ -10,7 +10,6 @@ import com.mn.tiger.datastorage.db.annotation.Transient;
  * 
  * 该类作用及功能说明: 包含所有上传信息（上传url、上传文件路径等）的类
  * 
- * @author pWX197040
  * @date 2014年6月18日
  */
 public class TGUploader implements Cloneable, Serializable

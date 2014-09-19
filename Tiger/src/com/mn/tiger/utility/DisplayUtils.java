@@ -12,7 +12,6 @@ public class DisplayUtils
 	/**
 	 * 该方法的作用:dip转换为像素
 	 * 
-	 * @author l00220455
 	 * @date 2013-3-7
 	 * @param context
 	 * @param dipValue
@@ -27,7 +26,6 @@ public class DisplayUtils
 	/**
 	 * 该方法的作用:sp转换为px（文字大小单位）
 	 * 
-	 * @author l00220455
 	 * @date 2013-3-8
 	 * @param context
 	 * @param spValue
@@ -42,7 +40,6 @@ public class DisplayUtils
 	/**
 	 * 该方法的作用:px转换为sp（文字大小单位）
 	 * 
-	 * @author l00220455
 	 * @date 2013-3-8
 	 * @param context
 	 * @param pxValue
@@ -70,7 +67,6 @@ public class DisplayUtils
 	/**
 	 * 该方法的作用:获取状态栏的高度
 	 * 
-	 * @author l00220455
 	 * @date 2013-3-7
 	 * @param activity
 	 * @return
@@ -103,7 +99,6 @@ public class DisplayUtils
 	
 	/**
 	 * 该方法的作用:获取屏幕分辨率
-	 * @author zWX200279
 	 * @date 2014-1-23
 	 * @param context
 	 * @return 返回int数组长度为2，0为x 1为y

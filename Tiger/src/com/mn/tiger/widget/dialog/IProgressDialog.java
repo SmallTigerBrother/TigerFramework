@@ -4,7 +4,6 @@ package com.mn.tiger.widget.dialog;
 /**
  * 该类作用及功能说明
  * 进度对话框接口
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2014年2月10日
@@ -30,7 +29,6 @@ public interface IProgressDialog extends IDialog
 	/**
 	 * 该方法的作用:
 	 * 设置进度
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @param progress
 	 */
@@ -39,7 +37,6 @@ public interface IProgressDialog extends IDialog
 	/**
 	 * 该方法的作用:
 	 * 获取进度
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @return
 	 */
@@ -48,7 +45,6 @@ public interface IProgressDialog extends IDialog
 	/**
 	 * 该方法的作用:
 	 * 设置进度最大值
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @param max
 	 */
@@ -57,7 +53,6 @@ public interface IProgressDialog extends IDialog
 	/**
 	 * 该方法的作用:
 	 * 设置进度文本
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @param text
 	 */
@@ -66,7 +61,6 @@ public interface IProgressDialog extends IDialog
 	/**
 	 * 该方法的作用:
 	 * 获取进度文本
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @return
 	 */
@@ -75,7 +69,6 @@ public interface IProgressDialog extends IDialog
 	/**
 	 * 该方法的作用:
 	 * 设置进度框类型
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @param style
 	 */

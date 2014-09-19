@@ -11,7 +11,6 @@ import com.mn.tiger.utility.LogTools;
  * 
  * 该类作用及功能说明: 下载任务类
  * 
- * @author pWX197040
  * @date 2014年8月18日
  */
 public class TGDownloadTask extends TGTask
@@ -38,7 +37,6 @@ public class TGDownloadTask extends TGTask
 	
 	/**
 	 * 构造函数
-	 * @author pWX197040
 	 * @date 2014年6月28日
 	 */
 	public TGDownloadTask()
@@ -50,7 +48,6 @@ public class TGDownloadTask extends TGTask
 	/**
 	 * 该方法的作用:
 	 * 执行自身（任务真正的执行方法）
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @return
 	 */
@@ -66,7 +63,6 @@ public class TGDownloadTask extends TGTask
 	/**
 	 * 
 	 * 该方法的作用: 后台执行下载任务
-	 * @author pWX197040
 	 * @date 2014年6月28日
 	 * @return
 	 */
@@ -81,7 +77,6 @@ public class TGDownloadTask extends TGTask
 	/**
 	 * 
 	 * 该方法的作用: 获取下载任务参数
-	 * @author pWX197040
 	 * @date 2014年6月19日
 	 * @return
 	 */
@@ -101,7 +96,6 @@ public class TGDownloadTask extends TGTask
 	/**
 	 * 
 	 * 该方法的作用: 执行下载任务
-	 * @author pWX197040
 	 * @date 2014年7月23日
 	 */
 	protected void executeDownload()
@@ -134,7 +128,6 @@ public class TGDownloadTask extends TGTask
 	 * 
 	 * 该类作用及功能说明 : 默认下载监听
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月25日
 	 */
 	public class DefaultDownloadListener implements IDownloadListener

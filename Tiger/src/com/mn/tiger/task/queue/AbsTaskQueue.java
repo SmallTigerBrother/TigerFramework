@@ -10,7 +10,6 @@ import com.mn.tiger.task.TGTask;
  * 
  * 该类作用及功能说明: 任务队列
  * 
- * @author pWX197040
  * @date 2014年6月25日
  */
 public abstract class AbsTaskQueue extends LinkedList<Integer>
@@ -21,7 +20,6 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	protected final String LOG_TAG = this.getClass().getSimpleName();
 	
 	/**
-	 * @author pWX197040
 	 * @date 2014年6月25日
 	 */
 	private static final long serialVersionUID = 1L;
@@ -33,7 +31,6 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	
 	/**
 	 * 构造函数
-	 * @author pWX197040
 	 * @date 2014年6月25日
 	 */
 	public AbsTaskQueue()
@@ -44,7 +41,6 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	/**
 	 * 
 	 * 该方法的作用: 排序队列中的任务
-	 * @author pWX197040
 	 * @date 2014年6月25日
 	 */
 	protected abstract void sortTaskQueue();
@@ -52,7 +48,6 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	/**
 	 * 
 	 * 该方法的作用: 执行下一个任务
-	 * @author pWX197040
 	 * @date 2014年6月25日
 	 */
 	public abstract void executeNextTask();
@@ -60,7 +55,6 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	/**
 	 * 
 	 * 该方法的作用: 移除任务
-	 * @author pWX197040
 	 * @date 2014年6月25日
 	 */
 	public synchronized boolean remove(Object object)
@@ -73,7 +67,6 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	/**
 	 * 该方法的作用:
 	 * 将任务添加到队列中
-	 * @author l00220455
 	 * @date 2014年5月6日
 	 * @param task
 	 */
@@ -86,7 +79,6 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	/**
 	 * 该方法的作用: 暂停任务队列
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 */
 	public void pause()
@@ -97,7 +89,6 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	/**
 	 * 该方法的作用: 重启任务队列
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 */
 	public void restart()
@@ -108,7 +99,6 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	/**
 	 * 该方法的作用:
 	 * 取消所有任务
-	 * @author l00220455
 	 * @date 2014年9月4日
 	 */
 	public void cancelAllTasks()
@@ -129,7 +119,6 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	
 	/**
 	 * 该方法的作用: 获取队列权重
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @return
 	 */
@@ -148,7 +137,6 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	/**
 	 * 该方法的作用:
 	 * 根据ID获取任务
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param taskId
 	 * @return
@@ -161,7 +149,6 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	/**
 	 * 该方法的作用:
 	 * 获取任务列表
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @return
 	 */
@@ -177,7 +164,6 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	/**
 	 * 该方法的作用:
 	 * 设置任务列表
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param taskArray
 	 */
@@ -189,7 +175,6 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	/**
 	 * 该类作用及功能说明
 	 * 队列状态
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 */
 	public enum MPQueueState
@@ -212,7 +197,6 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	 * 
 	 * 该类作用及功能说明: 定义各种类型任务线程池并发线程数
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月12日
 	 */
 	protected enum Pool

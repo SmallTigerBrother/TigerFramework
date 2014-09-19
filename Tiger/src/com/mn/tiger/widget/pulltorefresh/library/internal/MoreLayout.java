@@ -13,7 +13,6 @@ import com.mn.tiger.utility.CR;
  * 
  * 该类作用及功能说明
  * 
- * @author nKF50342
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2012-4-6 Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights
@@ -33,7 +32,6 @@ public class MoreLayout extends OriginalLoadingLayout {
 
 	/**
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-11 构造函数
 	 * @param context
 	 */
@@ -57,7 +55,6 @@ public class MoreLayout extends OriginalLoadingLayout {
 	 * 
 	 * 该方法的作用:重置 在什么情况下调用:
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-11
 	 */
 	public void reset() {
@@ -69,7 +66,6 @@ public class MoreLayout extends OriginalLoadingLayout {
 	 * 
 	 * 该方法的作用:释放刷新 在什么情况下调用:
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-11
 	 */
 	public void releaseToRefresh() {
@@ -80,7 +76,6 @@ public class MoreLayout extends OriginalLoadingLayout {
 	 * 
 	 * 该方法的作用:设置拉的过程中文本 在什么情况下调用:
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-11
 	 */
 	public void setPullLabel(String pullLabel) {
@@ -91,7 +86,6 @@ public class MoreLayout extends OriginalLoadingLayout {
 	 * 
 	 * 该方法的作用:正在刷新接口 在什么情况下调用:
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-11
 	 */
 	public void refreshing() {
@@ -103,7 +97,6 @@ public class MoreLayout extends OriginalLoadingLayout {
 	 * 
 	 * 该方法的作用:设置刷新中文本 在什么情况下调用:
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-11
 	 */
 	public void setRefreshingLabel(String refreshingLabel) {
@@ -114,7 +107,6 @@ public class MoreLayout extends OriginalLoadingLayout {
 	 * 
 	 * 该方法的作用:设置释放文本 在什么情况下调用:
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-11
 	 */
 	public void setReleaseLabel(String releaseLabel) {
@@ -125,7 +117,6 @@ public class MoreLayout extends OriginalLoadingLayout {
 	 * 
 	 * 该方法的作用:下拉刷新 在什么情况下调用:
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-11
 	 */
 	public void pullToRefresh() {
@@ -136,7 +127,6 @@ public class MoreLayout extends OriginalLoadingLayout {
 	 * 
 	 * 该方法的作用:设置文本颜色 在什么情况下调用:
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-11
 	 */
 	public void setTextColor(int color) {
@@ -153,7 +143,6 @@ public class MoreLayout extends OriginalLoadingLayout {
 	 * 
 	 * 该方法的作用:设置第二个文本 在什么情况下调用:
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-11
 	 */
 	public void setDownTextLabel(String textLabel) {

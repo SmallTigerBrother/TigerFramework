@@ -18,7 +18,6 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 该类作用及功能说明 Delete请求方法类
  * 
- * @author pwx197040
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2014-05-19 Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights
@@ -27,7 +26,6 @@ import com.mn.tiger.utility.LogTools;
 public class TGDeleteMethod extends TGHttpMethod
 {
 	/**
-	 * @author pwx197040
 	 * @date 2014-05-19 构造函数
 	 * @param context
 	 * @param url
@@ -38,7 +36,6 @@ public class TGDeleteMethod extends TGHttpMethod
 	}
 
 	/**
-	 * @author pwx197040
 	 * @date 2014-05-19 构造函数
 	 * @param context
 	 * @param url
@@ -120,7 +117,6 @@ public class TGDeleteMethod extends TGHttpMethod
 	/**
 	 * 
 	 * 该方法的作用: 拼装Delete请求Url
-	 * @author pWX197040
 	 * @date 2014年5月19日
 	 * @param baseUrl
 	 * @param parameters
@@ -146,7 +142,6 @@ public class TGDeleteMethod extends TGHttpMethod
 	/**
 	 * 
 	 * 该方法的作用: 获去Delete请求Url，将参数与Url进行拼装
-	 * @author pWX197040
 	 * @date 2014年5月19日
 	 * @param baseUrl
 	 * @param parameters
@@ -185,7 +180,6 @@ public class TGDeleteMethod extends TGHttpMethod
 	/**
 	 * 
 	 * 该方法的作用: 拼装Delete请求Url
-	 * @author pWX197040
 	 * @date 2014年5月19日
 	 * @param baseUrl
 	 * @param parameters

@@ -61,17 +61,6 @@ public class TGDBManager
 	/**
 	 * 构造方法
 	 * 
-	 * @author pWX197040
-	 * @date 2014年4月1日
-	 */
-	private TGDBManager()
-	{
-
-	}
-
-	/**
-	 * 构造方法
-	 * 
 	 * @param config
 	 */
 	private TGDBManager(DaoConfig config)
@@ -222,7 +211,6 @@ public class TGDBManager
 	 * 
 	 * 该方法的作用: 关闭DB, 并移除出缓存
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月29日
 	 * @param dbFilePath
 	 *            db文件全路径
@@ -241,7 +229,6 @@ public class TGDBManager
 	 * 
 	 * 该方法的作用: 关闭DB, 并移除出缓存
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月29日
 	 */
 	public static void closeAllDB()

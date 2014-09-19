@@ -21,13 +21,11 @@ import com.mn.tiger.utility.LogTools;
  * 
  * 该类作用及功能说明: 可并行执行多个任务的队列
  * 
- * @author pWX197040
  * @date 2014年6月25日
  */
 public class TGTaskQueue extends AbsTaskQueue
 {
 	/**
-	 * @author pWX197040
 	 * @date 2014年6月25日
 	 */
 	private static final long serialVersionUID = 1L;
@@ -71,7 +69,6 @@ public class TGTaskQueue extends AbsTaskQueue
 	
 	/**
 	 * 构造函数
-	 * @author pWX197040
 	 * @date 2014年6月25日
 	 */
 	public TGTaskQueue(Context context, int type)
@@ -186,9 +183,7 @@ public class TGTaskQueue extends AbsTaskQueue
 	}
 	
 	/**
-	 * 
 	 * 该方法的作用: 移除任务
-	 * @author pWX197040
 	 * @date 2014年6月25日
 	 */
 	public synchronized boolean remove(Integer taskId)
@@ -220,7 +215,6 @@ public class TGTaskQueue extends AbsTaskQueue
 	/**
 	 * 该方法的作用: 暂停任务队列
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 */
 	public synchronized void pause()
@@ -248,7 +242,6 @@ public class TGTaskQueue extends AbsTaskQueue
 	/**
 	 * 该方法的作用: 重启任务队列
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 */
 	public synchronized void restart()
@@ -264,7 +257,6 @@ public class TGTaskQueue extends AbsTaskQueue
 	/**
 	 * 该方法的作用:
 	 * 取消所有任务
-	 * @author l00220455
 	 * @date 2014年9月4日
 	 */
 	public void cancelAllTasks()
@@ -277,7 +269,6 @@ public class TGTaskQueue extends AbsTaskQueue
 	/**
 	 * 该方法的作用:
 	 * 获取队列执行的任务类型
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @return
 	 */
@@ -289,7 +280,6 @@ public class TGTaskQueue extends AbsTaskQueue
 	/**
 	 * 该方法的作用:
 	 * 设置队列执行的任务类型
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param type
 	 */
@@ -301,7 +291,6 @@ public class TGTaskQueue extends AbsTaskQueue
 	/**
 	 * 该方法的作用:
 	 * 获取最大并行任务数
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @return
 	 */
@@ -313,7 +302,6 @@ public class TGTaskQueue extends AbsTaskQueue
 	/**
 	 * 该方法的作用:
 	 * 设置最大并行任务数
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param mAX_THREAD_NUM
 	 */
@@ -325,7 +313,6 @@ public class TGTaskQueue extends AbsTaskQueue
 	/**
 	 * 该方法的作用:
 	 * 获取任务状态
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @return
 	 */
@@ -337,7 +324,6 @@ public class TGTaskQueue extends AbsTaskQueue
 	/**
 	 * 该方法的作用:
 	 * 设置任务状态
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param state
 	 */
@@ -349,7 +335,6 @@ public class TGTaskQueue extends AbsTaskQueue
 	/**
 	 * 该方法的作用:
 	 * 设置任务监听接口
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param taskListener
 	 */
@@ -361,7 +346,6 @@ public class TGTaskQueue extends AbsTaskQueue
 	/**
 	 * 该方法的作用:
 	 * 获取线程池
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @return
 	 */
@@ -373,7 +357,6 @@ public class TGTaskQueue extends AbsTaskQueue
 	/**
 	 * 该方法的作用:
 	 * 设置线程池
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param threadPool
 	 */
@@ -383,9 +366,7 @@ public class TGTaskQueue extends AbsTaskQueue
 	}
 
 	/**
-	 * 
 	 * 该方法的作用: 获取默认任务监听
-	 * @author pWX197040
 	 * @date 2014年6月25日
 	 * @return
 	 */
@@ -402,7 +383,6 @@ public class TGTaskQueue extends AbsTaskQueue
 	 * 
 	 * 该类作用及功能说明: 默认任务队列监听
 	 * 
-	 * @author pWX197040
 	 * @date 2014年6月25日
 	 */
 	public class DefaultTaskListener implements ITaskListener

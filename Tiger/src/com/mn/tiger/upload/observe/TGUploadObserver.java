@@ -6,7 +6,6 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 该类作用及功能说明 ：数据观察者
  * 
- * @author pWX197040
  * @date 2014年3月31日
  */
 public class TGUploadObserver
@@ -24,7 +23,6 @@ public class TGUploadObserver
 	/**
 	 * 构造函数
 	 * 
-	 * @author pWX197040
 	 * @date 2014年6月29日
 	 */
 	public TGUploadObserver()
@@ -35,7 +33,6 @@ public class TGUploadObserver
 	 * 
 	 * 该方法的作用:获取键值
 	 * 
-	 * @author pWX197040
 	 * @date 2014年6月29日
 	 * @return
 	 */
@@ -48,7 +45,6 @@ public class TGUploadObserver
 	 * 
 	 * 该方法的作用:设置键值
 	 * 
-	 * @author pWX197040
 	 * @date 2014年6月29日
 	 * @param key
 	 */
@@ -61,7 +57,6 @@ public class TGUploadObserver
 	 * 
 	 * 该方法的作用: 任务开始回调
 	 * 
-	 * @author pWX197040
 	 * @date 2014年6月26日
 	 * @param uploader
 	 */
@@ -74,7 +69,6 @@ public class TGUploadObserver
 	 * 
 	 * 该方法的作用: 任务进度变化回调
 	 * 
-	 * @author pWX197040
 	 * @date 2014年6月26日
 	 * @param progress
 	 */
@@ -87,7 +81,6 @@ public class TGUploadObserver
 	 * 
 	 * 该方法的作用: 任务完成回调
 	 * 
-	 * @author pWX197040
 	 * @date 2014年6月26日
 	 */
 	public void onSuccess(TGUploader uploader)
@@ -99,7 +92,6 @@ public class TGUploadObserver
 	 * 
 	 * 该方法的作用: 任务失败回调
 	 * 
-	 * @author pWX197040
 	 * @date 2014年6月27日
 	 * @param errorCode
 	 * @param errorMessage
@@ -114,7 +106,6 @@ public class TGUploadObserver
 	 * 
 	 * 该方法的作用: 任务停止回调
 	 * 
-	 * @author pWX197040
 	 * @date 2014年6月27日
 	 */
 	public void onPause(TGUploader uploader)

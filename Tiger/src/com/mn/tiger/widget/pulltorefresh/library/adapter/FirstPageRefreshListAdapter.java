@@ -12,13 +12,12 @@ import com.mn.tiger.widget.pulltorefresh.pullinterface.IPullToRefreshDataControl
 /**
  * 该类作用及功能说明
  * 首页刷新适配器
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2014年2月10日
  * Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights reserved.
  */
-public class FirstPageRefreshListAdapter<T> extends MPPullToRefreshListAdapter<T>
+public class FirstPageRefreshListAdapter<T> extends TGPullToRefreshListAdapter<T>
 {
 	public FirstPageRefreshListAdapter(Context context, List<T> items, IHttpErrorHandler httpErrorHandler)
 	{
@@ -26,7 +25,6 @@ public class FirstPageRefreshListAdapter<T> extends MPPullToRefreshListAdapter<T
 	}
 	
 	/**
-	 * @author l00220455
 	 * @date 2014年4月21日
 	 * @param context
 	 * @param adapter 其他Adapter

@@ -13,7 +13,6 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 该类作用及功能说明
  * 可派发任务
- * @author l00220455
  * @date 2014年3月17日
  */
 public class TGTask implements Cloneable
@@ -105,7 +104,6 @@ public class TGTask implements Cloneable
 
 	/**
 	 * 构造函数
-	 * @author pWX197040
 	 * @date 2014年6月25日
 	 */
 	public TGTask()
@@ -116,7 +114,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 执行任务
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 */
 	public TGTaskResult executeTask(TGThreadPool threadPool)
@@ -144,7 +141,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 任务执行方法
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 */
 	protected void run()
@@ -196,7 +192,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 执行自身（任务真正的执行方法）
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @return
 	 */
@@ -208,7 +203,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 发送任务结果
-	 * @author l00220455
 	 * @date 2014年3月18日
 	 * @param result
 	 */
@@ -239,7 +233,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 暂停任务
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 */
 	public final void pause()
@@ -252,7 +245,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 停止任务
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 */
 	public final void stop()
@@ -265,7 +257,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 取消任务
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 */
 	public final void cancel()
@@ -278,7 +269,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 任务开始方法
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 */
 	protected void onTaskStart()
@@ -299,7 +289,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 任务变化方法
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @param progress
 	 */
@@ -316,7 +305,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 任务完成方法
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 */
 	protected void onTaskFinished()
@@ -335,7 +323,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 任务出错方法
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @param code
 	 * @param msg
@@ -356,7 +343,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 任务取消的方法
-	 * @author l00220455
 	 * @date 2014年3月20日
 	 */
 	protected void onTaskCancel()
@@ -371,7 +357,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 
 	 * 该方法的作用: 暂停任务
-	 * @author pWX197040
 	 * @date 2014年8月15日
 	 */
 	protected void onTaskPause()
@@ -386,7 +371,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 
 	 * 该方法的作用: 停止任务
-	 * @author pWX197040
 	 * @date 2014年8月15日
 	 */
 	protected void onTaskStop()
@@ -400,7 +384,6 @@ public class TGTask implements Cloneable
 	
 	/**
 	 * 该方法的作用: 清空回调接口，任务依然执行，但不会再收到任何通知
-	 * @author pWX197040
 	 * @date 2014年8月15日
 	 */
 	public void destory()
@@ -412,7 +395,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 清空属性，销毁任务
-	 * @author l00220455
 	 * @date 2014年8月23日
 	 */
 	protected void destroyMembers()
@@ -450,7 +432,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 是否正在执行中
-	 * @author l00220455
 	 * @date 2014年8月15日
 	 * @return
 	 */
@@ -462,7 +443,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 获取任务状态
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @return
 	 */
@@ -474,7 +454,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 设置任务状态
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param state
 	 */
@@ -486,7 +465,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 设置任务ID
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @param taskID
 	 */
@@ -498,7 +476,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 获取任务ID
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @return
 	 */
@@ -510,7 +487,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 获取Messenger
-	 * @author l00220455
 	 * @date 2014年3月18日
 	 * @return
 	 */
@@ -522,7 +498,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 设置Messenger
-	 * @author l00220455
 	 * @date 2014年3月18日
 	 * @param messenger
 	 */
@@ -534,7 +509,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 获取参数
-	 * @author l00220455
 	 * @date 2014年3月18日
 	 * @return
 	 */
@@ -546,7 +520,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 设置参数
-	 * @author l00220455
 	 * @date 2014年3月18日
 	 * @param params
 	 */
@@ -568,7 +541,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 获取类型
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @return
 	 */
@@ -580,7 +552,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 设置任务类型
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param type
 	 */
@@ -592,7 +563,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 获取执行时间
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @return
 	 */
@@ -604,7 +574,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 设置执行时间
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @param executionTime
 	 */
@@ -616,7 +585,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 获取任务变化监听器
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @return
 	 */
@@ -628,7 +596,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 设置任务变化监听器
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @param taskListener
 	 */
@@ -640,7 +607,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 设置任务权重
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @param weight
 	 */
@@ -659,7 +625,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 获取任务权重
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @return
 	 */
@@ -671,7 +636,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该方法的作用:
 	 * 设置任务错误信息
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param errorCode
 	 * @param errorMsg
@@ -685,7 +649,6 @@ public class TGTask implements Cloneable
 	/**
 	 * 该类作用及功能说明
 	 * 任务错误
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 */
 	public static class TaskError
@@ -730,7 +693,6 @@ public class TGTask implements Cloneable
 	 * 
 	 * 该类作用及功能说明 任务状态
 	 * 
-	 * @author pWX197040
 	 * @date 2014年7月28日
 	 */
 	public enum MPTaskState

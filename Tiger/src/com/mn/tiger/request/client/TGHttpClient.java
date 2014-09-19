@@ -9,7 +9,6 @@ import com.mn.tiger.request.receiver.TGHttpResult;
 /**
  * 该类作用及功能说明
  * 网络连接执行类
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2013-12-1
@@ -28,7 +27,6 @@ public abstract class TGHttpClient
 	private Context context;
 	
 	/**
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * 构造函数
 	 * @param context
@@ -41,7 +39,6 @@ public abstract class TGHttpClient
 	/**
 	 * 该方法的作用:
 	 * 获取Context
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @return
 	 */
@@ -53,7 +50,6 @@ public abstract class TGHttpClient
 	/**
 	 * 该方法的作用:
 	 * 执行网络请求
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @param httpMethod 网络请求方法
 	 * @param httpReceiver 网络请求接收器，处理请求结果

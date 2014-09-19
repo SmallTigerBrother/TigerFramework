@@ -6,7 +6,6 @@ import java.io.Serializable;
  * 
  * 该类作用及功能说明: 下载请求参数
  * 
- * @author pWX197040
  * @date 2014年8月18日
  */
 public class TGDownloadParams implements Cloneable, Serializable 

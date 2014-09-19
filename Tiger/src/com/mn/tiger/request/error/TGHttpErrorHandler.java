@@ -13,7 +13,6 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 该类作用及功能说明:自定义错误处理类
  * 
- * @author l00220455
  * @date 2013-11-1
  */
 public class TGHttpErrorHandler implements IHttpErrorHandler
@@ -42,31 +41,6 @@ public class TGHttpErrorHandler implements IHttpErrorHandler
 	public boolean handleErrorInfo(TGHttpResult httpResult)
 	{
 		return false;
-	}
-
-	/**
-	 * 该方法的作用:错误处理Info
-	 * 
-	 * @author lkf65210
-	 * @date 2012-6-18
-	 */
-	@Override
-	@Deprecated
-	public boolean handleErrorInfo(JSONObject jsonObject)
-	{
-		return false;
-	}
-
-	/**
-	 * 该方法的作用:错误处理code
-	 * 
-	 * @author lkf65210
-	 * @date 2012-6-18
-	 */
-	@Override
-	@Deprecated
-	public void handleErrorCode(int code, String result)
-	{
 	}
 
 	public static boolean hasHttpError(TGHttpResult httpResult)
@@ -99,7 +73,6 @@ public class TGHttpErrorHandler implements IHttpErrorHandler
 	/**
 	 * 该方法的作用:
 	 * 检测是否为登录异常
-	 * @author l00220455
 	 * @date 2014年8月19日
 	 * @param httpResult
 	 * @return
@@ -121,7 +94,6 @@ public class TGHttpErrorHandler implements IHttpErrorHandler
 	/**
 	 * 该方法的作用: 检测是否存在HttpError
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月18日
 	 * @param jsonObject
 	 * @return

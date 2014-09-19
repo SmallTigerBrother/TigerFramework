@@ -50,7 +50,6 @@ public enum TGErrorMsgEnum
 	/**
 	 * 该方法的作用:根据当前应用语言获取对应的错误信息
 	 * 
-	 * @author yWX158243
 	 * @date 2014年1月10日
 	 * @param context
 	 * @param error
@@ -102,7 +101,6 @@ public enum TGErrorMsgEnum
 	/**
 	 * 该方法的作用:获取错误码
 	 * 
-	 * @author yWX158243
 	 * @date 2014年4月17日
 	 * @param error
 	 * @return
@@ -116,7 +114,6 @@ public enum TGErrorMsgEnum
 	/**
 	 * 该方法的作用:根据错误信息返回错误对象
 	 * 
-	 * @author yWX158243
 	 * @date 2014年3月13日
 	 * @param errorMsg
 	 * @return

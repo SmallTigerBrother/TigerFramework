@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
  *  
  * 该类作用及功能说明: 与String相关的一些转换等操作
  * 
- * @author zWX200279
  * @date 2014-2-11
  */
 public class StringUtils
@@ -21,7 +20,6 @@ public class StringUtils
 	/**
 	 * 该方法的作用:判断字符串是否为null 或者为""
 	 * 
-	 * @author zWX200279
 	 * @date 2014-1-23
 	 * @param content
 	 * @return true表示字符串为null或者""
@@ -38,7 +36,6 @@ public class StringUtils
 	/**
 	 * 该方法的作用: 判断字符串是否为IP地址
 	 * 
-	 * @author zWX200279
 	 * @date 2014-01-23
 	 * @param ipString
 	 * @return
@@ -83,7 +80,6 @@ public class StringUtils
 	/**
 	 * 该方法的作用:通过正则表达式判断是否为email地址
 	 * 
-	 * @author zWX200279
 	 * @date 2014-1-23
 	 * @param emailString
 	 * @return
@@ -97,7 +93,6 @@ public class StringUtils
 	/**
 	 * 该方法的作用:通过正则表达式判断是否为数字
 	 * 
-	 * @author zWX200279
 	 * @date 2014-1-23
 	 * @param digitString
 	 * @return
@@ -115,7 +110,6 @@ public class StringUtils
 	/**
 	 * 该方法的作用: 通过正则表达式判断是否为手机号
 	 * 
-	 * @author zWX200279
 	 * @date 2014-01-23
 	 * @param phoneString
 	 * @return
@@ -129,7 +123,6 @@ public class StringUtils
 	/**
 	 * 该方法的作用: 字符串正则校验
 	 * 
-	 * @author zWX200279
 	 * @date 2014-01-23
 	 * @param regex
 	 *            正则表达式
@@ -148,7 +141,6 @@ public class StringUtils
 	/**
 	 * 该方法的作用: 通过正则表达式判断是否为URL地址
 	 * 
-	 * @author zWX200279
 	 * @date 2014-01-23
 	 * @param strIp
 	 * @return
@@ -163,7 +155,6 @@ public class StringUtils
 	/**
 	 * 该方法的作用: String 转换成Unicode
 	 * 
-	 * @author zWX200279
 	 * @date 2014-01-23
 	 * @param string
 	 *            传入汉字
@@ -189,7 +180,6 @@ public class StringUtils
 	/**
 	 * 该方法的作用: Unicode转换成String
 	 * 
-	 * @author zWX200279
 	 * @date 2014-01-23
 	 * @param string
 	 * @return
@@ -221,7 +211,6 @@ public class StringUtils
 	 * 该方法的作用:获取url中某参数的值 参数:传入需要获取的参数的名 返回:该参数的值(字符串型) 异常:
 	 * 在什么情况下调用:需要获取url中某参数的值
 	 * 
-	 * @author yWX158243
 	 * @date 2012-12-24
 	 * @param url
 	 * @param paramName

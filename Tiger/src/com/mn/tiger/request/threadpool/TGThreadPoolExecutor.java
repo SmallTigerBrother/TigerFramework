@@ -18,7 +18,6 @@ import com.mn.tiger.utility.LogTools;
  * 该类作用及功能说明 
  * 线程池(创建可比较的线程)
  * 
- * @author yWX158243
  * @date 2014年4月14日
  */
 public class TGThreadPoolExecutor extends ThreadPoolExecutor
@@ -128,7 +127,6 @@ public class TGThreadPoolExecutor extends ThreadPoolExecutor
 	 * 该类作用及功能说明 实现了Comparable接口的FutureTask </br>
 	 * newTaskFor必须创建实现了Comparable接口的FutureTask对象，不然会报异常
 	 * 
-	 * @author yWX158243
 	 * @date 2014年4月14日
 	 */
 	protected class ComparableFutureTask<V> extends FutureTask<V> implements

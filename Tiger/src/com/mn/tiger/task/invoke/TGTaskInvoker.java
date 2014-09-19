@@ -22,7 +22,6 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 该类作用及功能说明 Android任务请求类
  * 
- * @author l00220455
  * @date 2014年3月18日
  */
 public class TGTaskInvoker
@@ -59,7 +58,6 @@ public class TGTaskInvoker
 	
 	/**
 	 * 构造函数
-	 * @author pWX197040
 	 * @date 2014年7月26日
 	 * @param context
 	 */
@@ -70,7 +68,6 @@ public class TGTaskInvoker
 
 	/**
 	 * 该方法的作用: 任务调度
-	 * @author pWX197040
 	 * @date 2014年7月26日
 	 * @param taskParams
 	 * @return
@@ -109,7 +106,6 @@ public class TGTaskInvoker
 	/**
 	 * 
 	 * 该方法的作用: 任务调度
-	 * @author pWX197040
 	 * @date 2014年7月26日
 	 * @param taskParams
 	 * @return
@@ -161,7 +157,6 @@ public class TGTaskInvoker
 	
 	/**
 	 * 该方法的作用:
-	 * @author pWX219598
 	 * @date 2014年5月16日
 	 * @param taskParams
 	 * @return
@@ -197,7 +192,6 @@ public class TGTaskInvoker
 	 * 
 	 * 该方法的作用:获取taskParams中Bundle中的任务参数
 	 * 
-	 * @author pWX219598
 	 * @date 2014年5月26日
 	 * @param data
 	 * @return
@@ -219,7 +213,6 @@ public class TGTaskInvoker
 	
 	/**
 	 * 该方法的作用: 初始化服务
-	 * @author l00220455
 	 * @date 2014年3月18日
 	 */
 	public static void initService(Context context, String action)
@@ -239,7 +232,6 @@ public class TGTaskInvoker
 
 	/**
 	 * 该方法的作用:链接到远程服务
-	 * @author pWX219598
 	 * @date 2014年5月21日
 	 * @param context
 	 */
@@ -289,7 +281,6 @@ public class TGTaskInvoker
 
 	/**
 	 * 断开远程连接
-	 * @author pWX219598
 	 * @date 2014年5月21日
 	 * @param context
 	 */
@@ -301,7 +292,6 @@ public class TGTaskInvoker
 	/**
 	 * 
 	 * 该方法的作用: 过去服务链接
-	 * @author pWX197040
 	 * @date 2014年7月26日
 	 * @return
 	 */
@@ -313,7 +303,6 @@ public class TGTaskInvoker
 	/**
 	 * 
 	 * 该方法的作用: 获取绑定的service
-	 * @author pWX197040
 	 * @date 2014年7月26日
 	 * @return
 	 */
@@ -325,7 +314,6 @@ public class TGTaskInvoker
 	/**
 	 * 该方法的作用:
 	 * 获取等待发送的任务
-	 * @author l00220455
 	 * @date 2014年6月19日
 	 * @return
 	 */
@@ -342,7 +330,6 @@ public class TGTaskInvoker
 	/**
 	 * 
 	 * 该方法的作用: 设置上下文信息
-	 * @author pWX197040
 	 * @date 2014年7月26日
 	 * @param context
 	 */
@@ -354,7 +341,6 @@ public class TGTaskInvoker
 	/**
 	 * 
 	 * 该方法的作用: 获取上下文信息
-	 * @author pWX197040
 	 * @date 2014年7月26日
 	 * @return
 	 */

@@ -26,7 +26,6 @@ import com.mn.tiger.utility.LogTools;
  * 
  * 该类作用及功能说明: 下载接收类
  * 
- * @author pWX197040
  * @date 2014年8月18日
  */
 public class TGDownloadReceiver extends DefaultHttpReceiver
@@ -104,7 +103,6 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 	/**
 	 * 该方法的作用:获取header中指定的信息
 	 * 
-	 * @author yWX158243
 	 * @date 2014年1月7日
 	 * @param key
 	 * @param headers
@@ -125,7 +123,6 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 	/**
 	 * 该方法的作用:服務是否返回錯誤
 	 * 
-	 * @author yWX158243
 	 * @date 2014年1月7日
 	 * @param httpMethod
 	 * @return
@@ -158,7 +155,6 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 	/**
 	 * 该方法的作用:处理下载结果
 	 * 
-	 * @author yWX158243
 	 * @date 2014年4月25日
 	 * @param httpMethod
 	 * @param httpResult
@@ -272,7 +268,6 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 	/**
 	 * 该方法的作用:写入文件
 	 * 
-	 * @author yWX158243
 	 * @date 2014年1月14日
 	 * @param instream
 	 * @param savePath
@@ -349,7 +344,6 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 	/**
 	 * 该方法的作用:将请求返回的流写入本地文件
 	 * 
-	 * @author yWX158243
 	 * @date 2014年1月7日
 	 * @param inStream
 	 * @param savePath
@@ -425,7 +419,6 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 	/**
 	 * 该方法的作用:获取指定路径下的文件，如文件或目录不存在，创建文件目录和文件
 	 * 
-	 * @author l00220455
 	 * @date 2013-7-30
 	 * @param path
 	 * @return
@@ -445,7 +438,6 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 	/**
 	 * 该方法的作用:获取文件长度
 	 * 
-	 * @author yWX158243
 	 * @date 2014年1月14日
 	 * @param headers
 	 * @throws Exception
@@ -472,7 +464,6 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 	/**
 	 * 
 	 * 该方法的作用: 获取服务响应头中的校验值: 默认为MD5值
-	 * @author pWX197040
 	 * @date 2014年7月16日
 	 * @param headers
 	 * @return
@@ -544,7 +535,6 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 	/**
 	 * 该类作用及功能说明 下载数据接收监听类
 	 * 
-	 * @author yWX158243
 	 * @date 2014年1月8日
 	 */
 	public interface IDownloadReceiveListener
@@ -552,7 +542,6 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 		/**
 		 * 该方法的作用:正在接收下载流
 		 * 
-		 * @author yWX158243
 		 * @date 2014年1月22日
 		 * @param downloader
 		 *            读取的字节数
@@ -562,7 +551,6 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 		/**
 		 * 该方法的作用:读取流结束
 		 * 
-		 * @author yWX158243
 		 * @date 2014年1月22日
 		 * @param downloader
 		 *            下载线程信息
@@ -572,7 +560,6 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 		/**
 		 * 该方法的作用:下载出错
 		 * 
-		 * @author yWX158243
 		 * @date 2014年1月22日
 		 * @param downloader
 		 *            下载线程信息
@@ -582,7 +569,6 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 		/**
 		 * 该方法的作用:下载停止
 		 * 
-		 * @author yWX158243
 		 * @date 2014年1月22日
 		 * @param downloader
 		 *            下载线程信息
@@ -594,7 +580,6 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 	 * 
 	 * 该方法的作用: 校验下载完成后的文件流MD5值是否和服务端下发的MD5值一致
 	 *           返回true, 表示下载文件与服务端文件一致；否则不一致
-	 * @author pWX197040
 	 * @date 2014年7月16日
 	 * @param serverCheckString
 	 * @param localCheckString
@@ -623,7 +608,6 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 	/**
 	 * 
 	 * 该方法的作用: 获取文件保存路径
-	 * @author pWX197040
 	 * @date 2014年8月23日
 	 * @param headers
 	 * @return
@@ -641,7 +625,6 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 	/**
 	 * 
 	 * 该方法的作用: 获取服务器返回文件名
-	 * @author pWX197040
 	 * @date 2014年8月23日
 	 * @param headers
 	 * @return

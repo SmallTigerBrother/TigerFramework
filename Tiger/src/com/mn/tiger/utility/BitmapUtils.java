@@ -45,7 +45,7 @@ public class BitmapUtils
 	private static int IMAGE_OFFSET = 6;
 
 	/**
-	 * WX191941 根据文件路径获取指定宽高的Bitmap
+	 * 根据文件路径获取指定宽高的Bitmap
 	 * 
 	 * @param filename
 	 * @param reqWidth
@@ -69,7 +69,7 @@ public class BitmapUtils
 	}
 
 	/**
-	 * WX191941 根据指定的安宽高计算取样率
+	 *  根据指定的安宽高计算取样率
 	 * 
 	 * @param options
 	 * @param reqWidth
@@ -122,7 +122,6 @@ public class BitmapUtils
 	/**
 	 * 该方法的作用:混合兩張圖片
 	 * 
-	 * @author zWX200279
 	 * @date 2014年3月24日
 	 * @param src
 	 * @param src1
@@ -174,7 +173,6 @@ public class BitmapUtils
 	/**
 	 * 该方法的作用:切割图片
 	 * 
-	 * @author zWX200279
 	 * @date 2014年3月24日
 	 * @param bitmap
 	 * @param xPiece
@@ -210,7 +208,6 @@ public class BitmapUtils
 	/**
 	 * 该方法的作用:将图片置灰
 	 * 
-	 * @author zWX200279
 	 * @date 2014年3月24日
 	 * @param img
 	 * @return
@@ -250,7 +247,6 @@ public class BitmapUtils
 	/**
 	 * 该方法的作用:缩小图片
 	 * 
-	 * @author zWX200279
 	 * @date 2014年3月24日
 	 * @param bgimage
 	 * @param newWidth
@@ -277,7 +273,6 @@ public class BitmapUtils
 	 * 
 	 * 该方法的作用:压缩图片质量
 	 * 
-	 * @author yWX158243
 	 * @date 2013-4-16
 	 * @param fromFile
 	 *            要压缩的图片路径
@@ -296,7 +291,6 @@ public class BitmapUtils
 	 * 
 	 * 该方法的作用:压缩图片质量
 	 * 
-	 * @author yWX158243
 	 * @date 2013-4-16
 	 * @param inputstream
 	 * @param toFile
@@ -313,7 +307,6 @@ public class BitmapUtils
 	 * 
 	 * 该方法的作用:压缩图片质量
 	 * 
-	 * @author yWX158243
 	 * @date 2013-4-16
 	 * @param bitmap
 	 * @param toFile
@@ -377,7 +370,6 @@ public class BitmapUtils
 	/**
 	 * 该方法的作用:设置圆角
 	 * 
-	 * @author zWX200279
 	 * @date 2014年3月25日
 	 * @param bitmap
 	 * @param roundPx
@@ -408,7 +400,6 @@ public class BitmapUtils
 	/**
 	 * 该方法的作用:快照截图
 	 * 
-	 * @author zWX200279
 	 * @date 2014年3月25日
 	 * @param v
 	 * @return
@@ -444,7 +435,6 @@ public class BitmapUtils
 	/**
 	 * 该方法的作用: 解析图片资源，最大缩放比例为32
 	 * 
-	 * @author l00220455
 	 * @date 2013-10-16
 	 * @param context
 	 * @param imageFile
@@ -458,7 +448,6 @@ public class BitmapUtils
 	/**
 	 * 该方法的作用: 解析图片资源
 	 * 
-	 * @author l00220455
 	 * @date 2013-10-16
 	 * @param context
 	 * @param imageFile
@@ -500,7 +489,6 @@ public class BitmapUtils
 	/**
 	 * 该方法的作用: 获取缩放的图片
 	 * 
-	 * @author l00220455
 	 * @date 2013-10-16
 	 * @param context
 	 * @param imageFile
@@ -541,7 +529,6 @@ public class BitmapUtils
 	/**
 	 * 该方法的作用:关闭流
 	 * 
-	 * @author zWX200279
 	 * @date 2014年3月24日
 	 * @param stream
 	 */
@@ -563,7 +550,6 @@ public class BitmapUtils
 	/**
 	 * 该方法的作用:九宫格图片合成
 	 * 
-	 * @author zWX200279
 	 * @date 2014年3月21日
 	 * @param bitmaps
 	 *            需要混合的图片集

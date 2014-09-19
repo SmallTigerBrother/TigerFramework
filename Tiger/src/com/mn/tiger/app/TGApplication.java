@@ -16,7 +16,6 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 该类作用及功能说明 应用App类
  * 
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2014年2月10日 Copyright Huawei Technologies Co., Ltd. 1998-2011. All
@@ -43,9 +42,6 @@ public class TGApplication extends Application implements IApplication
 		// 初始化配置项
 		initConfiguration(getApplicationContext());
 		
-		//校验配置项
-		AppConfiguration.getInstance().checkConfiguration(this.getApplicationContext());
-
 		// 启动crash日志捕获及上传监听
 		initCrashManager();
 	}
@@ -59,7 +55,6 @@ public class TGApplication extends Application implements IApplication
 	/**
 	 * 该方法的作用:初始化应用配置信息
 	 * 
-	 * @author yWX158243
 	 * @date 2014年1月3日
 	 * @param context
 	 */
@@ -81,7 +76,6 @@ public class TGApplication extends Application implements IApplication
 	 * 该方法的作用:初始化日志的配置信息(默认存放sdcard路径:MEAP/包名，根据配置文件判定是否打开打印
 	 * 生产环境，PROGRESS和ERROR的级别日志写入文件，但不写控制台；其他环境日志文件打印到控制台，也写入文件。)
 	 * 
-	 * @author yWX158243
 	 * @date 2014年3月14日
 	 * @param context
 	 */
@@ -94,7 +88,6 @@ public class TGApplication extends Application implements IApplication
 	/**
 	 * 该方法的作用:
 	 * 
-	 * @author l00220455
 	 * @date 2014年5月23日
 	 */
 	protected void initCrashManager()
@@ -105,7 +98,6 @@ public class TGApplication extends Application implements IApplication
 	/**
 	 * 该方法的作用:添加Activity
 	 * 
-	 * @author l00220455
 	 * @date 2013-12-3
 	 * @param activity
 	 */
@@ -118,7 +110,6 @@ public class TGApplication extends Application implements IApplication
 	/**
 	 * 该方法的作用: 删除Activity
 	 * 
-	 * @author l00220455
 	 * @date 2014年1月3日
 	 * @param activity
 	 */
@@ -142,7 +133,6 @@ public class TGApplication extends Application implements IApplication
 	/**
 	 * 该方法的作用: 销毁所有的Activity
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月4日
 	 */
 	@Override
@@ -164,7 +154,6 @@ public class TGApplication extends Application implements IApplication
 	/**
 	 * 该方法的作用: 连接到远程服务
 	 * 
-	 * @author l00220455
 	 * @date 2014年5月23日
 	 */
 	protected void connectedRemoteService(String action)

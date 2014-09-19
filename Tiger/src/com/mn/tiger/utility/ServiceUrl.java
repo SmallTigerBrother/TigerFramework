@@ -7,7 +7,6 @@ public class ServiceUrl
 	/**
 	 * 该方法的作用:获取代理服务地址
 	 * 
-	 * @author l00220455
 	 * @date 2013-11-21
 	 * @param context
 	 * @return

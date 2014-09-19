@@ -6,7 +6,6 @@ import android.content.Intent;
 /**
  * 该类作用及功能说明:邮件相关类
  * 
- * @author zWX200279
  * @date 2014年3月19日
  */
 public class EMailUtils
@@ -14,7 +13,6 @@ public class EMailUtils
 	/**
 	 * 该方法的作用:调用手机中email应用发送邮件
 	 * 
-	 * @author zWX200279
 	 * @date 2014年3月19日
 	 * @param context
 	 * @param receivers

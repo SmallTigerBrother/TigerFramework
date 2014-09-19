@@ -10,7 +10,6 @@ import java.util.Date;
  * 
  * 该类作用及功能说明:与日期相关的操作
  * 
- * @author zWX200279
  * @date 2014-2-11
  */
 public class DateUtils
@@ -23,7 +22,6 @@ public class DateUtils
 	/**
 	 * 该方法的作用:通过传入的format格式将日期转换为字符串
 	 * 
-	 * @author zWX200279
 	 * @date 2014-1-23
 	 * @param date
 	 * @param format
@@ -42,7 +40,6 @@ public class DateUtils
 
 	/**
 	 * 该方法的作用:通过传入的format格式 将日期转换为字符串
-	 * @author zWX200279
 	 * @date 2014-1-23
 	 * @param dateString
 	 * @param format
@@ -71,7 +68,6 @@ public class DateUtils
 	/**
 	 * 该方法的作用:使用compareTo方法比较日期大小
 	 * 
-	 * @author zWX200279
 	 * @date 2014-1-23
 	 * @param date1
 	 * @param date2
@@ -89,7 +85,6 @@ public class DateUtils
 	/**
 	 * 该方法的作用:该方法的作用:使用compareTo方法比较日期大小
 	 * 
-	 * @author zWX200279
 	 * @date 2014-1-23
 	 * @param string1
 	 * @param format1
@@ -119,7 +114,6 @@ public class DateUtils
 
 	/**
 	 * 该方法的作用:获取星期几
-	 * @author zWX200279
 	 * @date 2014-1-23
 	 * @param date
 	 * @return -1为获取失败 0为周日 1为周一 ....6为周六
@@ -142,7 +136,6 @@ public class DateUtils
 
 	/**
 	 * 该方法的作用:将传入的string和format得到Date对象，再获取星期几
-	 * @author zWX200279
 	 * @date 2014-1-23
 	 * @param dateString
 	 * @param format

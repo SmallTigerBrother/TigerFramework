@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
  * 该类作用及功能说明
  * 带缓存、优先级控制的线程池（根据提供的键值，缓存线程）
  * 
- * @author yWX158243
  * @date 2014年4月17日
  */
 public class TGPriorityThreadPool extends TGThreadPoolExecutor
@@ -70,7 +69,6 @@ public class TGPriorityThreadPool extends TGThreadPoolExecutor
 	/**
 	 * 该方法的作用:提交线程到线程池
 	 * 
-	 * @author yWX158243
 	 * @date 2014年4月17日
 	 * @param task
 	 * @param key
@@ -112,7 +110,6 @@ public class TGPriorityThreadPool extends TGThreadPoolExecutor
 	/**
 	 * 该方法的作用:获取线程
 	 * 
-	 * @author yWX158243
 	 * @date 2014年4月17日
 	 * @param key
 	 * @return
@@ -128,7 +125,6 @@ public class TGPriorityThreadPool extends TGThreadPoolExecutor
 	
 	/**
 	 * 该方法的作用:销毁线程池
-	 * @author yWX158243
 	 * @date 2014年4月21日
 	 */
 	public void destory(){

@@ -10,7 +10,6 @@ import android.util.Log;
 /**
  * 该类作用及功能说明 任务结果接收类
  * 
- * @author l00220455
  * @date 2014年3月18日
  */
 @SuppressLint("HandlerLeak")
@@ -50,7 +49,6 @@ public abstract class TGTaskResultHandler
 	
 	/**
 	 * 该方法的作用: 获取messenger
-	 * @author pWX197040
 	 * @date 2014年7月28日
 	 * @return
 	 */
@@ -62,7 +60,6 @@ public abstract class TGTaskResultHandler
 	/**
 	 * 
 	 * 该方法的作用: 处理任务结果
-	 * @author pWX197040
 	 * @date 2014年7月28日
 	 * @param result
 	 */

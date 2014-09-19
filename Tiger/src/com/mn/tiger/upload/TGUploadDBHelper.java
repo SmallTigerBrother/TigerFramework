@@ -16,7 +16,6 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 该类作用及功能说明:数据库操作类
  * 
- * @author yWX158243
  * @date 2014年6月5日
  */
 public class TGUploadDBHelper {
@@ -54,7 +53,6 @@ public class TGUploadDBHelper {
 	/**
 	 * 
 	 * 该方法的作用: 获取单例实例
-	 * @author pWX197040
 	 * @date 2014年8月29日
 	 * @param context
 	 * @return
@@ -70,7 +68,6 @@ public class TGUploadDBHelper {
 	
 	/**
 	 * 构造函数
-	 * @author pWX197040
 	 * @date 2014年8月29日
 	 * @param context
 	 */
@@ -83,7 +80,6 @@ public class TGUploadDBHelper {
 	 * 
 	 * 该方法的作用: 创建上传数据库
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月29日
 	 * @param context
 	 * @return
@@ -205,7 +201,6 @@ public class TGUploadDBHelper {
 	
 	/**
 	 * 该方法的作用:保存文件上传信息(有记录则更新记录)
-	 * @author yWX158243
 	 * @date 2014年1月8日
 	 * @param info
 	 * @throws DbException 
@@ -224,7 +219,6 @@ public class TGUploadDBHelper {
 	
 	/**
 	 * 该方法的作用:更新文件上传状态
-	 * @author yWX158243
 	 * @date 2014年1月6日
 	 * @param info
 	 * @throws DbException 
@@ -282,7 +276,6 @@ public class TGUploadDBHelper {
 	/**
 	 * 
 	 * 该方法的作用: 获取所有上传信息
-	 * @author pWX197040
 	 * @date 2014年8月29日
 	 * @return
 	 */

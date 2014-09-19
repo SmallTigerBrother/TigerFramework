@@ -17,7 +17,6 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 该类作用及功能说明:数据库操作类
  * 
- * @author yWX158243
  * @date 2014年6月5日
  */
 public class TGDownloadDBHelper {
@@ -218,7 +217,6 @@ public class TGDownloadDBHelper {
 	
 	/**
 	 * 该方法的作用:保存文件下载信息(有记录则更新记录)
-	 * @author yWX158243
 	 * @date 2014年1月8日
 	 * @param info
 	 * @throws DbException 
@@ -237,7 +235,6 @@ public class TGDownloadDBHelper {
 	
 	/**
 	 * 该方法的作用:更新文件下载状态
-	 * @author yWX158243
 	 * @date 2014年1月6日
 	 * @param info
 	 * @throws DbException 

@@ -15,7 +15,6 @@ import android.os.Parcelable;
 /**
  * 该类作用及功能说明 网络请求结果
  * 
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2014年2月10日 Copyright Huawei Technologies Co., Ltd. 1998-2011. All
@@ -24,13 +23,11 @@ import android.os.Parcelable;
 public class TGHttpResult extends HashMap<String, Object>  implements Parcelable
 {
 	/**
-	 * @author l00220455
 	 * @date 2014年4月16日
 	 */
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @author l00220455
 	 * @date 2013-12-1 构造函数
 	 */
 	public TGHttpResult()
@@ -50,7 +47,6 @@ public class TGHttpResult extends HashMap<String, Object>  implements Parcelable
 	/**
 	 * 该方法的作用: 设置ResponseCode
 	 * 
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @param responseCode
 	 */
@@ -62,7 +58,6 @@ public class TGHttpResult extends HashMap<String, Object>  implements Parcelable
 	/**
 	 * 该方法的作用: 获取ResponseCode
 	 * 
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @return
 	 */
@@ -74,7 +69,6 @@ public class TGHttpResult extends HashMap<String, Object>  implements Parcelable
 	/**
 	 * 该方法的作用: 设置请求头
 	 * 
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @param headers
 	 */
@@ -86,7 +80,6 @@ public class TGHttpResult extends HashMap<String, Object>  implements Parcelable
 	/**
 	 * 该方法的作用: 获取请求头
 	 * 
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @return
 	 */
@@ -99,7 +92,6 @@ public class TGHttpResult extends HashMap<String, Object>  implements Parcelable
 	/**
 	 * 该方法的作用: 设置请求结果
 	 * 
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @param result
 	 */
@@ -111,7 +103,6 @@ public class TGHttpResult extends HashMap<String, Object>  implements Parcelable
 	/**
 	 * 该方法的作用: 获取请求结果
 	 * 
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @return
 	 */
@@ -123,7 +114,6 @@ public class TGHttpResult extends HashMap<String, Object>  implements Parcelable
 	/**
 	 * 该方法的作用: 设置JSON类型的结果
 	 * 
-	 * @author l00220455
 	 * @date 2013-12-5
 	 * @param jsonObject
 	 */
@@ -135,7 +125,6 @@ public class TGHttpResult extends HashMap<String, Object>  implements Parcelable
 	/**
 	 * 该方法的作用: 获取JSON类型的结果
 	 * 
-	 * @author l00220455
 	 * @date 2013-12-5
 	 * @return
 	 */
@@ -147,7 +136,6 @@ public class TGHttpResult extends HashMap<String, Object>  implements Parcelable
 	/**
 	 * 该方法的作用: 将Headers转换为(String[])[]
 	 * 
-	 * @author l00220455
 	 * @date 2014年5月5日
 	 */
 	protected void changeHeaders2Array()
@@ -177,7 +165,6 @@ public class TGHttpResult extends HashMap<String, Object>  implements Parcelable
 	/**
 	 * 该方法的作用: 将Headers转换为Map
 	 * 
-	 * @author l00220455
 	 * @date 2014年5月5日
 	 */
 	protected void changeHeaders2Map()
@@ -203,7 +190,6 @@ public class TGHttpResult extends HashMap<String, Object>  implements Parcelable
 	/**
 	 * 该方法的作用: 设置序列化的结果
 	 * 
-	 * @author l00220455
 	 * @date 2014年5月5日
 	 * @param result
 	 */
@@ -215,7 +201,6 @@ public class TGHttpResult extends HashMap<String, Object>  implements Parcelable
 	/**
 	 * 该方法的作用: 读取序列化的结果
 	 * 
-	 * @author l00220455
 	 * @date 2014年5月5日
 	 * @return
 	 */

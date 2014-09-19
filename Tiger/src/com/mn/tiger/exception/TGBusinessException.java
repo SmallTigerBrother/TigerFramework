@@ -7,7 +7,6 @@ import java.io.PrintWriter;
  * 
  * 该类作用及功能说明: 应用业务异常
  * 
- * @author pWX197040
  * @date 2014年7月8日
  */
 public class TGBusinessException extends Exception
@@ -28,7 +27,6 @@ public class TGBusinessException extends Exception
 	/**
 	 * Instantiates a new Business exception.
 	 * 
-	 * @author pWX197040
 	 * @date 2014年7月8日
 	 * @param code
 	 */
@@ -41,7 +39,6 @@ public class TGBusinessException extends Exception
 	/**
 	 * Instantiates a new Business exception.
 	 * 
-	 * @author pWX197040
 	 * @date 2014年7月8日
 	 * @param ex
 	 */
@@ -53,7 +50,6 @@ public class TGBusinessException extends Exception
 	/**
 	 * Instantiates a new Business exception.
 	 * 
-	 * @author pWX197040
 	 * @date 2014年7月8日
 	 * @param code
 	 * @param error_message
@@ -71,7 +67,6 @@ public class TGBusinessException extends Exception
 	 * 
 	 * 该方法的作用: Gets the error_code.
 	 * 
-	 * @author pWX197040
 	 * @date 2014年7月8日
 	 * @return
 	 */

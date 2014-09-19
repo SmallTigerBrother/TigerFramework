@@ -18,7 +18,6 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 该类作用及功能说明 Get请求方法类
  * 
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2013-12-1 Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights
@@ -27,7 +26,6 @@ import com.mn.tiger.utility.LogTools;
 public class TGGetMethod extends TGHttpMethod
 {
 	/**
-	 * @author l00220455
 	 * @date 2013-12-1 构造函数
 	 * @param context
 	 * @param url
@@ -38,7 +36,6 @@ public class TGGetMethod extends TGHttpMethod
 	}
 
 	/**
-	 * @author l00220455
 	 * @date 2013-12-1 构造函数
 	 * @param context
 	 * @param url
@@ -120,7 +117,6 @@ public class TGGetMethod extends TGHttpMethod
 	/**
 	 * 该方法的作用: 拼装Get请求Url
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月24日
 	 * @param baseUrl
 	 * @param parameters
@@ -146,7 +142,6 @@ public class TGGetMethod extends TGHttpMethod
 	/**
 	 * 该方法的作用: 获去Get请求Url，将参数与Url进行拼装
 	 * 
-	 * @author l00220455
 	 * @date 2013-3-10
 	 * @param baseUrl
 	 *            基础Url
@@ -187,7 +182,6 @@ public class TGGetMethod extends TGHttpMethod
 	/**
 	 * 该方法的作用: 拼装Get请求Url
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月24日
 	 * @param baseUrl
 	 * @param parameters

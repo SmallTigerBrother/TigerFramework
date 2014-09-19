@@ -23,7 +23,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout {
 
 	/**
 	 * 该类作用及功能说明:用于滑动效果
-	 * @author nKF50342
 	 * @version V2.0
 	 * @see JDK1.6,android-8
 	 * @date 2012-6-19 Copyright Huawei Technologies Co., Ltd. 1998-2011. All
@@ -45,7 +44,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout {
 
 		/**
 		 * 
-		 * @author nKF50342
 		 * @date 2012-6-19 构造函数
 		 * @param handler
 		 * @param fromY
@@ -174,7 +172,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout {
 
 	/**
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-19 构造函数
 	 * @param context
 	 */
@@ -185,7 +182,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout {
 
 	/**
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-19 构造函数
 	 * @param context
 	 * @param mode
@@ -198,7 +194,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout {
 
 	/**
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-19 构造函数
 	 * @param context
 	 * @param attrs
@@ -440,7 +435,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout {
 	 * 
 	 * 该方法的作用:用于处理上拉下拉滑动事件
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-19
 	 * @param context
 	 * @param attrs
@@ -552,7 +546,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout {
 	 * 
 	 * 该方法的作用:用于分配所有滑动事件 在什么情况下调用:
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-19
 	 * @param context
 	 * @param attrs
@@ -774,7 +767,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout {
 	 * 
 	 * 该方法的作用:初始化各种值 在什么情况下调用:
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-19
 	 * @param context
 	 * @param attrs
@@ -1042,7 +1034,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout {
 	/**
 	 * Simple Listener to listen for any callbacks to Refresh.
 	 * 
-	 * @author Chris Banes
 	 */
 	public static interface OnRefreshListener {
 
@@ -1059,7 +1050,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout {
 	 * This listener is different as it allows you to differentiate between Pull
 	 * Ups, and Pull Downs.
 	 * 
-	 * @author Chris Banes
 	 */
 	public static interface OnRefreshListener2 {
 

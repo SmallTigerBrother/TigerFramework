@@ -22,7 +22,6 @@ import com.mn.tiger.utility.LogTools;
  * 
  * 该类作用及功能说明: 下载管理类
  * 
- * @author pWX197040
  * @date 2014年8月18日
  */
 public class TGDownloadManager
@@ -55,7 +54,6 @@ public class TGDownloadManager
 	/**
 	 * 构造方法
 	 * 
-	 * @author pWX197040
 	 * @date 2014年6月24日
 	 * @param context
 	 */
@@ -68,7 +66,6 @@ public class TGDownloadManager
 	 * 
 	 * 该方法的作用: 开始下载
 	 * 
-	 * @author pWX197040
 	 * @date 2014年6月20日
 	 * @param downloadParams
 	 */
@@ -81,7 +78,6 @@ public class TGDownloadManager
 	 * 
 	 * 该方法的作用: 取消下载
 	 * 
-	 * @author pWX197040
 	 * @date 2014年6月20日
 	 * @param taskId
 	 */
@@ -94,7 +90,6 @@ public class TGDownloadManager
 	 * 
 	 * 该方法的作用: 停止下载
 	 * 
-	 * @author pWX197040
 	 * @date 2014年6月20日
 	 * @param taskId
 	 */
@@ -107,7 +102,6 @@ public class TGDownloadManager
 	 * 
 	 * 该方法的作用: 启动传入类型所有下载任务
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月26日
 	 */
 	public void startAll(String type)
@@ -140,7 +134,6 @@ public class TGDownloadManager
 	 * 
 	 * 该方法的作用: 取消传入类型所有下载任务
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月26日
 	 */
 	public void cancelAll(String type)
@@ -160,7 +153,6 @@ public class TGDownloadManager
 	 * 
 	 * 该方法的作用: 停止传入类型所有下载任务
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月26日
 	 */
 	public void pauseAll(String type)
@@ -180,7 +172,6 @@ public class TGDownloadManager
 	 * 
 	 * 该方法的作用: 启动所有下载任务
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月26日
 	 */
 	public void startAll()
@@ -213,7 +204,6 @@ public class TGDownloadManager
 	 * 
 	 * 该方法的作用: 取消所有下载任务
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月26日
 	 */
 	public void cancelAll()
@@ -232,7 +222,6 @@ public class TGDownloadManager
 	 * 
 	 * 该方法的作用: 停止所有下载任务
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月26日
 	 */
 	public void pauseAll()
@@ -252,7 +241,6 @@ public class TGDownloadManager
 	 * 
 	 * 该方法的作用: 把下载任务添加到下载队列，返回任务id
 	 * 
-	 * @author pWX197040
 	 * @date 2014年6月18日
 	 * @param downloadParams
 	 * @return
@@ -299,7 +287,6 @@ public class TGDownloadManager
 	 * 
 	 * 该方法的作用: 根据下载参数从本地数据库中查询对应的downloader，查询策略由使用者自行决定。
 	 *              如果没有重复的下载任务，返回null
-	 * @author pWX197040
 	 * @date 2014年9月3日
 	 * @return
 	 */
@@ -311,7 +298,6 @@ public class TGDownloadManager
 	/**
 	 * 
 	 * 该方法的作用: 检测本地文件和本地下载记录是否一致
-	 * @author pWX197040
 	 * @date 2014年9月3日
 	 * @param downloader
 	 */
@@ -338,7 +324,6 @@ public class TGDownloadManager
 	 * 
 	 * 该方法的作用: 根据传入的key，注册数据观察者
 	 * 
-	 * @author pWX197040
 	 * @date 2014年3月31日
 	 * @param entityType
 	 * @param observer
@@ -352,7 +337,6 @@ public class TGDownloadManager
 	/**
 	 * 该方法的作用: 取消注册observer
 	 * 
-	 * @author pWX197040
 	 * @date 2014年3月31日
 	 * @param observer
 	 */
@@ -365,7 +349,6 @@ public class TGDownloadManager
 	 * 
 	 * 该方法的作用:获取文件下载信息
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月19日
 	 * @param urlstr
 	 * @param params
@@ -383,7 +366,6 @@ public class TGDownloadManager
 	 * 
 	 * 该方法的作用: 根据下载类型查询下载任务信息
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月24日
 	 * @param downloadType
 	 * @return
@@ -397,7 +379,6 @@ public class TGDownloadManager
 	 * 
 	 * 该方法的作用:根据docid获取文件下载信息（edm用）
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月19日
 	 * @param docId
 	 * @return
@@ -414,7 +395,6 @@ public class TGDownloadManager
 	 * 
 	 * 该方法的作用: 根据传入sql查询下载任务信息
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月24日
 	 * @param selector
 	 * @return
@@ -428,7 +408,6 @@ public class TGDownloadManager
 	 * 
 	 * 该方法的作用: 删除下载任务
 	 * 
-	 * @author pWX197040
 	 * @date 2014年8月24日
 	 * @param downloader
 	 * @return

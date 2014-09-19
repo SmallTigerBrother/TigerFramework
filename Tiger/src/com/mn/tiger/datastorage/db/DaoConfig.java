@@ -8,9 +8,6 @@ import com.mn.tiger.datastorage.db.upgrade.AbsDbUpgrade;
 /**
  * 数据库配置类
  * 用于配置数据库名称、版本信息、升级策略等
- * 
- * 
- * @author pWX197040
  * @since 2014年2月18日
  */
 public class DaoConfig {

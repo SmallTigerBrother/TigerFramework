@@ -6,7 +6,6 @@ import com.mn.tiger.request.receiver.TGHttpResult;
 /**
  * 该类作用及功能说明
  * Get请求任务类
- * @author l00220455
  * @date 2014年3月18日
  */
 public class TGGetTask extends TGHttpTask

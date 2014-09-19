@@ -2,20 +2,19 @@ package com.mn.tiger.widget.pulltorefresh.pullinterface;
 
 import android.content.Context;
 
-import com.mn.tiger.widget.pulltorefresh.MPPullToRefreshListView;
+import com.mn.tiger.widget.pulltorefresh.TGPullToRefreshListView;
 
 /**
  * 该类作用及功能说明
  * 首页刷新控制器
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2014年2月10日
  * Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights reserved.
  */
-public class FirstPageRefreshController extends MPPullToRefreshController
+public class FirstPageRefreshController extends TGPullToRefreshController
 {
-	public FirstPageRefreshController(Context context, MPPullToRefreshListView<?> listView)
+	public FirstPageRefreshController(Context context, TGPullToRefreshListView<?> listView)
 	{
 		super(context, listView);
 	}

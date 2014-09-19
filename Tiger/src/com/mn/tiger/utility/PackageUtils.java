@@ -14,7 +14,6 @@ import android.net.Uri;
  * 
  * 该类作用及功能说明:对包的操作，安装卸载等
  * 
- * @author zWX200279
  * @date 2014-2-11
  */
 public class PackageUtils
@@ -27,7 +26,6 @@ public class PackageUtils
 	/**
 	 * 该方法的作用:安装apk应用
 	 * 
-	 * @author yWX158243
 	 * @date 2013-3-1
 	 * @param context
 	 * @param apkFile
@@ -77,7 +75,6 @@ public class PackageUtils
 	/**
 	 * 该方法的作用:安装apk应用
 	 * 
-	 * @author yWX158243
 	 * @date 2013-3-1
 	 * @param context
 	 * @param filePath
@@ -92,7 +89,6 @@ public class PackageUtils
 	/**
 	 * 该方法的作用:卸载apk文件
 	 * 
-	 * @author yWX158243
 	 * @date 2013-3-1
 	 * @param context
 	 * @param packageUri
@@ -106,7 +102,6 @@ public class PackageUtils
 	/**
 	 * 该方法的作用：根据包名对应已安装的应用对象
 	 * 
-	 * @author yWX158243
 	 * @date 2013-3-1
 	 * @param context
 	 * @param packageName
@@ -133,7 +128,6 @@ public class PackageUtils
 	/**
 	 * 该方法的作用: 通过报名获取包信息
 	 * 
-	 * @author l00220455
 	 * @date 2013-12-3
 	 * @param context
 	 * @param packageName
@@ -160,7 +154,6 @@ public class PackageUtils
 	/**
 	 * 该方法的作用:判断apk包是否安装
 	 * 
-	 * @author l00220455
 	 * @date 2013-3-10
 	 * @param context
 	 * @param packageName

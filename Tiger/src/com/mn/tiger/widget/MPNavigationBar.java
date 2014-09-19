@@ -15,7 +15,6 @@ import android.widget.TextView;
 /**
  * 该类作用及功能说明
  * 顶部导航条
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2013-8-30
@@ -93,7 +92,6 @@ public class MPNavigationBar extends RelativeLayout
 	/**
 	 * 该方法的作用:
 	 * 初始化试图
-	 * @author l00220455
 	 * @date 2013-8-30
 	 */
 	protected void setupViews()
@@ -134,7 +132,6 @@ public class MPNavigationBar extends RelativeLayout
 	/**
 	 * 该方法的作用:
 	 * 获取左导航Layout
-	 * @author l00220455
 	 * @date 2013-8-30
 	 * @return
 	 */
@@ -152,7 +149,6 @@ public class MPNavigationBar extends RelativeLayout
 	/**
 	 * 该方法的作用:
 	 * 获取右导航Layout
-	 * @author l00220455
 	 * @date 2013-8-30
 	 * @return
 	 */
@@ -170,7 +166,6 @@ public class MPNavigationBar extends RelativeLayout
 	/**
 	 * 该方法的作用:
 	 * 获取中间导航Layout
-	 * @author l00220455
 	 * @date 2013-8-30
 	 * @return
 	 */
@@ -189,7 +184,6 @@ public class MPNavigationBar extends RelativeLayout
 	/**
 	 * 该方法的作用:
 	 * 获取左导航按钮
-	 * @author l00220455
 	 * @date 2013-8-30
 	 * @return
 	 */
@@ -209,7 +203,6 @@ public class MPNavigationBar extends RelativeLayout
 	/**
 	 * 该方法的作用:
 	 * 设置左侧导航按钮
-	 * @author l00220455
 	 * @date 2014年3月23日
 	 * @param leftNaviButton
 	 */
@@ -223,7 +216,6 @@ public class MPNavigationBar extends RelativeLayout
 	/**
 	 * 该方法的作用:
 	 * 获取右导航按钮
-	 * @author l00220455
 	 * @date 2013-8-30
 	 * @return
 	 */
@@ -243,7 +235,6 @@ public class MPNavigationBar extends RelativeLayout
 	/**
 	 * 该方法的作用:
 	 * 设置右侧导航按钮
-	 * @author l00220455
 	 * @date 2014年3月23日
 	 * @param rightNaviButton
 	 */
@@ -257,7 +248,6 @@ public class MPNavigationBar extends RelativeLayout
 	/**
 	 * 该方法的作用:
 	 * 获取中间标题TextView
-	 * @author l00220455
 	 * @date 2013-8-30
 	 * @return
 	 */
@@ -278,7 +268,6 @@ public class MPNavigationBar extends RelativeLayout
 	/**
 	 * 该方法的作用:
 	 * 设置标题文本
-	 * @author l00220455
 	 * @date 2013-8-30
 	 * @param text
 	 * @return
@@ -299,7 +288,6 @@ public class MPNavigationBar extends RelativeLayout
 	/**
 	 * 该方法的作用:
 	 * 设置中间标题文本
-	 * @author l00220455
 	 * @date 2013-8-30
 	 * @param text
 	 * @param options 文本显示参数
@@ -320,7 +308,6 @@ public class MPNavigationBar extends RelativeLayout
 	/**
 	 * 该方法的作用:
 	 * 设置左导航按钮是否可用
-	 * @author l00220455
 	 * @date 2013-8-30
 	 * @param enabled
 	 */
@@ -332,7 +319,6 @@ public class MPNavigationBar extends RelativeLayout
 	/**
 	 * 该方法的作用:
 	 * 设置右导航按钮是否可用
-	 * @author l00220455
 	 * @date 2013-8-30
 	 * @param enabled
 	 */
@@ -344,7 +330,6 @@ public class MPNavigationBar extends RelativeLayout
 	/**
 	 * 该方法的作用:
 	 * dip转换为px
-	 * @author l00220455
 	 * @date 2013-8-30
 	 * @param context
 	 * @param dipValue
@@ -358,7 +343,6 @@ public class MPNavigationBar extends RelativeLayout
 	
 	/**
 	 * 该方法的作用:检查string是否有国际化
-	 * @author l00220455
 	 * @date 2013-2-27
 	 * @param string
 	 * @return 若有对应的国际化字符串，则返回国际化的字符串；若没有，返回原字符串
@@ -380,5 +364,4 @@ public class MPNavigationBar extends RelativeLayout
 		}
 		return result;
 	}
-	
 }

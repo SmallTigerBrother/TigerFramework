@@ -50,7 +50,6 @@ public class LogTools
 	/**
 	 * 该方法的作用:设置应用日志文件所在的目录名称
 	 * 
-	 * @author yWX158243
 	 * @date 2014年1月2日
 	 * @param dirName
 	 */
@@ -63,7 +62,6 @@ public class LogTools
 	 * 该方法的作用:根据配置文件判定是否打开打印
 	 * 生产环境，PROGRESS和ERROR的级别日志写入文件，但不写控制台；其他环境日志文件打印到控制台，也写入文件。
 	 * 
-	 * @author yWX158243
 	 * @param context
 	 * @date 2013-6-4
 	 */
@@ -132,7 +130,6 @@ public class LogTools
 	/**
 	 * 该方法的作用:获取打印级别
 	 * 
-	 * @author yWX158243
 	 * @date 2014年3月14日
 	 * @return
 	 */
@@ -144,7 +141,6 @@ public class LogTools
 	/**
 	 * 该方法的作用:设置debug日期级别
 	 * 
-	 * @author yWX158243
 	 * @date 2014年3月14日
 	 * @param pDebugLevel
 	 *            级别顺序:NONE, ERROR, PROCESS, WARNING, INFO, DEBUG, VERBOSE
@@ -178,7 +174,6 @@ public class LogTools
 	 * 
 	 * 该方法的作用:v级别og日志 参数: 返回值: 异常: 在什么情况下调用:
 	 * 
-	 * @author lkf65210
 	 * @date 2012-6-18
 	 * @param pTag
 	 * @param pMessage
@@ -230,7 +225,6 @@ public class LogTools
 	 * 
 	 * 该方法的作用:d级别og日志 参数: 返回值: 异常: 在什么情况下调用:
 	 * 
-	 * @author lkf65210
 	 * @date 2012-6-18
 	 * @param pTag
 	 * @param pMessage
@@ -281,7 +275,6 @@ public class LogTools
 	 * 
 	 * 该方法的作用:i级别og日志 参数: 返回值: 异常: 在什么情况下调用:
 	 * 
-	 * @author lkf65210
 	 * @date 2012-6-18
 	 * @param pTag
 	 * @param pMessage
@@ -337,7 +330,6 @@ public class LogTools
 	 * 
 	 * 该方法的作用:w级别og日志 参数: 返回值: 异常: 在什么情况下调用:
 	 * 
-	 * @author lkf65210
 	 * @date 2012-6-18
 	 * @param pTag
 	 * @param pMessage
@@ -393,7 +385,6 @@ public class LogTools
 	 * 
 	 * 该方法的作用:e级别og日志 参数: 返回值: 异常: 在什么情况下调用:
 	 * 
-	 * @author lkf65210
 	 * @date 2012-6-18
 	 * @param pTag
 	 * @param pMessage
@@ -449,7 +440,6 @@ public class LogTools
 	 * 
 	 * 该方法的作用:p级别log,用于打印业务流程中的重要过程日志
 	 * 
-	 * @author lkf65210
 	 * @date 2012-6-18
 	 * @param pTag
 	 * @param pMessage
@@ -574,7 +564,6 @@ public class LogTools
 	/**
 	 * 该方法的作用:删除过时的日志文件
 	 * 
-	 * @author yWX158243
 	 * @date 2013-8-7
 	 */
 	private static void deleteOutDateLog()
@@ -617,7 +606,6 @@ public class LogTools
 	/**
 	 * 该方法的作用:
 	 * 
-	 * @author yWX158243
 	 * @date 2013-8-7
 	 * @return
 	 */
@@ -638,7 +626,6 @@ public class LogTools
 	/**
 	 * 该方法的作用:删除所有日志文件
 	 * 
-	 * @author yWX158243
 	 * @date 2013-8-6
 	 */
 	public static void deleteAllLogFile()
@@ -654,7 +641,6 @@ public class LogTools
 	 * 
 	 * 该类作用及功能说明:该类作用及功能说明---log级别枚举类
 	 * 
-	 * @author yWX158243
 	 * @date 2013-8-14
 	 */
 	public static enum DebugLevel implements Comparable<DebugLevel>

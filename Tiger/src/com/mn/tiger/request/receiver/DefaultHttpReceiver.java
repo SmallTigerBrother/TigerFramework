@@ -20,7 +20,6 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 该类作用及功能说明 简单网络请求结果处理类，实现MPHttpReceiver
  * 
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2013-12-1 Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights
@@ -39,7 +38,6 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 	private IHttpErrorHandler httpErrorHandler;
 
 	/**
-	 * @author l00220455
 	 * @date 2013-12-1 构造函数
 	 * @param context
 	 * @param httpErrorHandler
@@ -75,7 +73,6 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 	
 	/**
 	 * 该方法的作用: 读取网络请求输入流
-	 * @author l00220455
 	 * @date 2014年4月25日
 	 * @param httpMethod
 	 * @param httpResult
@@ -147,7 +144,6 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 	/**
 	 * 该方法的作用: 解密请求结果
 	 * 
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @param httpResult
 	 * @param httpMethod
@@ -163,7 +159,6 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 	/**
 	 * 该方法的作用: 将String结果解析为JSON数据
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月13日
 	 * @param httpResult
 	 * @return
@@ -187,7 +182,6 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 	/**
 	 * 该方法的作用: 处理网络异常
 	 * 
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @param httpResult
 	 * @return 出现异常时，返回值为null，无异常正常返回
@@ -207,7 +201,6 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 	/**
 	 * 该方法的作用: 捕获Http错误
 	 * 
-	 * @author l00220455
 	 * @date 2014年4月18日
 	 * @param httpResult
 	 * @return 出现异常时返回true，异常交由httpErrorHandler处理，无异常返回false，
@@ -226,7 +219,6 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 	/**
 	 * 该方法的作用: 设置网络请求异常处理接口
 	 * 
-	 * @author l00220455
 	 * @date 2014年1月15日
 	 * @param httpErrorHandler
 	 */
@@ -238,7 +230,6 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 	/**
 	 * 该方法的作用: 获取网络请求异常处理接口
 	 * 
-	 * @author l00220455
 	 * @date 2014年1月15日
 	 * @return
 	 */

@@ -62,7 +62,6 @@ public class TGDownloadStrategy implements IDownloadStrategy
 
 	/**
 	 * 构造函数
-	 * @author pWX197040
 	 * @date 2014年8月5日
 	 * @param context
 	 * @param downloadTask
@@ -91,7 +90,6 @@ public class TGDownloadStrategy implements IDownloadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 获取下载信息
-	 * @author pWX197040
 	 * @date 2014年8月18日
 	 * @param downloadParams
 	 * @return
@@ -122,7 +120,6 @@ public class TGDownloadStrategy implements IDownloadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 请求下载
-	 * @author pWX197040
 	 * @date 2014年8月5日
 	 * @param context
 	 * @param downloader
@@ -155,7 +152,6 @@ public class TGDownloadStrategy implements IDownloadStrategy
 
 	/**
 	 * 该方法的作用:获取请求方法类
-	 * @author yWX158243
 	 * @date 2014年1月23日
 	 * @param TGDownloader
 	 * @return
@@ -178,7 +174,6 @@ public class TGDownloadStrategy implements IDownloadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 获取上下文信息
-	 * @author pWX197040
 	 * @date 2014年7月31日
 	 * @return
 	 */
@@ -190,7 +185,6 @@ public class TGDownloadStrategy implements IDownloadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 下载过程中
-	 * @author pWX197040
 	 * @date 2014年8月19日
 	 * @param downloader
 	 */
@@ -218,7 +212,6 @@ public class TGDownloadStrategy implements IDownloadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 下载文件完成，删除数据库记录
-	 * @author pWX197040
 	 * @date 2014年8月19日
 	 * @param downloader
 	 */
@@ -242,7 +235,6 @@ public class TGDownloadStrategy implements IDownloadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 下载文件过程中出现异常，如果不是断点下载，删除本地文件
-	 * @author pWX197040
 	 * @date 2014年8月19日
 	 * @param downloader
 	 */
@@ -274,7 +266,6 @@ public class TGDownloadStrategy implements IDownloadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 下载文件出错，直接删除本地文件和数据库记录
-	 * @author pWX197040
 	 * @date 2014年8月19日
 	 * @param downloader
 	 */
@@ -299,7 +290,6 @@ public class TGDownloadStrategy implements IDownloadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 停止下载，如果不是断点下载，删除本地文件
-	 * @author pWX197040
 	 * @date 2014年8月19日
 	 * @param downloader
 	 */
@@ -331,7 +321,6 @@ public class TGDownloadStrategy implements IDownloadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 取消下载，直接删除本地文件和数据库记录
-	 * @author pWX197040
 	 * @date 2014年8月19日
 	 * @param downloader
 	 */
@@ -425,7 +414,6 @@ public class TGDownloadStrategy implements IDownloadStrategy
 	 * 该方法的作用: 校验下载完成后的文件流校验值是否和服务端下发的校验值一致
 	 *           返回true, 表示下载文件与服务端文件一致；否则不一致
 	 *           默认为MD5校验
-	 * @author pWX197040
 	 * @date 2014年7月16日
 	 * @param fileUrl
 	 * @param serverCheckString
@@ -471,7 +459,6 @@ public class TGDownloadStrategy implements IDownloadStrategy
 	/**
 	 * 
 	 * 该方法的作用: 获取本地文件加密字符串: 默认为MD5加密
-	 * @author pWX197040
 	 * @date 2014年8月23日
 	 * @param filePath
 	 * @return

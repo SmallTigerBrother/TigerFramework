@@ -7,7 +7,6 @@ import android.provider.ContactsContract;
 /**
  * 该类作用及功能说明:通讯录联系人相关
  * 
- * @author zWX200279
  * @date 2014年3月19日
  */
 public class ContactUtils
@@ -15,7 +14,6 @@ public class ContactUtils
 	/**
 	 * 该方法的作用:新建联系人
 	 * 
-	 * @author zWX200279
 	 * @date 2014年3月19日
 	 * @param context
 	 * @param name

@@ -4,7 +4,6 @@ package com.mn.tiger.system;
  * 
  * 该类作用及功能说明:版本信息
  * 
- * @author pWX197040
  * @date 2014年4月26日
  */
 public class Tiger
@@ -18,7 +17,6 @@ public class Tiger
 	 * 
 	 * 该类作用及功能说明:版本代号
 	 * 
-	 * @author pWX197040
 	 * @date 2014年4月26日
 	 */
 	public static enum VERSION_CODES

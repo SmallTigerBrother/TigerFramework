@@ -55,7 +55,6 @@ public class MPImageButton extends LinearLayout
 	 * 
 	 * 该方法的作用:获取内容视图
 	 * 
-	 * @author yWX158243
 	 * @date 2013-4-11
 	 * @param type
 	 *            根据指定的类型，获取对应类型的视图
@@ -166,10 +165,8 @@ public class MPImageButton extends LinearLayout
 	}
 
 	/**
-	 * 
 	 * 该方法的作用:设置文本大小 注意：设置px的值即可，此方法转换成sp值再设置
 	 * 
-	 * @author yWX158243
 	 * @date 2013-4-12
 	 * @param size
 	 */
@@ -191,7 +188,6 @@ public class MPImageButton extends LinearLayout
 
 	/**
 	 * 该方法的作用:设置内容视图与MPImageButton的间距
-	 * @author yWX158243
 	 * @date 2013-4-12
 	 * @param left
 	 * @param top
@@ -213,7 +209,6 @@ public class MPImageButton extends LinearLayout
 
 	/**
 	 * 该方法的作用:
-	 * @author yWX158243
 	 * @date 2013-8-13
 	 */
 	private void initBadgeView()
@@ -228,7 +223,6 @@ public class MPImageButton extends LinearLayout
 
 	/**
 	 * 该方法的作用:设置徽章图片背景资源
-	 * @author yWX158243
 	 * @date 2013-8-13
 	 * @param resid
 	 */
@@ -244,7 +238,6 @@ public class MPImageButton extends LinearLayout
 	/**
 	 * 该方法的作用:设置徽章视图背景图片
 	 * 
-	 * @author yWX158243
 	 * @date 2013-8-13
 	 * @param drawable
 	 */
@@ -260,7 +253,6 @@ public class MPImageButton extends LinearLayout
 	/**
 	 * 该方法的作用:设置徽章视图背景颜色
 	 * 
-	 * @author yWX158243
 	 * @date 2013-8-13
 	 * @param drawable
 	 */
@@ -276,7 +268,6 @@ public class MPImageButton extends LinearLayout
 	/**
 	 * 该方法的作用:
 	 * 
-	 * @author yWX158243
 	 * @date 2013-8-13
 	 * @param drawable
 	 */
@@ -292,7 +283,6 @@ public class MPImageButton extends LinearLayout
 	/**
 	 * 该方法的作用:
 	 * 
-	 * @author yWX158243
 	 * @date 2013-8-13
 	 * @param resId
 	 */
@@ -308,7 +298,6 @@ public class MPImageButton extends LinearLayout
 	/**
 	 * 该方法的作用:
 	 * 
-	 * @author yWX158243
 	 * @date 2013-8-13
 	 * @param bm
 	 */
@@ -324,7 +313,6 @@ public class MPImageButton extends LinearLayout
 	/**
 	 * 该方法的作用:设置徽章视图文本
 	 * 
-	 * @author yWX158243
 	 * @date 2013-8-13
 	 * @param text
 	 */
@@ -340,7 +328,6 @@ public class MPImageButton extends LinearLayout
 	/**
 	 * 该方法的作用:设置徽标文本颜色
 	 * 
-	 * @author yWX158243
 	 * @date 2013-8-13
 	 * @param color
 	 */
@@ -356,7 +343,6 @@ public class MPImageButton extends LinearLayout
 	/**
 	 * 该方法的作用:
 	 * 
-	 * @author yWX158243
 	 * @date 2013-8-13
 	 * @param size
 	 */
@@ -372,7 +358,6 @@ public class MPImageButton extends LinearLayout
 	/**
 	 * 该方法的作用:设置显示位置
 	 * 
-	 * @author yWX158243
 	 * @date 2013-8-13
 	 * @param layoutPosition
 	 */
@@ -388,7 +373,6 @@ public class MPImageButton extends LinearLayout
 	/**
 	 * 该方法的作用:设置徽章的margin值
 	 * 
-	 * @author yWX158243
 	 * @date 2013-8-13
 	 * @param badgeMargin
 	 */
@@ -404,7 +388,6 @@ public class MPImageButton extends LinearLayout
 	/**
 	 * 该方法的作用:设置padding值
 	 * 
-	 * @author yWX158243
 	 * @date 2013-8-13
 	 * @param left
 	 * @param top
@@ -432,7 +415,6 @@ public class MPImageButton extends LinearLayout
 	/**
 	 * 该方法的作用:获取内容视图(文本内容或者图片内容)
 	 * 
-	 * @author yWX158243
 	 * @date 2013-4-12
 	 * @return
 	 */

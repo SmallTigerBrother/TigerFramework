@@ -28,7 +28,6 @@ import android.net.NetworkInfo;
 /**
  * 该类作用及功能说明
  * Http请求方法类，封装请求初始化，请求连接、请求中断的方法
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2013-12-1
@@ -94,7 +93,6 @@ public abstract class TGHttpMethod
 	private Context context;
 	
 	/**
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * 构造函数
 	 * @param context
@@ -110,7 +108,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 该方法的作用:
 	 * 设置请求Url
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @param url
 	 */
@@ -122,7 +119,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 该方法的作用:
 	 * 获取请求Url
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @return
 	 */
@@ -134,7 +130,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 该方法的作用:
 	 * 获取网络连接
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @return
 	 */
@@ -151,7 +146,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 该方法的作用:
 	 * 获取Context
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @return
 	 */
@@ -163,7 +157,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 该方法的作用:
 	 * 设置请求参数
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @param params
 	 */
@@ -175,7 +168,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 该方法的作用:
 	 * 设置请求参数
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @return
 	 */
@@ -187,7 +179,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 
 	 * 该方法的作用:设置Connection请求的属性
-	 * @author zWX215434
 	 * @date 2014年4月23日
 	 * @param key
 	 * @param value
@@ -200,7 +191,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 
 	 * 该方法的作用: 批量设置请求参数
-	 * @author pWX197040
 	 * @date 2014年5月23日
 	 * @param properties
 	 */
@@ -212,7 +202,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 该方法的作用:
 	 * 中断连接
-	 * @author l00220455
 	 * @date 2013-12-1
 	 */
 	public abstract void disconnect();
@@ -220,7 +209,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 该方法的作用:
 	 * 获取输入流
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @return
 	 * @throws IOException
@@ -238,7 +226,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 该方法的作用:
 	 * 执行网络连接
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @return
 	 * @throws IOException
@@ -256,7 +243,6 @@ public abstract class TGHttpMethod
 	 * 初始化网络连接类,共两个步骤
 	 * 1、打开网络连接，openHttpUrlConnection(String url)
 	 * 2、设置网络连接参数，setHttpURLConnectionParams(HttpURLConnection httpConnection)
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @param url
 	 * @return
@@ -278,7 +264,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 
 	 * 该方法的作用: 设置Connection请求的属性
-	 * @author zWX215434
 	 * @date 2014年4月23日
 	 */
 	private void setProperties()
@@ -298,7 +283,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 该方法的作用:
 	 * 打开网络连接
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @param url
 	 * @return
@@ -351,7 +335,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 该方法的作用:
 	 * 获取请求UrlConnection
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @param requestUrl
 	 * @param javaProxy
@@ -380,7 +363,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 该方法的作用:
 	 * 设置网络连接参数
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @param httpConnection
 	 * @throws ProtocolException
@@ -405,7 +387,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 该方法的作用:
 	 * 获取请求头的属性key
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @param posn
 	 * @return
@@ -422,7 +403,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 该方法的作用:
 	 * 获取请求头的属性
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @param pos
 	 * @return
@@ -439,7 +419,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 该方法的作用:
 	 * 获取请求头信息
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @return
 	 */
@@ -455,7 +434,6 @@ public abstract class TGHttpMethod
 	/**
 	 * 该方法的作用:
 	 * 信任所有主机-对于任何证书都不做检查
-	 * @author l00220455
 	 * @throws NoSuchAlgorithmException 
 	 * @throws KeyManagementException 
 	 * @date 2014年2月10日

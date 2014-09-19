@@ -21,7 +21,6 @@ import com.mn.tiger.widget.MPNavigationBar;
 /**
  * 该类作用及功能说明 Activity基类，重载导航条方法
  * 
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2013-11-8 Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights
@@ -120,7 +119,6 @@ public class TGActivity extends Activity
 	/**
 	 * 该方法的作用: 初始化导航条资源
 	 * 
-	 * @author l00220455
 	 * @date 2013-11-8
 	 * @param navigationBar
 	 */
@@ -149,7 +147,6 @@ public class TGActivity extends Activity
 	/**
 	 * 该方法的作用:
 	 * 登陆成功后回调方法
-	 * @author l00220455
 	 * @date 2014年1月3日
 	 */
 	public void loginSucceed()
@@ -159,7 +156,6 @@ public class TGActivity extends Activity
 
 	/**
 	 * 该方法的作用:导航条是否显示
-	 * @author yWX158243
 	 * @date 2013-10-10
 	 * @return
 	 */
@@ -171,7 +167,6 @@ public class TGActivity extends Activity
 	/**
 	 * 该方法的作用:
 	 * 初始化Http请求异常处理接口
-	 * @author l00220455
 	 * @date 2014年2月11日
 	 * @return
 	 */
@@ -183,7 +178,6 @@ public class TGActivity extends Activity
 	/**
 	 * 该方法的作用:
 	 * 获取Http请求异常处理接口
-	 * @author l00220455
 	 * @date 2014年2月11日
 	 * @return
 	 */
@@ -226,7 +220,6 @@ public class TGActivity extends Activity
 	/**
 	 * 该方法的作用: 获取导航条
 	 * 
-	 * @author l00220455
 	 * @date 2013-11-8
 	 * @return
 	 */

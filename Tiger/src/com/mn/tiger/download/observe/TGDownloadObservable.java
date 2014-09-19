@@ -10,7 +10,6 @@ import com.mn.tiger.utility.LogTools;
  * 
  * 该类作用及功能说明：用一个key的观察者，（取消）注册观察者到arraylist
  * 
- * @author pWX197040
  * @date 2014年3月31日
  */
 public class TGDownloadObservable extends Observable<TGDownloadObserver>
@@ -51,7 +50,6 @@ public class TGDownloadObservable extends Observable<TGDownloadObserver>
 	 * 
 	 * 该方法的作用: 通知观察者
 	 * 
-	 * @author pWX197040
 	 * @date 2014年3月31日
 	 */
 	public void notifyChange(Object result)
@@ -122,7 +120,6 @@ public class TGDownloadObservable extends Observable<TGDownloadObserver>
 	 * 
 	 * 该方法的作用: 判断该observer是否已经注册过，已经注册返回true，否则返回false
 	 * 
-	 * @author pWX197040
 	 * @date 2014年3月31日
 	 * @param observer
 	 * @return
@@ -150,7 +147,6 @@ public class TGDownloadObservable extends Observable<TGDownloadObserver>
 	 * 该类作用及功能说明:
 	 * 观察者集合是否被清空监听，当mObservers被清空时，回调onObserverClear方法，把该集合从观察者控制类中移除
 	 * 
-	 * @author pWX197040
 	 * @date 2014年3月31日
 	 */
 	public interface OnObserverChangeListener
@@ -160,7 +156,6 @@ public class TGDownloadObservable extends Observable<TGDownloadObserver>
 		 * 
 		 * 该方法的作用: 清空观察者集合回调方法.
 		 * 
-		 * @author pWX197040
 		 * @date 2014年3月31日
 		 * @param uri
 		 *            观察者对应key
@@ -172,7 +167,6 @@ public class TGDownloadObservable extends Observable<TGDownloadObserver>
 	 * 
 	 * 该方法的作用: 设置观察者变化监听
 	 * 
-	 * @author pWX197040
 	 * @date 2014年3月31日
 	 * @param l
 	 */

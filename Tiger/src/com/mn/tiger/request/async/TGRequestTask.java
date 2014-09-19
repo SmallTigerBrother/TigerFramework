@@ -22,7 +22,6 @@ import com.mn.tiger.utility.StringUtils;
  * 请求数据后可将数据解析成Class<T>类型的类<br />
  * 增加当出现errorinfo异常时的回调
  * 
- * @author lWX216769
  * @date 2014-6-9
  */
 public class TGRequestTask implements IRequestParser
@@ -48,7 +47,6 @@ public class TGRequestTask implements IRequestParser
 	/**
 	 * 该方法的作用:
 	 * 执行任务
-	 * @author l00220455
 	 * @date 2014年8月23日
 	 * @param params
 	 */
@@ -78,7 +76,6 @@ public class TGRequestTask implements IRequestParser
 	/**
 	 * 该方法的作用:
 	 * 设置message的What值
-	 * @author l00220455
 	 * @date 2013年12月8日
 	 * @param messageWhat
 	 */
@@ -89,7 +86,6 @@ public class TGRequestTask implements IRequestParser
 	
 	/**
 	 * 该方法的作用: 批量设置请求参数
-	 * @author pWX197040
 	 * @date 2014年5月23日
 	 * @param properties
 	 */
@@ -117,7 +113,6 @@ public class TGRequestTask implements IRequestParser
 	/**
 	 * 请求结果的回调
 	 * 
-	 * @author lWX216769
 	 * @date 2014-6-10
 	 */
 	public static interface RequestListener
@@ -128,7 +123,6 @@ public class TGRequestTask implements IRequestParser
 	/**
 	 * 任务异常的时候的回调
 	 * 
-	 * @author lWX216769
 	 * @date 2014-6-10
 	 */
 	public static interface OnTaskCancelListener

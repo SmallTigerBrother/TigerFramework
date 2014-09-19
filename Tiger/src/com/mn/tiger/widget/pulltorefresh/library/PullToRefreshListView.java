@@ -20,7 +20,6 @@ import com.mn.tiger.widget.pulltorefresh.library.internal.OriginalLoadingLayout;
  * 
  * 该类作用及功能说明:listview的封装
  * 
- * @author nKF50342
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2012-6-19 Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights
@@ -40,7 +39,6 @@ public class PullToRefreshListView extends
 	 * 
 	 * 该类作用及功能说明:listview为空时显示的view
 	 * 
-	 * @author nKF50342
 	 * @version V2.0
 	 * @see JDK1.6,android-8
 	 * @date 2012-6-19 Copyright Huawei Technologies Co., Ltd. 1998-2011. All
@@ -80,7 +78,6 @@ public class PullToRefreshListView extends
 
 	/**
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-19 构造函数
 	 * @param context
 	 */
@@ -91,7 +88,6 @@ public class PullToRefreshListView extends
 
 	/**
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-19 构造函数
 	 * @param context
 	 * @param mode
@@ -103,7 +99,6 @@ public class PullToRefreshListView extends
 
 	/**
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-19 构造函数
 	 * @param context
 	 * @param attrs
@@ -158,7 +153,6 @@ public class PullToRefreshListView extends
 	 * 
 	 * 该方法的作用:创建listview 参数: 返回值: 异常: 在什么情况下调用:
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-19
 	 * @return
 	 */
@@ -217,7 +211,6 @@ public class PullToRefreshListView extends
 	 * 
 	 * 该方法的作用:设置listview的刷新状态 参数: 返回值: 异常: 在什么情况下调用:
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-19
 	 * @return
 	 */
@@ -280,7 +273,6 @@ public class PullToRefreshListView extends
 	 * 
 	 * 该方法的作用:重置头 参数: 返回值: 异常: 在什么情况下调用:
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-19
 	 * @return
 	 */
@@ -337,7 +329,6 @@ public class PullToRefreshListView extends
 	 * 
 	 * 该方法的作用:根据这个值用于判断是否为头部滑动 参数: 返回值: 异常: 在什么情况下调用:
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-19
 	 * @return
 	 */
@@ -349,7 +340,6 @@ public class PullToRefreshListView extends
 	 * 
 	 * 该方法的作用:根据这个值用于判断是否为尾部滑动 参数: 返回值: 异常: 在什么情况下调用:
 	 * 
-	 * @author nKF50342
 	 * @date 2012-6-19
 	 * @return
 	 */

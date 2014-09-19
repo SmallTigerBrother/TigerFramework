@@ -22,7 +22,6 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 该类作用及功能说明 缓存文件和读取文件工具类
  * 
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2013-8-14 Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights
@@ -54,7 +53,6 @@ public class TGCache
 	/**
 	 * 该方法的作用:初始化内存缓存
 	 * 
-	 * @author yWX158243
 	 * @date 2014年3月3日
 	 */
 	public static void initLruCache(int cacheSize)
@@ -80,7 +78,6 @@ public class TGCache
 	 * 
 	 * 该方法的作用:保存缓存
 	 * 
-	 * @author zWX215434
 	 * @date 2014年5月13日
 	 * @param context
 	 *            上下文
@@ -133,7 +130,6 @@ public class TGCache
 	/**
 	 * 该方法的作用:获取默人文件类型的缓存(默认在cache文件夹下)
 	 * 
-	 * @author yWX158243
 	 * @date 2014年3月4日
 	 * @param context
 	 * @param key
@@ -180,7 +176,6 @@ public class TGCache
 	/**
 	 * 该方法的作用:获取硬盘缓存内容
 	 * 
-	 * @author yWX158243
 	 * @date 2014年3月4日
 	 * @param fileAbsPath
 	 *            文件绝对路径
@@ -220,7 +215,6 @@ public class TGCache
 	/**
 	 * 该方法的作用:缓存到硬盘文件
 	 * 
-	 * @author yWX158243
 	 * @date 2014年3月4日
 	 * @param fileAbsPath
 	 *            文件绝对路径
@@ -259,7 +253,6 @@ public class TGCache
 	 * 
 	 * 该方法的作用:获取图片缓存文件
 	 * 
-	 * @author zWX215434
 	 * @date 2014年5月14日
 	 * @param context
 	 * @param key
@@ -275,7 +268,6 @@ public class TGCache
 	 * 
 	 * 该方法的作用:获取普通类型缓存文件
 	 * 
-	 * @author zWX215434
 	 * @date 2014年5月14日
 	 * @param context
 	 * @param key
@@ -291,7 +283,6 @@ public class TGCache
 	 * 
 	 * 该方法的作用:获取缓存的根目录
 	 * 
-	 * @author zWX215434
 	 * @date 2014年5月14日
 	 * @param context
 	 * @return
@@ -310,7 +301,6 @@ public class TGCache
 	 * 
 	 * 该方法的作用:MDM加密文件
 	 * 
-	 * @author zWX215434
 	 * @date 2014年5月14日
 	 * @param context
 	 * @param key
@@ -326,7 +316,6 @@ public class TGCache
 	/**
 	 * 该方法的作用: 保存文件和其保存的时间
 	 * 
-	 * @author l00220455
 	 * @date 2013-8-14
 	 * @param content
 	 * @param identify
@@ -351,7 +340,6 @@ public class TGCache
 	/**
 	 * 该方法的作用:
 	 * 
-	 * @author l00220455
 	 * @date 2013-11-12
 	 * @param content
 	 * @param identify
@@ -376,7 +364,6 @@ public class TGCache
 	/**
 	 * 该方法的作用: 将object对象写入outFile文件
 	 * 
-	 * @author l00220455
 	 * @date 2013-8-14
 	 * @param outFile
 	 * @param object
@@ -392,7 +379,6 @@ public class TGCache
 	/**
 	 * 该方法的作用: 以object的方式读取文件中的内容
 	 * 
-	 * @author l00220455
 	 * @date 2013-8-14
 	 * @param filePath
 	 * @param context
@@ -407,7 +393,6 @@ public class TGCache
 	/**
 	 * 该方法的作用:关闭输出流
 	 * 
-	 * @author zWX200279
 	 * @date 2014年5月12日
 	 * @param stream
 	 */
@@ -429,7 +414,6 @@ public class TGCache
 	/**
 	 * 该方法的作用:关闭输入流
 	 * 
-	 * @author zWX200279
 	 * @date 2014年5月12日
 	 * @param stream
 	 */
@@ -452,7 +436,6 @@ public class TGCache
 	 * 
 	 * 该方法的作用:保存加密缓存
 	 * 
-	 * @author zWX200279
 	 * @date 2014年5月14日
 	 * @param context
 	 * @param fileName
@@ -498,7 +481,6 @@ public class TGCache
 	 * 
 	 * 该方法的作用:获取解密数据
 	 * 
-	 * @author zWX200279
 	 * @date 2014年5月14日
 	 * @param context
 	 * @param fileName
@@ -564,7 +546,6 @@ public class TGCache
 	/**
 	 * 该方法的作用:判定缓存文件是否存在
 	 * 
-	 * @author zWX200279
 	 * @date 2014年5月14日
 	 * @param encryption
 	 *            加密方法

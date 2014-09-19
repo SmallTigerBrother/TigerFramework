@@ -11,13 +11,11 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 该类作用及功能说明
  * 独立任务队列
- * @author l00220455
  * @date 2014年8月22日
  */
 public class TGSingleTaskQueue extends TGTaskQueue
 {
 	/**
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 */
 	private static final long serialVersionUID = 1L;
@@ -97,7 +95,6 @@ public class TGSingleTaskQueue extends TGTaskQueue
 	/**
 	 * 该类作用及功能说明: 默认任务队列监听
 	 * 
-	 * @author pWX197040
 	 * @date 2014年6月25日
 	 */
 	public class DefaultTaskListener implements ITaskListener

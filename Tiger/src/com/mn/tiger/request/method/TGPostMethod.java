@@ -20,7 +20,6 @@ import com.mn.tiger.utility.StringUtils;
 /**
  * 该类作用及功能说明
  * Post请求方法类
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2013-12-1
@@ -29,7 +28,6 @@ import com.mn.tiger.utility.StringUtils;
 public class TGPostMethod extends TGHttpMethod 
 {
 	/**
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * 构造函数
 	 * @param context
@@ -41,7 +39,6 @@ public class TGPostMethod extends TGHttpMethod
 	}
 	
 	/**
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * 构造函数
 	 * @param context
@@ -88,7 +85,6 @@ public class TGPostMethod extends TGHttpMethod
 	/**
 	 * 该方法的作用:
 	 * 将请求参数添加到请求中
-	 * @author l00220455
 	 * @throws BusinessException 
 	 * @date 2014年1月7日
 	 */
@@ -146,7 +142,6 @@ public class TGPostMethod extends TGHttpMethod
 	/**
 	 * 该方法的作用:
 	 * 转换post提交的数据
-	 * @author l00220455
 	 * @date 2014年3月24日
 	 * @param parameters
 	 * @return
@@ -175,7 +170,6 @@ public class TGPostMethod extends TGHttpMethod
 	
 	/**
 	 * 该方法的作用:post提交中的数据
-	 * @author nKF50342
 	 * @date 2012-6-11
 	 * @param parameters
 	 * @return

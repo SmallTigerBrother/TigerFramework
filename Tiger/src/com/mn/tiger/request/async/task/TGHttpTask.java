@@ -13,7 +13,6 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 该类作用及功能说明 Http请求任务类
  * 
- * @author l00220455
  * @date 2014年3月18日
  */
 public abstract class TGHttpTask extends TGTask
@@ -35,7 +34,6 @@ public abstract class TGHttpTask extends TGTask
 	/**
 	 * 该方法的作用: 执行Http请求
 	 * 
-	 * @author l00220455
 	 * @date 2014年3月18日
 	 * @return
 	 */
@@ -44,7 +42,6 @@ public abstract class TGHttpTask extends TGTask
 	/**
 	 * 该方法的作用:
 	 * 解析请求结果
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param httpResult
 	 * @return
@@ -91,7 +88,6 @@ public abstract class TGHttpTask extends TGTask
 	/**
 	 * 该方法的作用:
 	 * 获取请求参数
-	 * @author l00220455
 	 * @date 2014年8月15日
 	 * @return
 	 */
@@ -104,7 +100,6 @@ public abstract class TGHttpTask extends TGTask
 	/**
 	 * 该方法的作用:
 	 * 获取请求Url
-	 * @author l00220455
 	 * @date 2014年8月15日
 	 * @return
 	 */
@@ -117,7 +112,6 @@ public abstract class TGHttpTask extends TGTask
 	/**
 	 * 该方法的作用:
 	 * 获取请求header中的Properties
-	 * @author l00220455
 	 * @date 2014年8月15日
 	 * @return
 	 */
@@ -131,7 +125,6 @@ public abstract class TGHttpTask extends TGTask
 	/**
 	 * 该方法的作用:
 	 * 获取解析类的名字
-	 * @author l00220455
 	 * @date 2014年8月15日
 	 * @return
 	 */

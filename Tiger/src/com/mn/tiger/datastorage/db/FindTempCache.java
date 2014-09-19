@@ -5,7 +5,6 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 查询数据库时使用的缓存类
  * 
- * @author pWX197040
  * @since 2014年2月18日
  */
 public class FindTempCache {

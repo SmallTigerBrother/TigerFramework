@@ -9,7 +9,6 @@ import android.os.Parcelable;
  * 
  * 该类作用及功能说明: 任务结果
  * 
- * @author pWX197040
  * @date 2014年7月28日
  */
 public class TGTaskResult implements Serializable, Parcelable

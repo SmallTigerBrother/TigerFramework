@@ -21,7 +21,6 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 该类作用及功能说明:使用偏移方式加解密
  * 
- * @author zWX200279
  * @date 2014年5月15日
  */
 public class OffsetEncryption implements IEncryption
@@ -123,7 +122,6 @@ public class OffsetEncryption implements IEncryption
 	/**
 	 * 该方法的作用:保存数据到本地磁盘
 	 * 
-	 * @author zWX200279
 	 * @date 2014年5月12日
 	 * @param fileAbsPath
 	 * @param content

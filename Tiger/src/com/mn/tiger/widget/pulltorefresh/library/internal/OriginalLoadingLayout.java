@@ -8,7 +8,6 @@ import android.widget.FrameLayout;
  *
  * 该类作用及功能说明
  * 
- * @author nKF50342
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2012-4-6
@@ -19,7 +18,6 @@ public abstract class OriginalLoadingLayout extends FrameLayout{
 
 	
 	/**
-	 * @author nKF50342
 	 * @date 2012-4-6
 	 * 构造函数
 	 * @param context
@@ -27,13 +25,11 @@ public abstract class OriginalLoadingLayout extends FrameLayout{
 	
 	public OriginalLoadingLayout(Context context) {
 		super(context);
-		// TODO Auto-generated constructor stub
 	}
 	/**
 	 * 
 	 * 该方法的作用:接就刷新接口
 	 * 在什么情况下调用:
-	 * @author nKF50342
 	 * @date 2012-6-11
 	 */
 	public abstract void pullToRefresh();
@@ -41,7 +37,6 @@ public abstract class OriginalLoadingLayout extends FrameLayout{
 	 * 
 	 * 该方法的作用:正在刷新接口
 	 * 在什么情况下调用:
-	 * @author nKF50342
 	 * @date 2012-6-11
 	 */
 	public abstract void refreshing();
@@ -49,7 +44,6 @@ public abstract class OriginalLoadingLayout extends FrameLayout{
 	 * 
 	 * 该方法的作用:刷新前接口
 	 * 在什么情况下调用:
-	 * @author nKF50342
 	 * @date 2012-6-11
 	 */
 	public abstract void releaseToRefresh();
@@ -57,7 +51,6 @@ public abstract class OriginalLoadingLayout extends FrameLayout{
 	 * 
 	 * 该方法的作用:重置接口
 	 * 在什么情况下调用:
-	 * @author nKF50342
 	 * @date 2012-6-11
 	 */
 	public abstract void reset();
@@ -65,7 +58,6 @@ public abstract class OriginalLoadingLayout extends FrameLayout{
 	 * 
 	 * 该方法的作用:设置刷新中文本接口
 	 * 在什么情况下调用:
-	 * @author nKF50342
 	 * @date 2012-6-11
 	 */
 	public abstract void setRefreshingLabel(String refreshingLabel) ;
@@ -73,7 +65,6 @@ public abstract class OriginalLoadingLayout extends FrameLayout{
 	 * 
 	 * 该方法的作用:设置拉的过程中文本接口
 	 * 在什么情况下调用:
-	 * @author nKF50342
 	 * @date 2012-6-11
 	 */
 	public abstract void setPullLabel(String pullLabel);
@@ -81,7 +72,6 @@ public abstract class OriginalLoadingLayout extends FrameLayout{
 	 * 
 	 * 该方法的作用:设置释放文本接口
 	 * 在什么情况下调用:
-	 * @author nKF50342
 	 * @date 2012-6-11
 	 */
 	public abstract void setReleaseLabel(String releaseLabel);
@@ -89,7 +79,6 @@ public abstract class OriginalLoadingLayout extends FrameLayout{
 	 * 
 	 * 该方法的作用:设置第二个文本接口
 	 * 在什么情况下调用:
-	 * @author nKF50342
 	 * @date 2012-6-11
 	 */
 	public abstract void setDownTextLabel(String textLabel);

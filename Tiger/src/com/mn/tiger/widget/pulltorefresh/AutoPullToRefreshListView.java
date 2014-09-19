@@ -10,7 +10,6 @@ import com.mn.tiger.widget.pulltorefresh.pullinterface.IPullToRefreshController;
 /**
  * 该类作用及功能说明
  * 自动拖动刷新列表
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2014年2月10日
@@ -106,7 +105,6 @@ public class AutoPullToRefreshListView extends PullToRefreshListView
 	/**
 	 * 该方法的作用:
 	 * 是否需要刷新列表
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @return
 	 */
@@ -118,7 +116,6 @@ public class AutoPullToRefreshListView extends PullToRefreshListView
 	/**
 	 * 该方法的作用:
 	 * 设置拖动刷新事件监听器
-	 * @author l00220455
 	 * @date 2013-10-28
 	 * @param onRefreshListener2
 	 */
@@ -131,7 +128,6 @@ public class AutoPullToRefreshListView extends PullToRefreshListView
 	/**
 	 * 该方法的作用:
 	 * 设置CacheColorHint
-	 * @author l00220455
 	 * @date 2013-10-28
 	 * @param color
 	 */
@@ -143,7 +139,6 @@ public class AutoPullToRefreshListView extends PullToRefreshListView
 	/**
 	 * 该方法的作用:
 	 * 设置拖动刷新控制器
-	 * @author l00220455
 	 * @date 2013年12月6日
 	 * @return
 	 */
@@ -155,7 +150,6 @@ public class AutoPullToRefreshListView extends PullToRefreshListView
 	/**
 	 * 该方法的作用:
 	 * 获取拖动刷新控制器
-	 * @author l00220455
 	 * @date 2013年12月6日
 	 * @param pullToRefreshController
 	 */
@@ -167,7 +161,6 @@ public class AutoPullToRefreshListView extends PullToRefreshListView
 	/**
 	 * 该类作用及功能说明
 	 * 列表拖动刷新事件监听器
-	 * @author l00220455
 	 * @version V2.0
 	 * @see JDK1.6,android-8
 	 * @date 2013-11-1
@@ -178,7 +171,6 @@ public class AutoPullToRefreshListView extends PullToRefreshListView
 		/**
 		 * 该方法的作用:
 		 * 向下拖动刷新事件回调方法
-		 * @author l00220455
 		 * @date 2013-11-1
 		 * @param currentPage 即将加载的页面的页码
 		 */
@@ -187,7 +179,6 @@ public class AutoPullToRefreshListView extends PullToRefreshListView
 		/**
 		 * 该方法的作用:
 		 * 向上拖动刷新事件回调方法
-		 * @author l00220455
 		 * @date 2013-11-1
 		 * @param currentPage 即将加载的页面的页码
 		 */

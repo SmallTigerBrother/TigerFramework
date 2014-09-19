@@ -1,8 +1,3 @@
-/**
- * @author yWX158243
- * @date 2013-2-6
- * 
- */
 package com.mn.tiger.widget.wheelview;
 
 import java.util.Date;
@@ -31,14 +26,14 @@ import com.mn.tiger.widget.wheelview.adapters.NumericWheelAdapterForTime;
  * layout. For a dialog using this view, see
  * {@link huawei.w3.customview.DateWheelDialog}.
  * 
- * @author yWX158243
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2013-2-6 Copyright Huawei Technologies Co., Ltd. 1998-2011. All rights
  *       reserved.
  */
 
-public class TimeWheel extends FrameLayout {
+public class TimeWheel extends FrameLayout
+{
 	private static final int DEFAULT_START_YEAR = 1;
 	private static final int DEFAULT_END_YEAR = 24;
 	/** start and end year */
@@ -69,7 +64,8 @@ public class TimeWheel extends FrameLayout {
 	/**
 	 * The callback used to indicate the user changes the date.
 	 */
-	public interface OnDateChangedListener {
+	public interface OnDateChangedListener
+	{
 
 		/**
 		 * @param view
@@ -82,26 +78,29 @@ public class TimeWheel extends FrameLayout {
 		 * @param dayOfMonth
 		 *            The day of the month that was set.
 		 */
-		void onDateChanged(TimeWheel view, int year, int monthOfYear,
-				int dayOfMonth);
+		void onDateChanged(TimeWheel view, int year, int monthOfYear, int dayOfMonth);
 	}
 
-	public TimeWheel(Context context) {
+	public TimeWheel(Context context)
+	{
 		this(context, null);
 	}
 
-	public TimeWheel(Context context, int textSize) {
+	public TimeWheel(Context context, int textSize)
+	{
 		super(context);
 		defaultTextSize = textSize;
 		this.mContext = context;
 		this.initWheelView();
 	}
 
-	public TimeWheel(Context context, AttributeSet attrs) {
+	public TimeWheel(Context context, AttributeSet attrs)
+	{
 		this(context, attrs, 0);
 	}
 
-	public TimeWheel(Context context, AttributeSet attrs, int defStyle) {
+	public TimeWheel(Context context, AttributeSet attrs, int defStyle)
+	{
 		super(context, attrs, defStyle);
 		this.mContext = context;
 		this.initWheelView();
@@ -111,45 +110,43 @@ public class TimeWheel extends FrameLayout {
 	 * 
 	 * 该方法的作用:初始化滚轮式日期选择器 参数: 返回值: 异常: 在什么情况下调用:
 	 * 
-	 * @author yWX158243
 	 * @date 2013-2-18
 	 */
-	private void initWheelView() {
+	private void initWheelView()
+	{
 		LayoutInflater inflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		inflater.inflate(CR.getLayoutId(mContext, "mjet_date_wheel_layout"), this,
-				true);
+		inflater.inflate(CR.getLayoutId(mContext, "mjet_date_wheel_layout"), this, true);
 		this.mYearWheel = (WheelView) findViewById(CR.getIdId(mContext, "mjet_year"));
-		this.mYearWheel.setBackgroundDrawable(mContext.getResources()
-				.getDrawable(CR.getDrawableId(mContext, "mjet_date_scroll_left")));
+		this.mYearWheel.setBackgroundDrawable(mContext.getResources().getDrawable(
+				CR.getDrawableId(mContext, "mjet_date_scroll_left")));
 
-		this.mMonthWheel = (WheelView) findViewById(CR.getIdId(mContext,
-				"mjet_month"));
-		this.mMonthWheel.setBackgroundDrawable(mContext.getResources()
-				.getDrawable(CR.getDrawableId(mContext, "mjet_date_scroll_center")));
+		this.mMonthWheel = (WheelView) findViewById(CR.getIdId(mContext, "mjet_month"));
+		this.mMonthWheel.setBackgroundDrawable(mContext.getResources().getDrawable(
+				CR.getDrawableId(mContext, "mjet_date_scroll_center")));
 
 		this.mDayWheel = (WheelView) findViewById(CR.getIdId(mContext, "mjet_day"));
-		this.mDayWheel.setBackgroundDrawable(mContext.getResources()
-				.getDrawable(CR.getDrawableId(mContext, "mjet_date_scroll_right")));
+		this.mDayWheel.setBackgroundDrawable(mContext.getResources().getDrawable(
+				CR.getDrawableId(mContext, "mjet_date_scroll_right")));
 
 		Date date = new Date();
-		Log.d("date",
-				date.getHours() + ":" + date.getMinutes() + ":"
-						+ date.getSeconds());
+		Log.d("date", date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
 		// Calendar calendar = Calendar.getInstance();
 		// year
 
 		this.mYear = date.getHours();// calendar.get(Calendar.YEAR);
 
 		// int currYearIndex = this.mYear - this.startYear;
-		this.mYearWheel.setViewAdapter(new DateNumericAdapter(
-				this.getContext(), 1, 24, this.mYear));
+		this.mYearWheel
+				.setViewAdapter(new DateNumericAdapter(this.getContext(), 1, 24, this.mYear));
 		this.mYearWheel.setVisibleItems(VISIBLE_ITEMS);
 		this.mYearWheel.setCyclic(true);
 
-		this.mYearWheel.addChangingListener(new OnWheelChangedListener() {
+		this.mYearWheel.addChangingListener(new OnWheelChangedListener()
+		{
 			@Override
-			public void onChanged(WheelView wheel, int oldValue, int newValue) {
+			public void onChanged(WheelView wheel, int oldValue, int newValue)
+			{
 				// oldValue and newValue are the Index of the Item.
 				mYear = newValue;
 				// Adjust max day for leap years if needed
@@ -161,13 +158,15 @@ public class TimeWheel extends FrameLayout {
 		// month
 		this.mMonth = date.getMinutes();// calendar.get(Calendar.MONTH);
 		int maxMonth = 60;// calendar.getMaximum(Calendar.MONTH) + 1;// save as
-		this.mMonthWheel.setViewAdapter(new DateNumericAdapter(getContext(), 1,
-				maxMonth, this.mMonth));
+		this.mMonthWheel.setViewAdapter(new DateNumericAdapter(getContext(), 1, maxMonth,
+				this.mMonth));
 		this.mMonthWheel.setVisibleItems(VISIBLE_ITEMS);
 		this.mMonthWheel.setCyclic(true);
-		this.mMonthWheel.addChangingListener(new OnWheelChangedListener() {
+		this.mMonthWheel.addChangingListener(new OnWheelChangedListener()
+		{
 			@Override
-			public void onChanged(WheelView wheel, int oldValue, int newValue) {
+			public void onChanged(WheelView wheel, int oldValue, int newValue)
+			{
 				/*
 				 * We display the month 1-12 but store it 0-11 so always
 				 * subtract by one to ensure our internal state is always 0-11
@@ -182,12 +181,13 @@ public class TimeWheel extends FrameLayout {
 		// day
 		this.mDay = date.getSeconds();// calendar.get(Calendar.DAY_OF_MONTH);
 		this.mDayWheel.setVisibleItems(VISIBLE_ITEMS);
-		this.mDayWheel.setViewAdapter(new DateNumericAdapter(getContext(), 1,
-				maxMonth, this.mDay));
+		this.mDayWheel.setViewAdapter(new DateNumericAdapter(getContext(), 1, maxMonth, this.mDay));
 		this.mDayWheel.setCyclic(true);
-		this.mDayWheel.addChangingListener(new OnWheelChangedListener() {
+		this.mDayWheel.addChangingListener(new OnWheelChangedListener()
+		{
 			@Override
-			public void onChanged(WheelView wheel, int oldValue, int newValue) {
+			public void onChanged(WheelView wheel, int oldValue, int newValue)
+			{
 				mDay = newValue;
 				notifyDateChanged();
 			}
@@ -199,18 +199,19 @@ public class TimeWheel extends FrameLayout {
 	 * 
 	 * 该方法的作用:设置起始年份 参数: 返回值: 异常: 在什么情况下调用:
 	 * 
-	 * @author yWX158243
 	 * @date 2013-2-18
 	 * @param startYear
 	 * @param endYear
 	 */
-	public void setYearRange(int startYear, int endYear) {
-		if (startYear > 0 && endYear >= startYear) {
+	public void setYearRange(int startYear, int endYear)
+	{
+		if (startYear > 0 && endYear >= startYear)
+		{
 			// this.startYear = startYear;
 			// this.endYear = endYear;
 			// int currYearIndex = this.mYear - this.startYear;
-			this.mYearWheel.setViewAdapter(new DateNumericAdapter(this
-					.getContext(), this.startYear, this.endYear, mYear));
+			this.mYearWheel.setViewAdapter(new DateNumericAdapter(this.getContext(),
+					this.startYear, this.endYear, mYear));
 			this.mYearWheel.setCurrentItem(mYear);
 		}
 	}
@@ -219,7 +220,6 @@ public class TimeWheel extends FrameLayout {
 	 * 
 	 * 该方法的作用:指定年月日，更新滚轮式日期选择器视图 参数: 返回值: 异常: 在什么情况下调用:
 	 * 
-	 * @author yWX158243
 	 * @date 2013-2-18
 	 * @param year
 	 * @param monthOfYear
@@ -227,8 +227,10 @@ public class TimeWheel extends FrameLayout {
 	 *            {@link java.util.Calendar}.
 	 * @param dayOfMonth
 	 */
-	public void updateDate(int year, int monthOfYear, int dayOfMonth) {
-		if (mYear != year || mMonth != monthOfYear || mDay != dayOfMonth) {
+	public void updateDate(int year, int monthOfYear, int dayOfMonth)
+	{
+		if (mYear != year || mMonth != monthOfYear || mDay != dayOfMonth)
+		{
 			mYear = year;
 			mMonth = monthOfYear;
 			mDay = dayOfMonth;
@@ -251,7 +253,8 @@ public class TimeWheel extends FrameLayout {
 	 *            How user is notified date is changed by user, can be null.
 	 */
 	public void init(int year, int monthOfYear, int dayOfMonth,
-			OnDateChangedListener onDateChangedListener) {
+			OnDateChangedListener onDateChangedListener)
+	{
 		mYear = year;
 		mMonth = monthOfYear;
 		mDay = dayOfMonth;
@@ -259,7 +262,8 @@ public class TimeWheel extends FrameLayout {
 		updateSpinners();
 	}
 
-	private void updateSpinners() {
+	private void updateSpinners()
+	{
 		// int yearIndex = this.mYear - this.startYear;
 		mYearWheel.setCurrentItem(this.mYear);
 		/*
@@ -278,11 +282,11 @@ public class TimeWheel extends FrameLayout {
 	 * 该方法的作用:该方法的作用:Updates day wheel. Sets max days according to selected
 	 * month and year 参数: 返回值: 异常: 在什么情况下调用:
 	 * 
-	 * @author yWX158243
 	 * @date 2013-2-19
 	 * @param isAnimated
 	 */
-	private void updateDaySpinner(boolean isAnimated) {
+	private void updateDaySpinner(boolean isAnimated)
+	{
 		// Calendar calendar = Calendar.getInstance();
 		// calendar.set(Calendar.YEAR,
 		// calendar.get(Calendar.YEAR) + mYearWheel.getCurrentItem());
@@ -290,24 +294,27 @@ public class TimeWheel extends FrameLayout {
 		// /** 设置day的最大范围 */
 		// int maxDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 		// Date date = new Date();
-		mDayWheel.setViewAdapter(new DateNumericAdapter(this.getContext(), 1,
-				60, mDay));
+		mDayWheel.setViewAdapter(new DateNumericAdapter(this.getContext(), 1, 60, mDay));
 		mDayWheel.setCurrentItem(mDay, isAnimated);
 	}
 
-	public int getHours() {
+	public int getHours()
+	{
 		return mYear;
 	}
 
-	public int getMinutes() {
+	public int getMinutes()
+	{
 		return mMonth;
 	}
 
-	public int getSeconds() {
+	public int getSeconds()
+	{
 		return mDay;
 	}
 
-	private static class SavedState extends BaseSavedState {
+	private static class SavedState extends BaseSavedState
+	{
 
 		private final int mYear;
 		private final int mMonth;
@@ -316,7 +323,8 @@ public class TimeWheel extends FrameLayout {
 		/**
 		 * Constructor called from {@link DatePicker#onSaveInstanceState()}
 		 */
-		private SavedState(Parcelable superState, int year, int month, int day) {
+		private SavedState(Parcelable superState, int year, int month, int day)
+		{
 			super(superState);
 			mYear = year;
 			mMonth = month;
@@ -326,27 +334,32 @@ public class TimeWheel extends FrameLayout {
 		/**
 		 * Constructor called from {@link #CREATOR}
 		 */
-		private SavedState(Parcel in) {
+		private SavedState(Parcel in)
+		{
 			super(in);
 			mYear = in.readInt();
 			mMonth = in.readInt();
 			mDay = in.readInt();
 		}
 
-		public int getYear() {
+		public int getYear()
+		{
 			return mYear;
 		}
 
-		public int getMonth() {
+		public int getMonth()
+		{
 			return mMonth;
 		}
 
-		public int getDay() {
+		public int getDay()
+		{
 			return mDay;
 		}
 
 		@Override
-		public void writeToParcel(Parcel dest, int flags) {
+		public void writeToParcel(Parcel dest, int flags)
+		{
 			super.writeToParcel(dest, flags);
 			dest.writeInt(mYear);
 			dest.writeInt(mMonth);
@@ -354,13 +367,16 @@ public class TimeWheel extends FrameLayout {
 		}
 
 		@SuppressWarnings("unused")
-		public static final Parcelable.Creator<SavedState> CREATOR = new Creator<SavedState>() {
+		public static final Parcelable.Creator<SavedState> CREATOR = new Creator<SavedState>()
+		{
 
-			public SavedState createFromParcel(Parcel in) {
+			public SavedState createFromParcel(Parcel in)
+			{
 				return new SavedState(in);
 			}
 
-			public SavedState[] newArray(int size) {
+			public SavedState[] newArray(int size)
+			{
 				return new SavedState[size];
 			}
 		};
@@ -370,20 +386,22 @@ public class TimeWheel extends FrameLayout {
 	 * Override so we are in complete control of save / restore for this widget.
 	 */
 	@Override
-	protected void dispatchRestoreInstanceState(
-			SparseArray<Parcelable> container) {
+	protected void dispatchRestoreInstanceState(SparseArray<Parcelable> container)
+	{
 		dispatchThawSelfOnly(container);
 	}
 
 	@Override
-	protected Parcelable onSaveInstanceState() {
+	protected Parcelable onSaveInstanceState()
+	{
 		Parcelable superState = super.onSaveInstanceState();
 
 		return new SavedState(superState, mYear, mMonth, mDay);
 	}
 
 	@Override
-	protected void onRestoreInstanceState(Parcelable state) {
+	protected void onRestoreInstanceState(Parcelable state)
+	{
 		SavedState ss = (SavedState) state;
 		super.onRestoreInstanceState(ss.getSuperState());
 		mYear = ss.getYear();
@@ -392,8 +410,10 @@ public class TimeWheel extends FrameLayout {
 		updateSpinners();
 	}
 
-	private void notifyDateChanged() {
-		if (mOnDateChangedListener != null) {
+	private void notifyDateChanged()
+	{
+		if (mOnDateChangedListener != null)
+		{
 			mOnDateChangedListener.onDateChanged(this, mYear, mMonth, mDay);
 		}
 	}
@@ -403,13 +423,13 @@ public class TimeWheel extends FrameLayout {
 	 * 
 	 * 该类作用及功能说明 Adapter for numeric wheels. Highlights the current value.
 	 * 
-	 * @author yWX158243
 	 * @version V2.0
 	 * @see JDK1.6,android-8
 	 * @date 2013-2-2 Copyright Huawei Technologies Co., Ltd. 1998-2011. All
 	 *       rights reserved.
 	 */
-	private class DateNumericAdapter extends NumericWheelAdapterForTime {
+	private class DateNumericAdapter extends NumericWheelAdapterForTime
+	{
 		// Index of current item
 		int currentItem;
 		// Index of item to be highlighted
@@ -418,17 +438,19 @@ public class TimeWheel extends FrameLayout {
 		/**
 		 * Constructor
 		 */
-		public DateNumericAdapter(Context context, int minValue, int maxValue,
-				int current) {
+		public DateNumericAdapter(Context context, int minValue, int maxValue, int current)
+		{
 			super(context, minValue, maxValue);
 			this.currentValue = current;
 			setTextSize(defaultTextSize);
 		}
 
 		@Override
-		protected void configureTextView(TextView view) {
+		protected void configureTextView(TextView view)
+		{
 			super.configureTextView(view);
-			if (currentItem == currentValue) {
+			if (currentItem == currentValue)
+			{
 				// view.setTextColor(0xFF0000F0);
 			}
 			view.setTypeface(Typeface.SANS_SERIF);
@@ -437,25 +459,24 @@ public class TimeWheel extends FrameLayout {
 		}
 
 		@Override
-		public View getItem(int index, View cachedView, ViewGroup parent) {
+		public View getItem(int index, View cachedView, ViewGroup parent)
+		{
 			currentItem = index;
 			return super.getItem(index, cachedView, parent);
 		}
 	}
 
 	/**
-	 * 
-	 * 
 	 * 该类作用及功能说明 Adapter for string based wheel. Highlights the current value.
 	 * 
-	 * @author yWX158243
 	 * @version V2.0
 	 * @see JDK1.6,android-8
 	 * @date 2013-2-2 Copyright Huawei Technologies Co., Ltd. 1998-2011. All
 	 *       rights reserved.
 	 */
 	@SuppressWarnings("unused")
-	private class DateArrayAdapter extends ArrayWheelAdapter<String> {
+	private class DateArrayAdapter extends ArrayWheelAdapter<String>
+	{
 		// Index of current item
 		int currentItem;
 		// Index of item to be highlighted
@@ -464,16 +485,19 @@ public class TimeWheel extends FrameLayout {
 		/**
 		 * Constructor
 		 */
-		public DateArrayAdapter(Context context, String[] items, int current) {
+		public DateArrayAdapter(Context context, String[] items, int current)
+		{
 			super(context, items);
 			this.currentValue = current;
 			setTextSize(defaultTextSize);
 		}
 
 		@Override
-		protected void configureTextView(TextView view) {
+		protected void configureTextView(TextView view)
+		{
 			super.configureTextView(view);
-			if (currentItem == currentValue) {
+			if (currentItem == currentValue)
+			{
 				// view.setTextColor(0xFF0000F0);
 			}
 			view.setTypeface(Typeface.SANS_SERIF);
@@ -482,23 +506,23 @@ public class TimeWheel extends FrameLayout {
 		}
 
 		@Override
-		public View getItem(int index, View cachedView, ViewGroup parent) {
+		public View getItem(int index, View cachedView, ViewGroup parent)
+		{
 			currentItem = index;
 			return super.getItem(index, cachedView, parent);
 		}
 	}
 
 	/**
-	 * 
 	 * 该方法的作用:dp转px，sp转px
 	 * 
-	 * @author yWX158243
 	 * @date 2013-3-8
 	 * @param context
 	 * @param dipValue
 	 * @return
 	 */
-	private int dip2px(Context context, float dipValue) {
+	private int dip2px(Context context, float dipValue)
+	{
 		final float scale = context.getResources().getDisplayMetrics().density;
 		return (int) (dipValue * scale + 0.5f);
 	}

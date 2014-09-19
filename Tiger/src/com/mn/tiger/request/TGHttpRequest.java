@@ -26,7 +26,6 @@ public class TGHttpRequest
 	/**
 	 * 该方法的作用:
 	 * Post请求
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @param context
 	 * @param requestUrl
@@ -43,7 +42,6 @@ public class TGHttpRequest
 	/**
 	 * 
 	 * 该方法的作用:post请求，请求参数可以自定义设置
-	 * @author pWX197040
 	 * @date 2014年5月23日
 	 * @param context
 	 * @param requestUrl
@@ -71,7 +69,6 @@ public class TGHttpRequest
 	/**
 	 * 该方法的作用:
 	 * Get请求
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @param context
 	 * @param requestUrl
@@ -88,7 +85,6 @@ public class TGHttpRequest
 	/**
 	 * 该方法的作用:
 	 * Get请求
-	 * @author l00220455
 	 * @date 2013-12-1
 	 * @param context
 	 * @param requestUrl
@@ -116,7 +112,6 @@ public class TGHttpRequest
 	/**
 	 * 
 	 * 该方法的作用: Delete请求
-	 * @author pWX197040
 	 * @date 2014年5月19日
 	 * @param context
 	 * @param requestUrl
@@ -133,7 +128,6 @@ public class TGHttpRequest
 	/**
 	 * 
 	 * 该方法的作用: Delete请求
-	 * @author pWX197040
 	 * @date 2014年5月19日
 	 * @param context
 	 * @param requestUrl
@@ -161,7 +155,6 @@ public class TGHttpRequest
 	/**
 	 * 
 	 * 该方法的作用: Put请求
-	 * @author pWX197040
 	 * @date 2014年5月19日
 	 * @param context
 	 * @param requestUrl
@@ -178,7 +171,6 @@ public class TGHttpRequest
 	/**
 	 * 
 	 * 该方法的作用: put请求，请求参数可以自定义设置
-	 * @author pWX197040
 	 * @date 2014年5月23日
 	 * @param context
 	 * @param requestUrl

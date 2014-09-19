@@ -26,7 +26,7 @@ import android.text.TextUtils;
 
 import com.mn.tiger.core.cache.TGCache;
 import com.mn.tiger.utility.FileUtils;
-import com.mn.tiger.zip.MPZip;
+import com.mn.tiger.zip.TGZip;
 
 public class TGEncode
 {
@@ -37,7 +37,6 @@ public class TGEncode
 	 * 
 	 * 该方法的作用:把byte数组转换成十六进制的字符串
 	 * 
-	 * @author yWX158243
 	 * @date 2013-2-26
 	 * @param b
 	 * @return
@@ -57,7 +56,6 @@ public class TGEncode
 	 * 
 	 * 该方法的作用:用AES解密
 	 * 
-	 * @author yWX158243
 	 * @date 2013-2-26
 	 * @param hieroglyph
 	 *            AES加密的字符串
@@ -79,7 +77,7 @@ public class TGEncode
 			byte[] bt = cipher.doFinal(string2Bytes(hieroglyph));
 			if(isUnZip)
 			{
-				bt = MPZip.gzipDecompress(bt).getBytes("utf-8");
+				bt = TGZip.gzipDecompress(bt).getBytes("utf-8");
 			} 
 			return bt;
 		}
@@ -93,7 +91,6 @@ public class TGEncode
 	 * 
 	 * 该方法的作用:用AES解密
 	 * 
-	 * @author yWX158243
 	 * @date 2013-2-26
 	 * @param hieroglyph
 	 *            AES加密的字符串
@@ -166,7 +163,7 @@ public class TGEncode
 			SecretKey k = new SecretKeySpec(string2Bytes(key), "AES");
 			Cipher cipher = Cipher.getInstance("AES");
 			cipher.init(Cipher.ENCRYPT_MODE, k);
-			byte[] bt = cipher.doFinal(isZip ? MPZip.gzipCompress(new String(vivid, "UTF-8")) : vivid);
+			byte[] bt = cipher.doFinal(isZip ? TGZip.gzipCompress(new String(vivid, "UTF-8")) : vivid);
 			return bt;
 		}
 		catch (IOException e)
@@ -197,7 +194,6 @@ public class TGEncode
 	 * 
 	 * 该方法的作用:RSA加密,公钥加密，私钥解密，反之亦然
 	 * 
-	 * @author yWX158243
 	 * @date 2013-2-26
 	 * @param data
 	 * @param publicKey
@@ -227,7 +223,6 @@ public class TGEncode
 	/**
 	 * 该方法的作用:获取RSA公钥
 	 * 
-	 * @author yWX158243
 	 * @date 2013-2-26
 	 * @param key
 	 * @return 返回公钥对象(PublicKey)
@@ -246,7 +241,6 @@ public class TGEncode
 	 * 
 	 * 该方法的作用:MD5加密
 	 * 
-	 * @author yWX158243
 	 * @date 2013-2-26
 	 * @param data
 	 * @return
@@ -263,7 +257,6 @@ public class TGEncode
 	 * 
 	 * 该方法的作用:MD5加密
 	 * 
-	 * @author yWX158243
 	 * @date 2013-2-26
 	 * @param inStr
 	 *            需要加密的String
@@ -282,7 +275,6 @@ public class TGEncode
 	 * 
 	 * 该方法的作用:对数据流读取的信息进行加密
 	 * 
-	 * @author yWX158243
 	 * @date 2013-2-26
 	 * @param input
 	 *            数据流读取的信息
@@ -326,7 +318,6 @@ public class TGEncode
 	 * 
 	 * 该方法的作用:文件加密,适应于大文件的加密
 	 * 
-	 * @author yWX158243
 	 * @date 2013-3-25
 	 * @param context
 	 * @param file
@@ -355,7 +346,6 @@ public class TGEncode
 	 * 
 	 * 该方法的作用:文件解密,适用于大文件的解密
 	 * 
-	 * @author yWX158243
 	 * @date 2013-3-25
 	 * @param context
 	 * @param file
@@ -383,7 +373,6 @@ public class TGEncode
 	/**
 	 * 该方法的作用:
 	 * 加密AESKey
-	 * @author l00220455
 	 * @date 2014年8月26日
 	 * @param context
 	 * @param aesKey
@@ -402,7 +391,6 @@ public class TGEncode
 	/**
 	 * 该方法的作用:
 	 * 加密AESKey
-	 * @author l00220455
 	 * @date 2014年8月26日
 	 * @param context
 	 * @param aesKey
@@ -431,7 +419,6 @@ public class TGEncode
 	/**
 	 * 该方法的作用:
 	 * 获取混淆字符
-	 * @author l00220455
 	 * @date 2014年8月26日
 	 * @return
 	 */
@@ -444,7 +431,6 @@ public class TGEncode
 	/**
 	 * 该方法的作用:
 	 * 解密AESKey
-	 * @author l00220455
 	 * @date 2014年8月26日
 	 * @param context
 	 * @param aesKey
@@ -478,7 +464,6 @@ public class TGEncode
 			"W","X","Y","Z","1","2","3","4","5","6","7","8","9","10"};
 		
 		/**
-		 * @author l00220455
 		 * @date 2014年8月23日
 		 */
 		private static final long serialVersionUID = 1L;

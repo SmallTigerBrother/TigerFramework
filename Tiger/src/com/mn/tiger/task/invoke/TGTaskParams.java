@@ -11,7 +11,6 @@ import android.os.Parcelable;
 public class TGTaskParams implements Serializable, Parcelable
 {
 	/**
-	 * @author l00220455
 	 * @date 2014年4月14日
 	 */
 	private static final long serialVersionUID = 1L;

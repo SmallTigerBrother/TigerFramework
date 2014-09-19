@@ -25,7 +25,6 @@ import android.widget.TextView;
  * {@link android.view.View}. This class is intended to be instantiated at
  * runtime rather than included in XML layouts.
  * 
- * @author Jeff Gilfelt
  */
 public class MPBadgeView extends MPImageButton
 {
@@ -208,7 +207,6 @@ public class MPBadgeView extends MPImageButton
 	/**
 	 * 该方法的作用:设置徽标显示的文字
 	 * 
-	 * @author yWX158243
 	 * @date 2013-8-13
 	 * @param text
 	 */

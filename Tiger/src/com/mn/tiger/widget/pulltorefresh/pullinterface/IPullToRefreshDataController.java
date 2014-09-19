@@ -2,12 +2,11 @@ package com.mn.tiger.widget.pulltorefresh.pullinterface;
 
 import java.util.List;
 
-import com.mn.tiger.widget.pulltorefresh.MPPullToRefreshListView;
+import com.mn.tiger.widget.pulltorefresh.TGPullToRefreshListView;
 
 /**
  * 该类作用及功能说明
  * 列表数据刷新控制器
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2014年2月10日
@@ -28,7 +27,6 @@ public interface IPullToRefreshDataController<T>
 	/**
 	 * 该方法的作用:
 	 * 追加式刷新列表数据
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @param items
 	 */
@@ -37,7 +35,6 @@ public interface IPullToRefreshDataController<T>
 	/**
 	 * 该方法的作用:
 	 * 重置刷新列表数据
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @param items
 	 */
@@ -46,16 +43,14 @@ public interface IPullToRefreshDataController<T>
 	/**
 	 * 该方法的作用:
 	 * 获取拖动刷新列表
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @return
 	 */
-    MPPullToRefreshListView<T> getPullToRefreshListView();
+    TGPullToRefreshListView<T> getPullToRefreshListView();
     
     /**
      * 该方法的作用:
      * 删除某页某数据
-     * @author l00220455
      * @date 2014年3月13日
      * @param pageNum
      * @param item
@@ -65,7 +60,6 @@ public interface IPullToRefreshDataController<T>
     /**
      * 该方法的作用:
      * 获取列表中某一页，某一个索引位置的数据
-     * @author l00220455
      * @date 2014年3月27日
      * @param pageNum
      * @param indexInPage
@@ -75,7 +69,6 @@ public interface IPullToRefreshDataController<T>
     /**
      * 该方法的作用:
      * 将某一数据插入到列表中的某一页某一个索引位置
-     * @author l00220455
      * @date 2014年3月27日
      * @param pageNum
      * @param indexInPage

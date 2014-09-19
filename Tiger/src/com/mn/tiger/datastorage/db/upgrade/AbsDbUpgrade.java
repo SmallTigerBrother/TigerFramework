@@ -26,7 +26,6 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 数据库升级默认实现类
  * 
- * @author pWX197040
  * @since 2014年2月18日
  */
 public abstract class AbsDbUpgrade

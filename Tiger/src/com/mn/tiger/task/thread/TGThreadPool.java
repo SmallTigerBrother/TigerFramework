@@ -6,7 +6,6 @@ import java.util.concurrent.Executors;
 /**
  * 该类作用及功能说明
  * 线程池
- * @author l00220455
  * @date 2014年8月23日
  */
 public class TGThreadPool
@@ -31,7 +30,6 @@ public class TGThreadPool
 	/**
 	 * 该方法的作用:
 	 * 初始化方法
-	 * @author l00220455
 	 * @date 2014年8月23日
 	 * @param poolSize
 	 */
@@ -48,7 +46,6 @@ public class TGThreadPool
 	/**
 	 * 该方法的作用:
 	 * 执行线程
-	 * @author l00220455
 	 * @date 2014年8月23日
 	 * @param runnale
 	 */
@@ -61,7 +58,6 @@ public class TGThreadPool
 	/**
 	 * 该方法的作用:
 	 * 销毁
-	 * @author l00220455
 	 * @date 2014年8月23日
 	 */
 	public void destroy()
@@ -73,7 +69,6 @@ public class TGThreadPool
 	/**
 	 * 该方法的作用:
 	 * 创建Excecutor对象
-	 * @author l00220455
 	 * @date 2014年8月23日
 	 */
 	private void createExecutor()

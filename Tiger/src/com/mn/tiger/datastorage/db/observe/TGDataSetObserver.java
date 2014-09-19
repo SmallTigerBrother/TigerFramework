@@ -7,7 +7,6 @@ import android.database.DataSetObserver;
 /**
  * 该类作用及功能说明 ：数据观察者
  * 
- * @author pWX197040
  * @date 2014年3月31日
  */
 public class TGDataSetObserver extends DataSetObserver

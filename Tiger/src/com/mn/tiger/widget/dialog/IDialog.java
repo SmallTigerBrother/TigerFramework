@@ -135,7 +135,6 @@ public interface IDialog extends DialogInterface
 	/**
 	 * 该方法的作用:
 	 * 获取中间文本视图
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @return
 	 */
@@ -168,7 +167,6 @@ public interface IDialog extends DialogInterface
 	/**
 	 * 该方法的作用:
 	 * 设置是否可以取消
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @param cancelable
 	 */
@@ -177,7 +175,6 @@ public interface IDialog extends DialogInterface
 	/**
 	 * 该方法的作用:
 	 * 设置点击外部是否可以取消
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @param cancelable
 	 */

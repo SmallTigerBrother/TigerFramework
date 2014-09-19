@@ -8,7 +8,6 @@ import android.os.IBinder;
 /**
  * 该类作用及功能说明 执行后台任务的Service
  * 
- * @author l00220455
  * @date 2014年3月18日
  */
 @SuppressLint("HandlerLeak")

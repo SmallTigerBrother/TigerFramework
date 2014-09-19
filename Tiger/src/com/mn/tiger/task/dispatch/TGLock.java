@@ -7,7 +7,6 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 该类作用及功能说明
  * 分发器管理锁
- * @author l00220455
  * @date 2014年3月17日
  */
 public class TGLock
@@ -41,7 +40,6 @@ public class TGLock
 	/**
 	 * 该方法的作用:
 	 * 上锁
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @return
 	 */
@@ -66,7 +64,6 @@ public class TGLock
 	/**
 	 * 该方法的作用:
 	 * 解锁
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @return
 	 */
@@ -89,7 +86,6 @@ public class TGLock
 	/**
 	 * 该方法的作用:
 	 * 获取当前锁定状态
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @return
 	 */
@@ -101,7 +97,6 @@ public class TGLock
 	/**
 	 * 该方法的作用:
 	 * 设置当前锁定状态
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 * @param state
 	 */
@@ -123,7 +118,6 @@ public class TGLock
 	/**
 	 * 该类作用及功能说明
 	 * 加锁回调接口
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 */
 	public static interface onLockListener
@@ -131,7 +125,6 @@ public class TGLock
 		/**
 		 * 该方法的作用:
 		 * 加锁成功
-		 * @author l00220455
 		 * @date 2014年8月22日
 		 */
 		void onLockSuccess();
@@ -139,7 +132,6 @@ public class TGLock
 		/**
 		 * 该方法的作用:
 		 * 加锁失败
-		 * @author l00220455
 		 * @date 2014年8月22日
 		 */
 		void onLockFailed();
@@ -148,7 +140,6 @@ public class TGLock
 	/**
 	 * 该类作用及功能说明
 	 * 解锁回调接口
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 */
 	public static interface onUnLockListener
@@ -156,7 +147,6 @@ public class TGLock
 		/**
 		 * 该方法的作用:
 		 * 解锁成功
-		 * @author l00220455
 		 * @date 2014年8月22日
 		 */
 		void onUnLockSuccess();
@@ -164,7 +154,6 @@ public class TGLock
 		/**
 		 * 该方法的作用:
 		 * 解锁失败
-		 * @author l00220455
 		 * @date 2014年8月22日
 		 */
 		void onUnLockFailed();
@@ -173,7 +162,6 @@ public class TGLock
 	/**
 	 * 该类作用及功能说明
 	 * 锁定状态
-	 * @author l00220455
 	 * @date 2014年3月17日
 	 */
 	public static enum MPLockState

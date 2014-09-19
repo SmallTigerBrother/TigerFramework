@@ -10,7 +10,6 @@ import com.mn.tiger.utility.LogTools;
  * 
  * 该类作用及功能说明 远程服务的aidl接口,是数据的通道 在绑定到service时,具体返回的对象
  * 
- * @author pWX219598
  * @date 2014年5月15日
  */
 public class TGRemoteBinder extends TGRemoteService.Stub
@@ -26,7 +25,6 @@ public class TGRemoteBinder extends TGRemoteService.Stub
 
 	/**
 	 * 构造函数
-	 * @author pWX197040
 	 * @date 2014年6月28日
 	 * @param context
 	 */

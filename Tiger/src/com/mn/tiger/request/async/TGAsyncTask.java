@@ -25,7 +25,6 @@ import com.mn.tiger.utility.LogTools;
 /**
  * 该类作用及功能说明
  * MJet框架异步请求基类
- * @author l00220455
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2014年2月10日
@@ -114,7 +113,6 @@ public class TGAsyncTask<Result>
 	};
 	
 	/**
-	 * @author l00220455
 	 * @date 2013年12月8日
 	 * 构造函数
 	 * @param context
@@ -136,7 +134,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 执行任务
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param params
 	 */
@@ -148,7 +145,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 后台执行
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param params
 	 * @return
@@ -171,7 +167,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 初始化Http请求参数
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param params
 	 * @return
@@ -210,7 +205,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 获取执行任务的类名
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param requestType
 	 * @return
@@ -250,7 +244,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 设置执行任务的类名
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param taskClsName
 	 */
@@ -262,7 +255,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 取消任务
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param cancelIfRunning
 	 */
@@ -275,7 +267,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 打印进度
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param value
 	 */
@@ -287,7 +278,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 更新进度
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param value
 	 */
@@ -298,7 +288,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 任务执行后的回调方法
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param result
 	 */
@@ -315,7 +304,6 @@ public class TGAsyncTask<Result>
 
 	/**
 	 * 该方法的作用: 解析请求结果JSON
-	 * @author l00220455
 	 * @date 2012-12-25
 	 * @param jsonResult  请求结果JSON
 	 * @return 请求结果
@@ -328,7 +316,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 发送通知消息
-	 * @author l00220455
 	 * @date 2013-6-4
 	 */
 	protected void sendMessage(Result result)
@@ -346,7 +333,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 设置请求Url
-	 * @author l00220455
 	 * @date 2013年12月8日
 	 * @param requestUrl
 	 */
@@ -358,7 +344,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 获取请求Url
-	 * @author l00220455
 	 * @date 2013年12月8日
 	 * @return
 	 */
@@ -370,7 +355,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 获取错误处理接口
-	 * @author l00220455
 	 * @date 2014年1月15日
 	 * @param httpErrorHandler
 	 */
@@ -382,7 +366,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 设置请求类型
-	 * @author l00220455
 	 * @date 2013年12月8日
 	 * @param requestType
 	 */
@@ -394,7 +377,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 获取网络请求类型
-	 * @author l00220455
 	 * @date 2013年12月8日
 	 * @return
 	 */
@@ -406,7 +388,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 设置更新Handler
-	 * @author l00220455
 	 * @date 2013年12月8日
 	 * @param handler
 	 */
@@ -418,7 +399,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 获取Handler
-	 * @author l00220455
 	 * @date 2013年12月8日
 	 * @return
 	 */
@@ -430,7 +410,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 获取请求结果
-	 * @author l00220455
 	 * @date 2013年12月8日
 	 * @return
 	 */
@@ -442,7 +421,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 设置message的What值
-	 * @author l00220455
 	 * @date 2013年12月8日
 	 * @param messageWhat
 	 */
@@ -454,7 +432,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 获取Message的What值
-	 * @author l00220455
 	 * @date 2014年2月10日
 	 * @return
 	 */
@@ -471,7 +448,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 获取结果回调类
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @return
 	 */
@@ -483,7 +459,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 设置结果回调类
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @param resultHandler
 	 */
@@ -504,7 +479,6 @@ public class TGAsyncTask<Result>
 	
 	/**
 	 * 该方法的作用: 批量设置请求参数
-	 * @author pWX197040
 	 * @date 2014年5月23日
 	 * @param properties
 	 */
@@ -517,7 +491,6 @@ public class TGAsyncTask<Result>
 	/**
 	 * 该方法的作用:
 	 * 获取消息头properites
-	 * @author l00220455
 	 * @date 2014年8月22日
 	 * @return
 	 */
