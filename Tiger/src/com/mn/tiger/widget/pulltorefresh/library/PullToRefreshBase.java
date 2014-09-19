@@ -776,16 +776,16 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout {
 		mTouchSlop = ViewConfiguration.getTouchSlop();
 
 		int[] attrIds = new int[] {
-				CR.getAttrId(context, "mjet_ptrAdapterViewBackground"),
-				CR.getAttrId(context, "mjet_ptrHeaderBackground"),
-				CR.getAttrId(context, "mjet_ptrHeaderTextColor"),
-				CR.getAttrId(context, "mjet_ptrMode") };
+				CR.getAttrId(context, "tiger_ptrAdapterViewBackground"),
+				CR.getAttrId(context, "tiger_ptrHeaderBackground"),
+				CR.getAttrId(context, "tiger_ptrHeaderTextColor"),
+				CR.getAttrId(context, "tiger_ptrMode") };
 		// Styleables from XML,强制通过代码添加
 		TypedArray typedArray = context.obtainStyledAttributes(attrs, attrIds);
 		if (typedArray.hasValue(CR.getStyleableId(context,
-				"mjet_PullToRefresh_ptrMode"))) {
+				"tiger_PullToRefresh_ptrMode"))) {
 			mMode = typedArray.getInteger(
-					CR.getStyleableId(context, "mjet_PullToRefresh_ptrMode"),
+					CR.getStyleableId(context, "tiger_PullToRefresh_ptrMode"),
 					MODE_PULL_DOWN_TO_REFRESH);
 		}
 
@@ -796,11 +796,11 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout {
 
 		// Loading View Strings
 		String pullLabel = context.getString(CR.getStringsId(context,
-				"mjet_pull_to_refresh_pull_label"));
+				"tiger_pull_to_refresh_pull_label"));
 		String refreshingLabel = context.getString(CR.getStringsId(context,
-				"mjet_pull_to_refresh_refreshing_label"));
+				"tiger_pull_to_refresh_refreshing_label"));
 		String releaseLabel = context.getString(CR.getStringsId(context,
-				"mjet_pull_to_refresh_release_label"));
+				"tiger_pull_to_refresh_release_label"));
 
 		// Add Loading Views
 		if (mMode == MODE_PULL_DOWN_TO_REFRESH || mMode == MODE_BOTH) {
@@ -829,16 +829,16 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout {
 
 		// Styleables from XML
 		if (typedArray.hasValue(CR.getStyleableId(context,
-				"mjet_PullToRefresh_ptrHeaderBackground"))) {
+				"tiger_PullToRefresh_ptrHeaderBackground"))) {
 			setBackgroundResource(typedArray.getResourceId(CR.getStyleableId(
-					context, "mjet_PullToRefresh_ptrHeaderBackground"),
+					context, "tiger_PullToRefresh_ptrHeaderBackground"),
 					Color.WHITE));
 		}
 		if (typedArray.hasValue(CR.getStyleableId(context,
-				"mjet_PullToRefresh_ptrAdapterViewBackground"))) {
+				"tiger_PullToRefresh_ptrAdapterViewBackground"))) {
 			mRefreshableView.setBackgroundResource(typedArray.getResourceId(CR
 					.getStyleableId(context,
-							"mjet_PullToRefresh_ptrAdapterViewBackground"),
+							"tiger_PullToRefresh_ptrAdapterViewBackground"),
 					Color.WHITE));
 		}
 		typedArray.recycle();

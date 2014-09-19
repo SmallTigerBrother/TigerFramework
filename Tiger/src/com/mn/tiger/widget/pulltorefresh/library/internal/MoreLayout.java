@@ -36,14 +36,14 @@ public class MoreLayout extends OriginalLoadingLayout {
 	public MoreLayout(Context context) {
 		super(context);
 		ViewGroup footer = (ViewGroup) LayoutInflater.from(context).inflate(
-				CR.getLayoutId(context, "mjet_more_to_refresh_footer"), this);
+				CR.getLayoutId(context, "tiger_more_to_refresh_footer"), this);
 		mFooterText = (TextView) footer.findViewById(CR.getIdId(context,
-				"mjet_more_to_refresh_text"));
+				"tiger_more_to_refresh_text"));
 		mFooterProgress = (ProgressBar) footer.findViewById(CR.getIdId(context,
-				"mjet_more_to_refresh_progress"));
+				"tiger_more_to_refresh_progress"));
 
 		mReleaseLabel = context.getString(CR.getStringsId(context,
-				"mjet_more_to_refresh_pull_label"));
+				"tiger_more_to_refresh_pull_label"));
 		mRefreshingLabel = mPullLabel = mReleaseLabel;
 
 		// setTextColor(Color.BLACK);

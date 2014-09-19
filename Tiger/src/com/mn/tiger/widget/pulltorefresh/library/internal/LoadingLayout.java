@@ -53,15 +53,15 @@ public class LoadingLayout extends OriginalLoadingLayout {
 			String pullLabel, String refreshingLabel, TypedArray attrs) {
 		super(context);
 		ViewGroup header = (ViewGroup) LayoutInflater.from(context).inflate(
-				CR.getLayoutId(context, "mjet_pull_to_refresh_header"), this);
+				CR.getLayoutId(context, "tiger_pull_to_refresh_header"), this);
 		mHeaderText = (TextView) header.findViewById(CR.getIdId(context,
-				"mjet_pull_to_refresh_text"));
+				"tiger_pull_to_refresh_text"));
 		mHeaderTextDown = (TextView) header.findViewById(CR.getIdId(context,
-				"mjet_pull_to_refresh_text_down"));
+				"tiger_pull_to_refresh_text_down"));
 		mHeaderImage = (ImageView) header.findViewById(CR.getIdId(context,
-				"mjet_pull_to_refresh_image"));
+				"tiger_pull_to_refresh_image"));
 		mHeaderProgress = (ProgressBar) header.findViewById(CR.getIdId(context,
-				"mjet_pull_to_refresh_progress"));
+				"tiger_pull_to_refresh_progress"));
 
 		final Interpolator interpolator = new LinearInterpolator();
 		mRotateAnimation = new RotateAnimation(0, -180,
@@ -85,12 +85,12 @@ public class LoadingLayout extends OriginalLoadingLayout {
 		switch (mode) {
 		case PullToRefreshBase.MODE_PULL_UP_TO_REFRESH:
 			mHeaderImage.setImageResource(CR.getDrawableId(context,
-					"mjet_pulltorefresh_up_arrow"));
+					"tiger_pulltorefresh_up_arrow"));
 			break;
 		case PullToRefreshBase.MODE_PULL_DOWN_TO_REFRESH:
 		default:
 			mHeaderImage.setImageResource(CR.getDrawableId(context,
-					"mjet_pulltorefresh_down_arrow"));
+					"tiger_pulltorefresh_down_arrow"));
 			break;
 		}
 

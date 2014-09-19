@@ -124,7 +124,7 @@ public class TGPullToRefreshController implements IPullToRefreshController
 		if(curPage < startPageNum)
 		{
 			Toast.makeText(context, context.getString(CR.getStringsId(context, 
-					"mjet_pull_to_refresh_already_firstpage")), Toast.LENGTH_SHORT).show();
+					"tiger_pull_to_refresh_already_firstpage")), Toast.LENGTH_SHORT).show();
 			curPage = curPage + getShowPageMost();
 		}
 		else 
@@ -149,7 +149,7 @@ public class TGPullToRefreshController implements IPullToRefreshController
 		if(curPage < startPageNum)
 		{
 			Toast.makeText(context, context.getString(CR.getStringsId(context, 
-					"mjet_pull_to_refresh_already_firstpage")), Toast.LENGTH_SHORT).show();
+					"tiger_pull_to_refresh_already_firstpage")), Toast.LENGTH_SHORT).show();
 			curPage++;
 		}
 		
@@ -208,7 +208,7 @@ public class TGPullToRefreshController implements IPullToRefreshController
 		if (curPage > totalPage + deltaTotalPage) 
 		{
 			Toast.makeText(context, context.getString(CR.getStringsId(
-					context, "mjet_pull_to_refresh_already_lastpage")),
+					context, "tiger_pull_to_refresh_already_lastpage")),
 					Toast.LENGTH_SHORT).show();
 			curPage--;
 		}
@@ -229,7 +229,7 @@ public class TGPullToRefreshController implements IPullToRefreshController
 		if (curPage > totalPage + deltaTotalPage) 
 		{
 			Toast.makeText(context, context.getString(CR.getStringsId(
-					context, "mjet_pull_to_refresh_already_lastpage")), 
+					context, "tiger_pull_to_refresh_already_lastpage")), 
 					Toast.LENGTH_SHORT).show();
 			curPage = curPage - getShowPageMost();
 		}

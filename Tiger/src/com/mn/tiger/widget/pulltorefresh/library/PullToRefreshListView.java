@@ -159,18 +159,18 @@ public class PullToRefreshListView extends
 
 		// Loading View Strings
 		String pullLabel = context.getString(CR.getStringsId(context,
-				"mjet_pull_to_refresh_pull_label"));
+				"tiger_pull_to_refresh_pull_label"));
 		String refreshingLabel = context.getString(CR.getStringsId(context,
-				"mjet_pull_to_refresh_refreshing_label"));
+				"tiger_pull_to_refresh_refreshing_label"));
 		String releaseLabel = context.getString(CR.getStringsId(context,
-				"mjet_pull_to_refresh_release_label"));
+				"tiger_pull_to_refresh_release_label"));
 
 		// Get Styles from attrs
 		int[] attrIds = new int[] {
-				CR.getAttrId(context, "mjet_ptrAdapterViewBackground"),
-				CR.getAttrId(context, "mjet_ptrHeaderBackground"),
-				CR.getAttrId(context, "mjet_ptrHeaderTextColor"),
-				CR.getAttrId(context, "mjet_ptrMode") };
+				CR.getAttrId(context, "tiger_ptrAdapterViewBackground"),
+				CR.getAttrId(context, "tiger_ptrHeaderBackground"),
+				CR.getAttrId(context, "tiger_ptrHeaderTextColor"),
+				CR.getAttrId(context, "tiger_ptrMode") };
 		TypedArray typedArray = context.obtainStyledAttributes(attrs, attrIds);
 
 		// Add Loading Views

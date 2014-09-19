@@ -1,31 +1,31 @@
 <resources>
-    <string name="mjet_app_name">mjet</string>
+    <string name="tiger_app_name">tiger</string>
      
 	
 	<!-- request -->
-	<string name="mjet_network_alert">Sorry, link to the network failed, please try
+	<string name="tiger_network_alert">Sorry, link to the network failed, please try
 		later!</string>
-	<string name="mjet_colse">Close</string>
-	<string name="mjet_alertdialog_str_un">Sorry, please try again later!</string>
-	<string name="mjet_alert_dialog_title_network_error">Networking tips</string>
-	<string name="mjet_nodata">No Data Found！</string>
+	<string name="tiger_colse">Close</string>
+	<string name="tiger_alertdialog_str_un">Sorry, please try again later!</string>
+	<string name="tiger_alert_dialog_title_network_error">Networking tips</string>
+	<string name="tiger_nodata">No Data Found！</string>
 	
 	<!--提示框消息 -->
-    <string name="mjet_alert_dialog_cancel">Cancel</string>
-    <string name="mjet_alert_dialog_title_warn_error">Tips</string>
-	<string name="mjet_alert_dialog_ok">OK</string>
+    <string name="tiger_alert_dialog_cancel">Cancel</string>
+    <string name="tiger_alert_dialog_title_warn_error">Tips</string>
+	<string name="tiger_alert_dialog_ok">OK</string>
 	
 	
-    <string name="mjet_hello">hello</string>
-    <string name="mjet_dialog_text_waiting">Loading......</string>
+    <string name="tiger_hello">hello</string>
+    <string name="tiger_dialog_text_waiting">Loading......</string>
 
  
     <!-- 数据请求 -->
-    <string name="mjet_request_data_error">Request error, please try again later!</string>
+    <string name="tiger_request_data_error">Request error, please try again later!</string>
 
 
     <!-- 提示框提示信忿 -->
-    <string name="mjet_alert_dialog_yes_no_title">Do you really want to quit?</string>
+    <string name="tiger_alert_dialog_yes_no_title">Do you really want to quit?</string>
     
-    <string name="mjet_not_space" >Insufficient space , download fail!</string>
+    <string name="tiger_not_space" >Insufficient space , download fail!</string>
 </resources>

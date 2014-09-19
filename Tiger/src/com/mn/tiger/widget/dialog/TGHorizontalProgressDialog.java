@@ -54,16 +54,16 @@ public class TGHorizontalProgressDialog extends TGDialog implements IProgressDia
 		LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(
 				Context.LAYOUT_INFLATER_SERVICE);
 		View view = (View) inflater.inflate(
-				CR.getLayoutId(getContext(), "mjet_horizontal_progress_dialog"), null);
+				CR.getLayoutId(getContext(), "tiger_horizontal_progress_dialog"), null);
 
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		super.setBodyContentView(view, params);
 
 		progressBar = (ProgressBar) view.findViewById(
-				CR.getIdId(getContext(), "mjet_progress_bar"));
+				CR.getIdId(getContext(), "tiger_progress_bar"));
 		progressText = (TextView) view.findViewById(
-				CR.getIdId(getContext(), "mjet_progress_text"));
+				CR.getIdId(getContext(), "tiger_progress_text"));
 		
 	}
 

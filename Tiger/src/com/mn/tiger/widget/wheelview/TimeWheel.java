@@ -113,18 +113,18 @@ public class TimeWheel extends FrameLayout
 	{
 		LayoutInflater inflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		inflater.inflate(CR.getLayoutId(mContext, "mjet_date_wheel_layout"), this, true);
-		this.mYearWheel = (WheelView) findViewById(CR.getIdId(mContext, "mjet_year"));
+		inflater.inflate(CR.getLayoutId(mContext, "tiger_date_wheel_layout"), this, true);
+		this.mYearWheel = (WheelView) findViewById(CR.getIdId(mContext, "tiger_year"));
 		this.mYearWheel.setBackgroundDrawable(mContext.getResources().getDrawable(
-				CR.getDrawableId(mContext, "mjet_date_scroll_left")));
+				CR.getDrawableId(mContext, "tiger_date_scroll_left")));
 
-		this.mMonthWheel = (WheelView) findViewById(CR.getIdId(mContext, "mjet_month"));
+		this.mMonthWheel = (WheelView) findViewById(CR.getIdId(mContext, "tiger_month"));
 		this.mMonthWheel.setBackgroundDrawable(mContext.getResources().getDrawable(
-				CR.getDrawableId(mContext, "mjet_date_scroll_center")));
+				CR.getDrawableId(mContext, "tiger_date_scroll_center")));
 
-		this.mDayWheel = (WheelView) findViewById(CR.getIdId(mContext, "mjet_day"));
+		this.mDayWheel = (WheelView) findViewById(CR.getIdId(mContext, "tiger_day"));
 		this.mDayWheel.setBackgroundDrawable(mContext.getResources().getDrawable(
-				CR.getDrawableId(mContext, "mjet_date_scroll_right")));
+				CR.getDrawableId(mContext, "tiger_date_scroll_right")));
 
 		Date date = new Date();
 		Log.d("date", date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());

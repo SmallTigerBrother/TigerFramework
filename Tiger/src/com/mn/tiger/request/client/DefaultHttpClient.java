@@ -58,7 +58,7 @@ public class DefaultHttpClient extends TGHttpClient
 				{
 					code = TGErrorMsgEnum.NO_NETWORK.code;
 					httpResult.setResult(getContext().getText(
-							CR.getStringsId(getContext(), "mjet_network_alert")).toString());
+							CR.getStringsId(getContext(), "tiger_network_alert")).toString());
 					break;
 				}
 				
@@ -134,7 +134,7 @@ public class DefaultHttpClient extends TGHttpClient
 	{
 		TGHttpResult httpResult = new TGHttpResult();
 		httpResult.setResponseCode(Integer.valueOf(4936));
-		httpResult.setResult(getContext().getText(CR.getStringsId(getContext(), "mjet_try_later")).toString());
+		httpResult.setResult(getContext().getText(CR.getStringsId(getContext(), "tiger_try_later")).toString());
 		return httpResult;
 	}
 }

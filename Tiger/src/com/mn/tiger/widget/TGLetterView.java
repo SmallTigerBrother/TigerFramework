@@ -340,7 +340,7 @@ public class TGLetterView extends View
 	{
 		LayoutInflater inflater = LayoutInflater.from(getContext());
 		// 获取overlay的视图
-		overLay = (TextView) inflater.inflate(CR.getLayoutId(getContext(), "mjet_overlay_layout"),
+		overLay = (TextView) inflater.inflate(CR.getLayoutId(getContext(), "tiger_overlay_layout"),
 				null);
 		overLay.setVisibility(View.INVISIBLE);
 		WindowManager.LayoutParams params = new WindowManager.LayoutParams(

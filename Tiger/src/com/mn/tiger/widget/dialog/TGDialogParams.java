@@ -41,7 +41,7 @@ public class TGDialogParams
 	 */
 	public Drawable getBackgroundResource()
 	{
-		return context.getResources().getDrawable(CR.getDrawableId(context, "mjet_dialog_bg"));
+		return null;
 	}
 	
 	/**
@@ -105,7 +105,7 @@ public class TGDialogParams
 	 */
 	public int getLeftButtonTextColor()
 	{
-		return context.getResources().getColor(CR.getColorId(getContext(), "mjet_x1e1e1e"));
+		return 0x1e1e1e;
 	}
 	
 	/**
@@ -114,7 +114,7 @@ public class TGDialogParams
 	 */
 	public int getMiddleButtonTextColor()
 	{
-		return context.getResources().getColor(CR.getColorId(getContext(), "mjet_x1e1e1e"));
+		return 0x1e1e1e;
 	}
 	
 	/**
@@ -123,7 +123,7 @@ public class TGDialogParams
 	 */
 	public int getRightButtonTextColor()
 	{
-		return context.getResources().getColor(CR.getColorId(getContext(), "mjet_x1e1e1e"));
+		return 0x1e1e1e;
 	}
 	
 	/**
@@ -157,27 +157,27 @@ public class TGDialogParams
 	 * 获取左按钮的背景
 	 * @return 左按钮的背景
 	 */
-	public Drawable getLeftButtonBackground()
+	public Drawable getLeftButtonBackgroundRes()
 	{
-		return context.getResources().getDrawable(CR.getDrawableId(context, "mjet_dialog_button_selector"));
+		return null;
 	}
 	
 	/**
 	 * 获取中按钮的背景
 	 * @return 中按钮的背景
 	 */
-	public Drawable getMiddleButtonBackground()
+	public Drawable getMiddleButtonBackgroundRes()
 	{
-		return context.getResources().getDrawable(CR.getDrawableId(context, "mjet_dialog_button_selector"));
+		return null;
 	}
 	
 	/**
 	 * 获取右按钮的背景
 	 * @return 右按钮的背景
 	 */
-	public Drawable getRightButtonBackground()
+	public Drawable getRightButtonBackgroundRes()
 	{
-		return context.getResources().getDrawable(CR.getDrawableId(context, "mjet_dialog_button_selector"));
+		return null;
 	}
 
 	/**
@@ -186,7 +186,7 @@ public class TGDialogParams
 	 */
 	public int getDialogTheme()
 	{
-		return CR.getStyleId(context, "mjet_baseDialog");
+		return CR.getStyleId(context, "tiger_baseDialog");
 	}
 	
 	/**
@@ -204,7 +204,7 @@ public class TGDialogParams
 	 */
 	public int getTitleTextColor()
 	{
-		return context.getResources().getColor(CR.getColorId(getContext(), "mjet_x1e1e1e"));
+		return 0x1e1e1e;
 	}
 
 	/**
@@ -222,7 +222,7 @@ public class TGDialogParams
 	 */
 	public int getBodyTextColor()
 	{
-		return context.getResources().getColor(CR.getColorId(getContext(), "mjet_x414141"));
+		return 0x414141;
 	}
 	
 	protected Context getContext()

@@ -30,15 +30,9 @@ public class TGDialogFactory
 	 * @param dialogStyle 对话框风格
 	 * @return
 	 */
-	public IDialog createDialog(Context context, int dialogStyle)
+	public IDialog createDialog(Context context)
 	{
-		switch (dialogStyle)
-		{
-		case IDialog.DIALOG_STYLE_MPDIALOG:
-			return new TGDialog(context);
-		default:
-			return new TGDialog(context);
-		}
+		return new TGDialog(context);
 	}
 	
 	/**
@@ -50,25 +44,16 @@ public class TGDialogFactory
 	 * @param progressStyle 进度条风格
 	 * @return
 	 */
-	public IProgressDialog createProgressDialog(Context context, 
-			int dialogStyle, int progressStyle)
+	public IProgressDialog createProgressDialog(Context context,  int progressStyle)
 	{
-		switch (dialogStyle)
+		switch (progressStyle)
 		{
-			case IDialog.DIALOG_STYLE_MPDIALOG:
-				
-				switch (progressStyle)
-				{
-				case IProgressDialog.PROGRESS_STYLE_HORIZONTAL:
-					return new TGProgressDialog(context, IProgressDialog.PROGRESS_STYLE_HORIZONTAL);
-				case IProgressDialog.PROGRESS_STYLE_SPINNER:
-					return new TGProgressDialog(context, IProgressDialog.PROGRESS_STYLE_SPINNER);
-				default:
-					return null;
-				}
-				
-			default:
-				return null;
+		case IProgressDialog.PROGRESS_STYLE_HORIZONTAL:
+			return new TGProgressDialog(context, IProgressDialog.PROGRESS_STYLE_HORIZONTAL);
+		case IProgressDialog.PROGRESS_STYLE_SPINNER:
+			return new TGProgressDialog(context, IProgressDialog.PROGRESS_STYLE_SPINNER);
+		default:
+			return null;
 		}
 	}
 }

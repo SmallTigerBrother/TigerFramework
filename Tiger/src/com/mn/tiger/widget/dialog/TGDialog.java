@@ -113,7 +113,7 @@ public class TGDialog extends Dialog implements IDialog
 	
 	public TGDialog(Context context)
 	{
-		super(context, CR.getStyleId(context, "mjet_baseDialog"));
+		super(context, CR.getStyleId(context, "tiger_baseDialog"));
 		dialogParams = new TGDialogParams(getContext());
 		setupDialog();
 	}
@@ -163,7 +163,13 @@ public class TGDialog extends Dialog implements IDialog
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
 				dialogParams.getDialogWidth(), dialogParams.getDialogHeight());
 		params.gravity = Gravity.CENTER_HORIZONTAL;
-		rootView.setBackgroundDrawable(dialogParams.getBackgroundResource());
+		
+		Drawable backgroundRes = dialogParams.getBackgroundResource();
+		if(null != backgroundRes)
+		{
+			rootView.setBackgroundDrawable(backgroundRes);
+		}
+		
 		rootView.setPadding(DisplayUtils.dip2px(getContext(), 8), DisplayUtils.dip2px(getContext(), 8), 
 				DisplayUtils.dip2px(getContext(), 8), DisplayUtils.dip2px(getContext(), 8));
 		setContentView(rootView, params);
@@ -309,7 +315,12 @@ public class TGDialog extends Dialog implements IDialog
 		Button leftButton = new Button(getContext());
 		leftButton.setTextSize(dialogParams.getLeftButtonTextSize());
 		leftButton.setTextColor(dialogParams.getLeftButtonTextColor());
-		leftButton.setBackgroundDrawable(dialogParams.getLeftButtonBackground());
+		
+		Drawable backgroundRes = dialogParams.getLeftButtonBackgroundRes();
+		if(null != backgroundRes)
+		{
+			leftButton.setBackgroundDrawable(dialogParams.getLeftButtonBackgroundRes());
+		}
 		
 		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.WRAP_CONTENT, 
@@ -405,7 +416,12 @@ public class TGDialog extends Dialog implements IDialog
 		Button middleButton = new Button(getContext());
 		middleButton.setTextSize(dialogParams.getMiddleButtonTextSize());
 		middleButton.setTextColor(dialogParams.getMiddleButtonTextColor());
-		middleButton.setBackgroundDrawable(dialogParams.getMiddleButtonBackground());
+		
+		Drawable backgroundRes = dialogParams.getMiddleButtonBackgroundRes();
+		if(null != backgroundRes)
+		{
+			middleButton.setBackgroundDrawable(dialogParams.getMiddleButtonBackgroundRes());
+		}
 		
 		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.WRAP_CONTENT, 
@@ -512,7 +528,12 @@ public class TGDialog extends Dialog implements IDialog
 		Button rightButton = new Button(getContext());
 		rightButton.setTextSize(dialogParams.getRightButtonTextSize());
 		rightButton.setTextColor(dialogParams.getRightButtonTextColor());
-		rightButton.setBackgroundDrawable(dialogParams.getRightButtonBackground());
+		
+		Drawable backgroundRes = dialogParams.getRightButtonBackgroundRes();
+		if(null != backgroundRes)
+		{
+			rightButton.setBackgroundDrawable(dialogParams.getRightButtonBackgroundRes());
+		}
 		
 		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.WRAP_CONTENT, 

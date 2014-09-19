@@ -121,7 +121,7 @@ public class TGDBManager
 			dao.daoConfig = daoConfig;
 		}
 
-		// 检查是否存在MjetTable表，如果不存在（数据库初次创建时），则创建该表
+		// 检查是否存在tigerTable表，如果不存在（数据库初次创建时），则创建该表
 		try
 		{
 			dao.createTableIfNotExist(TigerTables.class);
@@ -1359,7 +1359,7 @@ public class TGDBManager
 	}
 
 	/**
-	 * 把新加的业务表表名和对应的entity路径添加到mjet系统表
+	 * 把新加的业务表表名和对应的entity路径添加到tiger系统表
 	 * 
 	 * void
 	 * 
@@ -1369,12 +1369,12 @@ public class TGDBManager
 	{
 		// 获取表名
 		String tableName = TableUtils.getTableName(entityType);
-		// MjetTables表本身不添加进业务表
-		if ("MjetTables".equals(entityType.getSimpleName()))
+		// tigerTables表本身不添加进业务表
+		if ("TigerTables".equals(entityType.getSimpleName()))
 		{
 			return;
 		}
-		// 添加业务表信息到MjetTables表
+		// 添加业务表信息到tigerTables表
 		TigerTables table = new TigerTables();
 		table.setName(tableName);
 		table.setClassPath(entityType.getName());

@@ -210,7 +210,7 @@ public class TGPullToRefreshDataController<T> implements IPullToRefreshDataContr
 			pageList.clear();
 			pullToRefreshListView.getPullToRefreshController().setCurrentPage(1);
 			Toast.makeText(getContext(), getContext().getString(CR.getStringsId(getContext(), 
-					"mjet_pull_to_refresh_no_data")), Toast.LENGTH_SHORT).show();
+					"tiger_pull_to_refresh_no_data")), Toast.LENGTH_SHORT).show();
 		}
 	}
 	

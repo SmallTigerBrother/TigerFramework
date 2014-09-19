@@ -10,7 +10,7 @@ import com.mn.tiger.datastorage.db.annotation.Table;
  * 
  * @since 2014年3月13日
  */
-@Table(name="MjetTables")
+@Table(name="TigerTables")
 public class TigerTables {
 	// 业务表名称
 	@Id

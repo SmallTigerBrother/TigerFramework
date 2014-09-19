@@ -13,16 +13,6 @@ import android.widget.TextView;
 public interface IDialog extends DialogInterface
 {
 	/**
-	 * Mjet默认样式的对话框
-	 */
-	public static final int DIALOG_STYLE_MPDIALOG = 1;
-	
-	/**
-	 * AlertDialog样式的对话框
-	 */
-	public static final int DIALOG_STYLE_ALERTDIALOG = 2;
-	
-	/**
 	 * 左按钮标识
 	 */
 	public static final int BUTTON_LEFT = 1;

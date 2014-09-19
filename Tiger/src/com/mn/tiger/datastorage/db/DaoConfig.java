@@ -12,7 +12,7 @@ import com.mn.tiger.datastorage.db.upgrade.AbsDbUpgrade;
  */
 public class DaoConfig {
 	private Context context;
-    private String dbName = "mJet.db"; // default db name
+    private String dbName = "tiger.db"; // default db name
     private int dbVersion = 1;
     private com.mn.tiger.datastorage.db.upgrade.AbsDbUpgrade dbUpgrade;
 

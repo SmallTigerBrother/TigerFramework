@@ -76,33 +76,33 @@ public class TGActivity extends Activity
 		if (getNavigationBarVisibility() == View.VISIBLE)
 		{
 			LayoutInflater inflater = LayoutInflater.from(this);
-			View mainView = inflater.inflate(CR.getLayoutId(this, "mjet_base_activity"), null);
+			View mainView = inflater.inflate(CR.getLayoutId(this, "tiger_base_activity"), null);
 			super.setContentView(mainView, new LinearLayout.LayoutParams(
 					LinearLayout.LayoutParams.MATCH_PARENT,
 					LinearLayout.LayoutParams.MATCH_PARENT));
 
 			LinearLayout panelContent = (LinearLayout) findViewById(
-					CR.getIdId(this, "mjet_panel"));
+					CR.getIdId(this, "panel"));
 
 			panelContent.addView(view, new LayoutParams(LayoutParams.MATCH_PARENT,
 					LayoutParams.MATCH_PARENT));
-			navigationBar = (TGNavigationBar) findViewById(CR.getIdId(this, "mjet_navigationbar"));
+			navigationBar = (TGNavigationBar) findViewById(CR.getIdId(this, "navigationbar"));
 			initNavigationResource(navigationBar);
 		}
 		else if(getNavigationBarVisibility() == View.GONE)
 		{
 			LayoutInflater inflater = LayoutInflater.from(this);
-			View mainView = inflater.inflate(CR.getLayoutId(this, "mjet_base_activity"), null);
+			View mainView = inflater.inflate(CR.getLayoutId(this, "tiger_base_activity"), null);
 			super.setContentView(mainView, new LinearLayout.LayoutParams(
 					LinearLayout.LayoutParams.MATCH_PARENT,
 					LinearLayout.LayoutParams.MATCH_PARENT));
 
 			LinearLayout panelContent = (LinearLayout) findViewById(
-					CR.getIdId(this, "mjet_panel"));
+					CR.getIdId(this, "panel"));
 
 			panelContent.addView(view, new LayoutParams(LayoutParams.MATCH_PARENT,
 					LayoutParams.MATCH_PARENT));
-			navigationBar = (TGNavigationBar) findViewById(CR.getIdId(this, "mjet_navigationbar"));
+			navigationBar = (TGNavigationBar) findViewById(CR.getIdId(this, "navigationbar"));
 			initNavigationResource(navigationBar);
 			navigationBar.setVisibility(View.GONE);
 		}
@@ -122,10 +122,10 @@ public class TGActivity extends Activity
 	 */
 	protected void initNavigationResource(TGNavigationBar navigationBar)
 	{
-		navigationBar.setBackgroundResource(CR.getDrawableId(this, "mjet_header_background"));
+		navigationBar.setBackgroundResource(CR.getDrawableId(this, "tiger_header_background"));
 
 		navigationBar.getLeftNaviButton().setBackgroundResource(
-				CR.getDrawableId(this, "mjet_nav_back_button_selector"));
+				CR.getDrawableId(this, "tiger_nav_back_button_selector"));
 
 		showLeftBarButton(true);
 		navigationBar.getLeftNaviButton().setOnClickListener(new OnClickListener()
@@ -137,7 +137,7 @@ public class TGActivity extends Activity
 			}
 		});
 		navigationBar.getRightNaviButton().setBackgroundResource(
-				CR.getDrawableId(this, "mjet_nav_refresh_button_selector"));
+				CR.getDrawableId(this, "tiger_nav_refresh_button_selector"));
 
 	}
 	

@@ -24,7 +24,7 @@ import com.mn.tiger.utility.LogTools;
 
 /**
  * 该类作用及功能说明
- * MJet框架异步请求基类
+ * tiger框架异步请求基类
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2014年2月10日

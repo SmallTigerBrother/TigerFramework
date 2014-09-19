@@ -92,7 +92,7 @@ public class TGDateWheelDialog extends TGDialog
 	public TGDateWheelDialog(Context context, OnDateSetListener callBack, int year,
 			int monthOfYear, int dayOfMonth)
 	{
-		this(context, CR.getStyleId(context, "mjet_baseDialog"), callBack, year, monthOfYear,
+		this(context, CR.getStyleId(context, "tiger_baseDialog"), callBack, year, monthOfYear,
 				dayOfMonth);
 	}
 
@@ -178,7 +178,7 @@ public class TGDateWheelDialog extends TGDialog
 	protected void setupDialog()
 	{
 		this.addBodyContentView();
-		this.setRightButton(this.mContext.getString(CR.getStringsId(mContext, "mjet_setting")),
+		this.setRightButton(this.mContext.getString(CR.getStringsId(mContext, "tiger_setting")),
 				new OnClickListener()
 				{
 					@Override
@@ -193,7 +193,7 @@ public class TGDateWheelDialog extends TGDialog
 					}
 				});
 		this.setLeftButton(
-				this.mContext.getString(CR.getStringsId(mContext, "mjet_alert_dialog_cancel")),
+				this.mContext.getString(CR.getStringsId(mContext, "tiger_alert_dialog_cancel")),
 				new OnClickListener()
 				{
 					@Override
@@ -266,9 +266,9 @@ public class TGDateWheelDialog extends TGDialog
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		}
 		LinearLayout title_layout = (LinearLayout) mInflater.inflate(
-				CR.getLayoutId(mContext, "mjet_date_dialog_title"), null);
+				CR.getLayoutId(mContext, "tiger_date_dialog_title"), null);
 		this.mDateTextView = (TextView) title_layout.findViewById(CR.getIdId(mContext,
-				"mjet_date_selected_textview"));
+				"tiger_date_selected_textview"));
 		this.mDateTextView.setSingleLine();
 		this.mDateTextView.setEllipsize(TruncateAt.END);
 		this.addTitleView(title_layout);

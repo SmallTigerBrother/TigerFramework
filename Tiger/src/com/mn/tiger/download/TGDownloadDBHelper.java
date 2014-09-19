@@ -19,75 +19,77 @@ import com.mn.tiger.utility.LogTools;
  * 
  * @date 2014年6月5日
  */
-public class TGDownloadDBHelper {
+public class TGDownloadDBHelper
+{
 	/**
 	 * 日志标识
 	 */
 	protected final String LOG_TAG = this.getClass().getSimpleName();
-	
+
 	private static TGDownloadDBHelper instance;
-	
+
 	private TGDBManager dbManager;
-	
-	private static String database_name = "mjet_download.db";
-	
+
+	private static String database_name = "tiger_download.db";
+
 	private static int database_version = 1;
-	
-	/**文件下载url列名*/
-	private final String LOAD_INFO_URL_COLUMN_NAME ="urlString";
-	
-	/**下载任务请求的参数*/
+
+	/** 文件下载url列名 */
+	private final String LOAD_INFO_URL_COLUMN_NAME = "urlString";
+
+	/** 下载任务请求的参数 */
 	private final String LOAD_INFO_PARAM_COLUMN_NAME = "params";
-	
-	/**文件下载类型*/
-	private final String LOAD_INFO_COLUMN_TYPE ="type";
-	
-	/**edm文件下载docid*/
-	private final String LOAD_INFO_COLUMN_DOCID ="docId";
-	
+
+	/** 文件下载类型 */
+	private final String LOAD_INFO_COLUMN_TYPE = "type";
+
+	/** edm文件下载docid */
+	private final String LOAD_INFO_COLUMN_DOCID = "docId";
+
 	public static TGDownloadDBHelper getInstance(Context context)
 	{
-		if(instance == null)
+		if (instance == null)
 		{
 			instance = new TGDownloadDBHelper(context);
 		}
 		return instance;
 	}
-	
-	private TGDownloadDBHelper(Context context) 
+
+	private TGDownloadDBHelper(Context context)
 	{
 		dbManager = getDB(context);
 	}
-	
-	private TGDBManager getDB(Context context) 
+
+	private TGDBManager getDB(Context context)
 	{
-		TGDBManager db = TGDBManager.create(context, context.getApplicationInfo().dataDir + File.separator
-				+ Contant.STORE_DATABASE_PATH, database_name,database_version,new AbsDbUpgrade()
+		TGDBManager db = TGDBManager.create(context, context.getApplicationInfo().dataDir
+				+ File.separator + Contant.STORE_DATABASE_PATH, database_name, database_version,
+				new AbsDbUpgrade()
 				{
 					@Override
 					public void upgradeSuccess()
 					{
-						LogTools.p(TAG, "mjet_download upgrade success");
+						LogTools.p(TAG, "tiger_download upgrade success");
 					}
 
 					@Override
 					public void upgradeFail()
 					{
-						LogTools.e(TAG, "mjet_download upgrade success");
+						LogTools.e(TAG, "tiger_download upgrade success");
 					}
 
 					@Override
 					public void upgradeNeedless()
 					{
-						LogTools.p(TAG, "mjet_download upgrade need less.");
+						LogTools.p(TAG, "tiger_download upgrade need less.");
 					}
 
 				});
-        db.configAllowTransaction(true);
-        db.configDebug(false);
-        return db;
+		db.configAllowTransaction(true);
+		db.configDebug(false);
+		return db;
 	}
-	 
+
 	/**
 	 * 得到下载具体信息
 	 * 
@@ -110,7 +112,7 @@ public class TGDownloadDBHelper {
 
 		return downloader;
 	}
-	
+
 	/**
 	 * 根据docid得到下载具体信息
 	 * 
@@ -121,8 +123,7 @@ public class TGDownloadDBHelper {
 		TGDownloader downloader = null;
 		try
 		{
-			downloader = dbManager.findFirst(
-					TGDownloader.class,
+			downloader = dbManager.findFirst(TGDownloader.class,
 					WhereBuilder.b(LOAD_INFO_COLUMN_DOCID, "=", docId));
 		}
 		catch (DbException e)
@@ -132,7 +133,7 @@ public class TGDownloadDBHelper {
 
 		return downloader;
 	}
-	
+
 	/**
 	 * 得到所有下载具体信息
 	 * 
@@ -152,7 +153,7 @@ public class TGDownloadDBHelper {
 
 		return downloaderList;
 	}
-	
+
 	/**
 	 * 根据下载类型得到下载具体信息
 	 * 
@@ -163,8 +164,7 @@ public class TGDownloadDBHelper {
 		List<TGDownloader> downloaderList = null;
 		try
 		{
-			downloaderList = dbManager.findAll(
-					TGDownloader.class,
+			downloaderList = dbManager.findAll(TGDownloader.class,
 					WhereBuilder.b(LOAD_INFO_COLUMN_TYPE, "=", downloadType));
 		}
 		catch (DbException e)
@@ -174,7 +174,7 @@ public class TGDownloadDBHelper {
 
 		return downloaderList;
 	}
-	
+
 	/**
 	 * 根据sql得到下载具体信息
 	 * 
@@ -194,17 +194,19 @@ public class TGDownloadDBHelper {
 
 		return downloaderList;
 	}
-	
+
 	/**
 	 * 查看Downloader表中是否有数据
-	 * @throws DbException 
+	 * 
+	 * @throws DbException
 	 */
 	public synchronized boolean isHasDownloaders(String urlstr, String params)
 	{
 		long count = 0;
 		try
 		{
-			count = dbManager.count(TGDownloader.class,
+			count = dbManager.count(
+					TGDownloader.class,
 					WhereBuilder.b(LOAD_INFO_URL_COLUMN_NAME, "=", urlstr).and(
 							LOAD_INFO_PARAM_COLUMN_NAME, "=", params));
 		}
@@ -214,12 +216,13 @@ public class TGDownloadDBHelper {
 		}
 		return count > 0;
 	}
-	
+
 	/**
 	 * 该方法的作用:保存文件下载信息(有记录则更新记录)
+	 * 
 	 * @date 2014年1月8日
 	 * @param info
-	 * @throws DbException 
+	 * @throws DbException
 	 */
 	public synchronized void saveDownloader(TGDownloader info)
 	{
@@ -232,19 +235,21 @@ public class TGDownloadDBHelper {
 			LogTools.e(LOG_TAG, e.getMessage(), e);
 		}
 	}
-	
+
 	/**
 	 * 该方法的作用:更新文件下载状态
+	 * 
 	 * @date 2014年1月6日
 	 * @param info
-	 * @throws DbException 
+	 * @throws DbException
 	 */
 	public void updateDownloader(TGDownloader info)
 	{
-		if(info == null){
+		if (info == null)
+		{
 			return;
 		}
-		
+
 		try
 		{
 			dbManager.update(info);
@@ -253,11 +258,12 @@ public class TGDownloadDBHelper {
 		{
 			LogTools.e(LOG_TAG, e.getMessage(), e);
 		}
-     }
-	
+	}
+
 	/**
 	 * 下载完成后删除数据库中的数据
-	 * @throws DbException 
+	 * 
+	 * @throws DbException
 	 */
 	public synchronized void deleteDownloader(TGDownloader info)
 	{
@@ -270,10 +276,11 @@ public class TGDownloadDBHelper {
 			LogTools.e(LOG_TAG, e.getMessage(), e);
 		}
 	}
-	
+
 	/**
 	 * 下载完成后删除数据库中的数据
-	 * @throws DbException 
+	 * 
+	 * @throws DbException
 	 */
 	public synchronized void deleteDownloader(String url, String params)
 	{
@@ -289,7 +296,7 @@ public class TGDownloadDBHelper {
 			LogTools.e(LOG_TAG, e.getMessage(), e);
 		}
 	}
-	
+
 	public List<TGDownloader> findAllDownloader()
 	{
 		try
@@ -300,7 +307,7 @@ public class TGDownloadDBHelper {
 		{
 			LogTools.e(LOG_TAG, e.getMessage(), e);
 		}
-		
+
 		return new ArrayList<TGDownloader>();
 	}
 }

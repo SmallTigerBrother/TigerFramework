@@ -18,7 +18,7 @@ public class TGSpinnerProgressDialog extends TGDialog implements IProgressDialog
 {
 	public TGSpinnerProgressDialog(Context context)
 	{
-		super(context, CR.getStyleId(context, "mjet_progressDialog"));
+		super(context, CR.getStyleId(context, "tiger_progressDialog"));
 		setupDialog();
 	}
 	
@@ -42,9 +42,9 @@ public class TGSpinnerProgressDialog extends TGDialog implements IProgressDialog
 	{
 		LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(
 				Context.LAYOUT_INFLATER_SERVICE);
-		View view = inflater.inflate(CR.getLayoutId(getContext(), "mjet_progress_dialog"), null);
+		View view = inflater.inflate(CR.getLayoutId(getContext(), "tiger_progress_dialog"), null);
 		ImageView load_icon = (ImageView) view.findViewById(CR.getIdId(getContext(),
-				"mjet_progress_loading_icon"));
+				"tiger_progress_loading_icon"));
 
 		// 获取动画图片
 		final AnimationDrawable animationDrawable = (AnimationDrawable) load_icon.getBackground();

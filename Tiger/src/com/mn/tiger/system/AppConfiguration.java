@@ -10,7 +10,7 @@ import com.mn.tiger.task.invoke.TGTaskInvoker;
 import com.mn.tiger.utility.LogTools;
 
 /**
- * 该类作用及功能说明 应用配置，目前主要是获取mjet.propeties的配置
+ * 该类作用及功能说明 应用配置，目前主要是获取tiger.propeties的配置
  * 
  * @date 2013-11-21
  */
@@ -54,7 +54,7 @@ public final class AppConfiguration
 	private final String DEBUG_MODE = "debug_mode";
 	
 	/** 配置文件名称 */
-	private final String CONFIGURATION_FILE_NAME = "mjet.properties";
+	private final String CONFIGURATION_FILE_NAME = "tiger.properties";
 
 
 	/** 客户端版本名称，用于升级检测 */

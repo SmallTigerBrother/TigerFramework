@@ -141,12 +141,12 @@ public class WheelView extends View
 		if (centerDrawable == null)
 		{
 			centerDrawable = getContext().getResources().getDrawable(
-					CR.getDrawableId(getContext(), "mjet_date_wheel_center_new"));
+					CR.getDrawableId(getContext(), "tiger_date_wheel_center_new"));
 		}
 		if (bgDrawable == null)
 		{
 			bgDrawable = getContext().getResources().getDrawable(
-					CR.getDrawableId(getContext(), "mjet_date_scroll"));
+					CR.getDrawableId(getContext(), "tiger_date_scroll"));
 		}
 	}
 
