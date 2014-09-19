@@ -9,7 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.BaseAdapter;
 
-import com.mn.tiger.request.async.TGAsyncTask;
+import com.mn.tiger.request.async.TGHttpAsyncTask;
 import com.mn.tiger.request.error.IHttpErrorHandler;
 import com.mn.tiger.utility.Commons;
 import com.mn.tiger.widget.adpter.TGListAdapter;
@@ -51,7 +51,7 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	/**
 	 * 请求类型
 	 */
-	private int requestType = TGAsyncTask.REQUEST_GET;
+	private int requestType = TGHttpAsyncTask.REQUEST_GET;
 	
 	/**
 	 * 是否绑定服务

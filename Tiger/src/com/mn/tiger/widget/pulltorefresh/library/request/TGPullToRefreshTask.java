@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 
-import com.mn.tiger.request.async.TGAsyncTask;
+import com.mn.tiger.request.async.TGHttpAsyncTask;
 import com.mn.tiger.request.error.IHttpErrorHandler;
 import com.mn.tiger.widget.pulltorefresh.pullinterface.IPullToRefreshDataController;
 

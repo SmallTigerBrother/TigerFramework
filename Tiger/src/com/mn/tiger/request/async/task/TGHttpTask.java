@@ -5,7 +5,6 @@ import java.util.HashMap;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.mn.tiger.request.error.TGHttpErrorHandler;
 import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.utility.LogTools;
@@ -17,6 +16,32 @@ import com.mn.tiger.utility.LogTools;
  */
 public abstract class TGHttpTask extends TGTask
 {
+	/**
+	 * 参数名--url
+	 */
+	public static final String PARAM_URL = "url";
+	
+	/**
+	 * 参数名--params
+	 */
+	public static final String PARAM_PARAMS = "params";
+	
+	/**
+	 * 参数名--properties
+	 */
+	public static final String PARAM_PROPERTIES = "properties";
+	
+	/**
+	 * 参数名--parserClsName
+	 */
+	public static final String PARAM_PARSERCLSNAME = "parserClsName";
+	
+	/**
+	 * 参数名--resultClsName
+	 */
+	public static final String PARAM_RESLUTCLSNAME = "resultClsName";
+
+	
 	@Override
 	protected MPTaskState executeOnSubThread()
 	{
@@ -49,12 +74,13 @@ public abstract class TGHttpTask extends TGTask
 	protected TGHttpResult parseRequestResult(TGHttpResult httpResult)
 	{
 		String parserClsName = getParserClsName();
-		if(!TextUtils.isEmpty(parserClsName))
+		String resultClsName = getResultClsName();
+		if(!TextUtils.isEmpty(parserClsName) && !TextUtils.isEmpty(resultClsName))
 		{
 			try
 			{
 				IRequestParser parser = (IRequestParser) Class.forName(parserClsName).newInstance();
-				httpResult.setObjectResult(parser.parseRequestResult(httpResult));
+				httpResult.setObjectResult(parser.parseRequestResult(httpResult, resultClsName));
 			}
 			catch (Exception e)
 			{
@@ -71,17 +97,10 @@ public abstract class TGHttpTask extends TGTask
 		if(getTaskState() == MPTaskState.RUNNING)
 		{
 			LogTools.d(LOG_TAG, "[Method:sendTaskResult]");
-			if(!TGHttpErrorHandler.checkLoginError((TGHttpResult) result))
-			{
-				//设置执行结果
-				super.sendTaskResult(result);
-				setTaskState(MPTaskState.FINISHED);
-			}
-			else
-			{
-				setTaskError(TaskError.LOCK_DISPATER_CODE, "");
-				setTaskState(MPTaskState.ERROR);
-			}
+			//发送执行结果
+			super.sendTaskResult(result);
+			//设置任务执行状态
+			setTaskState(MPTaskState.FINISHED);
 		}
 	}
 	
@@ -94,7 +113,7 @@ public abstract class TGHttpTask extends TGTask
 	public Object getRequestParams()
 	{
 		Bundle httpParams = (Bundle)getParams();
-		return httpParams.get("params");
+		return httpParams.get(PARAM_PARAMS);
 	}
 	
 	/**
@@ -106,7 +125,7 @@ public abstract class TGHttpTask extends TGTask
 	public String getRequestUrl()
 	{
 		Bundle httpParams = (Bundle)getParams();
-		return httpParams.getString("url");
+		return httpParams.getString(PARAM_URL);
 	}
 	
 	/**
@@ -119,7 +138,7 @@ public abstract class TGHttpTask extends TGTask
 	public HashMap<String, String> getRequestProperties()
 	{
 		Bundle httpParams = (Bundle)getParams();
-		return (HashMap<String, String>)httpParams.get("properties");
+		return (HashMap<String, String>)httpParams.get(PARAM_PROPERTIES);
 	}
 	
 	/**
@@ -131,6 +150,18 @@ public abstract class TGHttpTask extends TGTask
 	public String getParserClsName()
 	{
 		Bundle httpParams = (Bundle)getParams();
-		return httpParams.getString("parserClsName");
+		return httpParams.getString(PARAM_PARSERCLSNAME);
+	}
+	
+	/**
+	 * 该方法的作用:
+	 * 获取解析类的名字
+	 * @date 2014年8月15日
+	 * @return
+	 */
+	public String getResultClsName()
+	{
+		Bundle httpParams = (Bundle)getParams();
+		return httpParams.getString(PARAM_RESLUTCLSNAME);
 	}
 }

@@ -24,7 +24,7 @@ public class TGHttpResult extends HashMap<String, Object>  implements Parcelable
 	 * @date 2014年4月16日
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
 	 * @date 2013-12-1 构造函数
 	 */

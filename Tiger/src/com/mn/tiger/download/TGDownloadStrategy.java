@@ -9,7 +9,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.mn.tiger.download.TGDownloadReceiver.IDownloadReceiveListener;
-import com.mn.tiger.request.async.TGAsyncTask;
+import com.mn.tiger.request.async.TGHttpAsyncTask;
 import com.mn.tiger.request.client.DefaultHttpClient;
 import com.mn.tiger.request.client.TGHttpClient;
 import com.mn.tiger.request.error.IHttpErrorHandler;
@@ -160,7 +160,7 @@ public class TGDownloadStrategy implements IDownloadStrategy
 		LogTools.i(LOG_TAG, "[Method:getHttpMethod] requestUrl:" + download.getUrlString());
 		// 创建post请求的方法
 		TGHttpMethod httpMethod = null;
-		if (download.getRequestType() == TGAsyncTask.REQUEST_POST)
+		if (download.getRequestType() == TGHttpAsyncTask.REQUEST_POST)
 		{
 			httpMethod = new TGPostMethod(context, download.getUrlString(), download.getParams());
 		}

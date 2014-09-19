@@ -16,7 +16,7 @@ import android.telephony.TelephonyManager;
 
 import com.mn.tiger.app.IApplication;
 import com.mn.tiger.app.TGApplication;
-import com.mn.tiger.request.async.TGAsyncTask;
+import com.mn.tiger.request.async.TGHttpAsyncTask;
 import com.mn.tiger.system.AppConfiguration;
 import com.mn.tiger.widget.dialog.IDialogContext;
 

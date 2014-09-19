@@ -2,8 +2,6 @@ package com.mn.tiger.request.async;
 
 import org.json.JSONObject;
 
-import com.mn.tiger.request.error.IHttpErrorHandler;
-import com.mn.tiger.request.error.TGHttpErrorHandler;
 import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.task.result.TGTaskResult;
 import com.mn.tiger.task.result.TGTaskResultHandler;
@@ -16,11 +14,6 @@ import com.mn.tiger.utility.LogTools;
  */
 public class TGHttpResultHandler extends TGTaskResultHandler
 {
-	/**
-	 * Http错误处理类
-	 */
-	private IHttpErrorHandler httpErrorHandler;
-	
 	@Override
 	public void handleTaskResult(TGTaskResult result)
 	{
@@ -35,13 +28,13 @@ public class TGHttpResultHandler extends TGTaskResultHandler
 			LogTools.d(LOG_TAG, e.getMessage(), e);
 		}
 		
-		if (null != httpResult)
+		if(hasError(httpResult))
 		{
-			if(handleHttpError(httpResult))
-			{
-				httpResult.setJSONResult(new JSONObject());
-			}
-			handleHttpResult(httpResult);
+			onError(httpResult);
+		}
+		else
+		{
+			onSuccess(httpResult);
 		}
 	}
 	
@@ -51,7 +44,12 @@ public class TGHttpResultHandler extends TGTaskResultHandler
 	 * @date 2014年3月18日
 	 * @param httResult
 	 */
-	protected void handleHttpResult(TGHttpResult httpResult)
+	protected void onSuccess(TGHttpResult httpResult)
+	{
+		
+	}
+	
+	protected void onError(TGHttpResult httpResult)
 	{
 		
 	}
@@ -63,34 +61,8 @@ public class TGHttpResultHandler extends TGTaskResultHandler
 	 * @param result
 	 * @return
 	 */
-	protected boolean handleHttpError(TGHttpResult result)
+	protected boolean hasError(TGHttpResult result)
 	{
-		if (null != httpErrorHandler && TGHttpErrorHandler.hasHttpError(result))
-		{
-			return httpErrorHandler.handleErrorInfo(result);
-		}
 		return false;
-	}
-
-	/**
-	 * 该方法的作用:
-	 * 获取Http异常处理接口
-	 * @date 2014年3月18日
-	 * @return
-	 */
-	public IHttpErrorHandler getHttpErrorHandler()
-	{
-		return httpErrorHandler;
-	}
-
-	/**
-	 * 该方法的作用:
-	 * 设置Http异常处理接口
-	 * @date 2014年3月18日
-	 * @param httpErrorHandler
-	 */
-	public void setHttpErrorHandler(IHttpErrorHandler httpErrorHandler)
-	{
-		this.httpErrorHandler = httpErrorHandler;
 	}
 }

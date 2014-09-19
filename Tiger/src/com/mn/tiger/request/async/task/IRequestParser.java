@@ -4,5 +4,5 @@ import com.mn.tiger.request.receiver.TGHttpResult;
 
 public interface IRequestParser
 {
-	Object parseRequestResult(TGHttpResult httpResult);
+	Object parseRequestResult(TGHttpResult httpResult, String resultClsName);
 }
