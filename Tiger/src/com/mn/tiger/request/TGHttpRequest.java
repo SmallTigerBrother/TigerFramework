@@ -48,7 +48,6 @@ public class TGHttpRequest
 	 * @param context
 	 * @param requestUrl
 	 * @param parameters
-	 * @param httpErrorHandler
 	 * @return
 	 */
 	public static TGHttpResult requestPost(Context context, String requestUrl, 
@@ -64,9 +63,7 @@ public class TGHttpRequest
 	 * @param context
 	 * @param requestUrl
 	 * @param parameters
-	 * @param httpErrorHandler
 	 * @param properties content-type等请求参数
-	 * @param isEncryptRequest 是否加密请求
 	 * @return
 	 */
 	public static TGHttpResult requestPost(Context context, String requestUrl, 
@@ -91,7 +88,6 @@ public class TGHttpRequest
 	 * @param context
 	 * @param requestUrl
 	 * @param parameters
-	 * @param error
 	 * @return
 	 */
 	public static TGHttpResult requestGet(Context context, String requestUrl, 
@@ -107,9 +103,7 @@ public class TGHttpRequest
 	 * @param context
 	 * @param requestUrl
 	 * @param parameters
-	 * @param error
 	 * @param properties content-type等请求参数
-	 * @param isEncryptRequest 是否加密请求
 	 * @return
 	 */
 	public static TGHttpResult requestGet(Context context, String requestUrl, 
@@ -134,7 +128,6 @@ public class TGHttpRequest
 	 * @param context
 	 * @param requestUrl
 	 * @param parameters
-	 * @param httpErrorHandler
 	 * @return
 	 */
 	public static TGHttpResult requestDelete(Context context, String requestUrl, 
@@ -150,9 +143,7 @@ public class TGHttpRequest
 	 * @param context
 	 * @param requestUrl
 	 * @param parameters
-	 * @param httpErrorHandler
 	 * @param properties content-type等请求参数
-	 * @param isEncryptRequest 是否加密请求
 	 * @return
 	 */
 	public static TGHttpResult requestDelete(Context context, String requestUrl, 
@@ -177,7 +168,6 @@ public class TGHttpRequest
 	 * @param context
 	 * @param requestUrl
 	 * @param parameters
-	 * @param httpErrorHandler
 	 * @return
 	 */
 	public static TGHttpResult requestPut(Context context, String requestUrl, 
@@ -193,7 +183,6 @@ public class TGHttpRequest
 	 * @param context
 	 * @param requestUrl
 	 * @param parameters
-	 * @param httpErrorHandler
 	 * @param properties content-type等请求参数
 	 * @return
 	 */
