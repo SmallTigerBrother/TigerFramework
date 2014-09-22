@@ -27,11 +27,6 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	private InternalAsyncTask asyncTask;
 	
 	/**
-	 * 取消监听接口
-	 */
-	private OnCancelListener cancelListener;
-	
-	/**
 	 * 为反射提供的类
 	 */
 	@SuppressWarnings("unused")
@@ -150,10 +145,6 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	public void cancel()
 	{
 		asyncTask.cancel();
-		if(null != cancelListener)
-		{
-			cancelListener.onRequestCancel();
-		}
 	}
 	
 	/**
@@ -167,36 +158,12 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	}
 	
 	/**
-	 * 设置任务取消监听器
-	 * @param cancelListener
-	 */
-	public void setCancelListener(OnCancelListener cancelListener)
-	{
-		this.cancelListener = cancelListener;
-	}
-
-	/**
 	 * 请求结果的回调
 	 * 
 	 * @date 2014-6-10
 	 */
 	public static interface RequestListener<T>
 	{
-		/**
-		 * 开始请求
-		 */
-		public static final int MESSAGE_START = 0x000001;
-		
-		/**
-		 * 请求成功
-		 */
-		public static final int MESSAGE_SUCCESS = 0x000010;
-		
-		/**
-		 * 请求异常
-		 */
-		public static final int MESSAGE_ERROR = 0x000100;
-		
 		/**
 		 * 启动任务时回调
 		 */
@@ -214,6 +181,11 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 		 * @param message 异常信息
 		 */
 		public void onRequestError(int code, String message);
+		
+		/**
+		 * 请求被取消时的回调方法
+		 */
+		public void onRequestCancel();
 	}
 
 	/**

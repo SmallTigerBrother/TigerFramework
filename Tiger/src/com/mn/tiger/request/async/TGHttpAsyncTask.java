@@ -80,7 +80,7 @@ public class TGHttpAsyncTask<Result>
 		{
 			LogTools.i(LOG_TAG, "[Method:onSuccess]");
 			//解析请求结果
-			if(!isCancelled())
+			if(!isCancelled() && null != listener)
 			{
 				listener.onRequestSuccess(httpResult.getObjectResult());
 			}
@@ -90,7 +90,7 @@ public class TGHttpAsyncTask<Result>
 		{
 			LogTools.i(LOG_TAG, "[Method:onError]");
 			//解析请求结果
-			if(!isCancelled())
+			if(!isCancelled() && null != listener)
 			{
 				listener.onRequestError(httpResult.getResponseCode(), httpResult.getResult());
 			}
@@ -264,6 +264,10 @@ public class TGHttpAsyncTask<Result>
 	{
 		this.isCancel = true;
 		TGTaskManager.getInstance(context).cancelTask(taskID, TGTask.TASK_TYPE_HTTP);
+		if(null != listener)
+		{
+			this.listener.onRequestCancel();
+		}
 	}
 	
 	/**
