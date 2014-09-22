@@ -18,7 +18,6 @@ import com.mn.tiger.app.TGApplication;
 import com.mn.tiger.request.async.TGHttpAsyncRequester;
 import com.mn.tiger.request.async.TGHttpAsyncTask;
 import com.mn.tiger.system.AppConfiguration;
-import com.mn.tiger.widget.dialog.IDialogContext;
 
 public class Commons
 {
@@ -238,7 +237,7 @@ public class Commons
 	 */
 	public static boolean checkContextIsValid(Context context)
 	{
-		if (context != null && (context instanceof Activity) && (context instanceof IDialogContext)
+		if (context != null && (context instanceof Activity)
 				&& !((Activity) context).isFinishing())
 		{
 			return true;
