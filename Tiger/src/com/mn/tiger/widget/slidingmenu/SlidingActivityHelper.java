@@ -1,5 +1,8 @@
 package com.mn.tiger.widget.slidingmenu;
 
+import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideMode;
+import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideTouchMode;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +26,8 @@ public class SlidingActivityHelper
 
 	/** The m view behind. */
 	private View mViewBehind;
+	
+	private View mViewSecondaryBehind;
 
 	/** The m broadcasting. */
 	private boolean mBroadcasting = false;
@@ -207,13 +212,17 @@ public class SlidingActivityHelper
 	 * 
 	 * @param view
 	 *            The desired content to display.
-	 * @param layoutParams
-	 *            Layout parameters for the view. (unused)
 	 */
-	public void setBehindContentView(View view, LayoutParams layoutParams)
+	public void setBehindContentView(View view)
 	{
 		mViewBehind = view;
 		mSlidingMenu.setMenu(mViewBehind);
+	}
+	
+	public void setSecondaryBehindContentView(View view)
+	{
+		mViewSecondaryBehind = view;
+		mSlidingMenu.setSecondaryMenu(mViewSecondaryBehind);
 	}
 
 	/**
@@ -258,7 +267,27 @@ public class SlidingActivityHelper
 	{
 		mSlidingMenu.showSecondaryMenu();
 	}
+	
+	public void setAboveOffset(int offset)
+	{
+		mSlidingMenu.setAboveOffset(offset);
+	}
 
+	public void setBehindOffset(int offset)
+	{
+		mSlidingMenu.setBehindOffset(offset);
+	}
+	
+	public void setSildeMode(SlideMode mode)
+	{
+		mSlidingMenu.setMode(mode);
+	}
+	
+	public void setTouchModeAbove(SlideTouchMode mode)
+	{
+		mSlidingMenu.setTouchModeAbove(mode);
+	}
+	
 	/**
 	 * On key up.
 	 * 

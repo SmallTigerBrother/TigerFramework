@@ -1,6 +1,8 @@
 package com.mn.tiger.widget.slidingmenu;
 
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.CanvasTransformer;
+import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideMode;
+import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideTouchMode;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -28,7 +30,7 @@ public class CustomViewBehind extends ViewGroup
 	private static final int MARGIN_THRESHOLD = 48; // dips
 
 	/** The m touch mode. */
-	private int mTouchMode = SlidingMenu.TOUCHMODE_MARGIN;
+	private SlideTouchMode mTouchMode = SlideTouchMode.TOUCHMODE_MARGIN;
 
 	/** The m view above. */
 	private CustomViewAbove mViewAbove;
@@ -154,7 +156,10 @@ public class CustomViewBehind extends ViewGroup
 	public void setContent(View v)
 	{
 		if (mContent != null)
+		{
 			removeView(mContent);
+		}
+			
 		mContent = v;
 		addView(mContent);
 	}
@@ -271,7 +276,7 @@ public class CustomViewBehind extends ViewGroup
 	}
 
 	/** The m mode. */
-	private int mMode;
+	private SlideMode mMode;
 
 	/** The m fade enabled. */
 	private boolean mFadeEnabled;
@@ -300,9 +305,9 @@ public class CustomViewBehind extends ViewGroup
 	 * @param mode
 	 *            the new mode
 	 */
-	public void setMode(int mode)
+	public void setMode(SlideMode mode)
 	{
-		if (mode == SlidingMenu.LEFT || mode == SlidingMenu.RIGHT)
+		if (mode == SlideMode.LEFT || mode == SlideMode.RIGHT)
 		{
 			if (mContent != null)
 			{
@@ -323,7 +328,7 @@ public class CustomViewBehind extends ViewGroup
 	 * 
 	 * @return the mode
 	 */
-	public int getMode()
+	public SlideMode getMode()
 	{
 		return mMode;
 	}
@@ -422,11 +427,11 @@ public class CustomViewBehind extends ViewGroup
 	public int getMenuPage(int page)
 	{
 		page = (page > 1) ? 2 : ((page < 1) ? 0 : page);
-		if (mMode == SlidingMenu.LEFT && page > 1)
+		if (mMode == SlideMode.LEFT && page > 1)
 		{
 			return 0;
 		}
-		else if (mMode == SlidingMenu.RIGHT && page < 1)
+		else if (mMode == SlideMode.RIGHT && page < 1)
 		{
 			return 2;
 		}
@@ -449,7 +454,7 @@ public class CustomViewBehind extends ViewGroup
 	public void scrollBehindTo(View content, int x, int y)
 	{
 		int vis = View.VISIBLE;
-		if (mMode == SlidingMenu.LEFT)
+		if (mMode == SlideMode.LEFT)
 		{
 			if (x >= content.getLeft())
 			{
@@ -458,7 +463,7 @@ public class CustomViewBehind extends ViewGroup
 				
 			scrollTo((int) ((x + getBehindWidth()) * mScrollScale), y);
 		}
-		else if (mMode == SlidingMenu.RIGHT)
+		else if (mMode == SlideMode.RIGHT)
 		{
 			if (x <= content.getLeft())
 			{
@@ -467,7 +472,7 @@ public class CustomViewBehind extends ViewGroup
 				
 			scrollTo((int) (getBehindWidth() - getWidth() + (x - getBehindWidth()) * mScrollScale), y);
 		}
-		else if (mMode == SlidingMenu.LEFT_RIGHT)
+		else if (mMode == SlideMode.LEFT_RIGHT)
 		{
 			mContent.setVisibility(x >= content.getLeft() ? View.INVISIBLE : View.VISIBLE);
 			mSecondaryContent.setVisibility(x <= content.getLeft() ? View.INVISIBLE : View.VISIBLE);
@@ -500,7 +505,7 @@ public class CustomViewBehind extends ViewGroup
 	 */
 	public int getMenuLeft(View content, int page)
 	{
-		if (mMode == SlidingMenu.LEFT)
+		if (mMode == SlideMode.LEFT)
 		{
 			switch (page)
 			{
@@ -510,7 +515,7 @@ public class CustomViewBehind extends ViewGroup
 					return content.getLeft();
 			}
 		}
-		else if (mMode == SlidingMenu.RIGHT)
+		else if (mMode == SlideMode.RIGHT)
 		{
 			switch (page)
 			{
@@ -520,7 +525,7 @@ public class CustomViewBehind extends ViewGroup
 					return content.getLeft() + getBehindWidth();
 			}
 		}
-		else if (mMode == SlidingMenu.LEFT_RIGHT)
+		else if (mMode == SlideMode.LEFT_RIGHT)
 		{
 			switch (page)
 			{
@@ -542,11 +547,11 @@ public class CustomViewBehind extends ViewGroup
 	 */
 	public int getAbsLeftBound(View content)
 	{
-		if (mMode == SlidingMenu.LEFT || mMode == SlidingMenu.LEFT_RIGHT)
+		if (mMode == SlideMode.LEFT || mMode == SlideMode.LEFT_RIGHT)
 		{
 			return content.getLeft() - getBehindWidth();
 		}
-		else if (mMode == SlidingMenu.RIGHT)
+		else if (mMode == SlideMode.RIGHT)
 		{
 			return content.getLeft();
 		}
@@ -562,11 +567,11 @@ public class CustomViewBehind extends ViewGroup
 	 */
 	public int getAbsRightBound(View content)
 	{
-		if (mMode == SlidingMenu.LEFT)
+		if (mMode == SlideMode.LEFT)
 		{
 			return content.getLeft();
 		}
-		else if (mMode == SlidingMenu.RIGHT || mMode == SlidingMenu.LEFT_RIGHT)
+		else if (mMode == SlideMode.RIGHT || mMode == SlideMode.LEFT_RIGHT)
 		{
 			return content.getLeft() + getBehindWidth();
 		}
@@ -586,15 +591,15 @@ public class CustomViewBehind extends ViewGroup
 	{
 		int left = content.getLeft();
 		int right = content.getRight();
-		if (mMode == SlidingMenu.LEFT)
+		if (mMode == SlideMode.LEFT)
 		{
 			return (x >= left && x <= mMarginThreshold + left);
 		}
-		else if (mMode == SlidingMenu.RIGHT)
+		else if (mMode == SlideMode.RIGHT)
 		{
 			return (x <= right && x >= right - mMarginThreshold);
 		}
-		else if (mMode == SlidingMenu.LEFT_RIGHT)
+		else if (mMode == SlideMode.LEFT_RIGHT)
 		{
 			return (x >= left && x <= mMarginThreshold + left) || (x <= right && x >= right - mMarginThreshold);
 		}
@@ -604,12 +609,12 @@ public class CustomViewBehind extends ViewGroup
 	/**
 	 * Sets the touch mode.
 	 * 
-	 * @param i
+	 * @param mode
 	 *            the new touch mode
 	 */
-	public void setTouchMode(int i)
+	public void setTouchMode(SlideTouchMode mode)
 	{
-		mTouchMode = i;
+		mTouchMode = mode;
 	}
 
 	/**
@@ -627,10 +632,12 @@ public class CustomViewBehind extends ViewGroup
 	{
 		switch (mTouchMode)
 		{
-			case SlidingMenu.TOUCHMODE_FULLSCREEN:
+			case TOUCHMODE_FULLSCREEN:
 				return true;
-			case SlidingMenu.TOUCHMODE_MARGIN:
+			case TOUCHMODE_MARGIN:
 				return menuTouchInQuickReturn(content, currPage, x);
+			default:
+				break;
 		}
 		return false;
 	}
@@ -648,11 +655,11 @@ public class CustomViewBehind extends ViewGroup
 	 */
 	public boolean menuTouchInQuickReturn(View content, int currPage, float x)
 	{
-		if (mMode == SlidingMenu.LEFT || (mMode == SlidingMenu.LEFT_RIGHT && currPage == 0))
+		if (mMode == SlideMode.LEFT || (mMode == SlideMode.LEFT_RIGHT && currPage == 0))
 		{
 			return x >= content.getLeft();
 		}
-		else if (mMode == SlidingMenu.RIGHT || (mMode == SlidingMenu.LEFT_RIGHT && currPage == 2))
+		else if (mMode == SlideMode.RIGHT || (mMode == SlideMode.LEFT_RIGHT && currPage == 2))
 		{
 			return x <= content.getRight();
 		}
@@ -668,15 +675,15 @@ public class CustomViewBehind extends ViewGroup
 	 */
 	public boolean menuClosedSlideAllowed(float dx)
 	{
-		if (mMode == SlidingMenu.LEFT)
+		if (mMode == SlideMode.LEFT)
 		{
 			return dx > 0;
 		}
-		else if (mMode == SlidingMenu.RIGHT)
+		else if (mMode == SlideMode.RIGHT)
 		{
 			return dx < 0;
 		}
-		else if (mMode == SlidingMenu.LEFT_RIGHT)
+		else if (mMode == SlideMode.LEFT_RIGHT)
 		{
 			return true;
 		}
@@ -692,15 +699,15 @@ public class CustomViewBehind extends ViewGroup
 	 */
 	public boolean menuOpenSlideAllowed(float dx)
 	{
-		if (mMode == SlidingMenu.LEFT)
+		if (mMode == SlideMode.LEFT)
 		{
 			return dx < 0;
 		}
-		else if (mMode == SlidingMenu.RIGHT)
+		else if (mMode == SlideMode.RIGHT)
 		{
 			return dx > 0;
 		}
-		else if (mMode == SlidingMenu.LEFT_RIGHT)
+		else if (mMode == SlideMode.LEFT_RIGHT)
 		{
 			return true;
 		}
@@ -723,15 +730,15 @@ public class CustomViewBehind extends ViewGroup
 		}
 			
 		int left = 0;
-		if (mMode == SlidingMenu.LEFT)
+		if (mMode == SlideMode.LEFT)
 		{
 			left = content.getLeft() - mShadowWidth;
 		}
-		else if (mMode == SlidingMenu.RIGHT)
+		else if (mMode == SlideMode.RIGHT)
 		{
 			left = content.getRight();
 		}
-		else if (mMode == SlidingMenu.LEFT_RIGHT)
+		else if (mMode == SlideMode.LEFT_RIGHT)
 		{
 			if (mSecondaryShadowDrawable != null)
 			{
@@ -766,17 +773,17 @@ public class CustomViewBehind extends ViewGroup
 		mFadePaint.setColor(Color.argb(alpha, 0, 0, 0));
 		int left = 0;
 		int right = 0;
-		if (mMode == SlidingMenu.LEFT)
+		if (mMode == SlideMode.LEFT)
 		{
 			left = content.getLeft() - getBehindWidth();
 			right = content.getLeft();
 		}
-		else if (mMode == SlidingMenu.RIGHT)
+		else if (mMode == SlideMode.RIGHT)
 		{
 			left = content.getRight();
 			right = content.getRight() + getBehindWidth();
 		}
-		else if (mMode == SlidingMenu.LEFT_RIGHT)
+		else if (mMode == SlideMode.LEFT_RIGHT)
 		{
 			left = content.getLeft() - getBehindWidth();
 			right = content.getLeft();
@@ -821,14 +828,14 @@ public class CustomViewBehind extends ViewGroup
 				canvas.save();
 				int left, right, offset;
 				offset = (int) (mSelectorDrawable.getWidth() * openPercent);
-				if (mMode == SlidingMenu.LEFT)
+				if (mMode == SlideMode.LEFT)
 				{
 					right = content.getLeft();
 					left = right - offset;
 					canvas.clipRect(left, 0, right, getHeight());
 					canvas.drawBitmap(mSelectorDrawable, left, getSelectorTop(), null);
 				}
-				else if (mMode == SlidingMenu.RIGHT)
+				else if (mMode == SlideMode.RIGHT)
 				{
 					left = content.getRight();
 					right = left + offset;

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.OnClosedListener;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.OnOpenedListener;
+import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideTouchMode;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -34,7 +35,6 @@ import android.widget.Scroller;
  */
 public class CustomViewAbove extends ViewGroup
 {
-
 	/** The Constant TAG. */
 	private static final String TAG = "CustomViewAbove";
 
@@ -186,7 +186,6 @@ public class CustomViewAbove extends ViewGroup
 	 */
 	public static class SimpleOnPageChangeListener implements OnPageChangeListener
 	{
-
 		public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
 		{
 			// This space for rent
@@ -384,23 +383,23 @@ public class CustomViewAbove extends ViewGroup
 	/**
 	 * Sets the on opened listener.
 	 * 
-	 * @param l
+	 * @param listener
 	 *            the new on opened listener
 	 */
-	public void setOnOpenedListener(OnOpenedListener l)
+	public void setOnOpenedListener(OnOpenedListener listener)
 	{
-		mOpenedListener = l;
+		mOpenedListener = listener;
 	}
 
 	/**
 	 * Sets the on closed listener.
 	 * 
-	 * @param l
+	 * @param listener
 	 *            the new on closed listener
 	 */
-	public void setOnClosedListener(OnClosedListener l)
+	public void setOnClosedListener(OnClosedListener listener)
 	{
-		mClosedListener = l;
+		mClosedListener = listener;
 	}
 
 	/**
@@ -546,7 +545,9 @@ public class CustomViewAbove extends ViewGroup
 		{
 			v.getHitRect(rect);
 			if (rect.contains((int) ev.getX(), (int) ev.getY()))
+			{
 				return true;
+			}
 		}
 		return false;
 	}
@@ -651,12 +652,16 @@ public class CustomViewAbove extends ViewGroup
 			if (isMenuOpen())
 			{
 				if (mOpenedListener != null)
+				{
 					mOpenedListener.onOpened();
+				}
 			}
 			else
 			{
 				if (mClosedListener != null)
+				{
 					mClosedListener.onClosed();
+				}
 			}
 			return;
 		}
@@ -696,7 +701,10 @@ public class CustomViewAbove extends ViewGroup
 	public void setContent(View v)
 	{
 		if (mContent != null)
+		{
 			this.removeView(mContent);
+		}
+			
 		mContent = v;
 		addView(mContent);
 	}
@@ -725,7 +733,6 @@ public class CustomViewAbove extends ViewGroup
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
 	{
-
 		int width = getDefaultSize(0, widthMeasureSpec);
 		int height = getDefaultSize(0, heightMeasureSpec);
 		setMeasuredDimension(width, height);
@@ -771,7 +778,8 @@ public class CustomViewAbove extends ViewGroup
 		// ((RelativeLayout.LayoutParams)mContent.getLayoutParams());
 		// params.setMargins(i, params.topMargin, params.rightMargin,
 		// params.bottomMargin);
-		mContent.setPadding(i, mContent.getPaddingTop(), mContent.getPaddingRight(), mContent.getPaddingBottom());
+		mContent.setPadding(i, mContent.getPaddingTop(), mContent.getPaddingRight(),
+				mContent.getPaddingBottom());
 	}
 
 	@Override
@@ -880,17 +888,17 @@ public class CustomViewAbove extends ViewGroup
 	}
 
 	/** The m touch mode. */
-	protected int mTouchMode = SlidingMenu.TOUCHMODE_MARGIN;
+	protected SlideTouchMode mTouchMode = SlideTouchMode.TOUCHMODE_MARGIN;
 
 	/**
 	 * Sets the touch mode.
 	 * 
-	 * @param i
+	 * @param mode
 	 *            the new touch mode
 	 */
-	public void setTouchMode(int i)
+	public void setTouchMode(SlideTouchMode mode)
 	{
-		mTouchMode = i;
+		mTouchMode = mode;
 	}
 
 	/**
@@ -898,7 +906,7 @@ public class CustomViewAbove extends ViewGroup
 	 * 
 	 * @return the touch mode
 	 */
-	public int getTouchMode()
+	public SlideTouchMode getTouchMode()
 	{
 		return mTouchMode;
 	}
@@ -921,11 +929,11 @@ public class CustomViewAbove extends ViewGroup
 		{
 			switch (mTouchMode)
 			{
-				case SlidingMenu.TOUCHMODE_FULLSCREEN:
+				case TOUCHMODE_FULLSCREEN:
 					return !isInIgnoredView(ev);
-				case SlidingMenu.TOUCHMODE_NONE:
+				case TOUCHMODE_NONE:
 					return false;
-				case SlidingMenu.TOUCHMODE_MARGIN:
+				case TOUCHMODE_MARGIN:
 					return mViewBehind.marginTouchAllowed(mContent, x);
 			}
 		}
@@ -951,7 +959,10 @@ public class CustomViewAbove extends ViewGroup
 			allowed = mViewBehind.menuClosedSlideAllowed(dx);
 		}
 		if (DEBUG)
+		{
 			Log.v(TAG, "this slide allowed " + allowed + " dx: " + dx);
+		}
+			
 		return allowed;
 	}
 
@@ -968,7 +979,10 @@ public class CustomViewAbove extends ViewGroup
 	{
 		int activePointerIndex = MotionEventCompat.findPointerIndex(ev, id);
 		if (activePointerIndex == -1)
+		{
 			mActivePointerId = INVALID_POINTER;
+		}
+			
 		return activePointerIndex;
 	}
 
@@ -980,13 +994,11 @@ public class CustomViewAbove extends ViewGroup
 	{
 
 		if (!mEnabled)
+		{
 			return false;
+		}
 
 		final int action = ev.getAction() & MotionEventCompat.ACTION_MASK;
-
-		if (DEBUG)
-			if (action == MotionEvent.ACTION_DOWN)
-				Log.v(TAG, "Received ACTION_DOWN");
 
 		if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP
 				|| (action != MotionEvent.ACTION_DOWN && mIsUnableToDrag))
@@ -1004,7 +1016,10 @@ public class CustomViewAbove extends ViewGroup
 				int index = MotionEventCompat.getActionIndex(ev);
 				mActivePointerId = MotionEventCompat.getPointerId(ev, index);
 				if (mActivePointerId == INVALID_POINTER)
+				{
 					break;
+				}
+					
 				mLastMotionX = mInitialMotionX = MotionEventCompat.getX(ev, index);
 				mLastMotionY = MotionEventCompat.getY(ev, index);
 				if (thisTouchAllowed(ev))
@@ -1040,12 +1055,15 @@ public class CustomViewAbove extends ViewGroup
 	@Override
 	public boolean onTouchEvent(MotionEvent ev)
 	{
-
 		if (!mEnabled)
+		{
 			return false;
+		}
 
 		if (!mIsBeingDragged && !thisTouchAllowed(ev))
+		{
 			return false;
+		}
 
 		// if (!mIsBeingDragged && !mQuickReturn)
 		// return false;
@@ -1159,7 +1177,10 @@ public class CustomViewAbove extends ViewGroup
 				onSecondaryPointerUp(ev);
 				int pointerIndex = getPointerIndex(ev, mActivePointerId);
 				if (mActivePointerId == INVALID_POINTER)
+				{
 					break;
+				}
+					
 				mLastMotionX = MotionEventCompat.getX(ev, pointerIndex);
 				break;
 		}
@@ -1177,7 +1198,10 @@ public class CustomViewAbove extends ViewGroup
 		final int activePointerId = mActivePointerId;
 		final int pointerIndex = getPointerIndex(ev, activePointerId);
 		if (activePointerId == INVALID_POINTER)
+		{
 			return;
+		}
+			
 		final float x = MotionEventCompat.getX(ev, pointerIndex);
 		final float dx = x - mLastMotionX;
 		final float xDiff = Math.abs(dx);
@@ -1275,8 +1299,6 @@ public class CustomViewAbove extends ViewGroup
 	 */
 	private void onSecondaryPointerUp(MotionEvent ev)
 	{
-		if (DEBUG)
-			Log.v(TAG, "onSecondaryPointerUp called");
 		final int pointerIndex = MotionEventCompat.getActionIndex(ev);
 		final int pointerId = MotionEventCompat.getPointerId(ev, pointerIndex);
 		if (pointerId == mActivePointerId)
@@ -1445,7 +1467,9 @@ public class CustomViewAbove extends ViewGroup
 	{
 		View currentFocused = findFocus();
 		if (currentFocused == this)
+		{
 			currentFocused = null;
+		}
 
 		boolean handled = false;
 

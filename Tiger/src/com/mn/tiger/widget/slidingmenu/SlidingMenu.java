@@ -43,42 +43,6 @@ public class SlidingMenu extends RelativeLayout
 	/** The m actionbar overlay. */
 	private boolean mActionbarOverlay = false;
 
-	/**
-	 * Constant value for use with setTouchModeAbove(). Allows the SlidingMenu
-	 * to be opened with a swipe gesture on the screen's margin
-	 */
-	public static final int TOUCHMODE_MARGIN = 0;
-
-	/**
-	 * Constant value for use with setTouchModeAbove(). Allows the SlidingMenu
-	 * to be opened with a swipe gesture anywhere on the screen
-	 */
-	public static final int TOUCHMODE_FULLSCREEN = 1;
-
-	/**
-	 * Constant value for use with setTouchModeAbove(). Denies the SlidingMenu
-	 * to be opened with a swipe gesture
-	 */
-	public static final int TOUCHMODE_NONE = 2;
-
-	/**
-	 * Constant value for use with setMode(). Puts the menu to the left of the
-	 * content.
-	 */
-	public static final int LEFT = 0;
-
-	/**
-	 * Constant value for use with setMode(). Puts the menu to the right of the
-	 * content.
-	 */
-	public static final int RIGHT = 1;
-
-	/**
-	 * Constant value for use with setMode(). Puts menus to the left and right
-	 * of the content.
-	 */
-	public static final int LEFT_RIGHT = 2;
-
 	/** The m view above. */
 	private CustomViewAbove mViewAbove;
 
@@ -270,7 +234,7 @@ public class SlidingMenu extends RelativeLayout
 			}
 		});
 
-		int mode = LEFT;
+		SlideMode mode = SlideMode.LEFT;
 		setMode(mode);
 
 		int viewAbove = -1;
@@ -293,10 +257,10 @@ public class SlidingMenu extends RelativeLayout
 			setMenu(new FrameLayout(context));
 		}
 
-		int touchModeAbove = TOUCHMODE_MARGIN;
+		SlideTouchMode touchModeAbove = SlideTouchMode.TOUCHMODE_MARGIN;
 		setTouchModeAbove(touchModeAbove);
 
-		int touchModeBehind = TOUCHMODE_MARGIN;
+		SlideTouchMode touchModeBehind = SlideTouchMode.TOUCHMODE_MARGIN;
 		setTouchModeBehind(touchModeBehind);
 
 		int offsetBehind = -1;
@@ -545,9 +509,9 @@ public class SlidingMenu extends RelativeLayout
 	 * @param mode
 	 *            must be either SlidingMenu.LEFT or SlidingMenu.RIGHT
 	 */
-	public void setMode(int mode)
+	public void setMode(SlideMode mode)
 	{
-		if (mode != LEFT && mode != RIGHT && mode != LEFT_RIGHT)
+		if (mode != SlideMode.LEFT && mode != SlideMode.RIGHT && mode != SlideMode.LEFT_RIGHT)
 		{
 			throw new IllegalStateException("SlidingMenu mode must be LEFT, RIGHT, or LEFT_RIGHT");
 		}
@@ -559,7 +523,7 @@ public class SlidingMenu extends RelativeLayout
 	 * 
 	 * @return the current mode, either SlidingMenu.LEFT or SlidingMenu.RIGHT
 	 */
-	public int getMode()
+	public SlideMode getMode()
 	{
 		return mViewBehind.getMode();
 	}
@@ -724,20 +688,6 @@ public class SlidingMenu extends RelativeLayout
 	}
 
 	/**
-	 * Sets the behind offset.
-	 * 
-	 * @param resID
-	 *            The dimension resource id to be set as the behind offset. The
-	 *            menu, when open, will leave this width margin on the right of
-	 *            the screen.
-	 */
-	public void setBehindOffsetRes(int resID)
-	{
-		int i = (int) getContext().getResources().getDimension(resID);
-		setBehindOffset(i);
-	}
-
-	/**
 	 * Sets the above offset.
 	 * 
 	 * @param i
@@ -746,18 +696,6 @@ public class SlidingMenu extends RelativeLayout
 	public void setAboveOffset(int i)
 	{
 		mViewAbove.setAboveOffset(i);
-	}
-
-	/**
-	 * Sets the above offset.
-	 * 
-	 * @param resID
-	 *            The dimension resource id to be set as the above offset.
-	 */
-	public void setAboveOffsetRes(int resID)
-	{
-		int i = (int) getContext().getResources().getDimension(resID);
-		setAboveOffset(i);
 	}
 
 	/**
@@ -865,7 +803,7 @@ public class SlidingMenu extends RelativeLayout
 	 * 
 	 * @return the touch mode above
 	 */
-	public int getTouchModeAbove()
+	public SlideTouchMode getTouchModeAbove()
 	{
 		return mViewAbove.getTouchMode();
 	}
@@ -876,17 +814,18 @@ public class SlidingMenu extends RelativeLayout
 	 * {@link #TOUCHMODE_FULLSCREEN TOUCHMODE_FULLSCREEN}, or
 	 * {@link #TOUCHMODE_NONE TOUCHMODE_NONE}
 	 * 
-	 * @param i
+	 * @param mode
 	 *            the new touch mode
 	 */
-	public void setTouchModeAbove(int i)
+	public void setTouchModeAbove(SlideTouchMode mode)
 	{
-		if (i != TOUCHMODE_FULLSCREEN && i != TOUCHMODE_MARGIN && i != TOUCHMODE_NONE)
+		if (mode != SlideTouchMode.TOUCHMODE_FULLSCREEN && mode != SlideTouchMode.TOUCHMODE_MARGIN && 
+				mode != SlideTouchMode.TOUCHMODE_NONE)
 		{
 			throw new IllegalStateException("TouchMode must be set to either"
 					+ "TOUCHMODE_FULLSCREEN or TOUCHMODE_MARGIN or TOUCHMODE_NONE.");
 		}
-		mViewAbove.setTouchMode(i);
+		mViewAbove.setTouchMode(mode);
 	}
 
 	/**
@@ -895,17 +834,18 @@ public class SlidingMenu extends RelativeLayout
 	 * {@link #TOUCHMODE_FULLSCREEN TOUCHMODE_FULLSCREEN}, or
 	 * {@link #TOUCHMODE_NONE TOUCHMODE_NONE}
 	 * 
-	 * @param i
+	 * @param mode
 	 *            the new touch mode
 	 */
-	public void setTouchModeBehind(int i)
+	public void setTouchModeBehind(SlideTouchMode mode)
 	{
-		if (i != TOUCHMODE_FULLSCREEN && i != TOUCHMODE_MARGIN && i != TOUCHMODE_NONE)
+		if (mode != SlideTouchMode.TOUCHMODE_FULLSCREEN && mode != SlideTouchMode.TOUCHMODE_MARGIN && 
+				mode != SlideTouchMode.TOUCHMODE_NONE)
 		{
 			throw new IllegalStateException("TouchMode must be set to either"
 					+ "TOUCHMODE_FULLSCREEN or TOUCHMODE_MARGIN or TOUCHMODE_NONE.");
 		}
-		mViewBehind.setTouchMode(i);
+		mViewBehind.setTouchMode(mode);
 	}
 
 	/**
@@ -1236,5 +1176,42 @@ public class SlidingMenu extends RelativeLayout
 		}
 		return true;
 	}
-
+	
+	public static enum SlideMode
+	{
+		/**
+		 * Constant value for use with setMode(). Puts the menu to the left of the
+		 * content.
+		 */
+		LEFT,
+		/**
+		 * Constant value for use with setMode(). Puts menus to the left and right
+		 * of the content.
+		 */
+		LEFT_RIGHT,
+		/**
+		 * Constant value for use with setMode(). Puts the menu to the right of the
+		 * content.
+		 */
+		RIGHT
+	}
+	
+	public static enum SlideTouchMode
+	{
+		/**
+		 * Constant value for use with setTouchModeAbove(). Allows the SlidingMenu
+		 * to be opened with a swipe gesture on the screen's margin
+		 */
+		TOUCHMODE_MARGIN,
+		/**
+		 * Constant value for use with setTouchModeAbove(). Allows the SlidingMenu
+		 * to be opened with a swipe gesture anywhere on the screen
+		 */
+		TOUCHMODE_FULLSCREEN,
+		/**
+		 * Constant value for use with setTouchModeAbove(). Denies the SlidingMenu
+		 * to be opened with a swipe gesture
+		 */
+		TOUCHMODE_NONE
+	}
 }
