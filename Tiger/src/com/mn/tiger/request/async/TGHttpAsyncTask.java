@@ -8,7 +8,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.mn.tiger.request.TGHttpRequest;
+import com.mn.tiger.request.TGHttpRequester;
 import com.mn.tiger.request.async.task.TGDeleteTask;
 import com.mn.tiger.request.async.task.TGGetTask;
 import com.mn.tiger.request.async.task.TGHttpTask;
@@ -46,7 +46,7 @@ public class TGHttpAsyncTask<Result>
 	/**
 	 * 请求类型，默认为Post类型
 	 */
-	private int requestType = TGHttpRequest.REQUEST_GET;
+	private int requestType = TGHttpRequester.REQUEST_GET;
 	
 	/**
 	 * 网络请求参数
@@ -173,8 +173,8 @@ public class TGHttpAsyncTask<Result>
 	@SuppressWarnings("unchecked")
 	protected TGTaskParams initHttpParams(Object params)
 	{
-		if(requestType > TGHttpRequest.REQUEST_PUT || 
-				requestType < TGHttpRequest.REQUEST_POST)
+		if(requestType > TGHttpRequester.REQUEST_PUT || 
+				requestType < TGHttpRequester.REQUEST_POST)
 		{
 			throw new RuntimeException("Your requestType is invalid!");
 		}
@@ -218,19 +218,19 @@ public class TGHttpAsyncTask<Result>
 		{
 			switch (requestType)
 			{
-				case TGHttpRequest.REQUEST_GET:
+				case TGHttpRequester.REQUEST_GET:
 					taskClsName = TGGetTask.class.getName();
 					
 					break;
-				case TGHttpRequest.REQUEST_POST:
+				case TGHttpRequester.REQUEST_POST:
 					taskClsName = TGPostTask.class.getName();
 					
 					break;
-				case TGHttpRequest.REQUEST_PUT:
+				case TGHttpRequester.REQUEST_PUT:
 					taskClsName = TGPutTask.class.getName();
 					
 					break;
-				case TGHttpRequest.REQUEST_DELETE:
+				case TGHttpRequester.REQUEST_DELETE:
 					taskClsName = TGDeleteTask.class.getName();
 					
 					break;

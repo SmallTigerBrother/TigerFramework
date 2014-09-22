@@ -68,9 +68,11 @@ public class TGUploader implements Cloneable, Serializable
 	// 自定义执行的任务类的名称
 	@Column(column = "taskClsName")
 	private String taskClsName = "";
-	// 获取业务服务器token的url（edm用）
-	@Column(column = "requetsTokenUrl")
-	private String requetsTokenUrl;
+	
+	// 上传参数的类名，用户反射生成上传参数
+	@Column(column = "paramsClsName")
+	private String paramsClsName = TGUploadParams.class.getName();
+	
 	// 上传类型
 	@Column(column = "type")
 	private String type;
@@ -83,6 +85,10 @@ public class TGUploader implements Cloneable, Serializable
 	// 上传的结束位置(用于断点上传)
 	@Transient
 	private long endPosition;
+	
+	public TGUploader()
+	{
+	}
 
 	public String getServiceURL()
 	{
@@ -254,16 +260,6 @@ public class TGUploader implements Cloneable, Serializable
 		this.type = type;
 	}
 
-	public String getRequetsTokenUrl()
-	{
-		return requetsTokenUrl;
-	}
-
-	public void setRequetsTokenUrl(String requetsTokenUrl)
-	{
-		this.requetsTokenUrl = requetsTokenUrl;
-	}
-
 	public String getParams()
 	{
 		return params;
@@ -314,6 +310,16 @@ public class TGUploader implements Cloneable, Serializable
 		this.finalSite = finalSite;
 	}
 
+	public void setParamsClsName(String paramsClsName)
+	{
+		this.paramsClsName = paramsClsName;
+	}
+	
+	public String getParamsClsName()
+	{
+		return paramsClsName;
+	}
+	
 	@Override
 	public Object clone()
 	{

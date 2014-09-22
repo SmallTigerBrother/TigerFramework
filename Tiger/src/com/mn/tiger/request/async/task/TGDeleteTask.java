@@ -1,6 +1,6 @@
 package com.mn.tiger.request.async.task;
 
-import com.mn.tiger.request.TGHttpRequest;
+import com.mn.tiger.request.TGHttpRequester;
 import com.mn.tiger.request.receiver.TGHttpResult;
 
 /**
@@ -12,7 +12,7 @@ public class TGDeleteTask extends TGHttpTask
 {
 	protected TGHttpResult executeHttpRequest() 
 	{
-		return TGHttpRequest.requestDelete(getContext(), getRequestUrl(), 
+		return TGHttpRequester.requestDelete(getContext(), getRequestUrl(), 
 				getRequestParams(), getRequestProperties());
 	}
 }

@@ -111,21 +111,27 @@ public class TGDownloadManager
 		if (null != downloaders)
 		{
 			TGDownloadParams downloadParams = null;
-			for (TGDownloader downloader : downloaders)
+			try
 			{
-				// 获取下载参数
-				downloadParams = TGDownloadParamsFactory.getDownloadParams(downloader
-						.getTaskClsName());
-
-				downloadParams.setRequestType(downloader.getRequestType());
-				downloadParams.setSavePath(downloader.getSavePath());
-				downloadParams.setUrlString(downloader.getUrlString());
-				downloadParams.setParams(downloader.getParams());
-				if (!TextUtils.isEmpty(downloader.getTaskClsName()))
+				for (TGDownloader downloader : downloaders)
 				{
-					downloadParams.setTaskClsName(downloader.getTaskClsName());
+					// 获取下载参数
+					downloadParams = (TGDownloadParams) Class.forName(downloader
+							.getParamsClsName()).newInstance();
+					downloadParams.setRequestType(downloader.getRequestType());
+					downloadParams.setSavePath(downloader.getSavePath());
+					downloadParams.setUrlString(downloader.getUrlString());
+					downloadParams.setParams(downloader.getParams());
+					if (!TextUtils.isEmpty(downloader.getTaskClsName()))
+					{
+						downloadParams.setTaskClsName(downloader.getTaskClsName());
+					}
+					start(downloadParams);
 				}
-				start(downloadParams);
+			}
+			catch(Exception e)
+			{
+				LogTools.e(LOG_TAG, e.getMessage(), e);
 			}
 		}
 	}
@@ -181,21 +187,27 @@ public class TGDownloadManager
 		if (null != downloaders)
 		{
 			TGDownloadParams downloadParams = null;
-			for (TGDownloader downloader : downloaders)
+			try
 			{
-				// 获取下载参数
-				downloadParams = TGDownloadParamsFactory.getDownloadParams(downloader
-						.getTaskClsName());
-
-				downloadParams.setRequestType(downloader.getRequestType());
-				downloadParams.setSavePath(downloader.getSavePath());
-				downloadParams.setUrlString(downloader.getUrlString());
-				downloadParams.setParams(downloader.getParams());
-				if (!TextUtils.isEmpty(downloader.getTaskClsName()))
+				for (TGDownloader downloader : downloaders)
 				{
-					downloadParams.setTaskClsName(downloader.getTaskClsName());
+					// 获取下载参数
+					downloadParams = (TGDownloadParams) Class.forName(downloader
+							.getParamsClsName()).newInstance();
+					downloadParams.setRequestType(downloader.getRequestType());
+					downloadParams.setSavePath(downloader.getSavePath());
+					downloadParams.setUrlString(downloader.getUrlString());
+					downloadParams.setParams(downloader.getParams());
+					if (!TextUtils.isEmpty(downloader.getTaskClsName()))
+					{
+						downloadParams.setTaskClsName(downloader.getTaskClsName());
+					}
+					start(downloadParams);
 				}
-				start(downloadParams);
+			}
+			catch(Exception e)
+			{
+				LogTools.e(LOG_TAG, e.getMessage(), e);
 			}
 		}
 	}

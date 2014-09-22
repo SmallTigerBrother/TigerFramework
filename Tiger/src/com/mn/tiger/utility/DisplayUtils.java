@@ -1,9 +1,14 @@
 package com.mn.tiger.utility;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 public class DisplayUtils
 {
@@ -111,5 +116,73 @@ public class DisplayUtils
 		size[0] = metrics.widthPixels;
 		size[1] = metrics.heightPixels;
 		return size;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T extends ViewGroup.LayoutParams> T getLayoutParamsMM(Class<T> clazz)
+	{
+		try
+		{
+			Constructor<T> constructor = clazz.getConstructor(Integer.class ,Integer.class);
+			return constructor.newInstance(ViewGroup.LayoutParams.MATCH_PARENT, 
+					ViewGroup.LayoutParams.MATCH_PARENT);
+		}
+		catch (Exception e)
+		{
+			LogTools.e(LOG_TAG, e.getMessage(), e);
+		}
+		return (T) new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 
+					ViewGroup.LayoutParams.MATCH_PARENT);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T extends ViewGroup.LayoutParams> T getLayoutParamsWM(Class<T> clazz)
+	{
+		try
+		{
+			Constructor<T> constructor = clazz.getConstructor(Integer.class ,Integer.class);
+			return constructor.newInstance(ViewGroup.LayoutParams.WRAP_CONTENT, 
+					ViewGroup.LayoutParams.MATCH_PARENT);
+		}
+		catch (Exception e)
+		{
+			LogTools.e(LOG_TAG, e.getMessage(), e);
+		}
+		return (T) new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 
+					ViewGroup.LayoutParams.MATCH_PARENT);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T extends ViewGroup.LayoutParams> T getLayoutParamsWW(Class<T> clazz)
+	{
+		try
+		{
+			Constructor<T> constructor = clazz.getConstructor(Integer.class ,Integer.class);
+			return constructor.newInstance(ViewGroup.LayoutParams.WRAP_CONTENT, 
+					ViewGroup.LayoutParams.WRAP_CONTENT);
+		}
+		catch (Exception e)
+		{
+			LogTools.e(LOG_TAG, e.getMessage(), e);
+		}
+		return (T) new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 
+					ViewGroup.LayoutParams.WRAP_CONTENT);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T extends ViewGroup.LayoutParams> T getLayoutParamsMW(Class<T> clazz)
+	{
+		try
+		{
+			Constructor<T> constructor = clazz.getConstructor(Integer.class ,Integer.class);
+			return constructor.newInstance(ViewGroup.LayoutParams.MATCH_PARENT, 
+					ViewGroup.LayoutParams.WRAP_CONTENT);
+		}
+		catch (Exception e)
+		{
+			LogTools.e(LOG_TAG, e.getMessage(), e);
+		}
+		return (T) new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 
+					ViewGroup.LayoutParams.WRAP_CONTENT);
 	}
 }

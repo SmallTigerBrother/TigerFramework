@@ -9,7 +9,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.mn.tiger.download.TGDownloadReceiver.IDownloadReceiveListener;
-import com.mn.tiger.request.TGHttpRequest;
+import com.mn.tiger.request.TGHttpRequester;
 import com.mn.tiger.request.client.DefaultHttpClient;
 import com.mn.tiger.request.client.TGHttpClient;
 import com.mn.tiger.request.error.TGErrorMsgEnum;
@@ -104,6 +104,7 @@ public class TGDownloadStrategy implements IDownloadStrategy
 			downloader.setType(downloadParams.getDownloadType());
 			downloader.setSavePath(downloadParams.getSavePath());
 			downloader.setTaskClsName(downloadParams.getTaskClsName());
+			downloader.setParamsClsName(downloadParams.getClass().getName());
 		}
 		// 设置下载状态为开始
 		downloader.setDownloadStatus(TGDownloadManager.DOWNLOAD_STARTING);
@@ -155,7 +156,7 @@ public class TGDownloadStrategy implements IDownloadStrategy
 		LogTools.i(LOG_TAG, "[Method:getHttpMethod] requestUrl:" + download.getUrlString());
 		// 创建post请求的方法
 		TGHttpMethod httpMethod = null;
-		if (download.getRequestType() == TGHttpRequest.REQUEST_POST)
+		if (download.getRequestType() == TGHttpRequester.REQUEST_POST)
 		{
 			httpMethod = new TGPostMethod(context, download.getUrlString(), download.getParams());
 		}

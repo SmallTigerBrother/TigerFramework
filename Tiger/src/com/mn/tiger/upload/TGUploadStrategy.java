@@ -6,7 +6,6 @@ import android.content.Context;
 
 import com.mn.tiger.request.client.DefaultHttpClient;
 import com.mn.tiger.request.client.TGHttpClient;
-import com.mn.tiger.request.error.IHttpErrorHandler;
 import com.mn.tiger.request.receiver.DefaultHttpReceiver;
 import com.mn.tiger.request.receiver.TGHttpReceiver;
 import com.mn.tiger.request.receiver.TGHttpResult;
@@ -65,12 +64,12 @@ public class TGUploadStrategy implements IUploadStrategy
 	}
 
 	@Override
-	public void upload(TGUploadParams mpUploadParams)
+	public void upload(TGUploadParams uploadParams)
 	{
 		LogTools.p(LOG_TAG, "[Method:upload]");
 
 		// 获取上传参数
-		mpUploader = getUploader(mpUploadParams);
+		mpUploader = getUploader(uploadParams);
 		// 通知上传开始
 		uploadListener.uploadStart(mpUploader);
 		// 执行上传
@@ -98,17 +97,18 @@ public class TGUploadStrategy implements IUploadStrategy
 		return uploader;
 	}
 	
-	protected TGUploader createNewUploader(TGUploadParams mpUploadParams)
+	protected TGUploader createNewUploader(TGUploadParams uploadParams)
 	{
 		TGUploader uploader = new TGUploader();
 		uploader.setId(uploadTask.getTaskID().toString());
-		uploader.setServiceURL(mpUploadParams.getServiceURL());
-		uploader.setType(mpUploadParams.getUploadType());
-		uploader.setFilePath(mpUploadParams.getFilePath());
-		uploader.setTaskClsName(mpUploadParams.getTaskClsName());
-		uploader.setFileSize(FileUtils.getFileSize(mpUploadParams.getFilePath()));
+		uploader.setServiceURL(uploadParams.getServiceURL());
+		uploader.setType(uploadParams.getUploadType());
+		uploader.setFilePath(uploadParams.getFilePath());
+		uploader.setTaskClsName(uploadParams.getTaskClsName());
+		uploader.setFileSize(FileUtils.getFileSize(uploadParams.getFilePath()));
 		uploader.setStartPosition(0);
-		uploader.setEndPosition(FileUtils.getFileSize(mpUploadParams.getFilePath()));
+		uploader.setEndPosition(FileUtils.getFileSize(uploadParams.getFilePath()));
+		uploader.setParamsClsName(uploadParams.getClass().getName());
 		
 		return uploader;
 	}

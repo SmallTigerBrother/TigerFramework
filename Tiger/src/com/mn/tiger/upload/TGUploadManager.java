@@ -104,19 +104,24 @@ public class TGUploadManager
 		if (null != uploaders)
 		{
 			TGUploadParams uploadParams = null;
-			for (TGUploader uploader : uploaders)
+			try
 			{
-				// 获取上传参数
-				uploadParams = TGUploadParamsFactory.getUploadParams(uploader
-						.getTaskClsName());
-
-				uploadParams.setFilePath(uploader.getFilePath());
-				uploadParams.setServiceURL(uploader.getServiceURL());
-				if (!TextUtils.isEmpty(uploader.getTaskClsName()))
+				for (TGUploader uploader : uploaders)
 				{
-					uploadParams.setTaskClsName(uploader.getTaskClsName());
+					// 获取上传参数
+					uploadParams = (TGUploadParams) Class.forName(uploader.getParamsClsName()).newInstance();
+					uploadParams.setFilePath(uploader.getFilePath());
+					uploadParams.setServiceURL(uploader.getServiceURL());
+					if (!TextUtils.isEmpty(uploader.getTaskClsName()))
+					{
+						uploadParams.setTaskClsName(uploader.getTaskClsName());
+					}
+					start(uploadParams);
 				}
-				start(uploadParams);
+			}
+			catch (Exception e)
+			{
+				LogTools.e(LOG_TAG, e.getMessage(), e);
 			}
 		}
 	}
@@ -171,19 +176,25 @@ public class TGUploadManager
 		if (null != uploaders)
 		{
 			TGUploadParams uploadParams = null;
-			for (TGUploader uploader : uploaders)
+			
+			try
 			{
-				// 获取上传参数
-				uploadParams = TGUploadParamsFactory.getUploadParams(uploader
-						.getTaskClsName());
-
-				uploadParams.setFilePath(uploader.getFilePath());
-				uploadParams.setServiceURL(uploader.getServiceURL());
-				if (!TextUtils.isEmpty(uploader.getTaskClsName()))
+				for (TGUploader uploader : uploaders)
 				{
-					uploadParams.setTaskClsName(uploader.getTaskClsName());
+					// 获取上传参数
+					uploadParams = (TGUploadParams) Class.forName(uploader.getParamsClsName()).newInstance();
+					uploadParams.setFilePath(uploader.getFilePath());
+					uploadParams.setServiceURL(uploader.getServiceURL());
+					if (!TextUtils.isEmpty(uploader.getTaskClsName()))
+					{
+						uploadParams.setTaskClsName(uploader.getTaskClsName());
+					}
+					start(uploadParams);
 				}
-				start(uploadParams);
+			}
+			catch (Exception e)
+			{
+				LogTools.e(LOG_TAG, e.getMessage(), e);
 			}
 		}
 	}

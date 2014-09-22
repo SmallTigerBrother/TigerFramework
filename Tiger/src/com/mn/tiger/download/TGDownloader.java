@@ -59,6 +59,11 @@ public class TGDownloader implements Serializable
 	// 自定义执行的任务类的名称
 	@Column(column = "taskClsName")
 	private String taskClsName = "";
+	
+	//参数类的类名，用户反射生成参数类
+	@Column(column = "paramsClsName")
+	private String paramsClsName= TGDownloadParams.class.getName();
+	
 	// 下载文档id（edm用）
 	@Column(column = "docId")
 	private String docId;
@@ -74,6 +79,10 @@ public class TGDownloader implements Serializable
 	// 下载类型
 	@Column(column = "type")
 	private String type;
+	
+	public TGDownloader()
+	{
+	}
 
 	public String getId()
 	{
@@ -289,7 +298,17 @@ public class TGDownloader implements Serializable
 	{
 		this.type = type;
 	}
-
+	
+	public String getParamsClsName()
+	{
+		return paramsClsName;
+	}
+	
+	public void setParamsClsName(String paramsClsName)
+	{
+		this.paramsClsName = paramsClsName;
+	}
+	
 	@Override
 	public String toString()
 	{

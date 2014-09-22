@@ -15,7 +15,7 @@ import com.mn.tiger.request.receiver.DefaultHttpReceiver;
 import com.mn.tiger.request.receiver.TGHttpReceiver;
 import com.mn.tiger.request.receiver.TGHttpResult;
 
-public class TGHttpRequest 
+public class TGHttpRequester 
 {
 	public static final int REQUEST_UNKNOWN = -1;
 	
@@ -39,7 +39,7 @@ public class TGHttpRequest
 	/**
 	 * 日志标签
 	 */
-	protected static final String LOG_TAG = TGHttpRequest.class.getSimpleName();
+	protected static final String LOG_TAG = TGHttpRequester.class.getSimpleName();
 	
 	/**
 	 * 该方法的作用:

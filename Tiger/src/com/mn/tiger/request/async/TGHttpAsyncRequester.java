@@ -6,7 +6,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.mn.tiger.core.parser.json.TGJsonUtils;
-import com.mn.tiger.request.TGHttpRequest;
+import com.mn.tiger.request.TGHttpRequester;
 import com.mn.tiger.request.async.task.IRequestParser;
 import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.utility.LogTools;
@@ -41,7 +41,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	public TGHttpAsyncRequester(Context context)
 	{
 		asyncTask = new InternalAsyncTask(context, "", 
-				TGHttpRequest.REQUEST_UNKNOWN, null);
+				TGHttpRequester.REQUEST_UNKNOWN, null);
 	}
 	
 	/**
@@ -55,7 +55,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	public void get(String requestUrl, Class clazz, Object params, 
 			RequestListener<T> listener)
 	{
-		execute(TGHttpRequest.REQUEST_GET, requestUrl, clazz.getName(), params, listener);
+		execute(TGHttpRequester.REQUEST_GET, requestUrl, clazz.getName(), params, listener);
 	}
 	
 	/**
@@ -69,7 +69,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	public void post(String requestUrl, Class clazz, Object params, 
 			RequestListener<T> listener)
 	{
-		execute(TGHttpRequest.REQUEST_POST, requestUrl, clazz.getName(), params, listener);
+		execute(TGHttpRequester.REQUEST_POST, requestUrl, clazz.getName(), params, listener);
 	}
 	
 	/**
@@ -83,7 +83,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	public void put(String requestUrl, Class clazz, Object params, 
 			RequestListener<T> listener)
 	{
-		execute(TGHttpRequest.REQUEST_PUT, requestUrl, clazz.getName(), params, listener);
+		execute(TGHttpRequester.REQUEST_PUT, requestUrl, clazz.getName(), params, listener);
 	}
 	
 	/**
@@ -97,7 +97,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	public void delete(String requestUrl, Class clazz, Object params, 
 			RequestListener<T> listener)
 	{
-		execute(TGHttpRequest.REQUEST_DELETE, requestUrl, clazz.getName(), params, listener);
+		execute(TGHttpRequester.REQUEST_DELETE, requestUrl, clazz.getName(), params, listener);
 	}
 	
 	/**

@@ -10,7 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.HeaderViewListAdapter;
 import android.widget.Toast;
 
-import com.mn.tiger.request.TGHttpRequest;
+import com.mn.tiger.request.TGHttpRequester;
 import com.mn.tiger.request.async.TGHttpAsyncRequester;
 import com.mn.tiger.request.async.TGHttpAsyncRequester.OnCancelListener;
 import com.mn.tiger.request.async.TGHttpAsyncRequester.RequestListener;
@@ -71,7 +71,7 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	/**
 	 * 请求类型
 	 */
-	private int requestType = TGHttpRequest.REQUEST_UNKNOWN;
+	private int requestType = TGHttpRequester.REQUEST_UNKNOWN;
 	
 	/**
 	 * 请求参数
@@ -156,20 +156,20 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 		{
 			switch (requestType)
 			{
-				case TGHttpRequest.REQUEST_GET:
+				case TGHttpRequester.REQUEST_GET:
 					requester.get(requestUrl, PageModel.class, params, this);
 					break;
 
-				case TGHttpRequest.REQUEST_POST:
+				case TGHttpRequester.REQUEST_POST:
 					requester.post(requestUrl, PageModel.class, params, this);
 					break;
 
-				case TGHttpRequest.REQUEST_PUT:
+				case TGHttpRequester.REQUEST_PUT:
 					requester.put(requestUrl, PageModel.class, params, this);
 
 					break;
 
-				case TGHttpRequest.REQUEST_DELETE:
+				case TGHttpRequester.REQUEST_DELETE:
 					requester.delete(requestUrl, PageModel.class, params, this);
 					
 					break;
