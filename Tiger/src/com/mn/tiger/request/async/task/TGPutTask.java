@@ -13,6 +13,6 @@ public class TGPutTask extends TGHttpTask
 	protected TGHttpResult executeHttpRequest() 
 	{
 		return TGHttpRequest.requestPut(getContext(), getRequestUrl(), 
-				getRequestParams(), null, getRequestProperties());
+				getRequestParams(), getRequestProperties());
 	}
 }

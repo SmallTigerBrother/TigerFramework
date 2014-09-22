@@ -13,6 +13,6 @@ public class TGDeleteTask extends TGHttpTask
 	protected TGHttpResult executeHttpRequest() 
 	{
 		return TGHttpRequest.requestDelete(getContext(), getRequestUrl(), 
-				getRequestParams(), null, getRequestProperties());
+				getRequestParams(), getRequestProperties());
 	}
 }

@@ -14,6 +14,6 @@ public class TGGetTask extends TGHttpTask
 	protected TGHttpResult executeHttpRequest()
 	{
 		return TGHttpRequest.requestGet(getContext(), getRequestUrl(), 
-				getRequestParams(), null, getRequestProperties());
+				getRequestParams(), getRequestProperties());
 	}
 }

@@ -14,6 +14,6 @@ public class TGPostTask extends TGHttpTask
 	protected TGHttpResult executeHttpRequest()
 	{
 		return TGHttpRequest.requestPost(getContext(), getRequestUrl(), 
-				getRequestParams(), null, getRequestProperties());
+				getRequestParams(), getRequestProperties());
 	}
 }
