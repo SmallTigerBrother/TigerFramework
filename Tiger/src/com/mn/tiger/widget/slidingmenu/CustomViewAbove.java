@@ -3,10 +3,6 @@ package com.mn.tiger.widget.slidingmenu;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mn.tiger.widget.slidingmenu.SlidingMenu.OnClosedListener;
-import com.mn.tiger.widget.slidingmenu.SlidingMenu.OnOpenedListener;
-import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideTouchMode;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -29,6 +25,10 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
+
+import com.mn.tiger.widget.slidingmenu.SlidingMenu.OnCloseListener;
+import com.mn.tiger.widget.slidingmenu.SlidingMenu.OnOpenListener;
+import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideTouchMode;
 
 /**
  * The Class CustomViewAbove.
@@ -131,10 +131,9 @@ public class CustomViewAbove extends ViewGroup
 	// private OnCloseListener mCloseListener;
 	// private OnOpenListener mOpenListener;
 	/** The m closed listener. */
-	private OnClosedListener mClosedListener;
-
-	/** The m opened listener. */
-	private OnOpenedListener mOpenedListener;
+	private OnCloseListener mCloseListener;
+	
+	private OnOpenListener mOpenListener;
 
 	/** The m ignored views. */
 	private List<View> mIgnoredViews = new ArrayList<View>();
@@ -381,25 +380,14 @@ public class CustomViewAbove extends ViewGroup
 	}
 
 	/**
-	 * Sets the on opened listener.
-	 * 
-	 * @param listener
-	 *            the new on opened listener
-	 */
-	public void setOnOpenedListener(OnOpenedListener listener)
-	{
-		mOpenedListener = listener;
-	}
-
-	/**
 	 * Sets the on closed listener.
 	 * 
 	 * @param listener
 	 *            the new on closed listener
 	 */
-	public void setOnClosedListener(OnClosedListener listener)
+	public void setOnCloseListener(OnCloseListener listener)
 	{
-		mClosedListener = listener;
+		mCloseListener = listener;
 	}
 
 	/**
@@ -651,16 +639,16 @@ public class CustomViewAbove extends ViewGroup
 			completeScroll();
 			if (isMenuOpen())
 			{
-				if (mOpenedListener != null)
+				if (mOpenListener != null)
 				{
-					mOpenedListener.onOpened();
+					mOpenListener.onOpenFinish();
 				}
 			}
 			else
 			{
-				if (mClosedListener != null)
+				if (mCloseListener != null)
 				{
-					mClosedListener.onClosed();
+					mCloseListener.onCloseFinish();
 				}
 			}
 			return;
@@ -875,13 +863,17 @@ public class CustomViewAbove extends ViewGroup
 			}
 			if (isMenuOpen())
 			{
-				if (mOpenedListener != null)
-					mOpenedListener.onOpened();
+				if (mOpenListener != null)
+				{
+					mOpenListener.onOpenFinish();
+				}
 			}
 			else
 			{
-				if (mClosedListener != null)
-					mClosedListener.onClosed();
+				if (mCloseListener != null)
+				{
+					mCloseListener.onCloseFinish();
+				}
 			}
 		}
 		mScrolling = false;
@@ -1538,6 +1530,12 @@ public class CustomViewAbove extends ViewGroup
 			return true;
 		}
 		return false;
+	}
+
+
+	public void setOpenListener(OnOpenListener openListener)
+	{
+		this.mOpenListener = openListener;
 	}
 
 }

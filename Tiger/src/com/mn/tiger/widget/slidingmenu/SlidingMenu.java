@@ -70,28 +70,10 @@ public class SlidingMenu extends RelativeLayout
 	 */
 	public interface OnOpenListener
 	{
-		/**
-		 * On open.
-		 */
 		public void onOpen();
-	}
-
-	/**
-	 * The listener interface for receiving onOpened events. The class that is
-	 * interested in processing a onOpened event implements this interface, and
-	 * the object created with that class is registered with a component using
-	 * the component's <code>addOnOpenedListener<code> method. When
-	 * the onOpened event occurs, that object's appropriate
-	 * method is invoked.
-	 * 
-	 * @see OnOpenedEvent
-	 */
-	public interface OnOpenedListener
-	{
-		/**
-		 * On opened.
-		 */
-		public void onOpened();
+		
+		public void onOpenFinish();
+		
 	}
 
 	/**
@@ -106,28 +88,9 @@ public class SlidingMenu extends RelativeLayout
 	 */
 	public interface OnCloseListener
 	{
-		/**
-		 * On close.
-		 */
 		public void onClose();
-	}
-
-	/**
-	 * The listener interface for receiving onClosed events. The class that is
-	 * interested in processing a onClosed event implements this interface, and
-	 * the object created with that class is registered with a component using
-	 * the component's <code>addOnClosedListener<code> method. When
-	 * the onClosed event occurs, that object's appropriate
-	 * method is invoked.
-	 * 
-	 * @see OnClosedEvent
-	 */
-	public interface OnClosedListener
-	{
-		/**
-		 * On closed.
-		 */
-		public void onClosed();
+		
+		public void onCloseFinish();
 	}
 
 	/**
@@ -1051,32 +1014,6 @@ public class SlidingMenu extends RelativeLayout
 	{
 		// mViewAbove.setOnCloseListener(listener);
 		mCloseListener = listener;
-	}
-
-	/**
-	 * Sets the OnOpenedListener. {@link OnOpenedListener#onOpened()
-	 * OnOpenedListener.onOpened()} will be called after the SlidingMenu is
-	 * opened
-	 * 
-	 * @param listener
-	 *            the new OnOpenedListener
-	 */
-	public void setOnOpenedListener(OnOpenedListener listener)
-	{
-		mViewAbove.setOnOpenedListener(listener);
-	}
-
-	/**
-	 * Sets the OnClosedListener. {@link OnClosedListener#onClosed()
-	 * OnClosedListener.onClosed()} will be called after the SlidingMenu is
-	 * closed
-	 * 
-	 * @param listener
-	 *            the new OnClosedListener
-	 */
-	public void setOnClosedListener(OnClosedListener listener)
-	{
-		mViewAbove.setOnClosedListener(listener);
 	}
 
 	/**
