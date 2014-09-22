@@ -6,7 +6,6 @@ import android.content.Context;
 
 import com.mn.tiger.request.client.DefaultHttpClient;
 import com.mn.tiger.request.client.TGHttpClient;
-import com.mn.tiger.request.error.IHttpErrorHandler;
 import com.mn.tiger.request.method.TGDeleteMethod;
 import com.mn.tiger.request.method.TGGetMethod;
 import com.mn.tiger.request.method.TGHttpMethod;
@@ -53,9 +52,9 @@ public class TGHttpRequest
 	 * @return
 	 */
 	public static TGHttpResult requestPost(Context context, String requestUrl, 
-			Object parameters, IHttpErrorHandler httpErrorHandler)
+			Object parameters)
 	{
-		return requestPost(context, requestUrl, parameters, httpErrorHandler, null);
+		return requestPost(context, requestUrl, parameters, null);
 	}
 	
 	/**
@@ -71,10 +70,10 @@ public class TGHttpRequest
 	 * @return
 	 */
 	public static TGHttpResult requestPost(Context context, String requestUrl, 
-			Object parameters, IHttpErrorHandler httpErrorHandler, Map<String, String> properties)
+			Object parameters, Map<String, String> properties)
 	{
 		TGHttpMethod postMethod = new TGPostMethod(context, requestUrl, parameters);
-		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context, httpErrorHandler);
+		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context);
 		TGHttpClient httpClient = new DefaultHttpClient(context);
 		
 		if(properties != null && properties.size() > 0)
@@ -96,9 +95,9 @@ public class TGHttpRequest
 	 * @return
 	 */
 	public static TGHttpResult requestGet(Context context, String requestUrl, 
-			Object parameters, IHttpErrorHandler httpErrorHandler)
+			Object parameters)
 	{
-		return requestGet(context, requestUrl, parameters, httpErrorHandler, null);
+		return requestGet(context, requestUrl, parameters,null);
 	}
 	
 	/**
@@ -114,10 +113,10 @@ public class TGHttpRequest
 	 * @return
 	 */
 	public static TGHttpResult requestGet(Context context, String requestUrl, 
-			Object parameters, IHttpErrorHandler httpErrorHandler, Map<String, String> properties)
+			Object parameters, Map<String, String> properties)
 	{
 		TGHttpMethod getMethod = new TGGetMethod(context, requestUrl, parameters);
-		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context, httpErrorHandler);
+		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context);
 		TGHttpClient httpClient = new DefaultHttpClient(context);
 		
 		if(properties != null && properties.size() > 0)
@@ -139,9 +138,9 @@ public class TGHttpRequest
 	 * @return
 	 */
 	public static TGHttpResult requestDelete(Context context, String requestUrl, 
-			Object parameters, IHttpErrorHandler httpErrorHandler)
+			Object parameters)
 	{
-		return requestDelete(context, requestUrl, parameters, httpErrorHandler, null);
+		return requestDelete(context, requestUrl, parameters, null);
 	}
 	
 	/**
@@ -157,10 +156,10 @@ public class TGHttpRequest
 	 * @return
 	 */
 	public static TGHttpResult requestDelete(Context context, String requestUrl, 
-			Object parameters, IHttpErrorHandler httpErrorHandler, Map<String, String> properties)
+			Object parameters, Map<String, String> properties)
 	{
 		TGHttpMethod delMethod = new TGDeleteMethod(context, requestUrl, parameters);
-		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context, httpErrorHandler);
+		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context);
 		TGHttpClient httpClient = new DefaultHttpClient(context);
 		
 		if(properties != null && properties.size() > 0)
@@ -182,9 +181,9 @@ public class TGHttpRequest
 	 * @return
 	 */
 	public static TGHttpResult requestPut(Context context, String requestUrl, 
-			Object parameters, IHttpErrorHandler httpErrorHandler)
+			Object parameters)
 	{
-		return requestPut(context, requestUrl, parameters, httpErrorHandler, null);
+		return requestPut(context, requestUrl, parameters,  null);
 	}
 	
 	/**
@@ -199,10 +198,10 @@ public class TGHttpRequest
 	 * @return
 	 */
 	public static TGHttpResult requestPut(Context context, String requestUrl, 
-			Object parameters, IHttpErrorHandler httpErrorHandler, Map<String, String> properties)
+			Object parameters,  Map<String, String> properties)
 	{
 		TGHttpMethod putMethod = new TGPutMethod(context, requestUrl, parameters);
-		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context, httpErrorHandler);
+		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context);
 		TGHttpClient httpClient = new DefaultHttpClient(context);
 		
 		if(properties != null && properties.size() > 0)

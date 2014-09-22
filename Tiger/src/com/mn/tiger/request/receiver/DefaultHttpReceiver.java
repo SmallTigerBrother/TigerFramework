@@ -11,9 +11,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 
-import com.mn.tiger.request.error.IHttpErrorHandler;
 import com.mn.tiger.request.error.TGErrorMsgEnum;
-import com.mn.tiger.request.error.TGHttpErrorHandler;
 import com.mn.tiger.request.method.TGHttpMethod;
 import com.mn.tiger.utility.LogTools;
 
@@ -31,19 +29,13 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 	private Context context;
 
 	/**
-	 * 网络异常处理结果
-	 */
-	private IHttpErrorHandler httpErrorHandler;
-
-	/**
 	 * @date 2013-12-1 构造函数
 	 * @param context
 	 * @param httpErrorHandler
 	 */
-	public DefaultHttpReceiver(Context context, IHttpErrorHandler httpErrorHandler)
+	public DefaultHttpReceiver(Context context)
 	{
 		this.context = context;
-		this.httpErrorHandler = httpErrorHandler;
 	}
 
 	/**
@@ -206,34 +198,8 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 	protected boolean catchHttpError(TGHttpResult httpResult)
 	{
 		LogTools.d(LOG_TAG, "[Method:catchHttpError]");
-		if (null != httpErrorHandler && TGHttpErrorHandler.hasHttpError(httpResult))
-		{
-			return httpErrorHandler.handleErrorInfo(httpResult);
-		}
 
 		return false;
-	}
-
-	/**
-	 * 该方法的作用: 设置网络请求异常处理接口
-	 * 
-	 * @date 2014年1月15日
-	 * @param httpErrorHandler
-	 */
-	public void setHttpErrorHandler(IHttpErrorHandler httpErrorHandler)
-	{
-		this.httpErrorHandler = httpErrorHandler;
-	}
-
-	/**
-	 * 该方法的作用: 获取网络请求异常处理接口
-	 * 
-	 * @date 2014年1月15日
-	 * @return
-	 */
-	public IHttpErrorHandler getHttpErrorHandler()
-	{
-		return httpErrorHandler;
 	}
 
 	public Context getContext()
