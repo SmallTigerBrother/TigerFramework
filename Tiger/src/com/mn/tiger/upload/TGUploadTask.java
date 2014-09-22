@@ -2,9 +2,7 @@ package com.mn.tiger.upload;
 
 import android.os.Bundle;
 
-import com.mn.tiger.request.error.IHttpErrorHandler;
 import com.mn.tiger.task.TGTask;
-import com.mn.tiger.task.TGTask.MPTaskState;
 import com.mn.tiger.upload.observe.TGUploadObserveController;
 import com.mn.tiger.utility.LogTools;
 
@@ -30,11 +28,6 @@ public class TGUploadTask extends TGTask
 	 * 上传信息 
 	 */
 	protected TGUploadParams mpUploadParams;
-	
-	/**
-	 * 异常处理接口
-	 */
-	private IHttpErrorHandler httpErrorHandler;
 	
 	/**
 	 * 上传任务监听
@@ -107,7 +100,7 @@ public class TGUploadTask extends TGTask
 	protected void executeUpload()
 	{
 		// 上传
-		uploadStrategy = new TGUploadStrategy(getContext(), this, uploadListener, httpErrorHandler);
+		uploadStrategy = new TGUploadStrategy(getContext(), this, uploadListener);
 		uploadStrategy.upload(mpUploadParams);
 	}
 	
@@ -210,16 +203,6 @@ public class TGUploadTask extends TGTask
 	public void setMpUploadParams(TGUploadParams mpUploadParams)
 	{
 		this.mpUploadParams = mpUploadParams;
-	}
-
-	public IHttpErrorHandler getHttpErrorHandler()
-	{
-		return httpErrorHandler;
-	}
-
-	public void setHttpErrorHandler(IHttpErrorHandler httpErrorHandler)
-	{
-		this.httpErrorHandler = httpErrorHandler;
 	}
 
 	public IUploadListener getUploadListener()

@@ -10,7 +10,6 @@ import java.io.UnsupportedEncodingException;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.mn.tiger.request.error.IHttpErrorHandler;
 import com.mn.tiger.request.error.TGErrorMsgEnum;
 import com.mn.tiger.request.method.TGPostMethod;
 import com.mn.tiger.task.TGTask.MPTaskState;
@@ -52,7 +51,7 @@ public class TGUploadPostMethod extends TGPostMethod
 	 * @param context
 	 * @param uploader
 	 */
-	public TGUploadPostMethod(Context context, TGUploader uploader, IHttpErrorHandler httpErrorHandler, 
+	public TGUploadPostMethod(Context context, TGUploader uploader,  
 			TGUploadTask uploadTask, IUploadSendListener sendListener)
 	{	
 		// 初始化上传参数

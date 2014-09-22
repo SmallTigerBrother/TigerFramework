@@ -26,11 +26,6 @@ public class TGDownloadTask extends TGTask
 	private TGDownloadParams mDownloadParams;
 	
 	/**
-	 * 异常处理接口
-	 */
-	private IHttpErrorHandler httpErrorHandler;
-	
-	/**
 	 * 下载任务监听
 	 */
 	private IDownloadListener downloadListener = new DefaultDownloadListener();
@@ -101,7 +96,7 @@ public class TGDownloadTask extends TGTask
 	protected void executeDownload()
 	{
 		// 下载
-		downloadStrategy = new TGDownloadStrategy(getContext(), this, downloadListener, httpErrorHandler);
+		downloadStrategy = new TGDownloadStrategy(getContext(), this, downloadListener);
 		downloadStrategy.download(mDownloadParams);
 	}
 	
@@ -195,16 +190,6 @@ public class TGDownloadTask extends TGTask
 	public void setDownloadStrategy(IDownloadStrategy downloadStrategy)
 	{
 		this.downloadStrategy = downloadStrategy;
-	}
-
-	public IHttpErrorHandler getHttpErrorHandler()
-	{
-		return httpErrorHandler;
-	}
-
-	public void setHttpErrorHandler(IHttpErrorHandler httpErrorHandler)
-	{
-		this.httpErrorHandler = httpErrorHandler;
 	}
 
 	public IDownloadListener getDownloadListener()

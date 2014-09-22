@@ -13,7 +13,6 @@ import java.util.Map;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.mn.tiger.request.error.IHttpErrorHandler;
 import com.mn.tiger.request.error.TGErrorMsgEnum;
 import com.mn.tiger.request.method.TGHttpMethod;
 import com.mn.tiger.request.receiver.DefaultHttpReceiver;
@@ -42,10 +41,10 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 	// 已下载长度
 	private long completeSize;
 	
-	public TGDownloadReceiver(Context context, TGDownloader downloader, IHttpErrorHandler httpErrorHandler, 
+	public TGDownloadReceiver(Context context, TGDownloader downloader, 
 			TGDownloadTask downloadTask, IDownloadReceiveListener receiveListener)
 	{
-		super(context, httpErrorHandler);
+		super(context);
 		this.downloader = downloader;
 		this.completeSize = downloader.getCompleteSize();
 		this.downloadTask = downloadTask;

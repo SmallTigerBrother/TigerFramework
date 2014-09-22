@@ -12,7 +12,6 @@ import com.mn.tiger.download.TGDownloadReceiver.IDownloadReceiveListener;
 import com.mn.tiger.request.TGHttpRequest;
 import com.mn.tiger.request.client.DefaultHttpClient;
 import com.mn.tiger.request.client.TGHttpClient;
-import com.mn.tiger.request.error.IHttpErrorHandler;
 import com.mn.tiger.request.error.TGErrorMsgEnum;
 import com.mn.tiger.request.method.TGGetMethod;
 import com.mn.tiger.request.method.TGHttpMethod;
@@ -51,11 +50,6 @@ public class TGDownloadStrategy implements IDownloadStrategy
 	protected TGDownloader downloader;
 	
 	/**
-	 * 异常处理接口
-	 */
-	protected IHttpErrorHandler errorInterface;
-	
-	/**
 	 * 下载进度
 	 */
 	private int progress = -1; 
@@ -67,12 +61,12 @@ public class TGDownloadStrategy implements IDownloadStrategy
 	 * @param downloadTask
 	 * @param listener
 	 */
-	public TGDownloadStrategy(Context context, TGDownloadTask downloadTask, IDownloadListener listener, IHttpErrorHandler errorInterface)
+	public TGDownloadStrategy(Context context, TGDownloadTask downloadTask, 
+			IDownloadListener listener)
 	{
 		this.context = context;
 		this.downloadTask = downloadTask;
 		this.downloadListener = listener;
-		this.errorInterface = errorInterface;
 	}
 
 	@Override
@@ -144,7 +138,8 @@ public class TGDownloadStrategy implements IDownloadStrategy
 			httpMethod.setProperty("Range", "bytes="+ downloader.getCompleteSize() + "-" + (downloader.getFileSize() - 1));
 		}
 		
-		TGDownloadReceiver receiver = new TGDownloadReceiver(context, downloader, errorInterface, downloadTask, receiveListener);
+		TGDownloadReceiver receiver = new TGDownloadReceiver(context, downloader, 
+				downloadTask, receiveListener);
 		
 		// 执行下载操作
 		httpClient.executeHttpMethod(httpMethod, receiver);

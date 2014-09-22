@@ -48,10 +48,6 @@ public class TGUploadStrategy implements IUploadStrategy
 	 */
 	protected TGUploader mpUploader;
 	
-	/**
-	 * 异常处理接口
-	 */
-	protected IHttpErrorHandler errorInterface;
 
 	/**
 	 * 构造函数
@@ -60,12 +56,12 @@ public class TGUploadStrategy implements IUploadStrategy
 	 * @param uploadTask
 	 * @param listener
 	 */
-	public TGUploadStrategy(Context context, TGUploadTask uploadTask, IUploadListener listener, IHttpErrorHandler errorInterface)
+	public TGUploadStrategy(Context context, TGUploadTask uploadTask, 
+			IUploadListener listener)
 	{
 		this.context = context;
 		this.uploadTask = uploadTask;
 		this.uploadListener = listener;
-		this.errorInterface = errorInterface;
 	}
 
 	@Override
@@ -137,10 +133,10 @@ public class TGUploadStrategy implements IUploadStrategy
 		
 		TGHttpClient httpClient = new DefaultHttpClient(context);
 		// 创建post请求的方法
-		TGUploadPostMethod postMethod = new TGUploadPostMethod(context, uploader, errorInterface, uploadTask, sendListener);
+		TGUploadPostMethod postMethod = new TGUploadPostMethod(context, uploader, uploadTask, sendListener);
 		setProperties(postMethod);
 		
-		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context, null);
+		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context);
 		// 执行上传操作
 		TGHttpResult httpResult = httpClient.executeHttpMethod(postMethod, httpReceiver);
 
