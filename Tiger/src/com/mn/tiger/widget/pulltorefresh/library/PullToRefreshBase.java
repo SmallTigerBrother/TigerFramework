@@ -377,7 +377,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 				{
 					mIsBeingDragged = false;
 
-					if (mState == State.RELEASE_TO_REFRESH && null != mOnRefreshListener)
+					if (mState == State.RELEASE_TO_REFRESH)
 					{
 						setState(State.REFRESHING, true);
 						return true;
