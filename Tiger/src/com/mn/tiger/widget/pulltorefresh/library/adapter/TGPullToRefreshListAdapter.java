@@ -20,6 +20,7 @@ import com.mn.tiger.utility.LogTools;
 import com.mn.tiger.widget.adpter.TGListAdapter;
 import com.mn.tiger.widget.pulltorefresh.TGPullToRefreshListView;
 import com.mn.tiger.widget.pulltorefresh.TGPullToRefreshListView.OnRefreshListenerPlus;
+import com.mn.tiger.widget.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.mn.tiger.widget.pulltorefresh.library.model.PageModel;
 
 /**
@@ -726,7 +727,7 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 		if(getTotalPage() >= 1)
 		{
 			listView.getRefreshableView().setEmptyView(null);
-			listView.setPullToRefreshEnabled(true);
+			listView.setMode(Mode.DISABLED);
 			
 			// 获取已显示列表数据
 			getListItems();
@@ -749,9 +750,7 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 		{
 			listView.getRefreshableView().setEmptyView(null);
 			
-			listView.setPullToRefreshEnabled(true);
-			listView.setPullDownEnable(true);
-			listView.setPullUpEnable(true);
+			listView.setMode(Mode.BOTH);
 			
 			// 重置拖动刷新控制器
 			resetPullMetaData();

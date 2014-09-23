@@ -1,212 +1,395 @@
+/*******************************************************************************
+ * Copyright 2011, 2012 Chris Banes.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
 package com.mn.tiger.widget.pulltorefresh.library.internal;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.TypedArray;
+import android.content.res.ColorStateList;
+import android.graphics.Typeface;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.mn.tiger.utility.CR;
-import com.mn.tiger.widget.pulltorefresh.library.PullToRefreshBase;
+import com.mn.tiger.R;
+import com.mn.tiger.widget.pulltorefresh.library.ILoadingLayout;
+import com.mn.tiger.widget.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.mn.tiger.widget.pulltorefresh.library.PullToRefreshBase.Orientation;
 
-/**
- * 
- * 
- * 该类作用及功能说明
- * 
- * @version V2.0
- * @see JDK1.6,android-8
- */
-public class LoadingLayout extends OriginalLoadingLayout {
+@SuppressLint("ViewConstructor")
+public abstract class LoadingLayout extends FrameLayout implements ILoadingLayout
+{
+	static final String LOG_TAG = "PullToRefresh-LoadingLayout";
 
-	static final int DEFAULT_ROTATION_ANIMATION_DURATION = 150;
+	static final Interpolator ANIMATION_INTERPOLATOR = new LinearInterpolator();
 
-	private final ImageView mHeaderImage;
-	private final ProgressBar mHeaderProgress;
+	private FrameLayout mInnerLayout;
+
+	protected final ImageView mHeaderImage;
+	protected final ProgressBar mHeaderProgress;
+
+	private boolean mUseIntrinsicAnimation;
+
 	private final TextView mHeaderText;
-	private final TextView mHeaderTextDown;
+	private final TextView mSubHeaderText;
 
-	private String mPullLabel;
-	private String mRefreshingLabel;
-	private String mReleaseLabel;
+	protected final Mode mMode;
+	protected final Orientation mScrollDirection;
 
-	private final Animation mRotateAnimation, mResetRotateAnimation;
+	private CharSequence mPullLabel;
+	private CharSequence mRefreshingLabel;
+	private CharSequence mReleaseLabel;
 
-	/**
-	 * 
-	 * @date 2012-6-11 构造函数
-	 * @param context
-	 * @param mode
-	 * @param releaseLabel
-	 * @param pullLabel
-	 * @param refreshingLabel
-	 * @param attrs
-	 */
-	public LoadingLayout(Context context, final int mode, String releaseLabel,
-			String pullLabel, String refreshingLabel, TypedArray attrs) {
+	public LoadingLayout(Context context, final Mode mode, 
+			final Orientation scrollDirection)
+	{
 		super(context);
-		ViewGroup header = (ViewGroup) LayoutInflater.from(context).inflate(
-				CR.getLayoutId(context, "tiger_pull_to_refresh_header"), this);
-		mHeaderText = (TextView) header.findViewById(CR.getIdId(context,
-				"tiger_pull_to_refresh_text"));
-		mHeaderTextDown = (TextView) header.findViewById(CR.getIdId(context,
-				"tiger_pull_to_refresh_text_down"));
-		mHeaderImage = (ImageView) header.findViewById(CR.getIdId(context,
-				"tiger_pull_to_refresh_image"));
-		mHeaderProgress = (ProgressBar) header.findViewById(CR.getIdId(context,
-				"tiger_pull_to_refresh_progress"));
+		mMode = mode;
+		mScrollDirection = scrollDirection;
 
-		final Interpolator interpolator = new LinearInterpolator();
-		mRotateAnimation = new RotateAnimation(0, -180,
-				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-				0.5f);
-		mRotateAnimation.setInterpolator(interpolator);
-		mRotateAnimation.setDuration(DEFAULT_ROTATION_ANIMATION_DURATION);
-		mRotateAnimation.setFillAfter(true);
-
-		mResetRotateAnimation = new RotateAnimation(-180, 0,
-				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-				0.5f);
-		mResetRotateAnimation.setInterpolator(interpolator);
-		mResetRotateAnimation.setDuration(DEFAULT_ROTATION_ANIMATION_DURATION);
-		mResetRotateAnimation.setFillAfter(true);
-
-		mReleaseLabel = releaseLabel;
-		mPullLabel = pullLabel;
-		mRefreshingLabel = refreshingLabel;
-
-		switch (mode) {
-		case PullToRefreshBase.MODE_PULL_UP_TO_REFRESH:
-			mHeaderImage.setImageResource(CR.getDrawableId(context,
-					"tiger_pulltorefresh_up_arrow"));
-			break;
-		case PullToRefreshBase.MODE_PULL_DOWN_TO_REFRESH:
-		default:
-			mHeaderImage.setImageResource(CR.getDrawableId(context,
-					"tiger_pulltorefresh_down_arrow"));
-			break;
+		switch (scrollDirection)
+		{
+			case HORIZONTAL:
+				LayoutInflater.from(context).inflate(R.layout.pull_to_refresh_header_horizontal, this);
+				break;
+			case VERTICAL:
+			default:
+				LayoutInflater.from(context).inflate(R.layout.pull_to_refresh_header_vertical, this);
+				break;
 		}
 
-		// TODO 注销该代码
-		// if (attrs.hasValue(R.styleable.PullToRefresh_ptrHeaderTextColor)) {
-		// attrs.getColor(R.styleable.PullToRefresh_ptrHeaderTextColor,
-		// Color.BLACK);
-		// //setTextColor(color);
-		// }
-		// setTextColor(Color.BLACK);
+		mInnerLayout = (FrameLayout) findViewById(R.id.fl_inner);
+		mHeaderText = (TextView) mInnerLayout.findViewById(R.id.pull_to_refresh_text);
+		mHeaderProgress = (ProgressBar) mInnerLayout.findViewById(R.id.pull_to_refresh_progress);
+		mSubHeaderText = (TextView) mInnerLayout.findViewById(R.id.pull_to_refresh_sub_text);
+		mHeaderImage = (ImageView) mInnerLayout.findViewById(R.id.pull_to_refresh_image);
+
+		FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mInnerLayout.getLayoutParams();
+
+		switch (mode)
+		{
+			case PULL_FROM_END:
+				lp.gravity = scrollDirection == Orientation.VERTICAL ? Gravity.TOP : Gravity.LEFT;
+
+				// Load in labels
+				mPullLabel = context.getString(R.string.pull_to_refresh_from_bottom_pull_label);
+				mRefreshingLabel = context.getString(R.string.pull_to_refresh_from_bottom_refreshing_label);
+				mReleaseLabel = context.getString(R.string.pull_to_refresh_from_bottom_release_label);
+				break;
+
+			case PULL_FROM_START:
+			default:
+				lp.gravity = scrollDirection == Orientation.VERTICAL ? Gravity.BOTTOM : Gravity.RIGHT;
+
+				// Load in labels
+				mPullLabel = context.getString(R.string.pull_to_refresh_pull_label);
+				mRefreshingLabel = context.getString(R.string.pull_to_refresh_refreshing_label);
+				mReleaseLabel = context.getString(R.string.pull_to_refresh_release_label);
+				break;
+		}
+
+		// Try and get defined drawable from Attrs
+		Drawable imageDrawable = null;
+
+		// If we don't have a user defined drawable, load the default
+		if (null == imageDrawable)
+		{
+			imageDrawable = context.getResources().getDrawable(getDefaultDrawableResId());
+		}
+
+		// Set Drawable, and save width/height
+		setLoadingDrawable(imageDrawable);
+
+		reset();
 	}
 
-	/**
-	 * 
-	 * 该方法的作用:重置 在什么情况下调用:
-	 * 
-	 * @date 2012-6-11
-	 */
-	public void reset() {
-		mHeaderText.setText(mPullLabel);
+	public final void setHeight(int height)
+	{
+		ViewGroup.LayoutParams lp = (ViewGroup.LayoutParams) getLayoutParams();
+		lp.height = height;
+		requestLayout();
+	}
+
+	public final void setWidth(int width)
+	{
+		ViewGroup.LayoutParams lp = (ViewGroup.LayoutParams) getLayoutParams();
+		lp.width = width;
+		requestLayout();
+	}
+
+	public final int getContentSize()
+	{
+		switch (mScrollDirection)
+		{
+			case HORIZONTAL:
+				return mInnerLayout.getWidth();
+			case VERTICAL:
+			default:
+				return mInnerLayout.getHeight();
+		}
+	}
+
+	public final void hideAllViews()
+	{
+		if (View.VISIBLE == mHeaderText.getVisibility())
+		{
+			mHeaderText.setVisibility(View.INVISIBLE);
+		}
+		if (View.VISIBLE == mHeaderProgress.getVisibility())
+		{
+			mHeaderProgress.setVisibility(View.INVISIBLE);
+		}
+		if (View.VISIBLE == mHeaderImage.getVisibility())
+		{
+			mHeaderImage.setVisibility(View.INVISIBLE);
+		}
+		if (View.VISIBLE == mSubHeaderText.getVisibility())
+		{
+			mSubHeaderText.setVisibility(View.INVISIBLE);
+		}
+	}
+
+	public final void onPull(float scaleOfLayout)
+	{
+		if (!mUseIntrinsicAnimation)
+		{
+			onPullImpl(scaleOfLayout);
+		}
+	}
+
+	public final void pullToRefresh()
+	{
+		if (null != mHeaderText)
+		{
+			mHeaderText.setText(mPullLabel);
+		}
+
+		// Now call the callback
+		pullToRefreshImpl();
+	}
+
+	public final void refreshing()
+	{
+		if (null != mHeaderText)
+		{
+			mHeaderText.setText(mRefreshingLabel);
+		}
+
+		if (mUseIntrinsicAnimation)
+		{
+			((AnimationDrawable) mHeaderImage.getDrawable()).start();
+		}
+		else
+		{
+			// Now call the callback
+			refreshingImpl();
+		}
+
+		if (null != mSubHeaderText)
+		{
+			mSubHeaderText.setVisibility(View.GONE);
+		}
+	}
+
+	public final void releaseToRefresh()
+	{
+		if (null != mHeaderText)
+		{
+			mHeaderText.setText(mReleaseLabel);
+		}
+
+		// Now call the callback
+		releaseToRefreshImpl();
+	}
+
+	public final void reset()
+	{
+		if (null != mHeaderText)
+		{
+			mHeaderText.setText(mPullLabel);
+		}
 		mHeaderImage.setVisibility(View.VISIBLE);
-		mHeaderProgress.setVisibility(View.GONE);
+
+		if (mUseIntrinsicAnimation)
+		{
+			((AnimationDrawable) mHeaderImage.getDrawable()).stop();
+		}
+		else
+		{
+			// Now call the callback
+			resetImpl();
+		}
+
+		if (null != mSubHeaderText)
+		{
+			if (TextUtils.isEmpty(mSubHeaderText.getText()))
+			{
+				mSubHeaderText.setVisibility(View.GONE);
+			}
+			else
+			{
+				mSubHeaderText.setVisibility(View.VISIBLE);
+			}
+		}
 	}
 
-	/**
-	 * 
-	 * 该方法的作用:释放刷新 在什么情况下调用:
-	 * 
-	 * @date 2012-6-11
-	 */
-	public void releaseToRefresh() {
-		mHeaderText.setText(mReleaseLabel);
-		mHeaderImage.clearAnimation();
-		mHeaderImage.startAnimation(mRotateAnimation);
+	@Override
+	public void setLastUpdatedLabel(CharSequence label)
+	{
+		setSubHeaderText(label);
 	}
 
-	/**
-	 * 
-	 * 该方法的作用:设置拉的过程中文本 在什么情况下调用:
-	 * 
-	 * @date 2012-6-11
-	 */
-	public void setPullLabel(String pullLabel) {
+	public final void setLoadingDrawable(Drawable imageDrawable)
+	{
+		// Set Drawable
+		mHeaderImage.setImageDrawable(imageDrawable);
+		mUseIntrinsicAnimation = (imageDrawable instanceof AnimationDrawable);
+
+		// Now call the callback
+		onLoadingDrawableSet(imageDrawable);
+	}
+
+	public void setPullLabel(CharSequence pullLabel)
+	{
 		mPullLabel = pullLabel;
-		mHeaderText.setText(mPullLabel);
 	}
 
-	/**
-	 * 
-	 * 该方法的作用:正在刷新接口 在什么情况下调用:
-	 * 
-	 * @date 2012-6-11
-	 */
-	public void refreshing() {
-		mHeaderText.setText(mRefreshingLabel);
-		mHeaderTextDown.setText(refreshingText);
-		mHeaderImage.clearAnimation();
-		mHeaderImage.setVisibility(View.INVISIBLE);
-		mHeaderProgress.setVisibility(View.VISIBLE);
-	}
-
-	/**
-	 * 
-	 * 该方法的作用:设置刷新中文本 在什么情况下调用:
-	 * 
-	 * @date 2012-6-11
-	 */
-	public void setRefreshingLabel(String refreshingLabel) {
+	public void setRefreshingLabel(CharSequence refreshingLabel)
+	{
 		mRefreshingLabel = refreshingLabel;
 	}
 
-	/**
-	 * 
-	 * 该方法的作用:设置释放文本 在什么情况下调用:
-	 * 
-	 * @date 2012-6-11
-	 */
-	public void setReleaseLabel(String releaseLabel) {
+	public void setReleaseLabel(CharSequence releaseLabel)
+	{
 		mReleaseLabel = releaseLabel;
 	}
 
-	/**
-	 * 
-	 * 该方法的作用:下拉刷新 在什么情况下调用:
-	 * 
-	 * @date 2012-6-11
-	 */
-	public void pullToRefresh() {
-		mHeaderText.setText(mPullLabel);
-		mHeaderImage.clearAnimation();
-		mHeaderImage.startAnimation(mResetRotateAnimation);
+	@Override
+	public void setTextTypeface(Typeface tf)
+	{
+		mHeaderText.setTypeface(tf);
+	}
+
+	public final void showInvisibleViews()
+	{
+		if (View.INVISIBLE == mHeaderText.getVisibility())
+		{
+			mHeaderText.setVisibility(View.VISIBLE);
+		}
+		if (View.INVISIBLE == mHeaderProgress.getVisibility())
+		{
+			mHeaderProgress.setVisibility(View.VISIBLE);
+		}
+		if (View.INVISIBLE == mHeaderImage.getVisibility())
+		{
+			mHeaderImage.setVisibility(View.VISIBLE);
+		}
+		if (View.INVISIBLE == mSubHeaderText.getVisibility())
+		{
+			mSubHeaderText.setVisibility(View.VISIBLE);
+		}
 	}
 
 	/**
-	 * 
-	 * 该方法的作用:设置文本颜色 在什么情况下调用:
-	 * 
-	 * @date 2012-6-11
+	 * Callbacks for derivative Layouts
 	 */
-	public void setTextColor(int color) {
-		mHeaderText.setTextColor(color);
-		mHeaderTextDown.setTextColor(color);
+
+	protected abstract int getDefaultDrawableResId();
+
+	protected abstract void onLoadingDrawableSet(Drawable imageDrawable);
+
+	protected abstract void onPullImpl(float scaleOfLayout);
+
+	protected abstract void pullToRefreshImpl();
+
+	protected abstract void refreshingImpl();
+
+	protected abstract void releaseToRefreshImpl();
+
+	protected abstract void resetImpl();
+
+	private void setSubHeaderText(CharSequence label)
+	{
+		if (null != mSubHeaderText)
+		{
+			if (TextUtils.isEmpty(label))
+			{
+				mSubHeaderText.setVisibility(View.GONE);
+			}
+			else
+			{
+				mSubHeaderText.setText(label);
+
+				// Only set it to Visible if we're GONE, otherwise VISIBLE will
+				// be set soon
+				if (View.GONE == mSubHeaderText.getVisibility())
+				{
+					mSubHeaderText.setVisibility(View.VISIBLE);
+				}
+			}
+		}
 	}
 
-	String refreshingText = null;
+	private void setSubTextAppearance(int value)
+	{
+		if (null != mSubHeaderText)
+		{
+			mSubHeaderText.setTextAppearance(getContext(), value);
+		}
+	}
 
-	/**
-	 * 
-	 * 该方法的作用:设置第二个文本 在什么情况下调用:
-	 * 
-	 * @date 2012-6-11
-	 */
-	public void setDownTextLabel(String str) {
-		mHeaderTextDown.setText(str);
-		refreshingText = str;
-		mHeaderTextDown.setVisibility(View.VISIBLE);
+	private void setSubTextColor(ColorStateList color)
+	{
+		if (null != mSubHeaderText)
+		{
+			mSubHeaderText.setTextColor(color);
+		}
+	}
+
+	private void setTextAppearance(int value)
+	{
+		if (null != mHeaderText)
+		{
+			mHeaderText.setTextAppearance(getContext(), value);
+		}
+		if (null != mSubHeaderText)
+		{
+			mSubHeaderText.setTextAppearance(getContext(), value);
+		}
+	}
+
+	private void setTextColor(ColorStateList color)
+	{
+		if (null != mHeaderText)
+		{
+			mHeaderText.setTextColor(color);
+		}
+		if (null != mSubHeaderText)
+		{
+			mSubHeaderText.setTextColor(color);
+		}
 	}
 
 }
