@@ -17,9 +17,7 @@ package com.mn.tiger.widget.viewflow;
 
 import java.util.ArrayList;
 
-
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -91,26 +89,21 @@ public class TitleFlowIndicator extends TextView implements FlowIndicator {
 
 		int typefaceIndex = attrs.getAttributeIntValue("http://schemas.android.com/apk/res/android", "typeface", 0);
 		int textStyleIndex = attrs.getAttributeIntValue("http://schemas.android.com/apk/res/android", "textStyle", 0);
-		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TitleFlowIndicator);
 
-		String customTypeface = a.getString(R.styleable.TitleFlowIndicator_customTypeface);
 		// Retrieve the colors to be used for this view and apply them.
-		int footerColor = a.getColor(R.styleable.TitleFlowIndicator_footerColor, FOOTER_COLOR);
-		footerLineHeight = a.getDimension(R.styleable.TitleFlowIndicator_footerLineHeight, FOOTER_LINE_HEIGHT);
-		footerTriangleHeight = a.getDimension(R.styleable.TitleFlowIndicator_footerTriangleHeight, FOOTER_TRIANGLE_HEIGHT);
-		int selectedColor = a.getColor(R.styleable.TitleFlowIndicator_selectedColor, SELECTED_COLOR);
-		boolean selectedBold = a.getBoolean(R.styleable.TitleFlowIndicator_selectedBold, SELECTED_BOLD);
-		int textColor = a.getColor(R.styleable.TitleFlowIndicator_textColor, TEXT_COLOR);
-		float textSize = a.getDimension(R.styleable.TitleFlowIndicator_textSize, TEXT_SIZE);
-		float selectedSize = a.getDimension(R.styleable.TitleFlowIndicator_selectedSize, textSize);
-		titlePadding = a.getDimension(R.styleable.TitleFlowIndicator_titlePadding, TITLE_PADDING);
-		clipPadding = a.getDimension(R.styleable.TitleFlowIndicator_clipPadding, CLIP_PADDING);
+		int footerColor = FOOTER_COLOR;
+		footerLineHeight = FOOTER_LINE_HEIGHT;
+		footerTriangleHeight = FOOTER_TRIANGLE_HEIGHT;
+		int selectedColor = SELECTED_COLOR;
+		boolean selectedBold = SELECTED_BOLD;
+		int textColor = TEXT_COLOR;
+		float textSize = TEXT_SIZE;
+		float selectedSize = textSize;
+		titlePadding = TITLE_PADDING;
+		clipPadding = CLIP_PADDING;
 		initDraw(textColor, textSize, selectedColor, selectedBold, selectedSize, footerLineHeight, footerColor);
 
-		if (customTypeface != null)
-			typeface = Typeface.createFromAsset(context.getAssets(), customTypeface);
-		else
-			typeface = getTypefaceByIndex(typefaceIndex);
+		typeface = getTypefaceByIndex(typefaceIndex);
 		typeface = Typeface.create(typeface, textStyleIndex);
 
 	}

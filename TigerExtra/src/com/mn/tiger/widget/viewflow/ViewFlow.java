@@ -15,20 +15,23 @@
  */
 package com.mn.tiger.widget.viewflow;
 
+import java.util.EnumSet;
+import java.util.LinkedList;
+
 import android.content.Context;
 import android.content.res.Configuration;
-import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.*;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Scroller;
-
-import java.util.EnumSet;
-import java.util.LinkedList;
 
 /**
  * A horizontally scrollable {@link ViewGroup} with items populated from an
@@ -120,9 +123,7 @@ public class ViewFlow extends AdapterView<Adapter> {
 
 	public ViewFlow(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		TypedArray styledAttrs = context.obtainStyledAttributes(attrs,
-				R.styleable.ViewFlow);
-		mSideBuffer = styledAttrs.getInt(R.styleable.ViewFlow_sidebuffer, 3);
+		mSideBuffer =3;
 		init();
 	}
 

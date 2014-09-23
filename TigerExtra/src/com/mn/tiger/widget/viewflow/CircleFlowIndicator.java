@@ -16,7 +16,6 @@
 package com.mn.tiger.widget.viewflow;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
@@ -98,47 +97,38 @@ public class CircleFlowIndicator extends View implements FlowIndicator,
 	 */
 	public CircleFlowIndicator(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		// Retrieve styles attributs
-		TypedArray a = context.obtainStyledAttributes(attrs,
-				R.styleable.CircleFlowIndicator);
 
 		// Gets the active circle type, defaulting to "fill"
-		int activeType = a.getInt(R.styleable.CircleFlowIndicator_activeType,
-				STYLE_FILL);
+		int activeType =STYLE_FILL;
 		
 		int activeDefaultColor = 0xFFFFFFFF;
 		
 		// Get a custom active color if there is one
-		int activeColor = a
-				.getColor(R.styleable.CircleFlowIndicator_activeColor,
-						activeDefaultColor);
+		int activeColor = activeDefaultColor;
 
 		// Gets the inactive circle type, defaulting to "stroke"
-		int inactiveType = a.getInt(
-				R.styleable.CircleFlowIndicator_inactiveType, STYLE_STROKE);
+		int inactiveType = STYLE_STROKE;
 
 		int inactiveDefaultColor = 0x44FFFFFF;
 		// Get a custom inactive color if there is one
-		int inactiveColor = a.getColor(
-				R.styleable.CircleFlowIndicator_inactiveColor,
-				inactiveDefaultColor);
+		int inactiveColor =inactiveDefaultColor;
 
 		// Retrieve the radius
-		mRadius = a.getDimension(R.styleable.CircleFlowIndicator_radius, 4.0f);
+		mRadius = 4.0f;
 		mRadiusActive = mRadius;
 		mRadiusInactive = mRadius;
 
 		// Retrieve the spacing
-		spacing = a.getDimension(R.styleable.CircleFlowIndicator_spacing, 4.0f);
+		spacing = 4.0f;
 		// We want the spacing to be center-to-center
 		spacing += 2 * mRadiusActive;
 		
 		// Retrieve the fade out time
-		fadeOutTime = a.getInt(R.styleable.CircleFlowIndicator_fadeOut, 0);
+		fadeOutTime = 0;
 		
-		mCentered = a.getBoolean(R.styleable.CircleFlowIndicator_centered, false);
+		mCentered = false;
 
-		mSnap = a.getBoolean(R.styleable.CircleFlowIndicator_snap, false);
+		mSnap = false;
 		
 		initColors(activeColor, inactiveColor, activeType, inactiveType);
 	}
