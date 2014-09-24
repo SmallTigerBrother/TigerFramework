@@ -24,7 +24,7 @@ public class TGPagerAdapter extends PagerAdapter
 	/**
 	 * 所有页面
 	 */
-	private ArrayList<View> pagers;
+	protected ArrayList<View> pagers;
 	
 	/**
 	 * @date 2013-4-2
@@ -91,10 +91,5 @@ public class TGPagerAdapter extends PagerAdapter
 	{
 		this.pagers = pagers;
 		this.notifyDataSetChanged();
-	}
-	
-	public ArrayList<View> getPagers()
-	{
-		return pagers;
 	}
 }
