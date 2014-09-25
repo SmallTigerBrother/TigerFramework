@@ -8,19 +8,15 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.widget.BaseAdapter;
 import android.widget.HeaderViewListAdapter;
-import android.widget.Toast;
 
 import com.mn.tiger.request.TGHttpRequester;
 import com.mn.tiger.request.async.TGHttpAsyncRequester;
 import com.mn.tiger.request.async.TGHttpAsyncRequester.OnCancelListener;
 import com.mn.tiger.request.async.TGHttpAsyncRequester.RequestListener;
-import com.mn.tiger.utility.CR;
 import com.mn.tiger.utility.Commons;
-import com.mn.tiger.utility.LogTools;
 import com.mn.tiger.widget.adpter.TGListAdapter;
 import com.mn.tiger.widget.pulltorefresh.TGPullToRefreshListView;
 import com.mn.tiger.widget.pulltorefresh.TGPullToRefreshListView.OnRefreshListenerPlus;
-import com.mn.tiger.widget.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.mn.tiger.widget.pulltorefresh.library.model.PageModel;
 
 /**
@@ -33,16 +29,6 @@ import com.mn.tiger.widget.pulltorefresh.library.model.PageModel;
 public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements OnRefreshListenerPlus, 
     RequestListener<PageModel<T>>, OnCancelListener
 {
-	/**
-	 * 向上拖动
-	 */
-	public static final int PULL_ORIENTATION_UP = 1;
-	
-	/**
-	 * 向下拖动
-	 */
-	public static final int PULL_ORIENTATION_DOWN = 2;
-	
 	/**
 	 * 列表刷新方式——追加
 	 */
@@ -73,16 +59,6 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	 * 请求类型
 	 */
 	private int requestType = TGHttpRequester.REQUEST_UNKNOWN;
-	
-	/**
-	 * 请求参数
-	 */
-	private Object requestParams = new HashMap<String, String>();
-	
-	/**
-	 * 当前页码的请求参数Key值
-	 */
-	private String currentPageKey = null;
 	
 	/**
 	 * 列表刷新类型
@@ -119,14 +95,9 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	 * @param currentPage
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	protected Object getRequestParams(int currentPage)
 	{
-		if(null != currentPageKey && null != requestParams && requestParams instanceof HashMap<?, ?>)
-		{
-			((HashMap<String, String>)requestParams).put(currentPageKey, currentPage + "");
-		}
-		return requestParams;
+		return null;
 	}
 	
 	/**
@@ -204,17 +175,6 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	
 	/**
 	 * 该方法的作用:
-	 * 设置请求参数
-	 * @date 2013-11-15
-	 * @param params
-	 */
-	public void setRequestParams(Object params)
-	{
-		this.requestParams = params;
-	}
-	
-	/**
-	 * 该方法的作用:
 	 * 绑定拖动刷新列表
 	 * @date 2013-10-26
 	 * @param listView
@@ -247,28 +207,6 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	}
 	
 	/**
-	 * 该方法的作用:
-	 * 设置当前页码请求参数的key值
-	 * @date 2014年1月27日
-	 * @param currentPageKey
-	 */
-	public void setCurrentPageKey(String currentPageKey)
-	{
-		this.currentPageKey = currentPageKey;
-	}
-	
-	/**
-	 * 该方法的作用:
-	 * 获取当前页码请求参数的key值
-	 * @date 2014年1月27日
-	 * @return
-	 */
-	protected String getCurrentPageKey()
-	{
-		return currentPageKey;
-	}
-	
-	/**
 	 * 获取请求Url
 	 * @return
 	 */
@@ -294,8 +232,9 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	@Override
 	public void onPullDownToRefresh(int currentPage) 
 	{
+		//想下拖动重置刷新列表
 		excuteRequest(requestUrl, getRequestParams(currentPage), 
-				REFRESH_LISTVIEW_APPEND);
+				REFRESH_LISTVIEW_RESET);
 	}
 	
 	/**
@@ -304,6 +243,7 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	@Override
 	public void onPullUpToRefresh(int currentPage) 
 	{
+		//向上拖动追加列表
 		excuteRequest(requestUrl, getRequestParams(currentPage), 
 				REFRESH_LISTVIEW_APPEND);
 	}
@@ -342,8 +282,6 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	{
 		//消失对话框
 		
-		//设置总页数
-		setTotalPage(result.getTotalPage());
 		// 刷新列表
 		if(listViewRefreshType == REFRESH_LISTVIEW_APPEND)
 		{
@@ -377,24 +315,9 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	/********************************PullToRefreshController*********************************/
 	//TODO PullToRefreshController
 	/**
-	 * 当前的拖动方向
-	 */
-	private int curPullOrientation = PULL_ORIENTATION_UP;
-	
-	/**
 	 * 当前页码
 	 */
 	private int currentPage = 1;
-	
-	/**
-	 * 当前显示的所有页数
-	 */
-	private int currentTotalPage = 0;
-	
-	/**
-	 * 列表需要显示的所有页数
-	 */
-	private int totalPage = 0;
 	
 	/**
 	 * 起始页码
@@ -406,114 +329,7 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	 */
 	private int deltaTotalPage = 0;
 	
-	/**
-	 * 该方法的作用:
-	 * 判断是否需要刷新界面
-	 * @date 2013-11-1
-	 * @return 无需刷新返回false，需要刷新返回true
-	 */
-	public boolean checkNeedRefreshPullUp()
-	{
-		int curPage = countCurPagePullUp();
-		if(curPage != getCurrentPage())
-		{
-			setCurrentPage(curPage);
-			if(currentTotalPage < getShowPageMost())
-			{
-				currentTotalPage++;
-			}
-			
-			LogTools.d(LOG_TAG, "[Method:checkNeedRefreshPullUp]" + "-->curPage == " + curPage + 
-					";-->currentTotalPage == " + currentTotalPage);
-			
-			return true;
-		}
-		
-		return false;
-	}
-	
-	/**
-	 * 该方法的作用:
-	 * 向下拖动时计算当前页码
-	 * @date 2014年2月10日
-	 * @return
-	 */
-	protected int countCurPagePullDown()
-	{
-		int curPage = currentPage;
-		
-		if (getCurPullOrientation() == PULL_ORIENTATION_UP) 
-		{
-			return countCurPagePullDownAfterPullUp(curPage);
-		} 
-		else
-		{
-			return countCurPagePullDownAfterPullDown(curPage);
-		}
-	}
-	
-	/**
-	 * 该方法的作用:
-	 * 向上拖动后向下拖动时计算当前页码
-	 * @date 2014年2月10日
-	 * @param currentPage
-	 * @return
-	 */
-	protected int countCurPagePullDownAfterPullUp(int currentPage) 
-	{
-		int curPage = currentPage - getShowPageMost();
-		if(curPage < startPageNum)
-		{
-			Toast.makeText(getContext(), getContext().getString(CR.getStringsId(getContext(), 
-					"tiger_pull_to_refresh_already_firstpage")), Toast.LENGTH_SHORT).show();
-			curPage = curPage + getShowPageMost();
-		}
-		else 
-		{
-			setCurPullOrientation(PULL_ORIENTATION_DOWN);
-		}
-		
-		return curPage;
-	}
-
-	/**
-	 * 该方法的作用:
-	 * 向下拖动后向下拖动时计算当前页码
-	 * @date 2014年2月10日
-	 * @param currentPage
-	 * @return
-	 */
-	protected int countCurPagePullDownAfterPullDown(int currentPage)
-	{
-		int curPage = currentPage - 1;
-		
-		if(curPage < startPageNum)
-		{
-			Toast.makeText(getContext(), getContext().getString(CR.getStringsId(getContext(), 
-					"tiger_pull_to_refresh_already_firstpage")), Toast.LENGTH_SHORT).show();
-			curPage++;
-		}
-		
-		return curPage;
-	}
-	
-	/**
-	 * 该方法的作用:
-	 * 判断是否需要刷新界面
-	 * @date 2013-11-1
-	 * @return 无需刷新返回false，需要刷新返回true
-	 */
-	public boolean checkNeedRefreshPullDown()
-	{
-		int curPage = countCurPagePullDown();
-		if(curPage != getCurrentPage())
-		{
-			setCurrentPage(curPage);
-			return true;
-		}
-		
-		return false;
-	}
+	private int showNumPerPage = 10;
 	
 	/**
 	 * 该方法的作用:
@@ -523,102 +339,9 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	 */
 	public int countCurPagePullUp()
 	{
-		int curPage = currentPage;
-		
-		if(getCurPullOrientation() == PULL_ORIENTATION_UP)
-		{
-			return countCurPagePullUpAfterPullUp(curPage);
-		}
-		else
-		{
-			return countCurPagePullUpAfterPullDown(curPage);
-		}
+		return currentPage++;
 	}
 
-	/**
-	 * 该方法的作用:
-	 * 向上拖动后向上拖动时计算当前页码
-	 * @date 2014年2月10日
-	 * @param currentPage
-	 * @return
-	 */
-	protected int countCurPagePullUpAfterPullUp(int currentPage) 
-	{
-		int curPage = currentPage + 1;
-		if (curPage > totalPage + deltaTotalPage) 
-		{
-			Toast.makeText(getContext(), getContext().getString(CR.getStringsId(
-					getContext(), "tiger_pull_to_refresh_already_lastpage")),
-					Toast.LENGTH_SHORT).show();
-			curPage--;
-		}
-		
-		return curPage;
-	}
-
-	/**
-	 * 该方法的作用:
-	 * 向下拖动后向上拖动时计算当前页码
-	 * @date 2014年2月10日
-	 * @param currentPage
-	 * @return
-	 */
-	protected int countCurPagePullUpAfterPullDown(int currentPage) 
-	{
-		int curPage = currentPage + getShowPageMost();
-		if (curPage > totalPage + deltaTotalPage) 
-		{
-			Toast.makeText(getContext(), getContext().getString(CR.getStringsId(
-					getContext(), "tiger_pull_to_refresh_already_lastpage")), 
-					Toast.LENGTH_SHORT).show();
-			curPage = curPage - getShowPageMost();
-		}
-		else 
-		{
-			setCurPullOrientation(PULL_ORIENTATION_UP);
-		}
-		
-		return curPage;
-	}
-
-	/**
-	 * 该方法的作用:
-	 * 设置当前显示的总页数
-	 * @date 2014年2月10日
-	 * @param currentTotalPage
-	 */
-	protected void setCurrentTotalPage(int currentTotalPage) 
-	{
-		this.currentTotalPage = currentTotalPage;
-	}
-	
-	/**
-	 * 获取当前已显示的总页数
-	 * @return
-	 */
-	public int getCurrentTotalPage() 
-	{
-		return currentTotalPage;
-	}
-	
-	/**
-	 * 设置总页数
-	 * @param totalPage
-	 */
-	public void setTotalPage(int totalPage) 
-	{
-		this.totalPage = totalPage;
-	}
-
-	/**
-	 * 获取总页数
-	 * @return
-	 */
-	public int getTotalPage() 
-	{
-		return totalPage;
-	}
-	
 	/**
 	 * 获取当前页码
 	 */
@@ -637,48 +360,22 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	}
 
 	/**
-	 * 获取允许显示的最大页数
-	 * @return
-	 */
-	public int getShowPageMost()
-	{
-		return 1000;
-	}
-
-	/**
 	 * 获取每页显示的行数
 	 * @return
 	 */
 	public int getShowNumPerPage()
 	{
-		return 10;
+		return showNumPerPage;
 	}
 	
-	/**
-	 * 获取当前拖动方向
-	 * @return
-	 */
-	public int getCurPullOrientation()
+	public void setShowNumPerPage(int showNumPerPage)
 	{
-		return curPullOrientation;
+		this.showNumPerPage = showNumPerPage;
 	}
-
-	/**
-	 * 该方法的作用:
-	 * 设置当前拖动方向
-	 * @date 2014年2月10日
-	 * @param pullOrientation
-	 */
-	protected void setCurPullOrientation(int pullOrientation)
-	{
-		this.curPullOrientation = pullOrientation;
-	}
-
+	
 	public void resetPullMetaData()
 	{
 		currentPage = startPageNum;
-		curPullOrientation = PULL_ORIENTATION_UP;
-		currentTotalPage = 0;
 	}
 
 	public int getStartPageNum() 
@@ -724,20 +421,16 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	 */
 	public void appendListData(List<T> items)
 	{
-		if(getTotalPage() >= 1)
-		{
-			listView.getRefreshableView().setEmptyView(null);
-			listView.setMode(Mode.DISABLED);
-			
-			// 获取已显示列表数据
-			getListItems();
-			// 更新列表数据
-			updatePageList(items);
-			// 更新列表显示
-			updateListView();
-			// 调整Listview定位位置
-			adjustPosition(items);
-		}
+		listView.getRefreshableView().setEmptyView(null);
+		
+		// 获取已显示列表数据
+		getListItems();
+		// 更新列表数据
+		updatePageList(items);
+		// 更新列表显示
+		updateListView();
+		// 调整Listview定位位置
+		adjustPosition(items);
 	}
 
 	/**
@@ -746,23 +439,18 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	 */
 	public void resetListData(List<T> items)
 	{
-		if(getTotalPage() >= 1)
-		{
-			listView.getRefreshableView().setEmptyView(null);
-			
-			listView.setMode(Mode.BOTH);
-			
-			// 重置拖动刷新控制器
-			resetPullMetaData();
-			// 重置列表显示数据
-			getListItems().clear();
-			// 重置列表分页数据
-			pageList.clear();;
-			// 更新列表显示数据
-			updatePageList(items);
-			// 更新列表显示
-			updateListView();
-		}
+		listView.getRefreshableView().setEmptyView(null);
+		
+		// 重置拖动刷新控制器
+		resetPullMetaData();
+		// 重置列表显示数据
+		getListItems().clear();
+		// 重置列表分页数据
+		pageList.clear();;
+		// 更新列表显示数据
+		updatePageList(items);
+		// 更新列表显示
+		updateListView();
 	}
 	
 	/**
@@ -776,16 +464,8 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 		if ((null != items) && (!items.isEmpty()))
 		{
 			int position;
-			if (getCurPullOrientation() == PULL_ORIENTATION_UP)
-			{
-				position = getListItems().size() - items.size();
-				setSelection(position, true);
-			}
-			else
-			{
-				position = items.size();
-				setSelection(position, false);
-			}
+			position = items.size();
+			setSelection(position, false);
 		}
 	}
 
@@ -825,42 +505,6 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	 */
 	private void updatePageList(List<T> resultItems)
 	{
-		// 若更新数据不为空，则更新列表
-		if ((null != resultItems) && (!resultItems.isEmpty()))
-		{
-			if (getCurPullOrientation() == PULL_ORIENTATION_UP)
-			{
-				updatePageListPullUp(resultItems);
-			}
-			else
-			{
-				updatePageListPullDown(resultItems);
-			}
-		}
-		else
-		{
-			// 清空数据
-			getListItems().clear();
-			pageList.clear();
-			setCurrentPage(1);
-			Toast.makeText(getContext(),
-					getContext().getString(CR.getStringsId(getContext(), "tiger_pull_to_refresh_no_data")),
-					Toast.LENGTH_SHORT).show();
-		}
-	}
-
-	/**
-	 * 该方法的作用:列表上拉时更新数据
-	 * 
-	 * @date 2012-8-28
-	 * @param resultItems
-	 *            需要更新的数据
-	 */
-	private void updatePageListPullUp(List<T> resultItems)
-	{
-		// 删除首页数据
-		removeFirstPageItems();
-
 		// 添加最新一页的数据
 		pageList.add(convertList2ListPage(resultItems));
 
@@ -881,82 +525,6 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 		curPage.addAll(items);
 		curPage.setPageNum(getCurrentPage());
 		return curPage;
-	}
-
-	/**
-	 * 该方法的作用: 删除首页数据
-	 * 
-	 * @date 2014年3月13日
-	 */
-	private void removeFirstPageItems()
-	{
-		if ((getListItems().size() > 0) && (getCurrentTotalPage() >= getShowPageMost()) && pageList.size() > 0)
-		{
-			// 获取当前首页的数据
-			TGPage<T> curFirstPage = pageList.get(0);
-			removePageFromList(curFirstPage);
-			// 移除分页数据的首页数据
-			pageList.remove(0);
-		}
-	}
-
-	/**
-	 * 该方法的作用: 从列表数据中删除某一页
-	 * 
-	 * @date 2014年3月13日
-	 * @param listPage
-	 */
-	private void removePageFromList(TGPage<T> listPage)
-	{
-		List<T> listItems = getListItems();
-
-		T item = null;
-		// 移除多余的Item，删除当前首页的数据
-		for (int i = 0; i < listPage.size(); i++)
-		{
-			item = listPage.get(i);
-			if (listItems.contains(item))
-			{
-				listItems.remove(item);
-			}
-		}
-	}
-
-	/**
-	 * 该方法的作用:列表下拉时更新列表
-	 * 
-	 * @date 2012-8-28
-	 * @param resultItems
-	 *            需要更新的数据
-	 */
-	private void updatePageListPullDown(List<T> resultItems)
-	{
-		removeLastPageItems();
-
-		// 添加第一页的数据
-		pageList.add(0, convertList2ListPage(resultItems));
-
-		// 列表显示数据中添加第一页数据
-		getListItems().addAll(0, resultItems);
-	}
-
-	/**
-	 * 该方法的作用: 删除尾页数据
-	 * 
-	 * @date 2014年3月13日
-	 */
-	private void removeLastPageItems()
-	{
-		// 若显示页数大于等于最大可显示页数，则删除尾页的数据
-		if (pageList.size() >= getShowPageMost() && getListItems().size() > 0)
-		{
-			// 读取最后一页的数据
-			TGPage<T> lastPage = pageList.get(pageList.size() - 1);
-			// 移除最后一页的数据
-			removePageFromList(lastPage);
-			// 移除分页数据的最后一页
-			pageList.remove(pageList.size() - 1);
-		}
 	}
 
 	/**
