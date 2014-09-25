@@ -48,8 +48,7 @@ public class TGPullToRefreshListView<T> extends PullToRefreshListView
 	{
 		super.onPullDownToRefresh();
 		
-		//通过计算页码判断是否需要调用刷新接口
-		if (adapter.checkNeedRefreshPullDown() && null != onRefreshListenerPlus)
+		if (null != onRefreshListenerPlus)
 		{
 			onRefreshListenerPlus.onPullDownToRefresh(adapter.getCurrentPage());
 		}
@@ -67,7 +66,7 @@ public class TGPullToRefreshListView<T> extends PullToRefreshListView
 	{
 		super.onPullUpToRefresh();
 
-		if(adapter.checkNeedRefreshPullUp() && null != onRefreshListenerPlus)
+		if(null != onRefreshListenerPlus)
 		{
 			onRefreshListenerPlus.onPullUpToRefresh(adapter.getCurrentPage());
 		}
