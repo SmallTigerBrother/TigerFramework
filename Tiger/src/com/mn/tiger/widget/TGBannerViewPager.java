@@ -2,6 +2,9 @@ package com.mn.tiger.widget;
 
 import java.util.ArrayList;
 
+import com.mn.tiger.utility.LogTools;
+import com.mn.tiger.widget.adpter.TGPagerAdapter;
+
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -12,12 +15,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mn.tiger.utility.LogTools;
-import com.mn.tiger.widget.adpter.TGPagerAdapter;
-
 public class TGBannerViewPager extends ViewPager
 {
-	private int currentPageNum = -1;
+	protected final String LOG_TAG = this.getClass().getSimpleName();
+	
+	private int currentPageNum = 0;
 
 	private Handler handler = new Handler()
 	{
@@ -33,21 +35,27 @@ public class TGBannerViewPager extends ViewPager
 	
 	private int duration = 2000;
 	
+	private OnPageChangeListener internalPageChangeListener = null;
+	
 	private Thread thread = new Thread()
 	{
 		public void run() 
 		{
-			while (isContinue && isSrolling)
+			while (true)
 			{
-				currentPageNum++;
-				handler.obtainMessage(currentPageNum).sendToTarget();
+				if(isContinue && isSrolling)
+				{
+					currentPageNum++;
+					handler.obtainMessage(currentPageNum).sendToTarget();
+				}
+				
 				try
 				{
 					Thread.sleep(duration);
 				}
 				catch (InterruptedException e)
 				{
-					LogTools.d(VIEW_LOG_TAG, e.getMessage(), e);
+					LogTools.e(LOG_TAG, e.getMessage(), e);
 				}
 			}
 		};
@@ -89,24 +97,34 @@ public class TGBannerViewPager extends ViewPager
 			}
 		});
 		
-		setOnPageChangeListener(new OnPageChangeListener()
+		super.setOnPageChangeListener(new OnPageChangeListener()
 		{
 			@Override
 			public void onPageSelected(int arg0)
 			{
 				currentPageNum = arg0;
+				if(null != internalPageChangeListener)
+				{
+					internalPageChangeListener.onPageSelected(arg0);
+				}
 			}
 			
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2)
 			{
-				
+				if(null != internalPageChangeListener)
+				{
+					internalPageChangeListener.onPageScrolled(arg0, arg1, arg2);
+				}
 			}
 			
 			@Override
 			public void onPageScrollStateChanged(int arg0)
 			{
-				
+				if(null != internalPageChangeListener)
+				{
+					internalPageChangeListener.onPageScrollStateChanged(arg0);
+				}
 			}
 		});
 	}
@@ -121,11 +139,7 @@ public class TGBannerViewPager extends ViewPager
 	public void startScroll()
 	{
 		isSrolling = true;
-		
-		if(currentPageNum == -1)
-		{
-			currentPageNum = ((TGPagerAdapter)getAdapter()).getPagers().size() * 100 - 1;
-		}
+		isContinue = true;
 		
 		setCurrentItem(currentPageNum);
 	}
@@ -133,7 +147,7 @@ public class TGBannerViewPager extends ViewPager
 	@Override
 	public void setCurrentItem(int item)
 	{
-		if(item < 100)
+		if(item < 100 && null != getAdapter())
 		{
 			currentPageNum = item + ((TGPagerAdapter)getAdapter()).getPagers().size() * 100 - 1;
 		}
@@ -143,7 +157,7 @@ public class TGBannerViewPager extends ViewPager
 	@Override
 	public void setCurrentItem(int item, boolean smoothScroll)
 	{
-		if(item < 100)
+		if(item < 100 && null != getAdapter())
 		{
 			currentPageNum = item + ((TGPagerAdapter)getAdapter()).getPagers().size() * 100 - 1;
 		}
@@ -159,6 +173,12 @@ public class TGBannerViewPager extends ViewPager
 	public void setSrollDuration(int duration)
 	{
 		this.duration = duration;
+	}
+	
+	@Override
+	public void setOnPageChangeListener(OnPageChangeListener listener)
+	{
+		this.internalPageChangeListener = listener;
 	}
 	
 	public static class CirclePagerAdapter extends TGPagerAdapter
@@ -186,4 +206,5 @@ public class TGBannerViewPager extends ViewPager
 			return super.instantiateItem(container, position % getPagers().size());
 		}
 	}
+	
 }
