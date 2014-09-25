@@ -42,8 +42,15 @@ public class TGPagerAdapter extends PagerAdapter
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) 
 	{
-		((ViewPager)container).addView(pagers.get(position));
-		return pagers.get(position);
+		View view = container.findViewWithTag(position);
+		if(null == view)
+		{
+			view = pagers.get(position);
+			view.setTag(position);
+			container.addView(view);
+		}
+		
+		return view;
 	}
 
 	/**
