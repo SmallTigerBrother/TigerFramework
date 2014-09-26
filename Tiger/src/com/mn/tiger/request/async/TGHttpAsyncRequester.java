@@ -5,7 +5,7 @@ import java.util.Map;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.mn.tiger.core.parser.json.TGJsonUtils;
+import com.mn.tiger.parser.json.TGJsonUtils;
 import com.mn.tiger.request.TGHttpRequester;
 import com.mn.tiger.request.async.task.IRequestParser;
 import com.mn.tiger.request.receiver.TGHttpResult;
