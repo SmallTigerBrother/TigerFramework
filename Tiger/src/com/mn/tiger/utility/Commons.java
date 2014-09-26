@@ -17,53 +17,10 @@ import com.mn.tiger.app.IApplication;
 import com.mn.tiger.app.TGApplication;
 import com.mn.tiger.request.async.TGHttpAsyncRequester;
 import com.mn.tiger.request.async.TGHttpAsyncTask;
-import com.mn.tiger.system.AppConfiguration;
 
 public class Commons
 {
 	private static final String LOG_TAG = Commons.class.getSimpleName();
-
-	/*********************** 获取应用配置信息 start *****************************************/
-
-	/**
-	 * 该方法的作用:获取配置的登陆界面class包名 + 类名
-	 * 
-	 * @date 2013-11-21
-	 * @param context
-	 * @param name
-	 * @return
-	 */
-	@SuppressWarnings("rawtypes")
-	public static Class getClassFromConfig(Context context, String name)
-	{
-		return AppConfiguration.getInstance().getClassFromConfig(name);
-	}
-
-	/**
-	 * 该方法的作用:获取客户端版本号
-	 * 
-	 * @date 2013-11-18
-	 * @param context
-	 * @return
-	 */
-	public static String getVersionName(Context context)
-	{
-		return AppConfiguration.getInstance().getVersionName();
-	}
-
-	/**
-	 * 获取当前的运行环境
-	 * 
-	 * @param context
-	 * @return
-	 */
-	public static int getDebugMode(Context context)
-	{
-		return AppConfiguration.getInstance().getDebugMode();
-	}
-
-
-	/*********************** 获取应用配置信息 end *****************************************/
 
 	/**
 	 * 该方法的作用:获取系统语言
@@ -107,24 +64,16 @@ public class Commons
 
 		if (null != uid && uid.matches("^[A-Za-z0-9]+$"))
 		{
-			// 出现0或者000000000000000时，取wifi的mac地址,此段代码在真机运行把此段注释去掉(753行--759行)
-			if (AppConfiguration.getInstance().isTrueMobile())
-			{// 用于真机调试的代码
-				if ("0".equals(uid) || "000000000000000".equals(uid))
-				{
-					if (Integer.valueOf(android.os.Build.VERSION.SDK_INT) < 9)
-					{//
-						uid = NetworkUtils.getLocalMacAddress(context);
-					}
-					else
-					{// 2.3及以上版本可用
-						uid = android.os.Build.SERIAL;
-					}
-				}
-			}
-			else
+			if ("0".equals(uid) || "000000000000000".equals(uid))
 			{
-				uid = uid + AppConfiguration.getInstance().getSimulatorPostfix();
+				if (Integer.valueOf(android.os.Build.VERSION.SDK_INT) < 9)
+				{//
+					uid = NetworkUtils.getLocalMacAddress(context);
+				}
+				else
+				{// 2.3及以上版本可用
+					uid = android.os.Build.SERIAL;
+				}
 			}
 		}
 		return uid;

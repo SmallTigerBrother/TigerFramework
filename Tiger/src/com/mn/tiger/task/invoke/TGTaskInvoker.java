@@ -12,11 +12,10 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 
-import com.mn.tiger.service.TGRemoteService;
-import com.mn.tiger.system.AppConfiguration;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.task.TGTaskManager;
 import com.mn.tiger.task.dispatch.TGDispatcher;
+import com.mn.tiger.task.service.TGRemoteService;
 import com.mn.tiger.utility.LogTools;
 
 /**
@@ -75,12 +74,6 @@ public class TGTaskInvoker
 	public int invoke(TGTaskParams taskParams)
 	{
 		LogTools.p(LOG_TAG, "[Method:invoke]");
-		// 不在service里执行, 直接调度task
-		if(!AppConfiguration.isRunAtService())
-		{
-			return invokeTask(context, taskParams);
-		}
-		
 		// 在service里执行, 在remoteService里调度task
 		try
 		{

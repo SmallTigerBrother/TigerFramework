@@ -14,7 +14,6 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
-import com.mn.tiger.system.AppConfiguration;
 
 @SuppressLint("SimpleDateFormat")
 public class LogTools
@@ -67,18 +66,10 @@ public class LogTools
 	 */
 	public static void switchLog(Context context)
 	{
-		if (Commons.getDebugMode(context) == AppConfiguration.DEBUG_MODE_RELEASE)
-		{
-			setDebugLevel(DebugLevel.PROCESS);
-			printFileOn();
-			printConsoleOn();
-		}
-		else
-		{
-			setDebugLevel(DebugLevel.VERBOSE);
-			printFileOn();
-			printConsoleOn();
-		}
+		//TODO
+		setDebugLevel(DebugLevel.VERBOSE);
+		printFileOn();
+		printConsoleOn();
 	}
 
 	/*** 打开写文件日志开关 */
