@@ -9,14 +9,10 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.util.Map;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.text.TextUtils;
 
-import com.mn.tiger.core.parser.json.TGJsonUtils;
-import com.mn.tiger.utility.BitmapUtils;
 import com.mn.tiger.utility.LogTools;
 
 /**
@@ -29,43 +25,13 @@ public class TGCache
 {
 	public static final String LOG_TAG = TGCache.class.getSimpleName();
 
-	/** 缓存文件类型：图片类型 */
-	public static final int IMAGE_TYPE = 0;
-
 	/** 缓存文件类型：普通文件类型 */
 	public static final int NORMAL_FILE_TYPE = 1;
 
 	public static final String CACHE_SHAREDPROFERENCES_NAME = "CACHE_SAVE_PATH";
 
-	public static final String CACHE_TIME = "cache_time";
-
-	/** 内存缓存 */
-	private static MemoryCache mMemoryCache;
-
-	public static final String SAVE_IMAGE_TYPE = ".image";
-
 	public static final String SAVE_NORMAL_TYPE = ".hw";
 
-	public static final String SAVE_MDM_TYPE = ".mdm";
-
-	/**
-	 * 该方法的作用:初始化内存缓存
-	 * 
-	 * @date 2014年3月3日
-	 */
-	public static void initLruCache(int cacheSize)
-	{
-		if (mMemoryCache == null)
-		{
-			synchronized (TGCache.class)
-			{
-				if (mMemoryCache == null)
-				{
-					mMemoryCache = MemoryCache.getInstance(cacheSize);
-				}
-			}
-		}
-	}
 
 	public static void setDiskCacheSize(int maxSize)
 	{
@@ -96,32 +62,14 @@ public class TGCache
 			throw new NullPointerException("value can't be empty!");
 		}
 
-		// 图片
-		if (value instanceof Bitmap)
+		File normal_file = getNormalCacheFile(context, key);
+		if (null != normal_file)
 		{
-			if (null == mMemoryCache)
-			{// 未初始化时，使用默认的缓存大小初始化一次
-				initLruCache(0);
-			}
-			if (null != mMemoryCache)
-			{
-				mMemoryCache.put(key, (Bitmap) value);
-				LogTools.d(LOG_TAG, "saveCache IMAGE_TYPE  key =" + key + "  value ="
-						+ ((Bitmap) value));
-			}
+			saveAsDiskCache(normal_file.getAbsolutePath(), value);
 		}
 		else
-		// 其它类型
 		{
-			File normal_file = getNormalCacheFile(context, key);
-			if (null != normal_file)
-			{
-				saveAsDiskCache(normal_file.getAbsolutePath(), value);
-			}
-			else
-			{
-				LogTools.e(LOG_TAG, "save cache normal_file is null!");
-			}
+			LogTools.e(LOG_TAG, "save cache normal_file is null!");
 		}
 	}
 
@@ -136,36 +84,13 @@ public class TGCache
 	 */
 	public static Object getCache(Context context, String key)
 	{
-		if (null == mMemoryCache)
-		{// 未初始化时，使用默认的缓存大小初始化一次
-			initLruCache(0);
-		}
-
 		File cacheFile = null;
 		Object content = null;
 
-		assert null != mMemoryCache;
-		content = mMemoryCache.get(key);
-		if (null == content)
+		cacheFile = getNormalCacheFile(context, key);
+		if (cacheFile.exists())
 		{
-			cacheFile = getCacheFile(context, key);
-			if (cacheFile.exists())
-			{
-				content = BitmapUtils.decodeBitmap(context, cacheFile);
-			}
-			else
-			{
-				cacheFile = getNormalCacheFile(context, key);
-				if (cacheFile.exists())
-				{
-					content = getDiskCache(cacheFile.getAbsolutePath());
-				}
-			}
-			LogTools.d(LOG_TAG, "  getCache  IMAGE_TYPE key =" + key + "  decodeFile  " + content);
-			if (content instanceof Bitmap)
-			{
-				mMemoryCache.put(key, (Bitmap) content);
-			}
+			content = getDiskCache(cacheFile.getAbsolutePath());
 		}
 
 		return content;
@@ -249,21 +174,6 @@ public class TGCache
 
 	/**
 	 * 
-	 * 该方法的作用:获取图片缓存文件
-	 * 
-	 * @date 2014年5月14日
-	 * @param context
-	 * @param key
-	 * @return
-	 */
-	public static File getCacheFile(Context context, String key)
-	{
-		File saveFile = new File(getCacheBaseDir(context), key + TGCache.SAVE_IMAGE_TYPE);
-		return saveFile;
-	}
-
-	/**
-	 * 
 	 * 该方法的作用:获取普通类型缓存文件
 	 * 
 	 * @date 2014年5月14日
@@ -293,22 +203,6 @@ public class TGCache
 			saveFileDir.mkdirs();
 		}
 		return saveFileDir;
-	}
-
-	/**
-	 * 
-	 * 该方法的作用:MDM加密文件
-	 * 
-	 * @date 2014年5月14日
-	 * @param context
-	 * @param key
-	 * @return
-	 */
-	private static File getEncryptCacheFile(Context context, String key)
-	{
-		File encryptCacheFile = new File(getCacheBaseDir(context).getAbsolutePath(), key
-				+ TGCache.SAVE_MDM_TYPE);
-		return encryptCacheFile;
 	}
 
 	/**
@@ -430,133 +324,4 @@ public class TGCache
 		}
 	}
 
-	/**
-	 * 
-	 * 该方法的作用:保存加密缓存
-	 * 
-	 * @date 2014年5月14日
-	 * @param context
-	 * @param fileName
-	 *            缓存文件名
-	 * @param content
-	 *            缓存内容
-	 * @param encryption
-	 *            加密方法
-	 */
-	public static void saveEncryptCache(Context context, String fileName, Object content,
-			IEncryption encryption)
-	{
-		if (mMemoryCache == null)
-		{// 未初始化时，使用默认的缓存大小初始化一次
-			initLruCache(0);
-		}
-		if (content instanceof Bitmap)
-		{
-			if (mMemoryCache != null)
-			{
-				mMemoryCache.put(fileName, (Bitmap) content);
-				File file = getEncryptCacheFile(context, fileName);
-				encryption.encryptAndSaveBitmap(context, (Bitmap) content, file);
-			}
-		}
-		else
-		{
-			File normal_file = getEncryptCacheFile(context, fileName);
-			if (normal_file != null)
-			{
-				String contentString = TGJsonUtils.parseObject2Json(content);
-				encryption.encryptAndSave(context, contentString, normal_file);;
-			}
-			else
-			{
-				LogTools.e(LOG_TAG, "save cache normal_file is null!");
-			}
-		}
-
-	}
-
-	/**
-	 * 
-	 * 该方法的作用:获取解密数据
-	 * 
-	 * @date 2014年5月14日
-	 * @param context
-	 * @param fileName
-	 *            文件名
-	 * @param mClass
-	 *            解析返回Object的类型
-	 * @param encryption
-	 *            加密方法
-	 * @return
-	 */
-	public static Object getDecryptCache(Context context, String fileName, Class<?> mClass,
-			IEncryption encryption)
-	{
-		if (mMemoryCache == null)
-		{// 未初始化时，使用默认的缓存大小初始化一次
-			initLruCache(0);
-		}
-		Object content = null;
-		if (mMemoryCache != null)
-		{
-			File cacheFile = getEncryptCacheFile(context, fileName);
-
-			// 处理第一次访问异常
-			if (null == cacheFile)
-			{
-				return null;
-			}
-
-			if (mClass.isAssignableFrom(Bitmap.class))
-			{
-				content = mMemoryCache.get(fileName);
-				LogTools.d(LOG_TAG, "  getCache  IMAGE_TYPE  content " + content);
-				// 从磁盘缓存中获取
-				if (content == null && isFileExist(encryption, cacheFile))
-				{
-					content = encryption.decryptBitmap(context, cacheFile);
-					// 放入内存缓存
-					mMemoryCache.put(fileName, (Bitmap) content);
-				}
-			}
-			else
-			{
-				if (isFileExist(encryption, cacheFile))
-				{
-					String contentString = (String) getDiskCache(cacheFile.getAbsolutePath());
-					contentString = (String) encryption.decrypt(context, contentString, cacheFile);
-					// 对Map采用不同的解密方法
-					if (mClass.isAssignableFrom(Map.class))
-					{
-						content = TGJsonUtils.parseJson2Map(contentString);
-					}
-					else
-					{
-						content = TGJsonUtils.parseJson2Object(contentString, mClass);
-					}
-				}
-
-			}
-		}
-		return content;
-	}
-
-	/**
-	 * 该方法的作用:判定缓存文件是否存在
-	 * 
-	 * @date 2014年5月14日
-	 * @param encryption
-	 *            加密方法
-	 * @param cacheFile
-	 *            缓存文件
-	 */
-
-	private static boolean isFileExist(IEncryption encryption, File cacheFile)
-	{
-		if (!cacheFile.exists())
-		{
-			return false;
-		}
-		return true;
-	}
 }
