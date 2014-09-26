@@ -140,6 +140,7 @@ public class TGDropDownGridView extends TGDropDownAdapterView
 	 * 
 	 * @date 2014年4月17日
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	public void setBackgroundDrawable(Drawable drawable)
 	{

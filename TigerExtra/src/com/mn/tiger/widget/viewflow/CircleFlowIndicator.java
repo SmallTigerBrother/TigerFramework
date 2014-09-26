@@ -76,7 +76,6 @@ public class CircleFlowIndicator extends View implements FlowIndicator,
 	private FadeTimer timer;
 	public AnimationListener animationListener = this;
 	private Animation animation;
-	private boolean mCentered = false;
 	private boolean mSnap = false;
 
 	/**
@@ -126,8 +125,6 @@ public class CircleFlowIndicator extends View implements FlowIndicator,
 		// Retrieve the fade out time
 		fadeOutTime = 0;
 		
-		mCentered = false;
-
 		mSnap = false;
 		
 		initColors(activeColor, inactiveColor, activeType, inactiveType);

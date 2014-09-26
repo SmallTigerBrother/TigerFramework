@@ -151,6 +151,7 @@ public class TGDialog extends Dialog implements IDialog
 	/**
 	 * 初始化对话框
 	 */
+	@SuppressWarnings("deprecation")
 	private void setupDialog()
 	{
 		//设置不现实标题栏
@@ -310,6 +311,7 @@ public class TGDialog extends Dialog implements IDialog
 	 * @date 2014年1月6日
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	protected Button initLeftButton()
 	{
 		Button leftButton = new Button(getContext());
@@ -411,6 +413,7 @@ public class TGDialog extends Dialog implements IDialog
 	 * @date 2014年1月6日
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	protected Button initMiddleButton()
 	{
 		Button middleButton = new Button(getContext());
@@ -523,6 +526,7 @@ public class TGDialog extends Dialog implements IDialog
 	 * @date 2014年1月6日
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	protected Button initRightButton()
 	{
 		Button rightButton = new Button(getContext());
@@ -847,6 +851,7 @@ public class TGDialog extends Dialog implements IDialog
 	 * 设置对话框背景
 	 * @param drawable 对话框背景
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	public void setBackgroundDrawable(Drawable drawable)
 	{

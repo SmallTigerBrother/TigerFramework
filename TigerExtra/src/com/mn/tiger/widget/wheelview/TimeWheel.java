@@ -109,6 +109,7 @@ public class TimeWheel extends FrameLayout
 	 * 
 	 * @date 2013-2-18
 	 */
+	@SuppressWarnings("deprecation")
 	private void initWheelView()
 	{
 		LayoutInflater inflater = (LayoutInflater) mContext

@@ -133,6 +133,7 @@ public class TGDropDownListView extends TGDropDownAdapterView
 	 * @param selector
 	 *            背景图片
 	 */
+	@SuppressWarnings("deprecation")
 	public void setChildBackgroud(int position, Drawable selector)
 	{
 		if (position < 0 || position >= listView.getCount() || null == listView || null == selector)
@@ -255,6 +256,7 @@ public class TGDropDownListView extends TGDropDownAdapterView
 	 * 
 	 * @date 2014年4月17日
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	public void setBackgroundDrawable(Drawable drawable)
 	{
