@@ -1,14 +1,12 @@
 package com.mn.tiger.utility;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 public class DisplayUtils
 {

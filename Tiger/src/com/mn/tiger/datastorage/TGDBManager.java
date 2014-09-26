@@ -356,6 +356,7 @@ public class TGDBManager
 	 * @throws DbException
 	 *             void
 	 */
+	@SuppressWarnings("unused")
 	private void replace(Object entity) throws DbException
 	{
 		try
@@ -382,6 +383,7 @@ public class TGDBManager
 	 * @throws DbException
 	 *             void
 	 */
+	@SuppressWarnings("unused")
 	private void replaceAll(List<?> entities) throws DbException
 	{
 		if (entities == null || entities.size() == 0)
@@ -863,6 +865,7 @@ public class TGDBManager
 	 * @throws DbException
 	 *             T
 	 */
+	@SuppressWarnings("unchecked")
 	public <T> T findFirst(Class<T> entityType) throws DbException
 	{
 		return (T) findFirst(Selector.from(entityType));
@@ -877,6 +880,7 @@ public class TGDBManager
 	 * @throws DbException
 	 *             T
 	 */
+	@SuppressWarnings("unchecked")
 	public <T> T findFirst(Class<T> entityType, WhereBuilder whereBuilder) throws DbException
 	{
 		return (T) findFirst(Selector.from(entityType).where(whereBuilder));
@@ -890,6 +894,7 @@ public class TGDBManager
 	 * @throws DbException
 	 *             T
 	 */
+	@SuppressWarnings("unchecked")
 	public <T> T findFirst(Object entity) throws DbException
 	{
 		if (!tableIsExist(entity.getClass()))

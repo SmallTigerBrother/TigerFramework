@@ -66,6 +66,7 @@ public class FileUtils
 	 * @date 2013-10-28
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public static long getSDFreeSize()
 	{
 		if (isSDCardAvailable())
@@ -87,6 +88,7 @@ public class FileUtils
 	 * @date 2013-10-28
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public static long getSDAllSize()
 	{
 		if (isSDCardAvailable())
@@ -108,6 +110,7 @@ public class FileUtils
 	 * @param filePath
 	 * @return 容量字节 SDCard可用空间，内部存储可用空间
 	 */
+	@SuppressWarnings("deprecation")
 	public static long getFreeBytes(String filePath)
 	{
 		// 如果是sd卡的下的路径，则获取sd卡可用容量

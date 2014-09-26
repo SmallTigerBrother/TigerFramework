@@ -352,7 +352,7 @@ public abstract class LoadingLayout extends FrameLayout implements ILoadingLayou
 		}
 	}
 
-	private void setSubTextAppearance(int value)
+	public void setSubTextAppearance(int value)
 	{
 		if (null != mSubHeaderText)
 		{
@@ -360,7 +360,7 @@ public abstract class LoadingLayout extends FrameLayout implements ILoadingLayou
 		}
 	}
 
-	private void setSubTextColor(ColorStateList color)
+	public void setSubTextColor(ColorStateList color)
 	{
 		if (null != mSubHeaderText)
 		{
@@ -368,7 +368,7 @@ public abstract class LoadingLayout extends FrameLayout implements ILoadingLayou
 		}
 	}
 
-	private void setTextAppearance(int value)
+	public void setTextAppearance(int value)
 	{
 		if (null != mHeaderText)
 		{
@@ -380,7 +380,7 @@ public abstract class LoadingLayout extends FrameLayout implements ILoadingLayou
 		}
 	}
 
-	private void setTextColor(ColorStateList color)
+	public void setTextColor(ColorStateList color)
 	{
 		if (null != mHeaderText)
 		{

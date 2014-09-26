@@ -1,6 +1,5 @@
 package com.mn.tiger.request.error;
 
-import org.json.JSONObject;
 
 import com.mn.tiger.request.receiver.TGHttpResult;
 

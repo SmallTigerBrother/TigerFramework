@@ -241,6 +241,7 @@ public class TGImageButton extends LinearLayout
 	 * @date 2013-8-13
 	 * @param drawable
 	 */
+	@SuppressWarnings("deprecation")
 	public void setBadgeBackgroudDrawable(Drawable drawable)
 	{
 		if (badgeView == null)
