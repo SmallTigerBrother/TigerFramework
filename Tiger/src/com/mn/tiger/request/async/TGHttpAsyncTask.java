@@ -49,10 +49,18 @@ public class TGHttpAsyncTask<Result>
 	private int requestType = TGHttpRequester.REQUEST_GET;
 	
 	/**
-	 * 网络请求参数
+	 * 网络请求headers参数
 	 */
 	private HashMap<String, String> properties = null;
 	
+	/**
+	 * 网络请求参数
+	 */
+	private HashMap<String, String> params = null;
+	
+	/**
+	 * 任务是否已取消
+	 */
 	private boolean isCancel = false;
 	
 	/**
@@ -65,13 +73,25 @@ public class TGHttpAsyncTask<Result>
 	 */
 	private String taskClsName = null;
 	
+	/**
+	 * 解析类的类名
+	 */
 	private String parserClsName = "";
 	
+	/**
+	 * 结果类的类名
+	 */
 	private String resultClsName = "";
 	
+	/**
+	 * 请求结果回调类
+	 */
 	@SuppressWarnings("rawtypes")
-	private TGHttpAsyncRequester.RequestListener listener;
+	private TGHttpAsyncRequester.TGRequestHandler requestHandler;
 	
+	/**
+	 * http结果接收类
+	 */
 	private TGHttpResultHandler resultHandler = new TGHttpResultHandler()
 	{
 		@SuppressWarnings("unchecked")
@@ -80,9 +100,9 @@ public class TGHttpAsyncTask<Result>
 		{
 			LogTools.i(LOG_TAG, "[Method:onSuccess]");
 			//解析请求结果
-			if(!isCancelled() && null != listener)
+			if(!isCancelled() && null != requestHandler)
 			{
-				listener.onRequestSuccess(httpResult.getObjectResult());
+				requestHandler.onRequestSuccess(httpResult.getObjectResult());
 			}
 		}
 		
@@ -90,9 +110,20 @@ public class TGHttpAsyncTask<Result>
 		{
 			LogTools.i(LOG_TAG, "[Method:onError]");
 			//解析请求结果
-			if(!isCancelled() && null != listener)
+			if(!isCancelled() && null != requestHandler)
 			{
-				listener.onRequestError(httpResult.getResponseCode(), httpResult.getResult());
+				requestHandler.onRequestError(httpResult.getResponseCode(), httpResult.getResult());
+			}
+		}
+		
+		@SuppressWarnings("unchecked")
+		protected void onReturnCachedResult(TGHttpResult httpResult)
+		{
+			LogTools.i(LOG_TAG, "[Method:onReturnCachedResult]");
+			//解析请求结果
+			if(!isCancelled() && null != requestHandler)
+			{
+				requestHandler.onReturnCachedResult(httpResult.getObjectResult());
 			}
 		}
 	};
@@ -101,17 +132,18 @@ public class TGHttpAsyncTask<Result>
 	 * @param context
 	 * @param requestUrl
 	 * @param requestType
-	 * @param listener
+	 * @param handler
 	 */
 	@SuppressWarnings("rawtypes")
 	public TGHttpAsyncTask(Context context, String requestUrl, int requestType, 
-			TGHttpAsyncRequester.RequestListener listener) 
+			TGHttpAsyncRequester.TGRequestHandler handler) 
 	{
 		this.context = context;
 		this.requestUrl = requestUrl;
 		this.requestType = requestType;
-		this.listener = listener;
+		this.requestHandler = handler;
 		
+		params = new HashMap<String, String>();
 		properties = new HashMap<String, String>();
 	}
 	
@@ -119,9 +151,8 @@ public class TGHttpAsyncTask<Result>
 	 * 该方法的作用:
 	 * 执行任务
 	 * @date 2014年8月22日
-	 * @param params
 	 */
-	public void execute(final Object params)
+	public void execute()
 	{
 		if (context instanceof Activity && ((Activity) context).isFinishing())
 		{
@@ -133,11 +164,14 @@ public class TGHttpAsyncTask<Result>
 		doInBackground(params);
 	}
 	
+	/**
+	 * 请求之前执行方法（MainThread）
+	 */
 	protected void onPreExecute()
 	{
-		if(null != listener)
+		if(null != requestHandler)
 		{
-			listener.onRequestStart();
+			requestHandler.onRequestStart();
 		}
 	}
 	
@@ -148,7 +182,7 @@ public class TGHttpAsyncTask<Result>
 	 * @param params
 	 * @return
 	 */
-	protected TGHttpResult doInBackground(Object params) 
+	protected TGHttpResult doInBackground(HashMap<String, String> params) 
 	{
 		LogTools.p(LOG_TAG, "[Method: doInBackground]  " + "start request.");
 		
@@ -165,13 +199,12 @@ public class TGHttpAsyncTask<Result>
 	
 	/**
 	 * 该方法的作用:
-	 * 初始化Http请求参数
+	 * 初始化Http请求参数（MainTread）
 	 * @date 2014年8月22日
 	 * @param params
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	protected TGTaskParams initHttpParams(Object params)
+	protected TGTaskParams initHttpParams(HashMap<String, String> params)
 	{
 		if(requestType > TGHttpRequester.REQUEST_PUT || 
 				requestType < TGHttpRequester.REQUEST_POST)
@@ -185,14 +218,7 @@ public class TGHttpAsyncTask<Result>
 		data.putSerializable(TGHttpTask.PARAM_PROPERTIES, (HashMap<String, String>)properties);
 		if(null != params)
 		{
-    		if(params instanceof HashMap<?, ?>)
-    		{
-    			data.putSerializable(TGHttpTask.PARAM_PARAMS, (HashMap<String, String>) params);
-    		}
-    		else if(params instanceof String)
-    		{
-    			data.putString(TGHttpTask.PARAM_PARAMS, (String) params);
-    		}
+			data.putSerializable(TGHttpTask.PARAM_PARAMS, (HashMap<String, String>) params);
 		}
 		
 		data.putString(TGHttpTask.PARAM_PARSERCLSNAME, parserClsName);
@@ -264,9 +290,9 @@ public class TGHttpAsyncTask<Result>
 	{
 		this.isCancel = true;
 		TGTaskManager.getInstance(context).cancelTask(taskID, TGTask.TASK_TYPE_HTTP);
-		if(null != listener)
+		if(null != requestHandler)
 		{
-			this.listener.onRequestCancel();
+			this.requestHandler.onRequestCancel();
 		}
 	}
 	
@@ -291,6 +317,10 @@ public class TGHttpAsyncTask<Result>
 	{
 	}
 
+	/**
+	 * 是否已取消
+	 * @return
+	 */
 	public boolean isCancelled()
 	{
 		return isCancel;
@@ -318,38 +348,89 @@ public class TGHttpAsyncTask<Result>
 	}
 	
 	/**
-	 * 该方法的作用: 批量设置请求参数
+	 * 该方法的作用: 设置Headers请求参数(会清空原有参数)
 	 * @date 2014年5月23日
 	 * @param properties
 	 */
 	public void setProperties(Map<String, String> properties)
 	{
+		this.properties.clear();
 		this.properties.putAll(properties);
 	}
 	
+	/**
+	 * 添加Headers请求参数
+	 * @param key
+	 * @param value
+	 */
+	public void addProperty(String key, String value)
+	{
+		this.properties.put(key, value);
+	}
+	
+	/**
+	 * 设置请求参数（会清空原有参数）
+	 * @param params
+	 */
+	public void setRequestParams(Map<String, String> params)
+	{
+		this.params.clear();
+		this.params.putAll(params);
+	}
+	
+	/**
+	 * 添加请求参数
+	 * @param key
+	 * @param value
+	 */
+	public void addRequestParam(String key, String value)
+	{
+		this.params.put(key, value);
+	}
+	
+	/**
+	 * 设置解析类的类名
+	 * @param parserClsName
+	 */
 	public void setParserClsName(String parserClsName)
 	{
 		this.parserClsName = parserClsName;
 	}
 	
+	/**
+	 * 设置结果类的类名
+	 * @param resultClsName
+	 */
 	public void setResultClsName(String resultClsName)
 	{
 		this.resultClsName = resultClsName;
 	}
 	
+	/**
+	 * 设置请求类型
+	 * @param requestType
+	 */
 	public void setRequestType(int requestType)
 	{
 		this.requestType = requestType;
 	}
 	
+	/**
+	 * 设置请求Url
+	 * @param requestUrl
+	 */
 	public void setRequestUrl(String requestUrl)
 	{
 		this.requestUrl = requestUrl;
 	}
 	
+	/**
+	 * 设置请求回调类
+	 * @param handler
+	 */
 	@SuppressWarnings("rawtypes")
-	public void setListener(TGHttpAsyncRequester.RequestListener listener)
+	public void setRequestHandler(TGHttpAsyncRequester.TGRequestHandler handler)
 	{
-		this.listener = listener;
+		this.requestHandler = handler;
 	}
 }
