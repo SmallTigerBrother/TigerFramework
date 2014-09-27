@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.utility.LogTools;
+import com.mn.tiger.utility.MD5;
 
 /**
  * 该类作用及功能说明 Http请求任务类
@@ -40,11 +41,20 @@ public abstract class TGHttpTask extends TGTask
 	 * 参数名--resultClsName
 	 */
 	public static final String PARAM_RESLUTCLSNAME = "resultClsName";
+	
+	/**
+	 * 参数名--是否支持缓存
+	 */
+	public static final String PARAM_CACHEABLE = "cacheable";
 
+	private String cacheKey = "";
 	
 	@Override
 	protected MPTaskState executeOnSubThread()
 	{
+		//先返回Cache中的数据
+		sendCachedResult();
+		
 		// 执行网络访问（不带异常处理）；异常处理下放到Activity中执行,
 		TGHttpResult result = executeHttpRequest();
 		if (getTaskState() == MPTaskState.RUNNING)
@@ -53,9 +63,36 @@ public abstract class TGHttpTask extends TGTask
 			sendTaskResult(parseRequestResult(result));
 		}
 
+		//设置任务执行状态
+		setTaskState(MPTaskState.FINISHED);
+		
 		return getTaskState();
 	}
 
+	/**
+	 * 发送缓存结果
+	 */
+	private void sendCachedResult()
+	{
+		LogTools.d(LOG_TAG, "[Method:sendCachedResult]");
+		
+		if(isCacheable())
+		{
+			sendTaskResult(getResultFromCache(getCacheKey()));
+		}
+	}
+	
+	/**
+	 * 从缓存中获取结果
+	 * @param cacheKey 缓存Key
+	 * @return
+	 */
+	protected TGHttpResult getResultFromCache(String cacheKey)
+	{
+		//TODO 
+		return null;
+	}
+	
 	/**
 	 * 该方法的作用: 执行Http请求
 	 * 
@@ -73,6 +110,7 @@ public abstract class TGHttpTask extends TGTask
 	 */
 	protected TGHttpResult parseRequestResult(TGHttpResult httpResult)
 	{
+		//解析结果
 		String parserClsName = getParserClsName();
 		String resultClsName = getResultClsName();
 		if(!TextUtils.isEmpty(parserClsName) && !TextUtils.isEmpty(resultClsName))
@@ -88,20 +126,48 @@ public abstract class TGHttpTask extends TGTask
 			}
 		}
 		
+		//将结果存入缓存中
+		save2Cache(httpResult);
+		
 		return httpResult;
+	}
+	
+	protected void save2Cache(TGHttpResult httpResult)
+	{
+		if(isCacheable())
+		{
+			LogTools.d(LOG_TAG, "[Method:save2Cache]");
+			//TODO 存入缓存中
+		}
 	}
 
 	@Override
 	protected void sendTaskResult(Object result)
 	{
+		//若当前任务仍在运行，返回请求结果
 		if(getTaskState() == MPTaskState.RUNNING)
 		{
 			LogTools.d(LOG_TAG, "[Method:sendTaskResult]");
 			//发送执行结果
 			super.sendTaskResult(result);
-			//设置任务执行状态
-			setTaskState(MPTaskState.FINISHED);
 		}
+	}
+	
+	/**
+	 * 获取缓存Key
+	 * @return
+	 */
+	protected String getCacheKey()
+	{
+		if(TextUtils.isEmpty(cacheKey))
+		{
+			//使用网络请求的全部参数作为缓存Key的特征值
+			String requestFeature = getRequestUrl() + getRequestParamsStr() + getRequestPropertiesStr() + 
+					getResultClsNameStr() + getParserClsNameStr();
+			cacheKey = MD5.toHexString(requestFeature.getBytes());
+		}
+		
+		return cacheKey;
 	}
 	
 	/**
@@ -114,6 +180,21 @@ public abstract class TGHttpTask extends TGTask
 	{
 		Bundle httpParams = (Bundle)getParams();
 		return httpParams.get(PARAM_PARAMS);
+	}
+	
+	/**
+	 * 获取请求参数Str
+	 * @return
+	 */
+	private String getRequestParamsStr()
+	{
+		Object requestParams = getRequestParams();
+		if(null != requestParams)
+		{
+			return requestParams.toString();
+		}
+		
+		return "";
 	}
 	
 	/**
@@ -142,6 +223,21 @@ public abstract class TGHttpTask extends TGTask
 	}
 	
 	/**
+	 * 获取请求properties的Str
+	 * @return
+	 */
+	private String getRequestPropertiesStr()
+	{
+		HashMap<String, String> requestProperties = getRequestProperties();
+		if(null == requestProperties)
+		{
+			return "";
+		}
+		
+		return requestProperties.toString();
+	}
+	
+	/**
 	 * 该方法的作用:
 	 * 获取解析类的名字
 	 * @date 2014年8月15日
@@ -154,6 +250,21 @@ public abstract class TGHttpTask extends TGTask
 	}
 	
 	/**
+	 * 获取解析类的类名Str
+	 * @return
+	 */
+	private String getParserClsNameStr()
+	{
+		String parserClsNameStr = getParserClsName();
+		if(!TextUtils.isEmpty(parserClsNameStr))
+		{
+			return parserClsNameStr;
+		}
+		
+		return "";
+	}
+	
+	/**
 	 * 该方法的作用:
 	 * 获取解析类的名字
 	 * @date 2014年8月15日
@@ -163,5 +274,30 @@ public abstract class TGHttpTask extends TGTask
 	{
 		Bundle httpParams = (Bundle)getParams();
 		return httpParams.getString(PARAM_RESLUTCLSNAME);
+	}
+	
+	/**
+	 * 获取结果类名的Str
+	 * @return
+	 */
+	private String getResultClsNameStr()
+	{
+		String resultClsNameStr = getResultClsName();
+		if(!TextUtils.isEmpty(getResultClsName()))
+		{
+			return resultClsNameStr;
+		}
+		
+		return "";
+	}
+	
+	/**
+	 * 判断是否支持缓存
+	 * @return
+	 */
+	private boolean isCacheable()
+	{
+		Bundle httpParams = (Bundle)getParams();
+		return httpParams.getBoolean(PARAM_CACHEABLE, false);
 	}
 }
