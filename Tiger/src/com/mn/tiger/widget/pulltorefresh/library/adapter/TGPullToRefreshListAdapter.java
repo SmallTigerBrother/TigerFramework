@@ -11,8 +11,7 @@ import android.widget.HeaderViewListAdapter;
 
 import com.mn.tiger.request.TGHttpRequester;
 import com.mn.tiger.request.async.TGHttpAsyncRequester;
-import com.mn.tiger.request.async.TGHttpAsyncRequester.OnCancelListener;
-import com.mn.tiger.request.async.TGHttpAsyncRequester.RequestListener;
+import com.mn.tiger.request.async.TGHttpAsyncRequester.TGRequestHandler;
 import com.mn.tiger.utility.Commons;
 import com.mn.tiger.widget.adpter.TGListAdapter;
 import com.mn.tiger.widget.pulltorefresh.TGPullToRefreshListView;
@@ -26,8 +25,7 @@ import com.mn.tiger.widget.pulltorefresh.library.model.PageModel;
  * @see JDK1.6,android-8
  * @date 2013-10-26
  */
-public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements OnRefreshListenerPlus, 
-    RequestListener<PageModel<T>>, OnCancelListener
+public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements OnRefreshListenerPlus
 {
 	/**
 	 * 列表刷新方式——追加
@@ -66,6 +64,39 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	private int listViewRefreshType = REFRESH_LISTVIEW_RESET;
 	
 	/**
+	 * 请求结构回调方法
+	 */
+	private TGRequestHandler<PageModel<T>> requestHandler = new TGRequestHandler<PageModel<T>>()
+	{
+		public void onRequestStart() 
+		{
+			TGPullToRefreshListAdapter.this.onRequestStart();
+		};
+		
+		@Override
+		public void onRequestSuccess(PageModel<T> result)
+		{
+			TGPullToRefreshListAdapter.this.onRequestSuccess(result);
+		}
+
+		@Override
+		public void onRequestError(int code, String message)
+		{
+			TGPullToRefreshListAdapter.this.onRequestError(code, message);
+		}
+		
+		public void onReturnCachedResult(PageModel<T> result) 
+		{
+			TGPullToRefreshListAdapter.this.onReturnCachedResult(result);
+		};
+		
+		public void onRequestCancel() 
+		{
+			TGPullToRefreshListAdapter.this.onRequestCancel();
+		};
+	};
+	
+	/**
 	 * @date 2013-10-26
 	 * 构造函数
 	 * @param context
@@ -95,7 +126,7 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	 * @param currentPage
 	 * @return
 	 */
-	protected Object getRequestParams(int currentPage)
+	protected HashMap<String, String> getRequestParams(int currentPage)
 	{
 		return null;
 	}
@@ -106,9 +137,10 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	 * @date 2013-10-26
 	 * @param params
 	 */
-	public void excuteRequest(String requestUrl, Object params, int listViewRefreshType)
+	public void excuteRequest(String requestUrl, HashMap<String, String> params, int listViewRefreshType)
 	{
-		excuteRequest(requester, requestUrl, params, listViewRefreshType);
+		requester.setRequestParams(params);
+		excuteRequest(requester, requestUrl,listViewRefreshType);
 	}
 	
 	/**
@@ -117,49 +149,34 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	 * @date 2013-10-26
 	 * @param params
 	 */
-	public void excuteRequest(TGHttpAsyncRequester<PageModel<T>> requester, String requestUrl, 
-			Object params, int listViewRefreshType)
+	public void excuteRequest(TGHttpAsyncRequester<PageModel<T>> requester, String requestUrl,int listViewRefreshType)
 	{
 		Commons.cancelAsyncTask(requester);
 		
 		this.listViewRefreshType = listViewRefreshType;
 		
-		if(null != requester && null != params)
+		switch (requestType)
 		{
-			switch (requestType)
-			{
-				case TGHttpRequester.REQUEST_GET:
-					requester.get(requestUrl, PageModel.class, params, this);
-					break;
+			case TGHttpRequester.REQUEST_GET:
+				requester.get(requestUrl, PageModel.class, requestHandler);
+				break;
 
-				case TGHttpRequester.REQUEST_POST:
-					requester.post(requestUrl, PageModel.class, params, this);
-					break;
+			case TGHttpRequester.REQUEST_POST:
+				requester.post(requestUrl, PageModel.class, requestHandler);
+				break;
 
-				case TGHttpRequester.REQUEST_PUT:
-					requester.put(requestUrl, PageModel.class, params, this);
+			case TGHttpRequester.REQUEST_PUT:
+				requester.put(requestUrl, PageModel.class, requestHandler);
 
-					break;
+				break;
 
-				case TGHttpRequester.REQUEST_DELETE:
-					requester.delete(requestUrl, PageModel.class, params, this);
-					
-					break;
+			case TGHttpRequester.REQUEST_DELETE:
+				requester.delete(requestUrl, PageModel.class, requestHandler);
+				
+				break;
 
-				default:
-					throw new RuntimeException("You must set requestType before use this method");
-			}
-		}
-		else 
-		{
-			if(null == requester)
-			{
-				throw new NullPointerException("The requester should not be null");
-			}
-			if(null == params)
-			{
-				throw new NullPointerException("The request params should not be null");
-			}
+			default:
+				throw new RuntimeException("You must set requestType before use this method");
 		}
 	}
 	
@@ -250,34 +267,18 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	
 	
 	/********************************OnCancelListener*********************************/
-	//TODO OnCancelListener
-	
-	/**
-	 * 请求取消的回调方法
-	 */
-	@Override
-	public void onRequestCancel()
-	{
-		//停止拖动
-		listView.onRefreshComplete();
-	}
-	
-	/********************************RequestListener*********************************/
-	//TODO RequestListener
 	
 	/**
 	 * 请求启动时的回调方法
 	 */
-	@Override
 	public void onRequestStart()
 	{
 		//TODO 显示对话框
 	}
-
+	
 	/**
 	 * 请求成功时的回调方法
 	 */
-	@Override
 	public void onRequestSuccess(PageModel<T> result)
 	{
 		//消失对话框
@@ -295,11 +296,10 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 		//停止拖动
 		listView.onRefreshComplete();
 	}
-
+	
 	/**
 	 * 请求异常时的回调方法
 	 */
-	@Override
 	public void onRequestError(int code, String message)
 	{
 		//TODO 消失对话框
@@ -311,7 +311,20 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 		//TODO 提示异常
 	}
 	
-
+	public void onReturnCachedResult(PageModel<T> result)
+	{
+	}
+	//TODO OnCancelListener
+	
+	/**
+	 * 请求取消的回调方法
+	 */
+	public void onRequestCancel()
+	{
+		//停止拖动
+		listView.onRefreshComplete();
+	}
+	
 	/********************************PullToRefreshController*********************************/
 	//TODO PullToRefreshController
 	/**
