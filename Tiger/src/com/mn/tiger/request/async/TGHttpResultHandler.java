@@ -54,6 +54,10 @@ public class TGHttpResultHandler extends TGTaskResultHandler
 		
 	}
 	
+	protected void onReturnCachedResult(TGHttpResult httpResult)
+	{
+	}
+	
 	/**
 	 * 该方法的作用:
 	 * 处理Http异常
