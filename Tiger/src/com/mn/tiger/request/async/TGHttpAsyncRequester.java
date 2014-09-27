@@ -52,10 +52,10 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 * @param listener 请求回调方法
 	 */
 	@SuppressWarnings("rawtypes")
-	public void get(String requestUrl, Class clazz, Object params, 
-			RequestListener<T> listener)
+	public void get(String requestUrl, Class clazz, 
+			TGRequestHandler<T> listener)
 	{
-		execute(TGHttpRequester.REQUEST_GET, requestUrl, clazz.getName(), params, listener);
+		execute(TGHttpRequester.REQUEST_GET, requestUrl, clazz.getName(), listener);
 	}
 	
 	/**
@@ -66,10 +66,10 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 * @param listener 请求回调方法
 	 */
 	@SuppressWarnings("rawtypes")
-	public void post(String requestUrl, Class clazz, Object params, 
-			RequestListener<T> listener)
+	public void post(String requestUrl, Class clazz,
+			TGRequestHandler<T> listener)
 	{
-		execute(TGHttpRequester.REQUEST_POST, requestUrl, clazz.getName(), params, listener);
+		execute(TGHttpRequester.REQUEST_POST, requestUrl, clazz.getName(), listener);
 	}
 	
 	/**
@@ -80,10 +80,10 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 * @param listener 请求回调方法
 	 */
 	@SuppressWarnings("rawtypes")
-	public void put(String requestUrl, Class clazz, Object params, 
-			RequestListener<T> listener)
+	public void put(String requestUrl, Class clazz,
+			TGRequestHandler<T> listener)
 	{
-		execute(TGHttpRequester.REQUEST_PUT, requestUrl, clazz.getName(), params, listener);
+		execute(TGHttpRequester.REQUEST_PUT, requestUrl, clazz.getName(), listener);
 	}
 	
 	/**
@@ -94,10 +94,10 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 * @param listener 请求回调方法
 	 */
 	@SuppressWarnings("rawtypes")
-	public void delete(String requestUrl, Class clazz, Object params, 
-			RequestListener<T> listener)
+	public void delete(String requestUrl, Class clazz,
+			TGRequestHandler<T> listener)
 	{
-		execute(TGHttpRequester.REQUEST_DELETE, requestUrl, clazz.getName(), params, listener);
+		execute(TGHttpRequester.REQUEST_DELETE, requestUrl, clazz.getName(),  listener);
 	}
 	
 	/**
@@ -109,16 +109,19 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 * @param listener 请求回调方法
 	 */
 	protected void execute(int requestType, String requestUrl, String resultClsName, 
-			Object params, RequestListener<T> listener)
+			TGRequestHandler<T> listener)
 	{
 		asyncTask.setRequestType(requestType);
 		asyncTask.setRequestUrl(requestUrl);
 		asyncTask.setResultClsName(resultClsName);
-		asyncTask.setListener(listener);
+		asyncTask.setRequestHandler(listener);
 		
-		asyncTask.execute(params);
+		asyncTask.execute();
 	}
 	
+	/**
+	 * 解析请求结果
+	 */
 	@Override
 	public Object parseRequestResult(TGHttpResult httpResult, String resultClsName)
 	{
@@ -148,7 +151,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	}
 	
 	/**
-	 * 该方法的作用: 批量设置请求参数
+	 * 该方法的作用: 批量设置Headers请求参数
 	 * @date 2014年5月23日
 	 * @param properties
 	 */
@@ -158,44 +161,71 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	}
 	
 	/**
+	 * 添加Headers请求参数
+	 * @param key
+	 * @param value
+	 */
+	public void addProperty(String key, String value)
+	{
+		this.asyncTask.addProperty(key, value);
+	}
+	
+	/**
+	 * 添加请求参数
+	 * @param key
+	 * @param value
+	 */
+	public void addRequestParam(String key, String value)
+	{
+		this.asyncTask.addRequestParam(key, value);
+	}
+	
+	/**
+	 * 设置请求参数（会将已添加的参数替换）
+	 * @param params
+	 */
+	public void setRequestParams(Map<String, String> params)
+	{
+		this.asyncTask.setRequestParams(params);
+	}
+	
+	/**
 	 * 请求结果的回调
 	 * 
 	 * @date 2014-6-10
 	 */
-	public static interface RequestListener<T>
+	public static abstract class TGRequestHandler<T>
 	{
 		/**
 		 * 启动任务时回调
 		 */
-		public void onRequestStart();
+		public void onRequestStart()
+		{
+		}
 		
 		/**
 		 * 请求成功时回调
 		 * @param result 请求结果
 		 */
-		public void onRequestSuccess(T result);
+		public abstract void onRequestSuccess(T result);
 		
 		/**
 		 * 请求出现异常时回调
 		 * @param code 错误码
 		 * @param message 异常信息
 		 */
-		public void onRequestError(int code, String message);
+		public abstract void onRequestError(int code, String message);
 		
 		/**
 		 * 请求被取消时的回调方法
 		 */
-		public void onRequestCancel();
-	}
-
-	/**
-	 * 任务异常的时候的回调
-	 * 
-	 * @date 2014-6-10
-	 */
-	public static interface OnCancelListener
-	{
-		public void onRequestCancel();
+		public void onRequestCancel()
+		{
+		}
+		
+		public void onReturnCachedResult(T result)
+		{
+		}
 	}
 
 	/**
@@ -204,7 +234,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	private class InternalAsyncTask extends TGHttpAsyncTask<TGHttpResult>
 	{
 		public InternalAsyncTask(Context context, String requestUrl, 
-				int requestType, TGHttpAsyncRequester.RequestListener<T> listener)
+				int requestType, TGHttpAsyncRequester.TGRequestHandler<T> listener)
 		{
 			super(context, requestUrl,requestType, listener);
 			//设置解析结果类名
