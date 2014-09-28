@@ -2,13 +2,12 @@ package com.mn.tiger.activity;
 
 import android.app.Application;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mn.tiger.app.IApplication;
@@ -18,6 +17,9 @@ import com.mn.tiger.utility.CR;
 import com.mn.tiger.widget.TGImageButton;
 import com.mn.tiger.widget.TGNavigationBar;
 
+/**
+ * 带导航条的Activity基类
+ */
 public class TGActionBarActivity extends ActionBarActivity
 {
 	/**
@@ -33,14 +35,12 @@ public class TGActionBarActivity extends ActionBarActivity
 	/**
 	 * 是否显示导航条
 	 */
-	private int navigationBarVisibility = View.VISIBLE;
+	private boolean navigationBarVisible = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		this.httpErrorHandler = initHttpErrorHandler();
 		
 		//添加到Application中
@@ -51,6 +51,17 @@ public class TGActionBarActivity extends ActionBarActivity
 		}
 	}
 
+	@Override
+	public void setContentView(View view, LayoutParams params)
+	{
+		if (navigationBarVisible)
+		{
+			initNavigationBar();
+		}
+		
+		super.setContentView(view, params);
+	}
+	
 	@Override
 	public void setContentView(int layoutResID)
 	{
@@ -63,50 +74,42 @@ public class TGActionBarActivity extends ActionBarActivity
 	@Override
 	public void setContentView(View view)
 	{
-		if (getNavigationBarVisibility() == View.VISIBLE)
+		if (navigationBarVisible)
 		{
-			LayoutInflater inflater = LayoutInflater.from(this);
-			View mainView = inflater.inflate(CR.getLayoutId(this, "tiger_base_activity"), null);
-			super.setContentView(mainView, new LinearLayout.LayoutParams(
-					LinearLayout.LayoutParams.MATCH_PARENT,
-					LinearLayout.LayoutParams.MATCH_PARENT));
-
-			LinearLayout panelContent = (LinearLayout) findViewById(
-					CR.getIdId(this, "panel"));
-
-			panelContent.addView(view, new LayoutParams(LayoutParams.MATCH_PARENT,
-					LayoutParams.MATCH_PARENT));
-			navigationBar = (TGNavigationBar) findViewById(CR.getIdId(this, "navigationbar"));
-			initNavigationResource(navigationBar);
+			initNavigationBar();
 		}
-		else if(getNavigationBarVisibility() == View.GONE)
+		
+		super.setContentView(view);
+	}
+	
+	/**
+	 * 初始化导航条，将导航条设置到ActionBar中
+	 */
+	private void initNavigationBar()
+	{
+		ActionBar actionBar = getSupportActionBar();
+		if(null != actionBar)
 		{
-			LayoutInflater inflater = LayoutInflater.from(this);
-			View mainView = inflater.inflate(CR.getLayoutId(this, "tiger_base_activity"), null);
-			super.setContentView(mainView, new LinearLayout.LayoutParams(
-					LinearLayout.LayoutParams.MATCH_PARENT,
-					LinearLayout.LayoutParams.MATCH_PARENT));
-
-			LinearLayout panelContent = (LinearLayout) findViewById(
-					CR.getIdId(this, "panel"));
-
-			panelContent.addView(view, new LayoutParams(LayoutParams.MATCH_PARENT,
-					LayoutParams.MATCH_PARENT));
-			navigationBar = (TGNavigationBar) findViewById(CR.getIdId(this, "navigationbar"));
+			//将导航条设置到ActionBar中
+			navigationBar = new TGNavigationBar(this);
 			initNavigationResource(navigationBar);
-			navigationBar.setVisibility(View.GONE);
+			
+			ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(
+					ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
+			
+			actionBar.setCustomView(navigationBar, layoutParams);
+			actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		}
 		else
 		{
-			super.setContentView(view,new LinearLayout.LayoutParams(
-					LinearLayout.LayoutParams.MATCH_PARENT,
-					LinearLayout.LayoutParams.MATCH_PARENT));
+			//actionbar为null有两种可能，一种是theme设置错误，一种是Window设置成NoTitle
+			throw new RuntimeException("The ActionBar is null, please check the activity or application theme, "
+					+ "and make sure you do not use Window’s feature == FEATURE_NO_TITLE");
 		}
 	}
 
 	/**
 	 * 该方法的作用: 初始化导航条资源
-	 * 
 	 * @date 2013-11-8
 	 * @param navigationBar
 	 */
@@ -130,7 +133,6 @@ public class TGActionBarActivity extends ActionBarActivity
 				});
 		navigationBar.getRightNaviButton().setBackgroundResource(
 				CR.getDrawableId(this, "tiger_nav_refresh_button_selector"));
-
 	}
 
 	/**
@@ -255,6 +257,7 @@ public class TGActionBarActivity extends ActionBarActivity
 		}
 	}
 
+	@Override
 	protected void onDestroy() 
 	{
 		Application application = getApplication();
@@ -265,24 +268,31 @@ public class TGActionBarActivity extends ActionBarActivity
 		super.onDestroy();
 	}
 	
+	/**
+	 * 初始化异常处理接口
+	 * @return
+	 */
 	protected IHttpErrorHandler initHttpErrorHandler()
 	{
 		return new TGHttpErrorHandler(this);
 	}
 
+	/**
+	 * 获取异常处理接口
+	 * @return
+	 */
 	public IHttpErrorHandler getHttpErrorHandler()
 	{
 		return httpErrorHandler;
 	}
 
-	public int getNavigationBarVisibility()
+	/**
+	 * 设置导航条是否可见
+	 * @param navigationBarVisible
+	 */
+	public void setNavigationBarVisible(boolean navigationBarVisible)
 	{
-		return navigationBarVisibility;
-	}
-
-	public void setNavigationBarVisibility(int navigationBarVisibility)
-	{
-		this.navigationBarVisibility = navigationBarVisibility;
+		this.navigationBarVisible = navigationBarVisible;
 	}
 
 }
