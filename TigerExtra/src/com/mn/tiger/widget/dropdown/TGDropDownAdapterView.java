@@ -2,11 +2,11 @@ package com.mn.tiger.widget.dropdown;
 
 import android.content.Context;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListAdapter;
+import android.widget.BaseAdapter;
 
 /**
  * 该类作用及功能说明
- * 下拉列表基类，实现下拉列表的基本功能
+ * 支持适配的下拉视图基类，实现设置适配器的基本功能
  * @see JDK1.6,android-8
  * @date 2012-9-25
  */
@@ -29,7 +29,7 @@ public abstract class TGDropDownAdapterView extends TGDropDownView
 	 * @date 2013-1-11
 	 * @param adapter 适配器
 	 */
-	public abstract void setAdapter(ListAdapter adapter);
+	public abstract void setAdapter(BaseAdapter adapter);
 	
 	/**
 	 * 该方法的作用:设置选中项

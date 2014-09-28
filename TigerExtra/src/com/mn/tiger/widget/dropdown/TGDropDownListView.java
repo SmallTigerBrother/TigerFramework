@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
@@ -25,7 +25,14 @@ public class TGDropDownListView extends TGDropDownAdapterView
 {
 	private static final String TAG = TGDropDownListView.class.getSimpleName();
 	private static final int NO_ANIM = 0;
+	
+	/**
+	 * 浮出框宽度
+	 */
 	private int popuwindowWidth;
+	/**
+	 * 浮出框高度
+	 */
 	private int popuwindowHeight;
 	/**
 	 * 下拉列表
@@ -300,7 +307,7 @@ public class TGDropDownListView extends TGDropDownAdapterView
 	 * @date 2014年4月17日
 	 */
 	@Override
-	public void setAdapter(ListAdapter adapter)
+	public void setAdapter(BaseAdapter adapter)
 	{
 		if (null != adapter && null != listView)
 		{

@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ListAdapter;
 import android.widget.PopupWindow;
 
 import com.mn.tiger.utility.CR;
@@ -23,9 +23,25 @@ import com.mn.tiger.utility.CR;
 public class TGDropDownGridView extends TGDropDownAdapterView
 {
 	private static final String TAG = TGDropDownGridView.class.getSimpleName();
+	
+	/**
+	 * 下拉GridView
+	 */
 	private GridView gridView;
+	
+	/**
+	 * 主视图
+	 */
 	private View mainView;
+	
+	/**
+	 * 浮出框宽度
+	 */
 	private int popuwindowWidth;
+	
+	/**
+	 * 浮出框高度
+	 */
 	private int popuwindowHeight;
 	private static final int NO_ANIM = 0;
 
@@ -254,7 +270,7 @@ public class TGDropDownGridView extends TGDropDownAdapterView
 	 * @date 2014年4月17日
 	 */
 	@Override
-	public void setAdapter(ListAdapter adapter)
+	public void setAdapter(BaseAdapter adapter)
 	{
 		gridView.setAdapter(adapter);
 	}
