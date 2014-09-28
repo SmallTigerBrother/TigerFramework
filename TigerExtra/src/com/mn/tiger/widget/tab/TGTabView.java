@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
  */
 public class TGTabView extends LinearLayout
 {
-
 	/**
 	 * 传入的item是否均分MpTabView的整个宽度
 	 */
@@ -89,7 +88,7 @@ public class TGTabView extends LinearLayout
 	 * 
 	 * @param tabItem
 	 */
-	public void addTabItem(TabItem tabItem)
+	private void addTabItem(TabItem tabItem)
 	{
 		tabItems.add(tabItem.getIndex(), tabItem);
 		View itemView = tabItem.getContentView();
@@ -104,7 +103,7 @@ public class TGTabView extends LinearLayout
 	}
 
 	/**
-	 * 该方法的作用:设置是否均分MPTabview的宽度
+	 * 该方法的作用:设置是否均分Tabview的宽度
 	 * 
 	 * @date 2014-3-14
 	 * @param isAverage
@@ -211,6 +210,17 @@ public class TGTabView extends LinearLayout
 	}
 
 	/**
+	 * 该方法的作用:获取Tabview中的所有的Item的view
+	 * 
+	 * @date 2014-3-10
+	 * @return
+	 */
+	public ArrayList<TabItem> getTabItems()
+	{
+		return tabItems;
+	}
+	
+	/**
 	 * Tab选中项
 	 */
 	public static class TabItem
@@ -293,15 +303,18 @@ public class TGTabView extends LinearLayout
 	{
 		void onTabChanged(TGTabView tabView, int lastTabIndex, int currentTabIndex);
 	}
-
-	/**
-	 * 该方法的作用:获取Tabview中的所有的Item的view
-	 * 
-	 * @date 2014-3-10
-	 * @return
-	 */
-	public ArrayList<TabItem> getTabItems()
+	
+	public static class LayoutParams extends LinearLayout.LayoutParams
 	{
-		return tabItems;
+		public LayoutParams(int width, int height)
+		{
+			super(width, height);
+		}
+		
+		public LayoutParams(int width, int height, float weight)
+		{
+			super(width, height, weight);
+		}
+		
 	}
 }
