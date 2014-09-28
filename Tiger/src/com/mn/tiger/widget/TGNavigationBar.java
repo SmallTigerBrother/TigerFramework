@@ -3,13 +3,14 @@ package com.mn.tiger.widget;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.mn.tiger.utility.DisplayUtils;
 
 
 /**
@@ -117,8 +118,8 @@ public class TGNavigationBar extends RelativeLayout
 		middleParams.addRule(RelativeLayout.CENTER_IN_PARENT);
 		middleParams.addRule(RelativeLayout.CENTER_VERTICAL);
 		
-		middleParams.leftMargin = dip2px(getContext(), 50);
-		middleParams.rightMargin = dip2px(getContext(), 50);
+		middleParams.leftMargin = DisplayUtils.dip2px(getContext(), 50);
+		middleParams.rightMargin = DisplayUtils.dip2px(getContext(), 50);
 		
 		this.addView(getMiddleNaviLayout(), middleParams);
 		
@@ -277,7 +278,7 @@ public class TGNavigationBar extends RelativeLayout
 		
 		if (null != middleText) 
 		{
-			middleText.setText(convertI18n(text));
+			middleText.setText(text);
 			return true;
 		}
 		
@@ -298,7 +299,7 @@ public class TGNavigationBar extends RelativeLayout
 		
 		if (null != middleText) 
 		{
-			middleText.setText(convertI18n(text));
+			middleText.setText(text);
 		}
 		
 		return false;
@@ -324,43 +325,5 @@ public class TGNavigationBar extends RelativeLayout
 	public void setRightButtonEnabled(boolean enabled) 
 	{
 		getRightNaviButton().setEnabled(enabled);
-	}
-
-	/**
-	 * 该方法的作用:
-	 * dip转换为px
-	 * @date 2013-8-30
-	 * @param context
-	 * @param dipValue
-	 * @return
-	 */
-	protected int dip2px(Context context, float dipValue)
-	{ 
-        final float scale = context.getResources().getDisplayMetrics().density; 
-        return (int)(dipValue * scale + 0.5f); 
-    }
-	
-	/**
-	 * 该方法的作用:检查string是否有国际化
-	 * @date 2013-2-27
-	 * @param string
-	 * @return 若有对应的国际化字符串，则返回国际化的字符串；若没有，返回原字符串
-	 */
-	protected String convertI18n(String string)
-	{
-		String result = string;
-		if(!TextUtils.isEmpty(string))
-		{
-			if(string.contains("$i18n_"))
-			{
-				String subStr = string.substring(string.indexOf("_")+1);
-				int resId = this.getResources().getIdentifier(subStr, "string", getContext().getPackageName());
-				if(resId != 0)
-				{
-					result = this.getResources().getString(resId);
-				}
-			}
-		}
-		return result;
 	}
 }
