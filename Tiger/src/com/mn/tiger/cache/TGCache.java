@@ -25,13 +25,7 @@ public class TGCache
 {
 	public static final String LOG_TAG = TGCache.class.getSimpleName();
 
-	/** 缓存文件类型：普通文件类型 */
-	public static final int NORMAL_FILE_TYPE = 1;
-
-	public static final String CACHE_SHAREDPROFERENCES_NAME = "CACHE_SAVE_PATH";
-
-	public static final String SAVE_NORMAL_TYPE = ".hw";
-
+	public static final String SAVE_NORMAL_TYPE = ".tg";
 
 	public static void setDiskCacheSize(int maxSize)
 	{
