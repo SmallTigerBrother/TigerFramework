@@ -7,9 +7,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Build;
 
-public class TGPreferences
+public class Preferences
 {
-	private static final String LOG_TAG = TGPreferences.class.getSimpleName();
+	private static final String LOG_TAG = Preferences.class.getSimpleName();
 	
 	@SuppressLint("InlinedApi")
 	public static void save(Context context, String name, String key, String value)
