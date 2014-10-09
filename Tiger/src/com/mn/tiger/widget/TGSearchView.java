@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 /**
@@ -47,7 +48,7 @@ public class TGSearchView extends RelativeLayout
 	/**
 	 * 搜索图标
 	 */
-	private ImageView searchIcon;
+	private TextView searchIcon;
 
 	/**
 	 * 关闭图标是否可用
@@ -156,7 +157,7 @@ public class TGSearchView extends RelativeLayout
 			}
 		});
 
-		searchIcon = ((ImageView) findViewById(R.id.tiger_searchview_submitbutton));
+		searchIcon = ((TextView) findViewById(R.id.tiger_searchview_submitbutton));
 		searchIcon.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View view)
