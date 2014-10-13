@@ -38,11 +38,6 @@ public class TGTask implements Cloneable
 	public static final int TASK_TYPE_DOWNLOAD = 103;
 	
 	/**
-	 * 任务类型：登录
-	 */
-	public static final int TASK_TYPE_LOGIN = 104;
-	
-	/**
 	 * 用户设置最大权重
 	 */
 	public static final int MAX_WEIGHT = 10000;
