@@ -6,7 +6,6 @@ import android.util.SparseArray;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.task.dispatch.TGLock.onLockListener;
 import com.mn.tiger.task.dispatch.TGLock.onUnLockListener;
-import com.mn.tiger.task.queue.TGSingleTaskQueue;
 import com.mn.tiger.task.queue.TGTaskQueue;
 import com.mn.tiger.utility.LogTools;
 
@@ -76,7 +75,7 @@ public class TGDispatcher
 	 * @date 2014年3月17日
 	 * @param task
 	 */
-	public void dispatchAndExecuteTask(TGTask task)
+	public void dispatchTask(TGTask task)
 	{
 		LogTools.p(LOG_TAG, "[Method:dispatchAndExecuteTask]");
 		
@@ -84,7 +83,8 @@ public class TGDispatcher
 		TGTaskQueue taskQueue = getTaskQueue(task.getType());
 		
 		// 如果任务在队列中不存在，将任务加入队列
-		if(taskQueue.getTask(task.getTaskID()) == null){
+		if(taskQueue.getTask(task.getTaskID()) == null)
+		{
     		// 将任务添加到末尾
     		taskQueue.addLast(task);
 		}
@@ -127,11 +127,6 @@ public class TGDispatcher
 				case TGTask.TASK_TYPE_DOWNLOAD:
 					taskQueue = new TGTaskQueue(context, taskType);
 					taskQueue.setMAX_THREAD_NUM(3);
-					break;
-					
-				case TGTask.TASK_TYPE_LOGIN:
-					//登录任务使用独立任务队列
-					taskQueue = new TGSingleTaskQueue(context, taskType);
 					break;
 					
 				default:
