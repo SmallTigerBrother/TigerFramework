@@ -202,7 +202,7 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	protected enum Pool
 	{
 		HTTP(TGTask.TASK_TYPE_HTTP, 128), UPLOAD(TGTask.TASK_TYPE_UPLOAD, 3), DOWNLOAD(
-				TGTask.TASK_TYPE_DOWNLOAD, 3), LOGIN(TGTask.TASK_TYPE_LOGIN, 1);
+				TGTask.TASK_TYPE_DOWNLOAD, 3);
 		// 成员变量
 		private int taskType;
 		private int poolSize;

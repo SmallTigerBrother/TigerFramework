@@ -473,7 +473,7 @@ public class TGTaskQueue extends AbsTaskQueue
 		}
 		
 		@Override
-		public void onTaskPause(int taskId)
+		public synchronized void onTaskPause(int taskId)
 		{
 			TGTask cloneTask = null;
 			try
@@ -494,7 +494,7 @@ public class TGTaskQueue extends AbsTaskQueue
 		}
 
 		@Override
-		public void onTaskStop(int taskId)
+		public synchronized void onTaskStop(int taskId)
 		{
 			TGTaskQueue.this.remove((Integer)taskId);
 		}
