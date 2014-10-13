@@ -115,7 +115,7 @@ public class TGTaskInvoker
 				// 分发并执行任务
 				if (null != task)
 				{
-					TGDispatcher.getInstance(context).dispatchAndExecuteTask(task);
+					TGDispatcher.getInstance(context).dispatchTask(task);
 				}
 				break;
 			case TGTaskManager.TASK_CANCEL_CODE:
