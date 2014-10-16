@@ -78,7 +78,7 @@ public class TGUploadObservable extends Observable<TGUploadObserver>
 					}
 				}
 				break;
-			case TGUploadManager.UPLOAD_STOP:
+			case TGUploadManager.UPLOAD_PAUSE:
 				for (TGUploadObserver observer : mObservers)
 				{
 					if(observer != null)

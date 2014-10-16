@@ -306,7 +306,7 @@ public class TGUploadStrategy implements IUploadStrategy
 	 */
 	private void uploadStop(TGUploader uploader)
 	{
-		uploader.setUploadStatus(TGUploadManager.UPLOAD_STOP);
+		uploader.setUploadStatus(TGUploadManager.UPLOAD_PAUSE);
 		// 如果不是分块上传，删除数据库记录
     	if(true)
     	{
@@ -332,7 +332,7 @@ public class TGUploadStrategy implements IUploadStrategy
 	 */
 	private void uploadCancel(TGUploader uploader)
 	{
-		uploader.setUploadStatus(TGUploadManager.UPLOAD_STOP);
+		uploader.setUploadStatus(TGUploadManager.UPLOAD_PAUSE);
 		// 删除数据库记录
 		TGUploadDBHelper.getInstance(context).deleteUploader(uploader);
 		

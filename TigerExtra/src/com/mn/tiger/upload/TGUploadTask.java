@@ -118,7 +118,6 @@ public class TGUploadTask extends TGTask
 	public Object clone() throws CloneNotSupportedException
 	{
 		TGTask task = (TGTask)super.clone();
-		task.setExecutionTime(System.currentTimeMillis());
 		
 		return task;
 	}

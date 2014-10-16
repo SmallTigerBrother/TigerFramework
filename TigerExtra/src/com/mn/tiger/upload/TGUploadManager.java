@@ -41,7 +41,7 @@ public class TGUploadManager
 
 	public static final int UPLOAD_FAILED = 2;
 	
-	public static final int UPLOAD_STOP = 3;
+	public static final int UPLOAD_PAUSE = 3;
 	
 	/**
 	 * 涓婁笅鏂囦俊鎭�

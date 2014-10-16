@@ -161,7 +161,7 @@ public class TGUploadPostMethod extends TGPostMethod
 		for (int i = 0; i < bufferCount; i++)
 		{
 			if (uploadTask == null || uploadTask.getTaskState() == MPTaskState.CANCEL || 
-							uploadTask.getTaskState() == MPTaskState.PAUSE || uploadTask.getTaskState() == MPTaskState.STOP)
+							uploadTask.getTaskState() == MPTaskState.PAUSE)
 			{
 				uploadStop(uploader);
 				return;
