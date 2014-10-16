@@ -90,7 +90,7 @@ public class TGDownloadObservable extends Observable<TGDownloadObserver>
 					}
 				}
 				break;
-			case TGDownloadManager.DOWNLOAD_STOP:
+			case TGDownloadManager.DOWNLOAD_PAUSE:
 				LogTools.i(TAG,"[Method:notifyChange], Status:DOWNLOAD_STOP ;" + "observer size: " + mObservers.size());
 				for (TGDownloadObserver observer : mObservers)
 				{
