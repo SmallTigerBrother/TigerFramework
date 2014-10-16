@@ -113,7 +113,6 @@ public class TGDownloadTask extends TGTask
 	public Object clone() throws CloneNotSupportedException
 	{
 		TGTask task = (TGTask)super.clone();
-		task.setExecutionTime(System.currentTimeMillis());
 		
 		return task;
 	}
@@ -162,9 +161,9 @@ public class TGDownloadTask extends TGTask
 		}
 		
 		@Override
-		public void downloadStop(TGDownloader downloader)
+		public void downloadPause(TGDownloader downloader)
 		{
-			LogTools.p(LOG_TAG, "[Metohd:downloadStop]" + "; taskid: " + TGDownloadTask.this.getTaskID());
+			LogTools.p(LOG_TAG, "[Metohd:downloadPause]" + "; taskid: " + TGDownloadTask.this.getTaskID());
 			sendDownloadResult(downloader);
 		}
 		
