@@ -1,11 +1,7 @@
 package com.mn.tiger.task.queue;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-
-import android.content.Context;
 
 import com.mn.tiger.task.ITaskListener;
 import com.mn.tiger.task.TGTask;
@@ -65,16 +61,13 @@ public class TGTaskQueue extends AbsTaskQueue
 	 */
 	private TGThreadPool threadPool;
 	
-	private Context context;
-	
 	/**
 	 * 构造函数
 	 * @date 2014年6月25日
 	 */
-	public TGTaskQueue(Context context, int type)
+	public TGTaskQueue(int type)
 	{
 		super();
-		this.context = context;
 		this.type = type;
 		threadPool = new TGThreadPool(Pool.getPoolSizeByType(type));
 	}
@@ -133,46 +126,7 @@ public class TGTaskQueue extends AbsTaskQueue
 	@Override
 	protected void sortTaskQueue()
 	{
-		LogTools.d(LOG_TAG, "[Method:sortTaskQueue]");
-		
-		if (this.size() > 1)
-		{
-			// 先根据执行时间排序：时间越靠前，越先执行
-			Collections.sort(this, new Comparator<Integer>()
-			{
-				@Override
-				public int compare(Integer taskID_1, Integer taskID_2)
-				{
-					TGTask task_1 = getTaskArray().get(taskID_1);
-					TGTask task_2 = getTaskArray().get(taskID_2);
-					if(null != task_1 && null != task_2 && task_1.getExecutionTime() >= task_2.getExecutionTime())
-					{
-						// 执行时间越大，优先级越低
-						return -1;
-					}
-					
-					return 1;
-				}
-			});
-			
-			// 再根据权重排序：权重越大，越先执行
-			Collections.sort(this, new Comparator<Integer>()
-			{
-				@Override
-				public int compare(Integer taskID_1, Integer taskID_2)
-				{
-					TGTask task_1 = getTaskArray().get(taskID_1);
-					TGTask task_2 = getTaskArray().get(taskID_2);
-					if(null != task_1 && null != task_2 && task_1.getWeight() >= task_2.getWeight())
-					{
-						// 权重越大，优先级越高
-						return 1;
-					}
-					
-					return -1;
-				}
-			});
-		}
+		//TODO 
 	}
 	
 	@Override
@@ -419,12 +373,12 @@ public class TGTaskQueue extends AbsTaskQueue
 					if(state != MPQueueState.PAUSE)
 					{
 						//先上锁
-						TGDispatcher.getInstance(context).lock(new onLockListener()
+						TGDispatcher.getInstance().lock(new onLockListener()
 						{
 							@Override
 							public void onLockSuccess()
 							{
-								TGDispatcher.getInstance(context).pauseAllTaskQueues();
+								TGDispatcher.getInstance().pauseAllTaskQueues();
 							}
 							
 							@Override
@@ -433,12 +387,12 @@ public class TGTaskQueue extends AbsTaskQueue
 							}
 						});
 						
-						TGDispatcher.getInstance(context).unLock(new onUnLockListener()
+						TGDispatcher.getInstance().unLock(new onUnLockListener()
 						{
 							@Override
 							public void onUnLockSuccess()
 							{
-								TGDispatcher.getInstance(context).executeAllTaskQueues();
+								TGDispatcher.getInstance().executeAllTaskQueues();
 							}
 							
 							@Override
