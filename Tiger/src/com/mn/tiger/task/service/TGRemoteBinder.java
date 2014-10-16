@@ -2,7 +2,7 @@ package com.mn.tiger.task.service;
 
 import android.os.RemoteException;
 
-import com.mn.tiger.task.invoke.TGTaskInvoker;
+import com.mn.tiger.task.invoke.TGRemoteTaskInvoker;
 import com.mn.tiger.task.invoke.TGTaskParams;
 import com.mn.tiger.utility.LogTools;
 
@@ -22,7 +22,7 @@ public class TGRemoteBinder extends TGRemoteService.Stub
 	 * 上下文
 	 */
 	private TGTaskService context;
-
+	
 	/**
 	 * 构造函数
 	 * @date 2014年6月28日
@@ -37,7 +37,7 @@ public class TGRemoteBinder extends TGRemoteService.Stub
 	public void invoke(TGTaskParams taskParams) throws RemoteException
 	{
 		LogTools.d(LOG_TAG, "[Method:invoke]");
-		TGTaskInvoker.invokeTask(context, taskParams);
+		TGRemoteTaskInvoker.invokeTask(context, taskParams);
 	}
 	
 	public TGTaskService getContext()
