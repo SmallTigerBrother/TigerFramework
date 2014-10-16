@@ -16,7 +16,7 @@ public interface IDownloadListener
 	
 	public void downloadFailed(TGDownloader downloader);
 	
-	public void downloadStop(TGDownloader downloader);
+	public void downloadPause(TGDownloader downloader);
 	
 	public void downloadCanceled(TGDownloader downloader);
 }
