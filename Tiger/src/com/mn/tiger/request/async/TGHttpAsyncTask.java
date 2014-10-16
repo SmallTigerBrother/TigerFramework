@@ -27,7 +27,7 @@ import com.mn.tiger.utility.LogTools;
  * @see JDK1.6,android-8
  * @date 2014年2月10日
  */
-public class TGHttpAsyncTask<Result>
+class TGHttpAsyncTask<Result>
 {
 	/**
 	 * 日志标签
@@ -182,19 +182,19 @@ public class TGHttpAsyncTask<Result>
 	 * @param params
 	 * @return
 	 */
-	protected TGHttpResult doInBackground(HashMap<String, String> params) 
+	protected int doInBackground(HashMap<String, String> params) 
 	{
 		LogTools.p(LOG_TAG, "[Method: doInBackground]  " + "start request.");
 		
 		if(isCancelled())
 		{
-			return null;
+			return -1;
 		}
 		
 		TGTaskParams taskParams = initHttpParams(params);
 		
-		taskID = TGTaskManager.getInstance(context).startTask(taskParams);
-		return null;
+		taskID = TGTaskManager.getInstance().startTask(context, taskParams);
+		return taskID;
 	}
 	
 	/**
@@ -289,7 +289,7 @@ public class TGHttpAsyncTask<Result>
 	public void cancel()
 	{
 		this.isCancel = true;
-		TGTaskManager.getInstance(context).cancelTask(taskID, TGTask.TASK_TYPE_HTTP);
+		TGTaskManager.getInstance().cancelTask(taskID, TGTask.TASK_TYPE_HTTP);
 		if(null != requestHandler)
 		{
 			this.requestHandler.onRequestCancel();
