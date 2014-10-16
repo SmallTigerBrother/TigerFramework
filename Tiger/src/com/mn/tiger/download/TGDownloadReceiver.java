@@ -303,8 +303,7 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 				// 当任务被取消、下载出错或者任务被停止时, 停止写文件
 				if (downloadTask == null || downloadTask.getTaskState() == MPTaskState.CANCEL || 
 						downloadTask.getTaskState() == MPTaskState.ERROR || 
-						downloadTask.getTaskState() == MPTaskState.PAUSE ||
-						downloadTask.getTaskState() == MPTaskState.STOP)
+						downloadTask.getTaskState() == MPTaskState.PAUSE)
 				{
 					downloadStop(downloader);
 					return;
@@ -376,8 +375,7 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 				// 当任务被取消、下载出错或者任务被停止时, 停止写文件
 				if (downloadTask == null || downloadTask.getTaskState() == MPTaskState.CANCEL
 						|| downloadTask.getTaskState() == MPTaskState.ERROR
-						|| downloadTask.getTaskState() == MPTaskState.PAUSE
-						|| downloadTask.getTaskState() == MPTaskState.STOP)
+						|| downloadTask.getTaskState() == MPTaskState.PAUSE)
 				{
 					downloadStop(downloader);
 					return;
