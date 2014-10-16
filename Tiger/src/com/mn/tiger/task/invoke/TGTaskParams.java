@@ -29,8 +29,6 @@ public class TGTaskParams implements Serializable, Parcelable
 	
 	private int taskType = 0;
 	
-	private int taskWeight = 0;
-
 	private int taskID;
 
 	private Messenger messenger = null;
@@ -44,7 +42,6 @@ public class TGTaskParams implements Serializable, Parcelable
 	{
 		taskMode = source.readInt();
 		taskType = source.readInt();
-		taskWeight = source.readInt();
 		taskID = source.readInt();
 		data = source.readBundle();
 		messenger = source.readParcelable(Messenger.class.getClassLoader());
@@ -109,16 +106,6 @@ public class TGTaskParams implements Serializable, Parcelable
 		this.taskType = taskType;
 	}
 
-	public int getTaskWeight()
-	{
-		return taskWeight;
-	}
-
-	public void setTaskWeight(int taskWeight)
-	{
-		this.taskWeight = taskWeight;
-	}
-
 	public int getTaskID()
 	{
 		return taskID;
@@ -144,7 +131,6 @@ public class TGTaskParams implements Serializable, Parcelable
 	{
 		dest.writeInt(taskMode);
 		dest.writeInt(taskType);
-		dest.writeInt(taskWeight);
 		dest.writeInt(taskID);
 		dest.writeBundle(data);
 		
@@ -172,7 +158,7 @@ public class TGTaskParams implements Serializable, Parcelable
 	@Override
 	public String toString()
 	{
-		return "MPTaskParams [data=" + data + ", taskMode=" + taskMode + ", taskType=" + taskType + ", taskWeight=" + taskWeight + ", taskID=" + taskID
+		return "MPTaskParams [data=" + data + ", taskMode=" + taskMode + ", taskType=" + taskType + ", taskID=" + taskID
 				 + ", messenger=" + messenger + "]";
 	}
 
