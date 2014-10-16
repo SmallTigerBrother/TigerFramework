@@ -118,23 +118,6 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	}
 	
 	/**
-	 * 该方法的作用: 获取队列权重
-	 * @date 2014年3月17日
-	 * @return
-	 */
-	public synchronized int getWeight()
-	{
-		int weight = 0;
-		int size = size();
-		for (int i = 0; i < size; i++)
-		{
-			weight = weight + getTaskArray().get(this.get(i)).getWeight();
-		}
-
-		return weight;
-	}
-	
-	/**
 	 * 该方法的作用:
 	 * 根据ID获取任务
 	 * @date 2014年8月22日
