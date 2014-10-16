@@ -1,6 +1,5 @@
 package com.mn.tiger.task.dispatch;
 
-import android.content.Context;
 import android.util.SparseArray;
 
 import com.mn.tiger.task.TGTask;
@@ -37,25 +36,18 @@ public class TGDispatcher
 	private TGLock lock;
 	
 	/**
-	 * 上下文信息
-	 */
-	private Context context;
-
-	/**
 	 * 该方法的作用: 获取单例对象
 	 * 
 	 * @date 2014年3月17日
 	 * @return
 	 */
-	public synchronized static TGDispatcher getInstance(Context context)
+	public synchronized static TGDispatcher getInstance()
 	{
 		if (null == dispatcher)
 		{
-			dispatcher = new TGDispatcher(context);
+			dispatcher = new TGDispatcher();
 		}
 
-		dispatcher.context = context;
-		
 		return dispatcher;
 	}
 
@@ -64,9 +56,8 @@ public class TGDispatcher
 	 * 
 	 * @date 2014年3月17日
 	 */
-	private TGDispatcher(Context context)
+	private TGDispatcher()
 	{
-		this.context = context;
 	}
 
 	/**
@@ -115,22 +106,22 @@ public class TGDispatcher
 			switch (taskType)
 			{
 				case TGTask.TASK_TYPE_HTTP:
-					taskQueue = new TGTaskQueue(context, taskType);
+					taskQueue = new TGTaskQueue(taskType);
 					taskQueue.setMAX_THREAD_NUM(128);
 					break;
 					
 				case TGTask.TASK_TYPE_UPLOAD:
-					taskQueue = new TGTaskQueue(context, taskType);
+					taskQueue = new TGTaskQueue(taskType);
 					taskQueue.setMAX_THREAD_NUM(3);
 					break;
 					
 				case TGTask.TASK_TYPE_DOWNLOAD:
-					taskQueue = new TGTaskQueue(context, taskType);
+					taskQueue = new TGTaskQueue(taskType);
 					taskQueue.setMAX_THREAD_NUM(3);
 					break;
 					
 				default:
-					taskQueue = new TGTaskQueue(context, taskType);
+					taskQueue = new TGTaskQueue(taskType);
 					taskQueue.setMAX_THREAD_NUM(128);
 					break;
 			}
@@ -285,36 +276,6 @@ public class TGDispatcher
 	}
 
 	/**
-	 * 该方法的作用:
-	 * 停止任务
-	 * @date 2014年3月20日
-	 * @param task
-	 * @return
-	 */
-	public boolean stopTask(int taskId, int taskType)
-	{
-		if(taskId < 0 || taskType < 0)
-		{
-			LogTools.p(LOG_TAG, "[Method:stopTask] task info is error.");
-			return false;
-		}
-		
-		TGTaskQueue taskQueue = getTaskQueue(taskType);
-		TGTask task = taskQueue.getTask(taskId);
-		
-		if(task != null)
-		{
-			task.stop();
-			return true;
-		}
-		else
-		{
-			LogTools.p(LOG_TAG, "[Method:stopTask] taskQueue is empty.");
-			return false;
-		}
-	}
-	
-	/**
 	 * 该方法的作用: 对分发器加锁，暂停所有已派发任务
 	 * 
 	 * @date 2014年3月17日
@@ -384,7 +345,7 @@ public class TGDispatcher
 	{
 		if(null == lock)
 		{
-			lock = new TGLock(context);
+			lock = new TGLock();
 		}
 		
 		return lock;
@@ -399,15 +360,5 @@ public class TGDispatcher
 	public void setLock(TGLock lock)
 	{
 		this.lock = lock;
-	}
-	
-	public Context getContext()
-	{
-		return context;
-	}
-	
-	public void setContext(Context context)
-	{
-		this.context = context;
 	}
 }
