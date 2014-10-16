@@ -17,19 +17,19 @@ import com.mn.tiger.utility.LogTools;
 
 /**
  * 
- * 该类作用及功能说明: 上传管理类
+ * 璇ョ被浣滅敤鍙婂姛鑳借鏄�: 涓婁紶绠＄悊绫�
  * 
- * @date 2014年6月18日
+ * @date 2014骞�6鏈�18鏃�
  */
 public class TGUploadManager
 {	
 	/**
-	 * 日志标签
+	 * 鏃ュ織鏍囩
 	 */
 	protected final String LOG_TAG = this.getClass().getSimpleName();
 	
 	/**
-	 * 上传状态
+	 * 涓婁紶鐘舵��
 	 */
 	public static final int UPLOAD_WAITING = -2;
 	
@@ -44,13 +44,13 @@ public class TGUploadManager
 	public static final int UPLOAD_STOP = 3;
 	
 	/**
-	 * 上下文信息
+	 * 涓婁笅鏂囦俊鎭�
 	 */
 	private Context mContext;
 	
 	/**
-	 * 构造方法
-	 * @date 2014年6月24日
+	 * 鏋勯�犳柟娉�
+	 * @date 2014骞�6鏈�24鏃�
 	 * @param context
 	 */
 	public TGUploadManager(Context context)
@@ -60,8 +60,8 @@ public class TGUploadManager
 	
 	/**
 	 * 
-	 * 该方法的作用: 开始上传
-	 * @date 2014年6月20日
+	 * 璇ユ柟娉曠殑浣滅敤: 寮�濮嬩笂浼�
+	 * @date 2014骞�6鏈�20鏃�
 	 * @param uploadParams
 	 */
 	public int start(TGUploadParams uploadParams)
@@ -71,31 +71,31 @@ public class TGUploadManager
 	
 	/**
 	 * 
-	 * 该方法的作用: 取消上传
-	 * @date 2014年6月20日
+	 * 璇ユ柟娉曠殑浣滅敤: 鍙栨秷涓婁紶
+	 * @date 2014骞�6鏈�20鏃�
 	 * @param taskId
 	 */
 	public void cancel(int taskId)
 	{
-		TGTaskManager.getInstance(mContext).cancelTask(taskId, TGTask.TASK_TYPE_UPLOAD);
+		TGTaskManager.getInstance().cancelTask(taskId, TGTask.TASK_TYPE_UPLOAD);
 	}
 	
 	/**
 	 * 
-	 * 该方法的作用: 停止上传
-	 * @date 2014年6月20日
+	 * 璇ユ柟娉曠殑浣滅敤: 鍋滄涓婁紶
+	 * @date 2014骞�6鏈�20鏃�
 	 * @param taskId
 	 */
 	public void pause(int taskId)
 	{
-		TGTaskManager.getInstance(mContext).stopTask(taskId, TGTask.TASK_TYPE_UPLOAD);
+		TGTaskManager.getInstance().pauseTask(taskId, TGTask.TASK_TYPE_UPLOAD);
 	}
 	
 	/**
 	 * 
-	 * 该方法的作用: 启动传入类型所有上传任务
+	 * 璇ユ柟娉曠殑浣滅敤: 鍚姩浼犲叆绫诲瀷鎵�鏈変笂浼犱换鍔�
 	 * 
-	 * @date 2014年8月26日
+	 * @date 2014骞�8鏈�26鏃�
 	 */
 	public void startAll(String type)
 	{
@@ -108,7 +108,7 @@ public class TGUploadManager
 			{
 				for (TGUploader uploader : uploaders)
 				{
-					// 获取上传参数
+					// 鑾峰彇涓婁紶鍙傛暟
 					uploadParams = (TGUploadParams) Class.forName(uploader.getParamsClsName()).newInstance();
 					uploadParams.setFilePath(uploader.getFilePath());
 					uploadParams.setServiceURL(uploader.getServiceURL());
@@ -128,9 +128,9 @@ public class TGUploadManager
 
 	/**
 	 * 
-	 * 该方法的作用: 取消传入类型所有上传任务
+	 * 璇ユ柟娉曠殑浣滅敤: 鍙栨秷浼犲叆绫诲瀷鎵�鏈変笂浼犱换鍔�
 	 * 
-	 * @date 2014年8月26日
+	 * @date 2014骞�8鏈�26鏃�
 	 */
 	public void cancelAll(String type)
 	{
@@ -146,9 +146,9 @@ public class TGUploadManager
 	}
 
 	/**
-	 * 该方法的作用: 停止传入类型所有上传任务
+	 * 璇ユ柟娉曠殑浣滅敤: 鍋滄浼犲叆绫诲瀷鎵�鏈変笂浼犱换鍔�
 	 * 
-	 * @date 2014年8月26日
+	 * @date 2014骞�8鏈�26鏃�
 	 */
 	public void pauseAll(String type)
 	{
@@ -165,9 +165,9 @@ public class TGUploadManager
 	
 	/**
 	 * 
-	 * 该方法的作用: 启动所有上传任务
+	 * 璇ユ柟娉曠殑浣滅敤: 鍚姩鎵�鏈変笂浼犱换鍔�
 	 * 
-	 * @date 2014年8月26日
+	 * @date 2014骞�8鏈�26鏃�
 	 */
 	public void startAll()
 	{
@@ -181,7 +181,7 @@ public class TGUploadManager
 			{
 				for (TGUploader uploader : uploaders)
 				{
-					// 获取上传参数
+					// 鑾峰彇涓婁紶鍙傛暟
 					uploadParams = (TGUploadParams) Class.forName(uploader.getParamsClsName()).newInstance();
 					uploadParams.setFilePath(uploader.getFilePath());
 					uploadParams.setServiceURL(uploader.getServiceURL());
@@ -200,9 +200,9 @@ public class TGUploadManager
 	}
 
 	/**
-	 * 该方法的作用: 取消所有上传任务
+	 * 璇ユ柟娉曠殑浣滅敤: 鍙栨秷鎵�鏈変笂浼犱换鍔�
 	 * 
-	 * @date 2014年8月26日
+	 * @date 2014骞�8鏈�26鏃�
 	 */
 	public void cancelAll()
 	{
@@ -218,9 +218,9 @@ public class TGUploadManager
 
 	/**
 	 * 
-	 * 该方法的作用: 停止所有上传任务
+	 * 璇ユ柟娉曠殑浣滅敤: 鍋滄鎵�鏈変笂浼犱换鍔�
 	 * 
-	 * @date 2014年8月26日
+	 * @date 2014骞�8鏈�26鏃�
 	 */
 	public void pauseAll()
 	{
@@ -237,8 +237,8 @@ public class TGUploadManager
 	
 	/**
 	 * 
-	 * 该方法的作用: 把Uploader任务添加到上传队列，返回任务id
-	 * @date 2014年6月18日
+	 * 璇ユ柟娉曠殑浣滅敤: 鎶奤ploader浠诲姟娣诲姞鍒颁笂浼犻槦鍒楋紝杩斿洖浠诲姟id
+	 * @date 2014骞�6鏈�18鏃�
 	 * @param uploader
 	 * @return
 	 */
@@ -249,33 +249,33 @@ public class TGUploadManager
 		final Bundle params = new Bundle();
 		params.putSerializable("uploadParams", uploadParams);
 		
-		// 查找数据库中是否存在该条数据
+		// 鏌ユ壘鏁版嵁搴撲腑鏄惁瀛樺湪璇ユ潯鏁版嵁
 		TGUploader uploader = getUploadInfo(uploadParams.getFilePath());
 		TGTaskParams taskParams = null;
-		// 构建任务参数
+		// 鏋勫缓浠诲姟鍙傛暟
 		if(uploader != null)
 		{
 			taskParams = TGTaskManager.createTaskParams(params,
-					uploadParams.getTaskClsName(), getResultHandler(), uploadParams.getWeight(), Integer.parseInt(uploader.getId()));
+					uploadParams.getTaskClsName(), getResultHandler(), Integer.parseInt(uploader.getId()));
 		}
 		else
 		{
 			taskParams = TGTaskManager.createTaskParams(params,
-					uploadParams.getTaskClsName(), getResultHandler(), uploadParams.getWeight());
+					uploadParams.getTaskClsName(), getResultHandler());
 		}
 		
 		taskParams.setBundleParams(params);
 		taskParams.setTaskType(TGTask.TASK_TYPE_UPLOAD);
 		
-		// 启动任务
-		return TGTaskManager.getInstance(mContext).startTask(taskParams);
+		// 鍚姩浠诲姟
+		return TGTaskManager.getInstance().startTask(mContext, taskParams);
     }
 	
 	/**
 	 * 
-	 * 该方法的作用: 根据传入的key，注册数据观察者
+	 * 璇ユ柟娉曠殑浣滅敤: 鏍规嵁浼犲叆鐨刱ey锛屾敞鍐屾暟鎹瀵熻��
 	 * 
-	 * @date 2014年3月31日
+	 * @date 2014骞�3鏈�31鏃�
 	 * @param entityType
 	 * @param observer
 	 */
@@ -286,9 +286,9 @@ public class TGUploadManager
 	}
 
 	/**
-	 * 该方法的作用: 取消注册observer
+	 * 璇ユ柟娉曠殑浣滅敤: 鍙栨秷娉ㄥ唽observer
 	 * 
-	 * @date 2014年3月31日
+	 * @date 2014骞�3鏈�31鏃�
 	 * @param observer
 	 */
 	public void unregisterObserver(TGUploadObserver observer)
@@ -298,9 +298,9 @@ public class TGUploadManager
 	
 	/**
 	 * 
-	 * 该方法的作用:获取文件上传信息
+	 * 璇ユ柟娉曠殑浣滅敤:鑾峰彇鏂囦欢涓婁紶淇℃伅
 	 * 
-	 * @date 2014年8月19日
+	 * @date 2014骞�8鏈�19鏃�
 	 * @param filePath
 	 * @return
 	 */
@@ -314,9 +314,9 @@ public class TGUploadManager
 
 	/**
 	 * 
-	 * 该方法的作用: 根据上传类型查询上传任务信息
+	 * 璇ユ柟娉曠殑浣滅敤: 鏍规嵁涓婁紶绫诲瀷鏌ヨ涓婁紶浠诲姟淇℃伅
 	 * 
-	 * @date 2014年8月24日
+	 * @date 2014骞�8鏈�24鏃�
 	 * @param uploadType
 	 * @return
 	 */
@@ -326,7 +326,7 @@ public class TGUploadManager
 	}
 	
 	/**
-	 * 上传任务回传handler
+	 * 涓婁紶浠诲姟鍥炰紶handler
 	 */
 	private TGTaskResultHandler resultHandler = new TGTaskResultHandler()
 	{
