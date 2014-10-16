@@ -24,8 +24,6 @@ public class TGDownloadParams implements Cloneable, Serializable
 	private String downloadType;
 	// 执行下载的类名
 	private String taskClsName = "";
-	// 任务权重
-	private int weight;
 	
 	public String getUrlString()
 	{
@@ -74,13 +72,5 @@ public class TGDownloadParams implements Cloneable, Serializable
 	public void setTaskClsName(String taskClsName)
 	{
 		this.taskClsName = taskClsName;
-	}
-	public int getWeight()
-	{
-		return weight;
-	}
-	public void setWeight(int weight)
-	{
-		this.weight = weight;
 	}
 }
