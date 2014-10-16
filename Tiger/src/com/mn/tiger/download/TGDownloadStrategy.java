@@ -291,7 +291,7 @@ public class TGDownloadStrategy implements IDownloadStrategy
 	 */
 	private void downloadStop(TGDownloader downloader)
 	{
-		downloader.setDownloadStatus(TGDownloadManager.DOWNLOAD_STOP);
+		downloader.setDownloadStatus(TGDownloadManager.DOWNLOAD_PAUSE);
 		// 如果不是断点下载，删除本地文件和数据库记录; 断点下载，更新本地数据库下载状态
     	if(!downloader.isBreakPoints())
     	{
@@ -305,7 +305,7 @@ public class TGDownloadStrategy implements IDownloadStrategy
 		
 		if (downloadListener != null)
 		{
-			downloadListener.downloadStop(downloader);
+			downloadListener.downloadPause(downloader);
 		}
 		else
 		{
@@ -322,7 +322,7 @@ public class TGDownloadStrategy implements IDownloadStrategy
 	 */
 	private void downloadCancel(TGDownloader downloader)
 	{
-		downloader.setDownloadStatus(TGDownloadManager.DOWNLOAD_STOP);
+		downloader.setDownloadStatus(TGDownloadManager.DOWNLOAD_PAUSE);
 		// 删除本地文件和数据库记录
 		FileUtils.deleteFile(downloader.getSavePath());
 		TGDownloadDBHelper.getInstance(context).deleteDownloader(downloader);
