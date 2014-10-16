@@ -44,7 +44,7 @@ public class TGDownloadManager
 
 	public static final int DOWNLOAD_FAILED = 2;
 
-	public static final int DOWNLOAD_STOP = 3;
+	public static final int DOWNLOAD_PAUSE = 3;
 
 	/**
 	 * 上下文信息
@@ -83,7 +83,7 @@ public class TGDownloadManager
 	 */
 	public void cancel(int taskId)
 	{
-		TGTaskManager.getInstance(mContext).cancelTask(taskId, TGTask.TASK_TYPE_DOWNLOAD);
+		TGTaskManager.getInstance().cancelTask(taskId, TGTask.TASK_TYPE_DOWNLOAD);
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class TGDownloadManager
 	 */
 	public void pause(int taskId)
 	{
-		TGTaskManager.getInstance(mContext).stopTask(taskId, TGTask.TASK_TYPE_DOWNLOAD);
+		TGTaskManager.getInstance().pauseTask(taskId, TGTask.TASK_TYPE_DOWNLOAD);
 	}
 
 	/**
@@ -280,19 +280,19 @@ public class TGDownloadManager
 		if(downloader != null)
 		{
 			taskParams = TGTaskManager.createTaskParams(params,
-					downloadParams.getTaskClsName(), getResultHandler(), downloadParams.getWeight(), Integer.parseInt(downloader.getId()));
+					downloadParams.getTaskClsName(), getResultHandler(), Integer.parseInt(downloader.getId()));
 		}
 		else
 		{
 			taskParams = TGTaskManager.createTaskParams(params,
-				downloadParams.getTaskClsName(), getResultHandler(), downloadParams.getWeight());
+				downloadParams.getTaskClsName(), getResultHandler());
 		}
 
 		taskParams.setBundleParams(params);
 		taskParams.setTaskType(TGTask.TASK_TYPE_DOWNLOAD);
 
 		// 启动任务
-		return TGTaskManager.getInstance(mContext).startTask(taskParams);
+		return TGTaskManager.getInstance().startTask(mContext, taskParams);
 	}
 
 	/**
