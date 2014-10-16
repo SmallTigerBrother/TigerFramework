@@ -38,11 +38,6 @@ public class TGTask implements Cloneable
 	public static final int TASK_TYPE_DOWNLOAD = 103;
 	
 	/**
-	 * 用户设置最大权重
-	 */
-	public static final int MAX_WEIGHT = 10000;
-	
-	/**
 	 * 任务ID
 	 */
 	private int taskID = -1;
@@ -52,16 +47,6 @@ public class TGTask implements Cloneable
 	 */
 	private MPTaskState state = MPTaskState.WAITING;
 
-	/**
-	 * 任务执行时间
-	 */
-	private long executionTime = 100;
-	
-	/**
-	 * 任务权重
-	 */
-	private int weight = 100;
-	
 	/**
 	 * 任务回调启动者的messenger
 	 */
@@ -232,21 +217,9 @@ public class TGTask implements Cloneable
 	 */
 	public final void pause()
 	{
-		// 修改任务状态为停止
+		// 修改任务状态为暂停
 		state = MPTaskState.PAUSE;
 		onTaskPause();
-	}
-	
-	/**
-	 * 该方法的作用:
-	 * 停止任务
-	 * @date 2014年3月17日
-	 */
-	public final void stop()
-	{
-		// 修改任务状态为停止
-		state = MPTaskState.STOP;
-		onTaskStop();
 	}
 	
 	/**
@@ -364,20 +337,6 @@ public class TGTask implements Cloneable
 	}
 	
 	/**
-	 * 
-	 * 该方法的作用: 停止任务
-	 * @date 2014年8月15日
-	 */
-	protected void onTaskStop()
-	{
-		// 回调停止任务接口
-		if(null != taskListener)
-		{
-			taskListener.onTaskStop(this.getTaskID());
-		}
-	}
-	
-	/**
 	 * 该方法的作用: 清空回调接口，任务依然执行，但不会再收到任何通知
 	 * @date 2014年8月15日
 	 */
@@ -407,8 +366,6 @@ public class TGTask implements Cloneable
 			task = this.getClass().newInstance();
 			task.setTaskID(taskID);
 			task.setType(type);
-			task.setExecutionTime(executionTime);
-			task.setWeight(weight);
 			task.setContext(context);
 			task.setParams(params);
 			task.setMessenger(messenger);
@@ -557,28 +514,6 @@ public class TGTask implements Cloneable
 	
 	/**
 	 * 该方法的作用:
-	 * 获取执行时间
-	 * @date 2014年3月17日
-	 * @return
-	 */
-	public long getExecutionTime()
-	{
-		return executionTime;
-	}
-
-	/**
-	 * 该方法的作用:
-	 * 设置执行时间
-	 * @date 2014年3月17日
-	 * @param executionTime
-	 */
-	public void setExecutionTime(long executionTime)
-	{
-		this.executionTime = executionTime;
-	}
-	
-	/**
-	 * 该方法的作用:
 	 * 获取任务变化监听器
 	 * @date 2014年3月17日
 	 * @return
@@ -599,35 +534,6 @@ public class TGTask implements Cloneable
 		this.taskListener = taskListener;
 	}
 
-	/**
-	 * 该方法的作用:
-	 * 设置任务权重
-	 * @date 2014年3月17日
-	 * @param weight
-	 */
-	public void setWeight(int weight)
-	{
-		if(MAX_WEIGHT < weight)
-		{
-			this.weight = MAX_WEIGHT;
-		}
-		else
-		{
-			this.weight = weight;
-		}
-	}
-	
-	/**
-	 * 该方法的作用:
-	 * 获取任务权重
-	 * @date 2014年3月17日
-	 * @return
-	 */
-	public int getWeight()
-	{
-		return weight;
-	}
-	
 	/**
 	 * 该方法的作用:
 	 * 设置任务错误信息
@@ -669,11 +575,6 @@ public class TGTask implements Cloneable
 		public static final int REMOTEEXCEPTION_CODE = 0x00000015;
 		
 		/**
-		 * MEAP服务器异常
-		 */
-		public static final int MEAP_HTTP_ERROR_CODE = 0x00000016;
-		
-		/**
 		 * 未知异常
 		 */
 		public static final int UNKNOWN_ERROR_CODE = 0x00000017;
@@ -708,10 +609,6 @@ public class TGTask implements Cloneable
 		 * 已暂停
 		 */
 		PAUSE,
-		/**
-		 * 已暂停
-		 */
-		STOP,
 		/**
 		 * 出错
 		 */
