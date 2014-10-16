@@ -95,7 +95,6 @@ public class TGTaskInvoker
 			task.setTaskID(taskParams.getTaskID());
 			task.setType(taskParams.getTaskType());
 			task.setParams(parseTaskParams(data));
-			task.setExecutionTime(System.currentTimeMillis());
 			task.setContext(context);
 			return task;
 		}
