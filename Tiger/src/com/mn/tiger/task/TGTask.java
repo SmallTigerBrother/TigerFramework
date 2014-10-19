@@ -143,12 +143,6 @@ public class TGTask implements Cloneable
 
 				break;
 
-			case CANCEL:
-
-				onTaskCancel();
-
-				break;
-
 			case ERROR:
 
 				onTaskError(errorCode, errorMsg);
@@ -166,7 +160,7 @@ public class TGTask implements Cloneable
 		}
 		
 		//销毁所有属性
-		destroyMembers();
+		onDestory();
 	}
 
 	/**
@@ -229,8 +223,6 @@ public class TGTask implements Cloneable
 	 */
 	public final void cancel()
 	{
-		// 修改任务状态为取消
-		state = MPTaskState.CANCEL;
 		onTaskCancel();
 	}
 	
@@ -315,11 +307,14 @@ public class TGTask implements Cloneable
 	 */
 	protected void onTaskCancel()
 	{
+		LogTools.d(LOG_TAG, "[Method:onTaskCancel] taskId: " + taskID);
 		// 回调取消任务接口
 		if(null != taskListener)
 		{
 			taskListener.onTaskCancel(this.getTaskID());
 		}
+		
+		onDestory();
 	}
 	
 	/**
@@ -329,30 +324,26 @@ public class TGTask implements Cloneable
 	 */
 	protected void onTaskPause()
 	{
+		LogTools.d(LOG_TAG, "[Method:onTaskPause] taskId: " + taskID);
+		
 		// 回调停止任务接口
 		if(null != taskListener)
 		{
 			taskListener.onTaskPause(this.getTaskID());
 		}
+		
+		onDestory();
 	}
 	
 	/**
-	 * 该方法的作用: 清空回调接口，任务依然执行，但不会再收到任何通知
+	 * 该方法的作用: 清空回调接口，清空属性，销毁任务
 	 * @date 2014年8月15日
 	 */
-	public void destory()
+	protected void onDestory()
 	{
 		messenger = null;
 		taskListener = null;
-	}
-	
-	/**
-	 * 该方法的作用:
-	 * 清空属性，销毁任务
-	 * @date 2014年8月23日
-	 */
-	protected void destroyMembers()
-	{
+		
 		context = null;
 		params = null;
 	}
@@ -613,9 +604,5 @@ public class TGTask implements Cloneable
 		 * 出错
 		 */
 		ERROR,
-		/**
-		 * 被取消了
-		 */
-		CANCEL
 	}
 }
