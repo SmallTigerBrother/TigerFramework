@@ -48,11 +48,4 @@ public interface ITaskListener
 	 */
 	void onTaskPause(int taskId);
 	
-	/**
-	 * 该方法的作用:
-	 * 任务停止
-	 * @date 2014年8月21日
-	 * @param taskId
-	 */
-	void onTaskStop(int taskId);
 }
