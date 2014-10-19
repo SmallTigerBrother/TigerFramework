@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import android.util.SparseArray;
 
 import com.mn.tiger.task.TGTask;
+import com.mn.tiger.task.queue.TGLock.onLockListener;
+import com.mn.tiger.task.queue.TGLock.onUnLockListener;
 
 /**
  * 
@@ -28,6 +30,11 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	 * 任务容器
 	 */
 	private SparseArray<TGTask> taskArray;
+	
+	/**
+	 * 任务分发管理锁
+	 */
+	private TGLock lock;
 	
 	/**
 	 * 构造函数
@@ -57,12 +64,20 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	 * 该方法的作用: 移除任务
 	 * @date 2014年6月25日
 	 */
+	@Override
 	public synchronized boolean remove(Object object)
 	{
 		// 从队列中移除任务
 		getTaskArray().remove((Integer) object);
 		return super.remove(object);
 	}
+	
+	/**
+	 * 取消某个任务
+	 * @param taskId
+	 * @return
+	 */
+	public abstract boolean cancelTask(int taskId);
 	
 	/**
 	 * 该方法的作用:
@@ -81,7 +96,7 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	 * 
 	 * @date 2014年3月17日
 	 */
-	public void pause()
+	public void pauseTaskQueue()
 	{
 		
 	}
@@ -109,6 +124,13 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 			this.getTask(this.getFirst()).cancel();
 		}
 	}
+	
+	/**
+	 * 该方法的作用: 暂停某个指定任务
+	 * 
+	 * @date 2014年3月17日
+	 */
+	public abstract boolean pauseTask(int taskId);
 	
 	@Override
 	public void clear()
@@ -154,6 +176,104 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	{
 		this.taskArray = taskArray;
 	}
+	
+	/**
+	 * 该方法的作用:
+	 * 获取最大并行任务数
+	 * @date 2014年8月22日
+	 * @return
+	 */
+	public int getMAX_THREAD_NUM()
+	{
+		return 10;
+	}
+	
+	/**
+	 * 该方法的作用: 对分发器加锁，暂停所有已派发任务
+	 * 
+	 * @date 2014年3月17日
+	 * @return
+	 */
+	public void lock(final onLockListener onLockListener)
+	{
+		getLock().lock(new onLockListener()
+		{
+			@Override
+			public void onLockSuccess()
+			{
+				if(null != onLockListener)
+				{
+					onLockListener.onLockSuccess();
+				}
+			}
+			
+			@Override
+			public void onLockFailed()
+			{
+				if(null != onLockListener)
+				{
+					onLockListener.onLockSuccess();
+				}
+			}
+		});
+	}
+
+	/**
+	 * 该方法的作用: 对分发器解锁
+	 * 
+	 * @date 2014年3月17日
+	 * @return
+	 */
+	public void unLock(final onUnLockListener onUnLockListener)
+	{
+		getLock().unLock(new onUnLockListener()
+		{
+			@Override
+			public void onUnLockSuccess()
+			{
+				if(null != onUnLockListener)
+				{
+					onUnLockListener.onUnLockSuccess();
+				}
+			}
+			
+			@Override
+			public void onUnLockFailed()
+			{
+				if(null != onUnLockListener)
+				{
+					onUnLockListener.onUnLockFailed();
+				}
+			}
+		});
+	}
+	
+	/**
+	 * 该方法的作用: 获取锁
+	 * 
+	 * @date 2014年3月17日
+	 * @return
+	 */
+	public TGLock getLock()
+	{
+		if(null == lock)
+		{
+			lock = new TGLock();
+		}
+		
+		return lock;
+	}
+
+	/**
+	 * 该方法的作用: 设置锁
+	 * 
+	 * @date 2014年3月17日
+	 * @param lock
+	 */
+	public void setLock(TGLock lock)
+	{
+		this.lock = lock;
+	}
 
 	/**
 	 * 该类作用及功能说明
@@ -174,44 +294,5 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 		 * 暂停
 		 */
 		PAUSE
-	}
-	
-	/**
-	 * 
-	 * 该类作用及功能说明: 定义各种类型任务线程池并发线程数
-	 * 
-	 * @date 2014年8月12日
-	 */
-	protected enum Pool
-	{
-		HTTP(TGTask.TASK_TYPE_HTTP, 128), UPLOAD(TGTask.TASK_TYPE_UPLOAD, 3), DOWNLOAD(
-				TGTask.TASK_TYPE_DOWNLOAD, 3);
-		// 成员变量
-		private int taskType;
-		private int poolSize;
-
-		// 构造方法
-		private Pool(int type, int size)
-		{
-			this.taskType = type;
-			this.poolSize = size;
-		}
-
-		/**
-		 * 根据type获取线程池大小
-		 */
-		public static int getPoolSizeByType(int type)
-		{
-			int poolSize = 0;
-			for (Pool p : Pool.values())
-			{
-				if (p.taskType == type)
-				{
-					poolSize = p.poolSize;
-					break;
-				}
-			}
-			return poolSize;
-		}
 	}
 }
