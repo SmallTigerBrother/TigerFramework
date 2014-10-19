@@ -3,9 +3,10 @@ package com.mn.tiger.task.dispatch;
 import android.util.SparseArray;
 
 import com.mn.tiger.task.TGTask;
-import com.mn.tiger.task.dispatch.TGLock.onLockListener;
-import com.mn.tiger.task.dispatch.TGLock.onUnLockListener;
+import com.mn.tiger.task.queue.TGDownloadTaskQueue;
+import com.mn.tiger.task.queue.TGHttpTaskQueue;
 import com.mn.tiger.task.queue.TGTaskQueue;
+import com.mn.tiger.task.queue.TGUploadTaskQueue;
 import com.mn.tiger.utility.LogTools;
 
 /**
@@ -30,10 +31,6 @@ public class TGDispatcher
 	 */
 	private static TGDispatcher dispatcher;
 	
-	/**
-	 * 任务分发管理锁
-	 */
-	private TGLock lock;
 	
 	/**
 	 * 该方法的作用: 获取单例对象
@@ -106,27 +103,22 @@ public class TGDispatcher
 			switch (taskType)
 			{
 				case TGTask.TASK_TYPE_HTTP:
-					taskQueue = new TGTaskQueue(taskType);
-					taskQueue.setMAX_THREAD_NUM(128);
+					taskQueue = new TGHttpTaskQueue();
 					break;
 					
 				case TGTask.TASK_TYPE_UPLOAD:
-					taskQueue = new TGTaskQueue(taskType);
-					taskQueue.setMAX_THREAD_NUM(3);
+					taskQueue = new TGUploadTaskQueue();
 					break;
 					
 				case TGTask.TASK_TYPE_DOWNLOAD:
-					taskQueue = new TGTaskQueue(taskType);
-					taskQueue.setMAX_THREAD_NUM(3);
+					taskQueue = new TGDownloadTaskQueue();
 					break;
 					
 				default:
-					taskQueue = new TGTaskQueue(taskType);
-					taskQueue.setMAX_THREAD_NUM(128);
+					taskQueue = new TGHttpTaskQueue();
 					break;
 			}
 			
-			taskQueue.setType(taskType);
 			getTaskQueues().append(taskType, taskQueue);
 			
 			return taskQueue;
@@ -176,7 +168,7 @@ public class TGDispatcher
 		for (int i = 0; i < getTaskQueues().size(); i++)
 		{
 			taskQueue = getTaskQueues().valueAt(i);
-			taskQueue.pause();
+			taskQueue.pauseTaskQueue();
 		}
 	}
 	
@@ -193,7 +185,7 @@ public class TGDispatcher
 		
 		if(null != taskQueue)
 		{
-			taskQueue.pause();
+			taskQueue.pauseTaskQueue();
 		}
 	}
 	
@@ -231,18 +223,7 @@ public class TGDispatcher
 		}
 		
 		TGTaskQueue taskQueue = getTaskQueue(taskType);
-		TGTask task = taskQueue.getTask(taskId);
-		
-		if(task != null)
-		{
-			task.cancel();
-			return true;
-		}
-		else
-		{
-			LogTools.p(LOG_TAG, "[Method:cancelTask] taskQueue is empty.");
-			return false;
-		}
+		return taskQueue.cancelTask(taskId);
 	}
 	
 	/**
@@ -261,104 +242,6 @@ public class TGDispatcher
 		}
 		
 		TGTaskQueue taskQueue = getTaskQueue(taskType);
-		TGTask task = taskQueue.getTask(taskId);
-		
-		if(task != null)
-		{
-			task.pause();
-			return true;
-		}
-		else
-		{
-			LogTools.p(LOG_TAG, "[Method:pauseTask] taskQueue is empty.");
-			return false;
-		}
-	}
-
-	/**
-	 * 该方法的作用: 对分发器加锁，暂停所有已派发任务
-	 * 
-	 * @date 2014年3月17日
-	 * @return
-	 */
-	public void lock(final onLockListener onLockListener)
-	{
-		getLock().lock(new onLockListener()
-		{
-			@Override
-			public void onLockSuccess()
-			{
-				if(null != onLockListener)
-				{
-					onLockListener.onLockSuccess();
-				}
-			}
-			
-			@Override
-			public void onLockFailed()
-			{
-				if(null != onLockListener)
-				{
-					onLockListener.onLockSuccess();
-				}
-			}
-		});
-	}
-
-	/**
-	 * 该方法的作用: 对分发器解锁
-	 * 
-	 * @date 2014年3月17日
-	 * @return
-	 */
-	public void unLock(final onUnLockListener onUnLockListener)
-	{
-		getLock().unLock(new onUnLockListener()
-		{
-			@Override
-			public void onUnLockSuccess()
-			{
-				if(null != onUnLockListener)
-				{
-					onUnLockListener.onUnLockSuccess();
-				}
-			}
-			
-			@Override
-			public void onUnLockFailed()
-			{
-				if(null != onUnLockListener)
-				{
-					onUnLockListener.onUnLockFailed();
-				}
-			}
-		});
-	}
-	
-	/**
-	 * 该方法的作用: 获取锁
-	 * 
-	 * @date 2014年3月17日
-	 * @return
-	 */
-	public TGLock getLock()
-	{
-		if(null == lock)
-		{
-			lock = new TGLock();
-		}
-		
-		return lock;
-	}
-
-	/**
-	 * 该方法的作用: 设置锁
-	 * 
-	 * @date 2014年3月17日
-	 * @param lock
-	 */
-	public void setLock(TGLock lock)
-	{
-		this.lock = lock;
+		return taskQueue.pauseTask(taskId);
 	}
 }
