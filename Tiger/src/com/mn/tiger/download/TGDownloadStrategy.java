@@ -16,7 +16,6 @@ import com.mn.tiger.request.error.TGErrorMsgEnum;
 import com.mn.tiger.request.method.TGGetMethod;
 import com.mn.tiger.request.method.TGHttpMethod;
 import com.mn.tiger.request.method.TGPostMethod;
-import com.mn.tiger.task.TGTask.MPTaskState;
 import com.mn.tiger.utility.Commons;
 import com.mn.tiger.utility.FileUtils;
 import com.mn.tiger.utility.LogTools;
@@ -124,7 +123,7 @@ public class TGDownloadStrategy implements IDownloadStrategy
 		LogTools.p(LOG_TAG, "[Method:executeDownload]");
 
 		// 任务结束，不执行下载
-		if (null == downloadTask || downloadTask.getTaskState() == MPTaskState.CANCEL)
+		if (null == downloadTask)
 		{
 			return;
 		}
@@ -394,14 +393,7 @@ public class TGDownloadStrategy implements IDownloadStrategy
 		@Override
 		public void onStop(TGDownloader downloader)
 		{
-			if(downloadTask.getTaskState() == MPTaskState.CANCEL)
-			{
-				downloadCancel(downloader);
-			}
-			else
-			{
-				downloadStop(downloader);
-			}
+			downloadStop(downloader);
 		}
 	};
 	
