@@ -9,7 +9,6 @@ import com.mn.tiger.request.client.TGHttpClient;
 import com.mn.tiger.request.receiver.DefaultHttpReceiver;
 import com.mn.tiger.request.receiver.TGHttpReceiver;
 import com.mn.tiger.request.receiver.TGHttpResult;
-import com.mn.tiger.task.TGTask.MPTaskState;
 import com.mn.tiger.upload.TGUploadPostMethod.IUploadSendListener;
 import com.mn.tiger.utility.FileUtils;
 import com.mn.tiger.utility.LogTools;
@@ -125,7 +124,7 @@ public class TGUploadStrategy implements IUploadStrategy
 		LogTools.p(LOG_TAG, "[Method:request]");
 
 		// 任务结束，不执行上传
-		if (null == uploadTask || uploadTask.getTaskState() == MPTaskState.CANCEL)
+		if (null == uploadTask)
 		{
 			uploadCancel(mpUploader);
 			return;
@@ -224,14 +223,7 @@ public class TGUploadStrategy implements IUploadStrategy
 		@Override
 		public void onStop(TGUploader uploader)
 		{
-			if(uploadTask.getTaskState() == MPTaskState.CANCEL)
-			{
-				uploadCancel(uploader);
-			}
-			else
-			{
-				uploadStop(uploader);
-			}
+			uploadStop(uploader);
 		}
 	};
 	
