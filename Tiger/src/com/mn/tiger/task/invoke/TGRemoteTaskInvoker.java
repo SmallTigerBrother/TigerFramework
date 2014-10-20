@@ -109,7 +109,7 @@ public class TGRemoteTaskInvoker
 		TGTask task = null;
 		switch (taskParams.getTaskMode())
 		{
-			case TGTaskManager.TASK_START_CODE:
+			case TGTaskManager.TASK_START_MODE:
 				// 创建任务
 				task = createTask(context, taskParams);
 				// 分发并执行任务
@@ -118,12 +118,12 @@ public class TGRemoteTaskInvoker
 					TGDispatcher.getInstance().dispatchTask(task);
 				}
 				break;
-			case TGTaskManager.TASK_CANCEL_CODE:
+			case TGTaskManager.TASK_CANCEL_MODE:
 				// 结束任务并删除
 				TGDispatcher.getInstance().cancelTask(taskParams.getTaskID(),
 						taskParams.getTaskType());
 				break;
-			case TGTaskManager.TASK_PAUSE_CODE:
+			case TGTaskManager.TASK_PAUSE_MODE:
 				// 结束任务并删除
 				TGDispatcher.getInstance().pauseTask(taskParams.getTaskID(),
 						taskParams.getTaskType());

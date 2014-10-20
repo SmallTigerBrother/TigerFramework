@@ -43,7 +43,7 @@ public class TGTaskInvoker
 		TGTask task = null;
 		switch (taskParams.getTaskMode())
 		{
-			case TGTaskManager.TASK_START_CODE:
+			case TGTaskManager.TASK_START_MODE:
 				// 创建任务
 				task = createTask(context, taskParams);
 				// 分发并执行任务
@@ -52,12 +52,12 @@ public class TGTaskInvoker
 					TGDispatcher.getInstance().dispatchTask(task);
 				}
 				break;
-			case TGTaskManager.TASK_CANCEL_CODE:
+			case TGTaskManager.TASK_CANCEL_MODE:
 				// 结束任务并删除
 				TGDispatcher.getInstance().cancelTask(taskParams.getTaskID(),
 						taskParams.getTaskType());
 				break;
-			case TGTaskManager.TASK_PAUSE_CODE:
+			case TGTaskManager.TASK_PAUSE_MODE:
 				// 结束任务并删除
 				TGDispatcher.getInstance().pauseTask(taskParams.getTaskID(),
 						taskParams.getTaskType());
@@ -88,16 +88,16 @@ public class TGTaskInvoker
 		LogTools.p(LOG_TAG, "[Method:invoke]");
 		switch (taskList.getTaskMode())
 		{
-			case TGTaskManager.TASK_START_CODE:
+			case TGTaskManager.TASK_START_MODE:
 				TGDispatcher.getInstance().dispatchScheduleTaskList(taskList);
 				break;
 				
-			case TGTaskManager.TASK_CANCEL_CODE:
+			case TGTaskManager.TASK_CANCEL_MODE:
 				// 结束任务并删除
 				TGDispatcher.getInstance().cancelScheduleTaskList(taskList.getTaskListId());
 				break;
 				
-			case TGTaskManager.TASK_PAUSE_CODE:
+			case TGTaskManager.TASK_PAUSE_MODE:
 				// 结束任务并删除
 				throw new RuntimeException("ScheduleTaskQueue can not be paused, please use cancel method!");
 				
