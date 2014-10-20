@@ -25,17 +25,17 @@ public class TGTaskManager
 	/**
 	 * 任务动作: 开始任务
 	 */
-	public static final int TASK_START_CODE = 1;
+	public static final int TASK_START_MODE = 1;
 	
 	/**
 	 * 任务动作: 取消任务
 	 */
-	public static final int TASK_CANCEL_CODE = 2;
+	public static final int TASK_CANCEL_MODE = 2;
 	
 	/**
 	 * 任务动作: 暂停任务，任务会保留在任务队列中
 	 */
-	public static final int TASK_PAUSE_CODE = 3;
+	public static final int TASK_PAUSE_MODE = 3;
 	
 	public static synchronized TGTaskManager getInstance()
 	{
@@ -72,7 +72,7 @@ public class TGTaskManager
 		}
 	
 		LogTools.d(LOG_TAG, "[Method:startTask]");
-		taskParams.setTaskMode(TASK_START_CODE);
+		taskParams.setTaskMode(TASK_START_MODE);
 		
 		return invoker.invokeTask(context, taskParams);
 	}
@@ -91,7 +91,7 @@ public class TGTaskManager
 		}
 		
 		LogTools.d(LOG_TAG, "[Method:startScheduleTaskList]");
-		taskList.setTaskMode(TASK_START_CODE);
+		taskList.setTaskMode(TASK_START_MODE);
 		return invoker.invokeScheduleTaskList(context, taskList);
 	}
 	
@@ -113,7 +113,7 @@ public class TGTaskManager
 		TGTaskParams taskParams = new TGTaskParams();
 		taskParams.setTaskID(taskId);
 		taskParams.setTaskType(taskType);
-		taskParams.setTaskMode(TASK_CANCEL_CODE);
+		taskParams.setTaskMode(TASK_CANCEL_MODE);
 		invoker.invokeTask(null, taskParams);
 	}
 	
@@ -130,7 +130,7 @@ public class TGTaskManager
 		}
 		
 		LogTools.d(LOG_TAG, "[Method:startScheduleTaskList]");
-		taskList.setTaskMode(TASK_CANCEL_CODE);
+		taskList.setTaskMode(TASK_CANCEL_MODE);
 		invoker.invokeScheduleTaskList(context, taskList);
 	}
 	
@@ -152,7 +152,7 @@ public class TGTaskManager
 		TGTaskParams taskParams = new TGTaskParams();
 		taskParams.setTaskID(taskId);
 		taskParams.setTaskType(taskType);
-		taskParams.setTaskMode(TASK_PAUSE_CODE);
+		taskParams.setTaskMode(TASK_PAUSE_MODE);
 		invoker.invokeTask(null, taskParams);
 	}
 	
@@ -186,7 +186,7 @@ public class TGTaskManager
 		taskParams.setTaskClsName(taskClsName);
 		
 		taskParams.setTaskID(taskId);
-		taskParams.setTaskMode(TASK_START_CODE);
+		taskParams.setTaskMode(TASK_START_MODE);
 		if (null != taskResultHandler)
 		{
 			taskParams.setMessenger(taskResultHandler.getMessenger());
@@ -224,7 +224,7 @@ public class TGTaskManager
 		taskParams.setTaskClsName(taskClsName);
 		
 		taskParams.setTaskID(taskId);
-		taskParams.setTaskMode(TASK_START_CODE);
+		taskParams.setTaskMode(TASK_START_MODE);
 		if (null != taskResultHandler)
 		{
 			taskParams.setMessenger(taskResultHandler.getMessenger());
@@ -264,7 +264,7 @@ public class TGTaskManager
 		taskParams.setTaskClsName(taskClsName);
 		
 		taskParams.setTaskID(taskId);
-		taskParams.setTaskMode(TASK_START_CODE);
+		taskParams.setTaskMode(TASK_START_MODE);
 		if (null != taskResultHandler)
 		{
 			taskParams.setMessenger(taskResultHandler.getMessenger());
