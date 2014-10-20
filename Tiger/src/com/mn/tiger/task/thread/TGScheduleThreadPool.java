@@ -3,13 +3,15 @@ package com.mn.tiger.task.thread;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.mn.tiger.task.TGScheduleTaskList;
+
 public class TGScheduleThreadPool extends TGThreadPool
 {
 	private ExecutorService executorService;
 
 	public TGScheduleThreadPool()
 	{
-		executorService = Executors.newCachedThreadPool();
+		executorService = Executors.newSingleThreadScheduledExecutor();
 	}
 	
 	/**
@@ -21,6 +23,18 @@ public class TGScheduleThreadPool extends TGThreadPool
 	public void execute(Runnable runnale)
 	{
 		executorService.execute(runnale);
+	}
+	
+	/**
+	 * 执行有序任务列表
+	 * @param taskList
+	 */
+	public void executeTaskList(TGScheduleTaskList taskList)
+	{
+		for(int i = 0; i < taskList.size(); i++)
+		{
+			taskList.get(i).executeTask(this);
+		}
 	}
 
 	/**
