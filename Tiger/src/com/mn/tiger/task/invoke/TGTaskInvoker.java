@@ -3,6 +3,7 @@ package com.mn.tiger.task.invoke;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.mn.tiger.task.TGScheduleTaskList;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.task.TGTaskManager;
 import com.mn.tiger.task.dispatch.TGDispatcher;
@@ -20,7 +21,6 @@ public class TGTaskInvoker
 	 */
 	protected static final String LOG_TAG = TGTaskInvoker.class.getSimpleName();
 	
-
 	/**
 	 * 构造函数
 	 * @date 2014年7月26日
@@ -75,6 +75,38 @@ public class TGTaskInvoker
 		{
 			return task.getTaskID();
 		}
+	}
+	
+	/**
+	 * 请求执行有序任务列表
+	 * @param context
+	 * @param taskList
+	 * @return
+	 */
+	public int invokeScheduleTaskList(Context context, TGScheduleTaskList taskList)
+	{
+		LogTools.p(LOG_TAG, "[Method:invoke]");
+		switch (taskList.getTaskMode())
+		{
+			case TGTaskManager.TASK_START_CODE:
+				TGDispatcher.getInstance().dispatchScheduleTaskList(taskList);
+				break;
+				
+			case TGTaskManager.TASK_CANCEL_CODE:
+				// 结束任务并删除
+				TGDispatcher.getInstance().cancelScheduleTaskList(taskList.getTaskListId());
+				break;
+				
+			case TGTaskManager.TASK_PAUSE_CODE:
+				// 结束任务并删除
+				throw new RuntimeException("ScheduleTaskQueue can not be paused, please use cancel method!");
+				
+			default:
+				break;
+		}
+		
+		// 返回任务id
+		return taskList.getTaskListId();
 	}
 	
 	/**
