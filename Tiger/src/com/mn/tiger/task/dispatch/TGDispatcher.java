@@ -2,9 +2,11 @@ package com.mn.tiger.task.dispatch;
 
 import android.util.SparseArray;
 
+import com.mn.tiger.task.TGScheduleTaskList;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.task.queue.TGDownloadTaskQueue;
 import com.mn.tiger.task.queue.TGHttpTaskQueue;
+import com.mn.tiger.task.queue.TGScheduleTaskQueue;
 import com.mn.tiger.task.queue.TGTaskQueue;
 import com.mn.tiger.task.queue.TGUploadTaskQueue;
 import com.mn.tiger.utility.LogTools;
@@ -27,10 +29,14 @@ public class TGDispatcher
 	private SparseArray<TGTaskQueue> taskQueues;
 	
 	/**
+	 * 有序任务队列数组
+	 */
+	private SparseArray<TGScheduleTaskQueue> scheduleTaskQueues;
+	
+	/**
 	 * 分发器单例对象
 	 */
 	private static TGDispatcher dispatcher;
-	
 	
 	/**
 	 * 该方法的作用: 获取单例对象
@@ -82,6 +88,17 @@ public class TGDispatcher
 	}
 	
 	/**
+	 * 派发有序任务列表
+	 * @param taskList
+	 */
+	public void dispatchScheduleTaskList(TGScheduleTaskList taskList)
+	{
+		TGScheduleTaskQueue taskQueue = getScheduleTaskQueue(taskList.getTaskListId());
+		taskQueue.setTaskList(taskList);
+		taskQueue.executeNextTask();
+	}
+	
+	/**
 	 * 该方法的作用:
 	 * 根据任务类型获取TaskQueue
 	 * @date 2014年8月15日
@@ -115,8 +132,7 @@ public class TGDispatcher
 					break;
 					
 				default:
-					taskQueue = new TGHttpTaskQueue();
-					break;
+					throw new RuntimeException("The taskType is error taskType = " + taskType);
 			}
 			
 			getTaskQueues().append(taskType, taskQueue);
@@ -142,6 +158,38 @@ public class TGDispatcher
 	}
 	
 	/**
+	 * 获取所有有序任务队列
+	 * @return
+	 */
+	private SparseArray<TGScheduleTaskQueue> getScheduleTaskQueues()
+	{
+		if (scheduleTaskQueues == null)
+		{
+			scheduleTaskQueues = new SparseArray<TGScheduleTaskQueue>();
+		}
+		
+		return scheduleTaskQueues;
+	}
+	
+	/**
+	 * 该方法的作用:
+	 * 获取有序任务队列
+	 * @date 2014年8月22日
+	 * @return
+	 */
+	private TGScheduleTaskQueue getScheduleTaskQueue(int taskListId)
+	{
+		TGScheduleTaskQueue taskQueue = getScheduleTaskQueues().get(taskListId);
+		if(null == taskQueue)
+		{
+			taskQueue = new TGScheduleTaskQueue();
+		}
+		
+		scheduleTaskQueues.append(taskListId, taskQueue);
+		return taskQueue;
+	}
+	
+	/**
 	 * 该方法的作用: 执行所有任务队列
 	 * @date 2014年3月17日
 	 */
@@ -154,6 +202,25 @@ public class TGDispatcher
 			taskQueue = getTaskQueues().valueAt(i);
 			taskQueue.restart();
 		}
+	}
+	
+	/**
+	 * 该方法的作用:
+	 * 暂停任务
+	 * @date 2014年3月20日
+	 * @param task
+	 * @return
+	 */
+	public boolean pauseTask(int taskId, int taskType)
+	{
+		if(taskId < 0 || taskType < 0)
+		{
+			LogTools.p(LOG_TAG, "[Method:pauseTask] task info is error.");
+			return false;
+		}
+		
+		TGTaskQueue taskQueue = getTaskQueue(taskType);
+		return taskQueue.pauseTask(taskId);
 	}
 
 	/**
@@ -205,6 +272,17 @@ public class TGDispatcher
 				taskQueue.cancelAllTasks();
 			}
 		}
+		
+		TGScheduleTaskQueue scheduleTaskQueue = null;
+		for(int j = 0; j < getScheduleTaskQueues().size(); j++)
+		{
+			scheduleTaskQueue = getScheduleTaskQueues().valueAt(j);
+			if(null != scheduleTaskQueue)
+			{
+				scheduleTaskQueue.cancelAllTasks();
+			}
+		}
+		getScheduleTaskQueues().clear();
 	}
 	
 	/**
@@ -228,20 +306,17 @@ public class TGDispatcher
 	
 	/**
 	 * 该方法的作用:
-	 * 暂停任务
+	 * 取消有序任务列表
 	 * @date 2014年3月20日
 	 * @param task
 	 * @return
 	 */
-	public boolean pauseTask(int taskId, int taskType)
+	public boolean cancelScheduleTaskList(int taskListId)
 	{
-		if(taskId < 0 || taskType < 0)
-		{
-			LogTools.p(LOG_TAG, "[Method:pauseTask] task info is error.");
-			return false;
-		}
-		
-		TGTaskQueue taskQueue = getTaskQueue(taskType);
-		return taskQueue.pauseTask(taskId);
+		TGScheduleTaskQueue taskQueue = getScheduleTaskQueues().get(taskListId);
+		taskQueue.cancelAllTasks();
+		getScheduleTaskQueues().delete(taskListId);
+		return true;
 	}
+	
 }
