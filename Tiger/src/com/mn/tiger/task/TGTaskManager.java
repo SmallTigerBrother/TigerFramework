@@ -78,6 +78,24 @@ public class TGTaskManager
 	}
 	
 	/**
+	 * 启动有序任务列表
+	 * @param context
+	 * @param taskList
+	 * @return
+	 */
+	public int startScheduleTaskList(Context context, TGScheduleTaskList taskList)
+	{
+		if(null == taskList || taskList.isEmpty())
+		{
+			return -1;
+		}
+		
+		LogTools.d(LOG_TAG, "[Method:startScheduleTaskList]");
+		taskList.setTaskMode(TASK_START_CODE);
+		return invoker.invokeScheduleTaskList(context, taskList);
+	}
+	
+	/**
 	 * 取消任务
 	 * @param taskId
 	 * @param taskType
@@ -97,6 +115,23 @@ public class TGTaskManager
 		taskParams.setTaskType(taskType);
 		taskParams.setTaskMode(TASK_CANCEL_CODE);
 		invoker.invokeTask(null, taskParams);
+	}
+	
+	/**
+	 * 取消有序任务列表
+	 * @param context
+	 * @param taskList
+	 */
+	public void cancelScheduleTaskList(Context context, TGScheduleTaskList taskList)
+	{
+		if(null == taskList || taskList.isEmpty())
+		{
+			return;
+		}
+		
+		LogTools.d(LOG_TAG, "[Method:startScheduleTaskList]");
+		taskList.setTaskMode(TASK_CANCEL_CODE);
+		invoker.invokeScheduleTaskList(context, taskList);
 	}
 	
 	/**
@@ -121,6 +156,13 @@ public class TGTaskManager
 		invoker.invokeTask(null, taskParams);
 	}
 	
+	/**
+	 * 该方法的作用:创建任务参数
+	 * @param params
+	 * @param taskClsName
+	 * @param taskResultHandler
+	 * @return
+	 */
 	public static TGTaskParams createTaskParams(HashMap<String, String> params, String taskClsName,
 			TGTaskResultHandler taskResultHandler)
 	{
@@ -191,6 +233,13 @@ public class TGTaskManager
 		return taskParams;
 	}
 
+	/**
+	 * 该方法的作用:创建任务参数
+	 * @param params
+	 * @param taskClsName
+	 * @param taskResultHandler
+	 * @return
+	 */
 	public static TGTaskParams createTaskParams(Bundle params, String taskClsName,
 			TGTaskResultHandler taskResultHandler)
 	{
