@@ -403,7 +403,10 @@ public class LogTools
 			{
 				logContent = Log.getStackTraceString(pThrowable);
 			}
-			writeLogtoFile("E", pTag, logContent);
+			if(LOG_WRITE_TO_FILE)
+			{
+				writeLogtoFile("E", pTag, logContent);
+			}
 		}
 	}
 
