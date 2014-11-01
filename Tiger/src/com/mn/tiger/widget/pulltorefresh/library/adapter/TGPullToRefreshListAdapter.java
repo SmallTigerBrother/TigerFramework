@@ -14,6 +14,7 @@ import com.mn.tiger.request.async.TGHttpAsyncRequester;
 import com.mn.tiger.request.async.TGHttpAsyncRequester.TGRequestHandler;
 import com.mn.tiger.utility.Commons;
 import com.mn.tiger.widget.adpter.TGListAdapter;
+import com.mn.tiger.widget.adpter.TGViewHolder;
 import com.mn.tiger.widget.pulltorefresh.TGPullToRefreshListView;
 import com.mn.tiger.widget.pulltorefresh.TGPullToRefreshListView.OnRefreshListenerPlus;
 import com.mn.tiger.widget.pulltorefresh.library.model.PageModel;
@@ -103,9 +104,9 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 	 * @param items 列表数据
 	 * @param httpErrorHandler 错误处理接口
 	 */
-	public TGPullToRefreshListAdapter(Context context, List<T> items) 
+	public TGPullToRefreshListAdapter(Context context, List<T> items, int convertViewLayoutId, Class<? extends TGViewHolder<T>> viewHolderClass) 
 	{
-		super(context, items);
+		super(context, items, convertViewLayoutId, viewHolderClass);
 	}
 	
 	/**
@@ -552,7 +553,7 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 		{
 			TGListAdapter<T> listAdapter = (TGListAdapter<T>) ((HeaderViewListAdapter)getListView()
 					.getRefreshableView().getAdapter()).getWrappedAdapter();
-			listAdapter.updateListData(getListItems());
+			listAdapter.updateData(getListItems());
 		}
 	}
 
@@ -584,7 +585,7 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 		pageList.getPage(pageNum).remove(item);
 		getListItems().remove(item);
 		// 更新列表
-		updateListData(getListItems());
+		updateData(getListItems());
 	}
 
 	/**
@@ -613,7 +614,7 @@ public class TGPullToRefreshListAdapter<T> extends TGListAdapter<T> implements O
 		reInitListItems();
 
 		// 更新列表
-		updateListData(getListItems());
+		updateData(getListItems());
 	}
 
 	/**

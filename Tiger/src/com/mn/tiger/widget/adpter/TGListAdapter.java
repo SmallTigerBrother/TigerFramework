@@ -1,9 +1,11 @@
 package com.mn.tiger.widget.adpter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -34,20 +36,27 @@ public class TGListAdapter<T> extends BaseAdapter
 	
 	private BaseAdapter adapter = null;
 	
+	private int convertViewLayoutId;
+	
+	private Class<? extends TGViewHolder<T>> viewHolderClass;
+	
 	/**
-	 * @date 2012-12-28
-	 * 构造函数
-	 * @param context 运行环境
+	 * 
+	 * @param context
 	 * @param items 列表填充数据
+	 * @param viewHolderClass ViewHolder类名
 	 */
-	public TGListAdapter(Context context, List<T> items)
+	public TGListAdapter(Context context, List<T> items,int convertViewLayoutId, 
+			Class<? extends TGViewHolder<T>> viewHolderClass)
 	{
 		this.context = context;
-		this.items = items;
-		if(null == items)
+		this.items = new ArrayList<T>();
+		if(null != items)
 		{
-			 this.items = new ArrayList<T>();
+			items.addAll(items);
 		}
+		
+		this.viewHolderClass = viewHolderClass;
 	}
 	
 	/**
@@ -72,11 +81,7 @@ public class TGListAdapter<T> extends BaseAdapter
 			return adapter.getCount();
 		}
 		
-		if(null != items)
-		{
-			return items.size();
-		}
-		return 0;
+		return items.size();
 	}
 
 	/**
@@ -109,6 +114,7 @@ public class TGListAdapter<T> extends BaseAdapter
 	/**
 	 * @see BaseAdapter#getView(int, View, ViewGroup)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
@@ -117,7 +123,29 @@ public class TGListAdapter<T> extends BaseAdapter
 			return adapter.getView(position, convertView, parent);
 		}
 		
-		return null;
+		TGViewHolder<T> viewHolder = null;
+		if(null == convertView)
+		{
+			try
+			{
+				convertView = LayoutInflater.from(getContext()).inflate(convertViewLayoutId, null);
+				viewHolder = viewHolderClass.newInstance();
+				viewHolder.initView(convertView);
+				convertView.setTag(viewHolder);
+			}
+			catch (Exception e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
+		else
+		{
+			viewHolder = (TGViewHolder<T>) convertView.getTag();
+		}
+		
+		viewHolder.fillData(items.get(position), position);
+		
+		return convertView;
 	}
 
 	/**
@@ -125,24 +153,42 @@ public class TGListAdapter<T> extends BaseAdapter
 	 * @date 2013-1-17
 	 * @param data 列表数据
 	 */
-	public void updateListData(List<T> data)
+	public void updateData(List<T> data)
 	{
 		if(null != data)
 		{
-			this.items = data;
+			this.items.clear();
+			this.items.addAll(data);
 			notifyDataSetChanged();
 		}
 	}
 	
-	/**
-	 * 该方法的作用:
-	 * 设置列表数据
-	 * @date 2014年2月10日
-	 * @param items
-	 */
-	protected void setItems(List<T> items)
+	public void updateData(T[] data)
 	{
-		this.items = items;
+		if(null != data)
+		{
+			this.items.clear();
+			this.items.addAll(Arrays.asList(data));
+			notifyDataSetChanged();
+		}
+	}
+	
+	public void appendData(List<T> data)
+	{
+		if(null != data)
+		{
+			this.items.addAll(data);
+			notifyDataSetChanged();
+		}
+	}
+	
+	public void appendData(T[] data)
+	{
+		if(null != data)
+		{
+			this.items.addAll(Arrays.asList(data));
+			notifyDataSetChanged();
+		}
 	}
 	
 	/**
