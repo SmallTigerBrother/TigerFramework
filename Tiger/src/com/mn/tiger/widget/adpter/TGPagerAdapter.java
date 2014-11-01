@@ -33,7 +33,11 @@ public class TGPagerAdapter extends PagerAdapter
 	 */
 	public TGPagerAdapter(ArrayList<View> views)
 	{
-		this.pagers = views;
+		this.pagers = new ArrayList<View>();
+		if(null != views)
+		{
+			pagers.addAll(views);
+		}
 	}
 	
 	/**
@@ -96,7 +100,11 @@ public class TGPagerAdapter extends PagerAdapter
 	 */
 	public void updatePagers(ArrayList<View> pagers)
 	{
-		this.pagers = pagers;
+		this.pagers.clear();
+		if(null != pagers)
+		{
+			this.pagers.addAll(pagers);
+		}
 		this.notifyDataSetChanged();
 	}
 	
