@@ -193,7 +193,10 @@ public class LogTools
 				logContent = Log.getStackTraceString(pThrowable);
 			}
 
-			writeLogtoFile("V", pTag, logContent);
+			if(LOG_WRITE_TO_FILE)
+			{
+				writeLogtoFile("V", pTag, logContent);
+			}
 		}
 	}
 
@@ -243,7 +246,11 @@ public class LogTools
 			{
 				logContent = Log.getStackTraceString(pThrowable);
 			}
-			writeLogtoFile("D", pTag, logContent);
+			
+			if(LOG_WRITE_TO_FILE)
+			{
+				writeLogtoFile("D", pTag, logContent);
+			}
 		}
 	}
 
@@ -293,7 +300,11 @@ public class LogTools
 			{
 				logContent = Log.getStackTraceString(pThrowable);
 			}
-			writeLogtoFile("I", pTag, logContent);
+			
+			if(LOG_WRITE_TO_FILE)
+			{
+				writeLogtoFile("I", pTag, logContent);
+			}
 		}
 	}
 
@@ -348,7 +359,10 @@ public class LogTools
 			{
 				logContent = Log.getStackTraceString(pThrowable);
 			}
-			writeLogtoFile("W", pTag, logContent);
+			if(LOG_WRITE_TO_FILE)
+			{
+				writeLogtoFile("W", pTag, logContent);
+			}
 		}
 	}
 
@@ -403,6 +417,7 @@ public class LogTools
 			{
 				logContent = Log.getStackTraceString(pThrowable);
 			}
+			
 			if(LOG_WRITE_TO_FILE)
 			{
 				writeLogtoFile("E", pTag, logContent);
@@ -461,7 +476,11 @@ public class LogTools
 			{
 				logContent = Log.getStackTraceString(pThrowable);
 			}
-			writeLogtoFile("P", pTag, logContent);
+			
+			if(LOG_WRITE_TO_FILE)
+			{
+				writeLogtoFile("P", pTag, logContent);
+			}
 		}
 	}
 
