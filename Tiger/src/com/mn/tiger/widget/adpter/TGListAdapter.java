@@ -129,7 +129,7 @@ public class TGListAdapter<T> extends BaseAdapter
 			try
 			{
 				convertView = LayoutInflater.from(getContext()).inflate(convertViewLayoutId, null);
-				viewHolder = viewHolderClass.newInstance();
+				viewHolder = initViewHolder();
 				viewHolder.initView(convertView);
 				convertView.setTag(viewHolder);
 			}
@@ -148,6 +148,25 @@ public class TGListAdapter<T> extends BaseAdapter
 		return convertView;
 	}
 
+	/**
+	 * 初始化ViewHolder
+	 * @return
+	 */
+	protected TGViewHolder<T> initViewHolder()
+	{
+		TGViewHolder<T> viewHolder = null;
+		try
+		{
+			viewHolder = viewHolderClass.newInstance();
+		}
+		catch (Exception e)
+		{
+			throw new RuntimeException(e);
+		}
+		
+		return viewHolder;
+	}
+	
 	/**
 	 * 该方法的作用:更新列表数据
 	 * @date 2013-1-17
