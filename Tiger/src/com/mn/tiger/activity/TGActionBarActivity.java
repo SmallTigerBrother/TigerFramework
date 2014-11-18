@@ -1,6 +1,5 @@
 package com.mn.tiger.activity;
 
-import android.app.Application;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -10,7 +9,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
 
-import com.mn.tiger.app.IApplication;
+import com.mn.tiger.app.TGApplication;
 import com.mn.tiger.request.error.IHttpErrorHandler;
 import com.mn.tiger.request.error.TGHttpErrorHandler;
 import com.mn.tiger.utility.CR;
@@ -44,11 +43,7 @@ public class TGActionBarActivity extends ActionBarActivity
 		this.httpErrorHandler = initHttpErrorHandler();
 		
 		//添加到Application中
-		Application application = getApplication();
-		if(application instanceof IApplication)
-		{
-			((IApplication)application).addActivityToStack(this);
-		}
+		((TGApplication)getApplication()).addActivityToStack(this);
 	}
 
 	@Override
@@ -260,11 +255,7 @@ public class TGActionBarActivity extends ActionBarActivity
 	@Override
 	protected void onDestroy() 
 	{
-		Application application = getApplication();
-		if(application instanceof IApplication)
-		{
-			((IApplication)application).removeActivityFromStack(this);
-		}
+		((TGApplication)getApplication()).removeActivityFromStack(this);
 		super.onDestroy();
 	}
 	
