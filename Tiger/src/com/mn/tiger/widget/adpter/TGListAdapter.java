@@ -34,8 +34,6 @@ public class TGListAdapter<T> extends BaseAdapter
 	 */
 	private List<T> items = null;
 	
-	private BaseAdapter adapter = null;
-	
 	private int convertViewLayoutId;
 	
 	private Class<? extends TGViewHolder<T>> viewHolderClass;
@@ -53,21 +51,11 @@ public class TGListAdapter<T> extends BaseAdapter
 		this.items = new ArrayList<T>();
 		if(null != items)
 		{
-			items.addAll(items);
+			this.items.addAll(items);
 		}
 		
+		this.convertViewLayoutId = convertViewLayoutId;
 		this.viewHolderClass = viewHolderClass;
-	}
-	
-	/**
-	 * @date 2014年4月21日
-	 * @param context
-	 * @param adapter 其他Adapter
-	 */
-	public TGListAdapter(Context context, BaseAdapter adapter)
-	{
-		this.context = context;
-		this.adapter = adapter;
 	}
 	
 	/**
@@ -76,11 +64,6 @@ public class TGListAdapter<T> extends BaseAdapter
 	@Override
 	public int getCount() 
 	{
-		if(null != adapter)
-		{
-			return adapter.getCount();
-		}
-		
 		return items.size();
 	}
 
@@ -90,10 +73,6 @@ public class TGListAdapter<T> extends BaseAdapter
 	@Override
 	public Object getItem(int position) 
 	{
-		if(null != adapter)
-		{
-			return adapter.getItem(position);
-		}
 		return items.get(position);
 	}
 
@@ -103,10 +82,6 @@ public class TGListAdapter<T> extends BaseAdapter
 	@Override
 	public long getItemId(int position) 
 	{
-		if(null != adapter)
-		{
-			return adapter.getItemId(position);
-		}
 		return position;
 	}
 
@@ -118,25 +93,24 @@ public class TGListAdapter<T> extends BaseAdapter
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		if(null != adapter)
-		{
-			return adapter.getView(position, convertView, parent);
-		}
-		
 		TGViewHolder<T> viewHolder = null;
 		if(null == convertView)
 		{
-			try
+			if(convertViewLayoutId > 0)
 			{
-				convertView = LayoutInflater.from(getContext()).inflate(convertViewLayoutId, null);
-				viewHolder = initViewHolder();
-				viewHolder.initView(convertView);
-				convertView.setTag(viewHolder);
+				try
+				{
+					convertView = LayoutInflater.from(getContext()).inflate(convertViewLayoutId, null);
+				}
+				catch (Exception e)
+				{
+					throw new RuntimeException(e);
+				}
 			}
-			catch (Exception e)
-			{
-				throw new RuntimeException(e);
-			}
+			
+			viewHolder = initViewHolder();
+			convertView = viewHolder.initView(convertView);
+			convertView.setTag(viewHolder);
 		}
 		else
 		{
@@ -158,6 +132,7 @@ public class TGListAdapter<T> extends BaseAdapter
 		try
 		{
 			viewHolder = viewHolderClass.newInstance();
+			viewHolder.setContext(context);
 		}
 		catch (Exception e)
 		{
@@ -219,11 +194,6 @@ public class TGListAdapter<T> extends BaseAdapter
 	public List<T> getListItems()
 	{
 		return this.items;
-	}
-	
-	public BaseAdapter getDecoratedAdapter()
-	{
-		return adapter;
 	}
 	
 	/**
