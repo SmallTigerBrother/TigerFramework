@@ -13,7 +13,6 @@ import android.content.res.Resources;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
 
-import com.mn.tiger.app.IApplication;
 import com.mn.tiger.app.TGApplication;
 import com.mn.tiger.request.async.TGHttpAsyncRequester;
 
@@ -136,8 +135,7 @@ public class Commons
 
 	public static void exit()
 	{
-		IApplication application = TGApplication.getInstance();
-		application.exit();
+		TGApplication.getInstance().exit();
 	}
 	
 	/**
