@@ -3,6 +3,8 @@ package com.mn.tiger.app;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.squareup.otto.Bus;
+
 import android.app.Activity;
 import android.app.Application;
 
@@ -12,7 +14,7 @@ import android.app.Application;
  * @version V2.0
  * @see JDK1.6,android-8
  */
-public class TGApplication extends Application implements IApplication
+public class TGApplication extends Application
 {
 	/**
 	 * 日志标签
@@ -22,18 +24,21 @@ public class TGApplication extends Application implements IApplication
 	/** 启动Activity列表 */
 	private List<Activity> activities = new LinkedList<Activity>();
 
-	/** ExitApplication实例 */
-	private static IApplication instance;
+	/** Application实例 */
+	private static TGApplication instance;
+	
+	private static Bus bus;
 
 	@Override
 	public void onCreate()
 	{
 		super.onCreate();
 		instance = this;
+		bus = new Bus();
 	}
 
-	/** 得到 BaseApplication实例 */
-	public static IApplication getInstance()
+	/** 得到 Application实例 */
+	public static TGApplication getInstance()
 	{
 		return instance;
 	}
@@ -44,7 +49,6 @@ public class TGApplication extends Application implements IApplication
 	 * @date 2013-12-3
 	 * @param activity
 	 */
-	@Override
 	public void addActivityToStack(Activity activity)
 	{
 		activities.add(activity);
@@ -56,7 +60,6 @@ public class TGApplication extends Application implements IApplication
 	 * @date 2014年1月3日
 	 * @param activity
 	 */
-	@Override
 	public void removeActivityFromStack(Activity activity)
 	{
 		activities.remove(activity);
@@ -65,7 +68,6 @@ public class TGApplication extends Application implements IApplication
 	/**
 	 * 退出应用时销毁所有启动的Activity
 	 */
-	@Override
 	public void exit()
 	{
 		finishAllActivity();
@@ -77,7 +79,6 @@ public class TGApplication extends Application implements IApplication
 	 * 
 	 * @date 2014年3月4日
 	 */
-	@Override
 	public void finishAllActivity()
 	{
 		Activity activity;
@@ -92,4 +93,10 @@ public class TGApplication extends Application implements IApplication
 
 		activities.clear();
 	}
+
+	public static Bus getBus()
+	{
+		return bus;
+	}
+
 }
