@@ -67,18 +67,18 @@ public class TGSlidingActionBarActivity extends TGActionBarActivity
 		super.setContentView(v, params);
 		mHelper.registerAboveContentView(v, params);
 	}
-
-	public void setBehindContentView(int id)
+	
+	public void setLeftContentView(int id)
 	{
-		setBehindContentView(getLayoutInflater().inflate(id, null));
+		setLeftContentView(getLayoutInflater().inflate(id, null));
 	}
 
-	public void setBehindContentView(View view)
+	public void setLeftContentView(View view)
 	{
 		mHelper.setBehindContentView(view);
 	}
 	
-	public void setSecondaryBehindContentView(View view)
+	public void setRightContentView(View view)
 	{
 		mHelper.setSecondaryBehindContentView(view);
 	}
@@ -118,12 +118,12 @@ public class TGSlidingActionBarActivity extends TGActionBarActivity
 		mHelper.showContent();
 	}
 
-	public void showMenu()
+	public void showLeftMenu()
 	{
 		mHelper.showMenu();
 	}
 
-	public void showSecondaryMenu()
+	public void showRightMenu()
 	{
 		mHelper.showSecondaryMenu();
 	}
