@@ -10,11 +10,11 @@
         android:layout_height="48dip" >
     </com.mn.tiger.widget.TGNavigationBar>
 
-    <LinearLayout
+    <FrameLayout
         android:orientation="horizontal"
         android:id="@+id/panel"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

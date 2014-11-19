@@ -1,4 +1,4 @@
-package com.mn.tiger.activity;
+package com.mn.tiger.app;
 
 import android.os.Bundle;
 import android.view.KeyEvent;

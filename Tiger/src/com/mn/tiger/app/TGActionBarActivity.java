@@ -1,4 +1,4 @@
-package com.mn.tiger.activity;
+package com.mn.tiger.app;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -9,7 +9,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
 
-import com.mn.tiger.app.TGApplication;
 import com.mn.tiger.request.error.IHttpErrorHandler;
 import com.mn.tiger.request.error.TGHttpErrorHandler;
 import com.mn.tiger.utility.CR;
