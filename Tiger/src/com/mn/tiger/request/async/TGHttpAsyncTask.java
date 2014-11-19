@@ -135,10 +135,9 @@ class TGHttpAsyncTask<Result>
 	 * @param handler
 	 */
 	@SuppressWarnings("rawtypes")
-	public TGHttpAsyncTask(Context context, String requestUrl, int requestType, 
+	public TGHttpAsyncTask(String requestUrl, int requestType, 
 			TGHttpAsyncRequester.TGRequestHandler handler) 
 	{
-		this.context = context;
 		this.requestUrl = requestUrl;
 		this.requestType = requestType;
 		this.requestHandler = handler;

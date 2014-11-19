@@ -26,21 +26,9 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 */
 	private InternalAsyncTask asyncTask;
 	
-	/**
-	 * 为反射提供的类
-	 */
-	@SuppressWarnings("unused")
-	private TGHttpAsyncRequester()
+	public TGHttpAsyncRequester()
 	{
-		
-	}
-	
-	/**
-	 * @param context
-	 */
-	public TGHttpAsyncRequester(Context context)
-	{
-		asyncTask = new InternalAsyncTask(context, "", 
+		asyncTask = new InternalAsyncTask("", 
 				TGHttpRequester.REQUEST_UNKNOWN, null);
 	}
 	
@@ -49,13 +37,13 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 * @param requestUrl 请求url
 	 * @param clazz 解析结果类名
 	 * @param params 请求参数
-	 * @param listener 请求回调方法
+	 * @param handler 请求回调方法
 	 */
 	@SuppressWarnings("rawtypes")
-	public void get(String requestUrl, Class clazz, 
-			TGRequestHandler<T> listener)
+	public void get(Context context, String requestUrl, Class clazz, 
+			TGRequestHandler<T> handler)
 	{
-		execute(TGHttpRequester.REQUEST_GET, requestUrl, clazz.getName(), listener);
+		execute(context, TGHttpRequester.REQUEST_GET, requestUrl, clazz.getName(), handler);
 	}
 	
 	/**
@@ -63,13 +51,13 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 * @param requestUrl 请求url
 	 * @param resultClsName 解析结果类名
 	 * @param params 请求参数
-	 * @param listener 请求回调方法
+	 * @param handler 请求回调方法
 	 */
 	@SuppressWarnings("rawtypes")
-	public void post(String requestUrl, Class clazz,
-			TGRequestHandler<T> listener)
+	public void post(Context context, String requestUrl, Class clazz,
+			TGRequestHandler<T> handler)
 	{
-		execute(TGHttpRequester.REQUEST_POST, requestUrl, clazz.getName(), listener);
+		execute(context, TGHttpRequester.REQUEST_POST, requestUrl, clazz.getName(), handler);
 	}
 	
 	/**
@@ -77,13 +65,13 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 * @param requestUrl 请求url
 	 * @param resultClsName 解析结果类名
 	 * @param params 请求参数
-	 * @param listener 请求回调方法
+	 * @param handler 请求回调方法
 	 */
 	@SuppressWarnings("rawtypes")
-	public void put(String requestUrl, Class clazz,
-			TGRequestHandler<T> listener)
+	public void put(Context context, String requestUrl, Class clazz,
+			TGRequestHandler<T> handler)
 	{
-		execute(TGHttpRequester.REQUEST_PUT, requestUrl, clazz.getName(), listener);
+		execute(context, TGHttpRequester.REQUEST_PUT, requestUrl, clazz.getName(), handler);
 	}
 	
 	/**
@@ -91,13 +79,13 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 * @param requestUrl 请求url
 	 * @param resultClsName 解析结果类名
 	 * @param params 请求参数
-	 * @param listener 请求回调方法
+	 * @param handler 请求回调方法
 	 */
 	@SuppressWarnings("rawtypes")
-	public void delete(String requestUrl, Class clazz,
-			TGRequestHandler<T> listener)
+	public void delete(Context context, String requestUrl, Class clazz,
+			TGRequestHandler<T> handler)
 	{
-		execute(TGHttpRequester.REQUEST_DELETE, requestUrl, clazz.getName(),  listener);
+		execute(context, TGHttpRequester.REQUEST_DELETE, requestUrl, clazz.getName(),  handler);
 	}
 	
 	/**
@@ -106,15 +94,16 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 * @param requestUrl 请求url
 	 * @param resultClsName 解析结果类名
 	 * @param params 请求参数
-	 * @param listener 请求回调方法
+	 * @param handler 请求回调方法
 	 */
-	protected void execute(int requestType, String requestUrl, String resultClsName, 
-			TGRequestHandler<T> listener)
+	protected void execute(Context context, int requestType, String requestUrl, String resultClsName, 
+			TGRequestHandler<T> handler)
 	{
+		asyncTask.setContext(context);
 		asyncTask.setRequestType(requestType);
 		asyncTask.setRequestUrl(requestUrl);
 		asyncTask.setResultClsName(resultClsName);
-		asyncTask.setRequestHandler(listener);
+		asyncTask.setRequestHandler(handler);
 		
 		asyncTask.execute();
 	}
@@ -233,10 +222,10 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 */
 	private class InternalAsyncTask extends TGHttpAsyncTask<TGHttpResult>
 	{
-		public InternalAsyncTask(Context context, String requestUrl, 
-				int requestType, TGHttpAsyncRequester.TGRequestHandler<T> listener)
+		public InternalAsyncTask(String requestUrl, int requestType, 
+				TGHttpAsyncRequester.TGRequestHandler<T> listener)
 		{
-			super(context, requestUrl,requestType, listener);
+			super(requestUrl,requestType, listener);
 			//设置解析结果类名
 			setParserClsName(TGHttpAsyncRequester.this.getClass().getName());
 		}
