@@ -190,30 +190,30 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 		 */
 		public void onRequestStart()
 		{
+			
 		}
 		
 		/**
 		 * 请求成功时回调
 		 * @param result 请求结果
 		 */
-		public abstract void onRequestSuccess(T result);
+		public abstract void onRequestSuccess(T result, TGHttpResult httpResult);
 		
 		/**
 		 * 请求出现异常时回调
 		 * @param code 错误码
 		 * @param message 异常信息
 		 */
-		public abstract void onRequestError(int code, String message);
+		public abstract void onRequestError(int code, String message, TGHttpResult httpResult);
 		
-		/**
-		 * 请求被取消时的回调方法
-		 */
-		public void onRequestCancel()
+		public void onReturnCachedResult(T result, TGHttpResult httpResult)
 		{
+			
 		}
 		
-		public void onReturnCachedResult(T result)
+		public void onRequestOver()
 		{
+			
 		}
 	}
 

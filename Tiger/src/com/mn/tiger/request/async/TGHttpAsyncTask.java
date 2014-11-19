@@ -102,7 +102,7 @@ class TGHttpAsyncTask<Result>
 			//解析请求结果
 			if(!isCancelled() && null != requestHandler)
 			{
-				requestHandler.onRequestSuccess(httpResult.getObjectResult());
+				requestHandler.onRequestSuccess(httpResult.getObjectResult(), httpResult);
 			}
 		}
 		
@@ -112,7 +112,8 @@ class TGHttpAsyncTask<Result>
 			//解析请求结果
 			if(!isCancelled() && null != requestHandler)
 			{
-				requestHandler.onRequestError(httpResult.getResponseCode(), httpResult.getResult());
+				requestHandler.onRequestError(httpResult.getResponseCode(),
+						httpResult.getResult(), httpResult);
 			}
 		}
 		
@@ -123,7 +124,15 @@ class TGHttpAsyncTask<Result>
 			//解析请求结果
 			if(!isCancelled() && null != requestHandler)
 			{
-				requestHandler.onReturnCachedResult(httpResult.getObjectResult());
+				requestHandler.onReturnCachedResult(httpResult.getObjectResult(), httpResult);
+			}
+		}
+		
+		protected void onRequestOver() 
+		{
+			if(null != requestHandler)
+			{
+				requestHandler.onRequestOver();
 			}
 		}
 	};
@@ -291,7 +300,7 @@ class TGHttpAsyncTask<Result>
 		TGTaskManager.getInstance().cancelTask(taskID, TGTask.TASK_TYPE_HTTP);
 		if(null != requestHandler)
 		{
-			this.requestHandler.onRequestCancel();
+			this.requestHandler.onRequestOver();
 		}
 	}
 	

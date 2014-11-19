@@ -99,19 +99,6 @@ public enum TGErrorMsgEnum
 	}
 
 	/**
-	 * 该方法的作用:获取错误码
-	 * 
-	 * @date 2014年4月17日
-	 * @param error
-	 * @return
-	 */
-	@Deprecated
-	public static int getErrorCode(TGErrorMsgEnum error)
-	{
-		return error.code;
-	}
-
-	/**
 	 * 该方法的作用:根据错误信息返回错误对象
 	 * 
 	 * @date 2014年3月13日

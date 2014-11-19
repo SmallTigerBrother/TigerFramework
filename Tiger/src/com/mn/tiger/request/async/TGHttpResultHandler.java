@@ -36,6 +36,8 @@ public class TGHttpResultHandler extends TGTaskResultHandler
 		{
 			onSuccess(httpResult);
 		}
+		
+		onRequestOver();
 	}
 	
 	/**
@@ -56,6 +58,12 @@ public class TGHttpResultHandler extends TGTaskResultHandler
 	
 	protected void onReturnCachedResult(TGHttpResult httpResult)
 	{
+		
+	}
+	
+	protected void onRequestOver()
+	{
+		
 	}
 	
 	/**
