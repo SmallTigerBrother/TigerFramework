@@ -38,6 +38,11 @@ public class TGTask implements Cloneable
 	public static final int TASK_TYPE_DOWNLOAD = 103;
 	
 	/**
+	 * 任务类型: 其他任务
+	 */
+	public static final int TASK_TYPE_OTHER = 104;
+	
+	/**
 	 * 任务ID
 	 */
 	private int taskID = -1;
