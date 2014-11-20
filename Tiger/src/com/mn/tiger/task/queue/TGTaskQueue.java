@@ -51,14 +51,22 @@ public class TGTaskQueue extends AbsTaskQueue
 	 */
 	private TGThreadPool threadPool;
 	
+	private int maxThreadNum;
+	
 	/**
 	 * 构造函数
 	 * @date 2014年6月25日
 	 */
-	public TGTaskQueue()
+	public TGTaskQueue(int maxThreadNum)
 	{
 		super();
-		threadPool = new TGFixedThreadPool(256);
+		this.maxThreadNum = maxThreadNum;
+		threadPool = initThreadPool();
+	}
+	
+	protected TGThreadPool initThreadPool()
+	{
+		return new TGFixedThreadPool(getMaxThreadNum());
 	}
 	
 	@Override
@@ -91,8 +99,9 @@ public class TGTaskQueue extends AbsTaskQueue
 		
 		do
 		{
-			LogTools.d(LOG_TAG, "[Method:executeNextTask] runningTaskNum: " + runningTaskList.size());
-			if(totalTask > index && runningTaskList.size() <= getMAX_THREAD_NUM())
+			LogTools.d(LOG_TAG, "[Method:executeNextTask] runningTaskNum: " + 
+		        runningTaskList.size());
+			if(totalTask > index && runningTaskList.size() <= getMaxThreadNum())
 			{
 				TGTask runTask = getTaskArray().get(this.get(index));
 				if (runTask != null && runTask.getTaskState() == MPTaskState.WAITING)
@@ -333,6 +342,16 @@ public class TGTaskQueue extends AbsTaskQueue
 		this.taskListener = listener;
 	}
 	
+	public int getMaxThreadNum()
+	{
+		return maxThreadNum;
+	}
+
+	public void setMaxThreadNum(int maxThreadNum)
+	{
+		this.maxThreadNum = maxThreadNum;
+	}
+
 	/**
 	 * 
 	 * 该类作用及功能说明: 默认任务队列监听

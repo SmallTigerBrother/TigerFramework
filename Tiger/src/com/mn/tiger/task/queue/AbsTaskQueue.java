@@ -178,17 +178,6 @@ public abstract class AbsTaskQueue extends LinkedList<Integer>
 	}
 	
 	/**
-	 * 该方法的作用:
-	 * 获取最大并行任务数
-	 * @date 2014年8月22日
-	 * @return
-	 */
-	public int getMAX_THREAD_NUM()
-	{
-		return 10;
-	}
-	
-	/**
 	 * 该方法的作用: 对分发器加锁，暂停所有已派发任务
 	 * 
 	 * @date 2014年3月17日

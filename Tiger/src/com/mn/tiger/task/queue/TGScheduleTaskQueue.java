@@ -4,6 +4,7 @@ import com.mn.tiger.task.ITaskListener;
 import com.mn.tiger.task.TGScheduleTaskList;
 import com.mn.tiger.task.dispatch.TGDispatcher;
 import com.mn.tiger.task.thread.TGScheduleThreadPool;
+import com.mn.tiger.task.thread.TGThreadPool;
 
 public class TGScheduleTaskQueue extends TGTaskQueue
 {
@@ -15,8 +16,13 @@ public class TGScheduleTaskQueue extends TGTaskQueue
 
 	public TGScheduleTaskQueue()
 	{
-		super();
-		threadPool = new TGScheduleThreadPool();
+		super(0);
+	}
+	
+	@Override
+	protected TGThreadPool initThreadPool()
+	{
+		return new TGScheduleThreadPool();
 	}
 	
 	public void setTaskList(TGScheduleTaskList taskList)
