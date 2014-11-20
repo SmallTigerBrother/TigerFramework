@@ -269,10 +269,12 @@ public abstract class TGHttpMethod
 	{
 		if(null != httpConnection)
 		{
-			for(Entry<String, String> entry : properties.entrySet()){
+			for (Entry<String, String> entry : properties.entrySet())
+			{
 				String key = entry.getKey();
 				String value = entry.getValue();
-				if(null != key && null != value){
+				if (null != key && null != value)
+				{
 					httpConnection.setRequestProperty(key, value);
 				}
 			}
@@ -450,21 +452,37 @@ public abstract class TGHttpMethod
 		// 不进行主机名确认
 	}
 
+	/**
+	 * 获取设置的连接超时时间
+	 * @return
+	 */
 	public int getConnectTimeout()
 	{
 		return connectTimeout;
 	}
 
+	/**
+	 * 设置链接超时时间
+	 * @param connectTimeout
+	 */
 	public void setConnectTimeout(int connectTimeout)
 	{
 		this.connectTimeout = connectTimeout;
 	}
 
+	/**
+	 * 获取设置的读取超时时间
+	 * @return
+	 */
 	public int getReadTimeout()
 	{
 		return readTimeout;
 	}
 
+	/**
+	 * 设置读取超时时间
+	 * @param readTimeout
+	 */
 	public void setReadTimeout(int readTimeout)
 	{
 		this.readTimeout = readTimeout;

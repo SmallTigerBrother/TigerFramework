@@ -130,7 +130,7 @@ public class DefaultHttpClient extends TGHttpClient
 	 * @date 2013-12-1
 	 * @return
 	 */
-	private TGHttpResult initHttpResult()
+	protected TGHttpResult initHttpResult()
 	{
 		TGHttpResult httpResult = new TGHttpResult();
 		httpResult.setResponseCode(Integer.valueOf(4936));

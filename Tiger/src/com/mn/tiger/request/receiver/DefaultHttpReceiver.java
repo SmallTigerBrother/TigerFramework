@@ -49,10 +49,7 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 		if (httpResult.getResponseCode() == HttpURLConnection.HTTP_OK || 
 				httpResult.getResponseCode() == HttpURLConnection.HTTP_NO_CONTENT)
 		{
-			if (!readInputStream(httpMethod, httpResult))
-			{
-				return httpResult;
-			}
+			return readInputStream(httpMethod, httpResult);
 		}
 
 		// 处理异常
@@ -66,7 +63,7 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 	 * @param httpResult
 	 * @return
 	 */
-	protected boolean readInputStream(TGHttpMethod httpMethod, TGHttpResult httpResult)
+	protected TGHttpResult readInputStream(TGHttpMethod httpMethod, TGHttpResult httpResult)
 	{
 		// 读取请求结果
 		StringBuffer resultBuffer = new StringBuffer();
@@ -91,7 +88,7 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 			httpResult.setResponseCode(TGErrorMsgEnum.IOEXCEPTION.code);
 			httpResult.setResult(TGErrorMsgEnum.getErrorMsg(context, TGErrorMsgEnum.IOEXCEPTION));
 			LogTools.e(LOG_TAG, "", e);
-			return false;
+			return httpResult;
 		}
 		finally
 		{
@@ -109,32 +106,10 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 				httpResult.setResult(TGErrorMsgEnum
 						.getErrorMsg(context, TGErrorMsgEnum.IOEXCEPTION));
 				LogTools.e(LOG_TAG, "", e);
-				return false;
+				return httpResult;
 			}
 		}
 
-		String result = resultBuffer.toString();
-
-		// 解密结果
-		httpResult = decodeResult(httpResult, httpMethod, result);
-
-		LogTools.d("HttpResult", httpResult.getResult().toString());
-
-		return true;
-	}
-
-	/**
-	 * 该方法的作用: 解密请求结果
-	 * 
-	 * @date 2013-12-1
-	 * @param httpResult
-	 * @param httpMethod
-	 * @param result
-	 * @return
-	 */
-	protected TGHttpResult decodeResult(TGHttpResult httpResult, TGHttpMethod httpMethod,
-			String result)
-	{
 		return httpResult;
 	}
 

@@ -127,11 +127,11 @@ public class TGDeleteMethod extends TGHttpMethod
 	{
 		if (parameters instanceof Map<?, ?>)
 		{
-			return getRequestGetUrl(baseUrl, (Map<String, String>) parameters);
+			return getRequestDeleteUrl(baseUrl, (Map<String, String>) parameters);
 		}
 		else if (parameters instanceof String)
 		{
-			return getRequestGetUrl(baseUrl, (String) parameters);
+			return getRequestDeleteUrl(baseUrl, (String) parameters);
 		}
 
 		return baseUrl;
@@ -146,7 +146,7 @@ public class TGDeleteMethod extends TGHttpMethod
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	protected String getRequestGetUrl(String baseUrl, Map<String, String> parameters)
+	protected String getRequestDeleteUrl(String baseUrl, Map<String, String> parameters)
 			throws UnsupportedEncodingException
 	{
 		StringBuffer urlBuffer = new StringBuffer(baseUrl);
@@ -184,7 +184,7 @@ public class TGDeleteMethod extends TGHttpMethod
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	protected String getRequestGetUrl(String baseUrl, String parameters)
+	protected String getRequestDeleteUrl(String baseUrl, String parameters)
 			throws UnsupportedEncodingException
 	{
 		StringBuffer urlBuffer = new StringBuffer(baseUrl);

@@ -14,6 +14,7 @@ import java.util.Map.Entry;
 
 import android.content.Context;
 
+import com.mn.tiger.utility.Commons;
 import com.mn.tiger.utility.LogTools;
 import com.mn.tiger.utility.StringUtils;
 
@@ -65,7 +66,6 @@ public class TGPostMethod extends TGHttpMethod
 		if(null != httpConnection)
 		{
 			httpConnection.connect();
-			
 			//只捕获EOF异常处理
 			try
 			{
@@ -92,12 +92,9 @@ public class TGPostMethod extends TGHttpMethod
 		if (null != getRequestParams() && null != getHttpURLConnection()) 
 		{
 			byte[] parameters = convertParams2bytes(getRequestParams());
-			
 			getHttpURLConnection().setRequestProperty("Content-Length", "" + 
 			    String.valueOf(parameters.length));
-
 			DataOutputStream out = null;
-			
 			try 
 			{
 				out = new DataOutputStream(getHttpURLConnection().getOutputStream());
@@ -110,17 +107,7 @@ public class TGPostMethod extends TGHttpMethod
 			}
 			finally
 			{
-				if(null != out)
-				{
-					try 
-					{
-						out.close();
-					} 
-					catch (IOException e)
-					{
-						LogTools.e(LOG_TAG,"", e);
-					}
-				}
+				Commons.closeOutputStream(out);
 			}
 		}
 	}
@@ -186,9 +173,7 @@ public class TGPostMethod extends TGHttpMethod
 			try
 			{
 				params.append(URLEncoder.encode(element.getKey(), "UTF-8"));
-				
 				params.append("=");
-				
 				params.append(URLEncoder.encode(element.getValue(), "UTF-8"));
 				// 请求参数间隔符
 				params.append("&");

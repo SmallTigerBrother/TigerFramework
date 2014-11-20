@@ -57,7 +57,6 @@ public class TGGetMethod extends TGHttpMethod
 		if (null != httpConnection)
 		{
 			httpConnection.connect();
-
 			// 只捕获EOF异常处理
 			try
 			{
