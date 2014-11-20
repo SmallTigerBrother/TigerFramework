@@ -36,6 +36,8 @@ import com.mn.tiger.widget.pulltorefresh.library.internal.FlipLoadingLayout;
 import com.mn.tiger.widget.pulltorefresh.library.internal.LoadingLayout;
 import com.mn.tiger.widget.pulltorefresh.library.internal.RotateLoadingLayout;
 import com.mn.tiger.widget.pulltorefresh.library.internal.ViewCompat;
+import com.mn.tiger.widget.pulltorefresh.library.internal.XListFooterLayout;
+import com.mn.tiger.widget.pulltorefresh.library.internal.XListHeaderLayout;
 
 public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 {
@@ -1326,6 +1328,8 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 		 * drawable, which is automatically rotated and used as a Progress Bar.
 		 */
 		ROTATE,
+		
+		XLIST,
 
 		/**
 		 * This is the old default, and what is commonly used on iOS. Uses an
@@ -1335,7 +1339,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 
 		static AnimationStyle getDefault()
 		{
-			return ROTATE;
+			return XLIST;
 		}
 
 		/**
@@ -1353,8 +1357,12 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 			{
 				case 0x0:
 				default:
-					return ROTATE;
+					return XLIST;
+					
 				case 0x1:
+					return ROTATE;
+					
+				case 0x2:
 					return FLIP;
 			}
 		}
@@ -1363,8 +1371,17 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 		{
 			switch (this)
 			{
-				case ROTATE:
+				case XLIST:
 				default:
+					switch (mode)
+					{
+						case PULL_FROM_START:
+							return new XListHeaderLayout(context, mode);
+						case PULL_FROM_END:
+							default:
+							return new XListFooterLayout(context, mode);
+					}
+				case ROTATE:
 					return new RotateLoadingLayout(context, mode, scrollDirection);
 				case FLIP:
 					return new FlipLoadingLayout(context, mode, scrollDirection);
