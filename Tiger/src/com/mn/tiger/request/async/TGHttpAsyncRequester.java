@@ -24,7 +24,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	/**
 	 * 执行异步任务的类
 	 */
-	private TGHttpAsyncTask<TGHttpResult> asyncTask;
+	private TGHttpAsyncTask asyncTask;
 	
 	public TGHttpAsyncRequester()
 	{
@@ -39,7 +39,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 */
 	@SuppressWarnings("rawtypes")
 	public void get(Context context, String requestUrl, Class clazz, 
-			TGRequestHandler<T> handler)
+			IRequestHandler<T> handler)
 	{
 		execute(context, TGHttpRequester.REQUEST_GET, requestUrl, clazz.getName(), handler);
 	}
@@ -53,7 +53,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 */
 	@SuppressWarnings("rawtypes")
 	public void post(Context context, String requestUrl, Class clazz,
-			TGRequestHandler<T> handler)
+			IRequestHandler<T> handler)
 	{
 		execute(context, TGHttpRequester.REQUEST_POST, requestUrl, clazz.getName(), handler);
 	}
@@ -67,7 +67,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 */
 	@SuppressWarnings("rawtypes")
 	public void put(Context context, String requestUrl, Class clazz,
-			TGRequestHandler<T> handler)
+			IRequestHandler<T> handler)
 	{
 		execute(context, TGHttpRequester.REQUEST_PUT, requestUrl, clazz.getName(), handler);
 	}
@@ -81,7 +81,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 */
 	@SuppressWarnings("rawtypes")
 	public void delete(Context context, String requestUrl, Class clazz,
-			TGRequestHandler<T> handler)
+			IRequestHandler<T> handler)
 	{
 		execute(context, TGHttpRequester.REQUEST_DELETE, requestUrl, clazz.getName(),  handler);
 	}
@@ -95,7 +95,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 * @param handler 请求回调方法
 	 */
 	protected void execute(Context context, int requestType, String requestUrl, String resultClsName, 
-			TGRequestHandler<T> handler)
+			IRequestHandler<T> handler)
 	{
 		getAsyncTask().setContext(context);
 		getAsyncTask().setRequestType(requestType);
@@ -181,7 +181,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 * 获取异步任务
 	 * @return
 	 */
-	protected final TGHttpAsyncTask<TGHttpResult> getAsyncTask()
+	protected final TGHttpAsyncTask getAsyncTask()
 	{
 		if(null == asyncTask)
 		{
@@ -195,9 +195,9 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 * 初始化异步任务（可Override）
 	 * @return
 	 */
-	protected TGHttpAsyncTask<TGHttpResult> initAsyncTask()
+	protected TGHttpAsyncTask initAsyncTask()
 	{
-		return new TGHttpAsyncTask<TGHttpResult>("", 
+		return new TGHttpAsyncTask("", 
 				TGHttpRequester.REQUEST_UNKNOWN, null);
 	}
 	
@@ -206,37 +206,28 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 * 
 	 * @date 2014-6-10
 	 */
-	public static abstract class TGRequestHandler<T>
+	public static interface IRequestHandler<T>
 	{
 		/**
 		 * 启动任务时回调
 		 */
-		public void onRequestStart()
-		{
-			
-		}
+		public void onRequestStart();
 		
 		/**
 		 * 请求成功时回调
 		 * @param result 请求结果
 		 */
-		public abstract void onRequestSuccess(T result, TGHttpResult httpResult);
+		void onRequestSuccess(T result, TGHttpResult httpResult);
 		
 		/**
 		 * 请求出现异常时回调
 		 * @param code 错误码
 		 * @param message 异常信息
 		 */
-		public abstract void onRequestError(int code, String message, TGHttpResult httpResult);
+		void onRequestError(int code, String message, TGHttpResult httpResult);
 		
-		public void onReturnCachedResult(T result, TGHttpResult httpResult)
-		{
-			
-		}
+		void onReturnCachedResult(T result, TGHttpResult httpResult);
 		
-		public void onRequestOver()
-		{
-			
-		}
+		void onRequestOver();
 	}
 }

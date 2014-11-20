@@ -9,11 +9,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.mn.tiger.request.TGHttpRequester;
+import com.mn.tiger.request.async.TGHttpAsyncRequester.IRequestHandler;
 import com.mn.tiger.request.async.task.TGDeleteTask;
 import com.mn.tiger.request.async.task.TGGetTask;
 import com.mn.tiger.request.async.task.TGHttpTask;
 import com.mn.tiger.request.async.task.TGPostTask;
 import com.mn.tiger.request.async.task.TGPutTask;
+import com.mn.tiger.request.error.TGHttpErrorHandler;
 import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.task.TGTaskManager;
@@ -27,7 +29,7 @@ import com.mn.tiger.utility.LogTools;
  * @see JDK1.6,android-8
  * @date 2014年2月10日
  */
-public class TGHttpAsyncTask<Result>
+public class TGHttpAsyncTask
 {
 	/**
 	 * 日志标签
@@ -87,7 +89,7 @@ public class TGHttpAsyncTask<Result>
 	 * 请求结果回调类
 	 */
 	@SuppressWarnings("rawtypes")
-	private TGHttpAsyncRequester.TGRequestHandler requestHandler;
+	private IRequestHandler requestHandler;
 	
 	/**
 	 * @param context
@@ -97,7 +99,7 @@ public class TGHttpAsyncTask<Result>
 	 */
 	@SuppressWarnings("rawtypes")
 	public TGHttpAsyncTask(String requestUrl, int requestType, 
-			TGHttpAsyncRequester.TGRequestHandler handler) 
+			IRequestHandler handler) 
 	{
 		this.requestUrl = requestUrl;
 		this.requestType = requestType;
@@ -191,7 +193,7 @@ public class TGHttpAsyncTask<Result>
 		return taskParams;
 	}
 	
-	protected TGHttpResultHandler initHttpResultHandler()
+	protected final TGHttpResultHandler initHttpResultHandler()
 	{
 		TGHttpResultHandler resultHandler = new TGHttpResultHandler()
 		{
@@ -207,6 +209,7 @@ public class TGHttpAsyncTask<Result>
 				}
 			}
 			
+			@Override
 			protected void onError(TGHttpResult httpResult) 
 			{
 				LogTools.i(LOG_TAG, "[Method:onError]");
@@ -218,6 +221,7 @@ public class TGHttpAsyncTask<Result>
 				}
 			}
 			
+			@Override
 			@SuppressWarnings("unchecked")
 			protected void onReturnCachedResult(TGHttpResult httpResult)
 			{
@@ -229,6 +233,7 @@ public class TGHttpAsyncTask<Result>
 				}
 			}
 			
+			@Override
 			protected void onRequestOver() 
 			{
 				if(null != requestHandler)
@@ -236,9 +241,25 @@ public class TGHttpAsyncTask<Result>
 					requestHandler.onRequestOver();
 				}
 			}
+			
+			@Override
+			protected boolean hasError(TGHttpResult result)
+			{
+				return TGHttpAsyncTask.this.hasError(result);
+			}
 		};
 		
 		return resultHandler;
+	}
+	
+	/**
+	 * 判断网络请求结果是否有异常
+	 * @param httpResult
+	 * @return
+	 */
+	protected boolean hasError(TGHttpResult httpResult)
+	{
+		return TGHttpErrorHandler.hasHttpError(httpResult);
 	}
 	
 	/**
@@ -428,7 +449,7 @@ public class TGHttpAsyncTask<Result>
 	 * @param handler
 	 */
 	@SuppressWarnings("rawtypes")
-	public void setRequestHandler(TGHttpAsyncRequester.TGRequestHandler handler)
+	public void setRequestHandler(IRequestHandler handler)
 	{
 		this.requestHandler = handler;
 	}
