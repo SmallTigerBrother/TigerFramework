@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONObject;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -107,28 +105,6 @@ public class TGHttpResult extends HashMap<String, Object>  implements Parcelable
 	public String getResult()
 	{
 		return (String) super.get("result");
-	}
-
-	/**
-	 * 该方法的作用: 设置JSON类型的结果
-	 * 
-	 * @date 2013-12-5
-	 * @param jsonObject
-	 */
-	public void setJSONResult(JSONObject jsonObject)
-	{
-		super.put("jsonResult", jsonObject);
-	}
-
-	/**
-	 * 该方法的作用: 获取JSON类型的结果
-	 * 
-	 * @date 2013-12-5
-	 * @return
-	 */
-	public JSONObject getJSONResult()
-	{
-		return (JSONObject) super.get("jsonResult");
 	}
 
 	/**

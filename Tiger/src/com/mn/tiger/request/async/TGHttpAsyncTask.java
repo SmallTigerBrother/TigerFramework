@@ -27,7 +27,7 @@ import com.mn.tiger.utility.LogTools;
  * @see JDK1.6,android-8
  * @date 2014年2月10日
  */
-class TGHttpAsyncTask<Result>
+public class TGHttpAsyncTask<Result>
 {
 	/**
 	 * 日志标签
@@ -88,54 +88,6 @@ class TGHttpAsyncTask<Result>
 	 */
 	@SuppressWarnings("rawtypes")
 	private TGHttpAsyncRequester.TGRequestHandler requestHandler;
-	
-	/**
-	 * http结果接收类
-	 */
-	private TGHttpResultHandler resultHandler = new TGHttpResultHandler()
-	{
-		@SuppressWarnings("unchecked")
-		@Override
-		protected void onSuccess(TGHttpResult httpResult)
-		{
-			LogTools.i(LOG_TAG, "[Method:onSuccess]");
-			//解析请求结果
-			if(!isCancelled() && null != requestHandler)
-			{
-				requestHandler.onRequestSuccess(httpResult.getObjectResult(), httpResult);
-			}
-		}
-		
-		protected void onError(TGHttpResult httpResult) 
-		{
-			LogTools.i(LOG_TAG, "[Method:onError]");
-			//解析请求结果
-			if(!isCancelled() && null != requestHandler)
-			{
-				requestHandler.onRequestError(httpResult.getResponseCode(),
-						httpResult.getResult(), httpResult);
-			}
-		}
-		
-		@SuppressWarnings("unchecked")
-		protected void onReturnCachedResult(TGHttpResult httpResult)
-		{
-			LogTools.i(LOG_TAG, "[Method:onReturnCachedResult]");
-			//解析请求结果
-			if(!isCancelled() && null != requestHandler)
-			{
-				requestHandler.onReturnCachedResult(httpResult.getObjectResult(), httpResult);
-			}
-		}
-		
-		protected void onRequestOver() 
-		{
-			if(null != requestHandler)
-			{
-				requestHandler.onRequestOver();
-			}
-		}
-	};
 	
 	/**
 	 * @param context
@@ -233,10 +185,60 @@ class TGHttpAsyncTask<Result>
 		data.putString(TGHttpTask.PARAM_RESLUTCLSNAME, resultClsName);
 		
 		TGTaskParams taskParams = TGTaskManager.createTaskParams(data, 
-				getTaskClsName(requestType), resultHandler);
+				getTaskClsName(requestType), initHttpResultHandler());
 		taskParams.setTaskType(TGTask.TASK_TYPE_HTTP);
 		
 		return taskParams;
+	}
+	
+	protected TGHttpResultHandler initHttpResultHandler()
+	{
+		TGHttpResultHandler resultHandler = new TGHttpResultHandler()
+		{
+			@SuppressWarnings("unchecked")
+			@Override
+			protected void onSuccess(TGHttpResult httpResult)
+			{
+				LogTools.i(LOG_TAG, "[Method:onSuccess]");
+				//解析请求结果
+				if(!isCancelled() && null != requestHandler)
+				{
+					requestHandler.onRequestSuccess(httpResult.getObjectResult(), httpResult);
+				}
+			}
+			
+			protected void onError(TGHttpResult httpResult) 
+			{
+				LogTools.i(LOG_TAG, "[Method:onError]");
+				//解析请求结果
+				if(!isCancelled() && null != requestHandler)
+				{
+					requestHandler.onRequestError(httpResult.getResponseCode(),
+							httpResult.getResult(), httpResult);
+				}
+			}
+			
+			@SuppressWarnings("unchecked")
+			protected void onReturnCachedResult(TGHttpResult httpResult)
+			{
+				LogTools.i(LOG_TAG, "[Method:onReturnCachedResult]");
+				//解析请求结果
+				if(!isCancelled() && null != requestHandler)
+				{
+					requestHandler.onReturnCachedResult(httpResult.getObjectResult(), httpResult);
+				}
+			}
+			
+			protected void onRequestOver() 
+			{
+				if(null != requestHandler)
+				{
+					requestHandler.onRequestOver();
+				}
+			}
+		};
+		
+		return resultHandler;
 	}
 	
 	/**
@@ -332,17 +334,6 @@ class TGHttpAsyncTask<Result>
 	public boolean isCancelled()
 	{
 		return isCancel;
-	}
-	
-	/**
-	 * 该方法的作用:
-	 * 设置结果回调类
-	 * @date 2014年8月22日
-	 * @param resultHandler
-	 */
-	public void setResultHandler(TGHttpResultHandler resultHandler)
-	{
-		this.resultHandler = resultHandler;
 	}
 	
 	public void setContext(Context context)

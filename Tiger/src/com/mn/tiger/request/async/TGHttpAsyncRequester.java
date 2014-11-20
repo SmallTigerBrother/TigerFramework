@@ -28,8 +28,6 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	
 	public TGHttpAsyncRequester()
 	{
-		asyncTask = new InternalAsyncTask("", 
-				TGHttpRequester.REQUEST_UNKNOWN, null);
 	}
 	
 	/**
@@ -99,13 +97,13 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	protected void execute(Context context, int requestType, String requestUrl, String resultClsName, 
 			TGRequestHandler<T> handler)
 	{
-		asyncTask.setContext(context);
-		asyncTask.setRequestType(requestType);
-		asyncTask.setRequestUrl(requestUrl);
-		asyncTask.setResultClsName(resultClsName);
-		asyncTask.setRequestHandler(handler);
+		getAsyncTask().setContext(context);
+		getAsyncTask().setRequestType(requestType);
+		getAsyncTask().setRequestUrl(requestUrl);
+		getAsyncTask().setResultClsName(resultClsName);
+		getAsyncTask().setRequestHandler(handler);
 		
-		asyncTask.execute();
+		getAsyncTask().execute();
 	}
 	
 	/**
@@ -114,7 +112,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	@Override
 	public Object parseRequestResult(TGHttpResult httpResult, String resultClsName)
 	{
-		String jsonStr = (httpResult.getJSONResult() == null) ? null : httpResult.getJSONResult().toString();
+		String jsonStr = httpResult.getResult();
 
 		if (!TextUtils.isEmpty(jsonStr) && !"{}".equals(jsonStr))
 		{
@@ -136,7 +134,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 */
 	public void cancel()
 	{
-		asyncTask.cancel();
+		getAsyncTask().cancel();
 	}
 	
 	/**
@@ -146,7 +144,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 */
 	public void setProperties(Map<String, String> properties)
 	{
-		this.asyncTask.setProperties(properties);
+		this.getAsyncTask().setProperties(properties);
 	}
 	
 	/**
@@ -156,7 +154,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 */
 	public void addProperty(String key, String value)
 	{
-		this.asyncTask.addProperty(key, value);
+		this.getAsyncTask().addProperty(key, value);
 	}
 	
 	/**
@@ -166,7 +164,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 */
 	public void addRequestParam(String key, String value)
 	{
-		this.asyncTask.addRequestParam(key, value);
+		this.getAsyncTask().addRequestParam(key, value);
 	}
 	
 	/**
@@ -175,7 +173,18 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	 */
 	public void setRequestParams(Map<String, String> params)
 	{
-		this.asyncTask.setRequestParams(params);
+		this.getAsyncTask().setRequestParams(params);
+	}
+	
+	protected TGHttpAsyncTask<TGHttpResult> getAsyncTask()
+	{
+		if(null == asyncTask)
+		{
+			asyncTask = new InternalAsyncTask("", 
+					TGHttpRequester.REQUEST_UNKNOWN, null);
+		}
+		
+		return asyncTask;
 	}
 	
 	/**

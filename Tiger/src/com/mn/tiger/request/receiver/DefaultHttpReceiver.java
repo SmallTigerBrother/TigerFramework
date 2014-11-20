@@ -6,9 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 
 import com.mn.tiger.request.error.TGErrorMsgEnum;
@@ -49,7 +46,8 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 			return httpResult;
 		}
 
-		if (httpResult.getResponseCode() == HttpURLConnection.HTTP_OK || httpResult.getResponseCode() == HttpURLConnection.HTTP_NO_CONTENT)
+		if (httpResult.getResponseCode() == HttpURLConnection.HTTP_OK || 
+				httpResult.getResponseCode() == HttpURLConnection.HTTP_NO_CONTENT)
 		{
 			if (!readInputStream(httpMethod, httpResult))
 			{
@@ -58,7 +56,7 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 		}
 
 		// 处理异常
-		return dealHttpResult(httpMethod, httpResult);
+		return httpResult;
 	}
 	
 	/**
@@ -122,12 +120,6 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 
 		LogTools.d("HttpResult", httpResult.getResult().toString());
 
-		// 将数据解析为JSON格式
-		if(result != null && !result.isEmpty()) 
-		{
-			httpResult = convertResultToJson(httpResult);
-		}
-
 		return true;
 	}
 
@@ -144,62 +136,6 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 			String result)
 	{
 		return httpResult;
-	}
-
-	/**
-	 * 该方法的作用: 将String结果解析为JSON数据
-	 * 
-	 * @date 2014年3月13日
-	 * @param httpResult
-	 * @return
-	 */
-	protected TGHttpResult convertResultToJson(TGHttpResult httpResult)
-	{
-		String result = (String) httpResult.getResult();
-		try
-		{
-			JSONObject jsonObj = new JSONObject(result);
-			httpResult.setJSONResult(jsonObj);
-		}
-		catch (JSONException e)
-		{
-			LogTools.e(LOG_TAG, "result type is not json.");
-		}
-
-		return httpResult;
-	}
-
-	/**
-	 * 该方法的作用: 处理网络异常
-	 * 
-	 * @date 2013-12-1
-	 * @param httpResult
-	 * @return 出现异常时，返回值为null，无异常正常返回
-	 */
-	protected TGHttpResult dealHttpResult(TGHttpMethod httpMethod, TGHttpResult httpResult)
-	{
-		LogTools.p(LOG_TAG, "[Method:dealHttpResult] --> " + httpMethod.getUrl());
-
-		if (catchHttpError(httpResult))
-		{
-			return null;
-		}
-
-		return httpResult;
-	}
-
-	/**
-	 * 该方法的作用: 捕获Http错误
-	 * 
-	 * @date 2014年4月18日
-	 * @param httpResult
-	 * @return 出现异常时返回true，异常交由httpErrorHandler处理，无异常返回false，
-	 */
-	protected boolean catchHttpError(TGHttpResult httpResult)
-	{
-		LogTools.d(LOG_TAG, "[Method:catchHttpError]");
-
-		return false;
 	}
 
 	public Context getContext()
