@@ -100,12 +100,12 @@ public class TGBannerViewPager extends ViewPager
 		super.setOnPageChangeListener(new OnPageChangeListener()
 		{
 			@Override
-			public void onPageSelected(int arg0)
+			public void onPageSelected(int page)
 			{
-				currentPageNum = arg0;
+				currentPageNum = page;
 				if(null != internalPageChangeListener)
 				{
-					internalPageChangeListener.onPageSelected(arg0);
+					internalPageChangeListener.onPageSelected(page);
 				}
 			}
 			
