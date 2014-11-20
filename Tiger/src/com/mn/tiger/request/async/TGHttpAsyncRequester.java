@@ -24,7 +24,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 	/**
 	 * 执行异步任务的类
 	 */
-	private InternalAsyncTask asyncTask;
+	private TGHttpAsyncTask<TGHttpResult> asyncTask;
 	
 	public TGHttpAsyncRequester()
 	{
@@ -102,6 +102,7 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 		getAsyncTask().setRequestUrl(requestUrl);
 		getAsyncTask().setResultClsName(resultClsName);
 		getAsyncTask().setRequestHandler(handler);
+		getAsyncTask().setParserClsName(TGHttpAsyncRequester.this.getClass().getName());
 		
 		getAsyncTask().execute();
 	}
@@ -176,15 +177,28 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 		this.getAsyncTask().setRequestParams(params);
 	}
 	
-	protected TGHttpAsyncTask<TGHttpResult> getAsyncTask()
+	/**
+	 * 获取异步任务
+	 * @return
+	 */
+	protected final TGHttpAsyncTask<TGHttpResult> getAsyncTask()
 	{
 		if(null == asyncTask)
 		{
-			asyncTask = new InternalAsyncTask("", 
-					TGHttpRequester.REQUEST_UNKNOWN, null);
+			asyncTask = initAsyncTask();
 		}
 		
 		return asyncTask;
+	}
+	
+	/**
+	 * 初始化异步任务（可Override）
+	 * @return
+	 */
+	protected TGHttpAsyncTask<TGHttpResult> initAsyncTask()
+	{
+		return new TGHttpAsyncTask<TGHttpResult>("", 
+				TGHttpRequester.REQUEST_UNKNOWN, null);
 	}
 	
 	/**
@@ -223,20 +237,6 @@ public class TGHttpAsyncRequester<T> implements IRequestParser
 		public void onRequestOver()
 		{
 			
-		}
-	}
-
-	/**
-	 * 执行异步任务的内部类
-	 */
-	private class InternalAsyncTask extends TGHttpAsyncTask<TGHttpResult>
-	{
-		public InternalAsyncTask(String requestUrl, int requestType, 
-				TGHttpAsyncRequester.TGRequestHandler<T> listener)
-		{
-			super(requestUrl,requestType, listener);
-			//设置解析结果类名
-			setParserClsName(TGHttpAsyncRequester.this.getClass().getName());
 		}
 	}
 }
