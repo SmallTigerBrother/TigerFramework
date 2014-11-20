@@ -121,9 +121,12 @@ public class TGHttpAsyncTask
 			return;
 		}
 		
-		onPreExecute();
-		
-		doInBackground(params);
+		if(null != context)
+		{
+			onPreExecute();
+			
+			doInBackground(params);
+		}
 	}
 	
 	/**
@@ -195,7 +198,7 @@ public class TGHttpAsyncTask
 	
 	protected final TGHttpResultHandler initHttpResultHandler()
 	{
-		TGHttpResultHandler resultHandler = new TGHttpResultHandler()
+		TGHttpResultHandler resultHandler = new TGHttpResultHandler(context)
 		{
 			@SuppressWarnings("unchecked")
 			@Override

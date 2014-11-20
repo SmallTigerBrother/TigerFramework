@@ -1,5 +1,8 @@
 package com.mn.tiger.request.async;
 
+import android.app.Activity;
+import android.content.Context;
+
 import com.mn.tiger.request.error.TGHttpErrorHandler;
 import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.task.result.TGTaskResult;
@@ -12,21 +15,38 @@ import com.mn.tiger.task.result.TGTaskResultHandler;
  */
 public abstract class TGHttpResultHandler extends TGTaskResultHandler
 {
+	private Context context;
+	
+	public TGHttpResultHandler(Context context)
+	{
+		this.context = context;
+	}
+	
 	@Override
 	public void handleTaskResult(TGTaskResult result)
 	{
-		TGHttpResult httpResult = (TGHttpResult)result.getResult();
+		if(null != context)
+		{
+			if(context instanceof Activity && ((Activity)context).isDestroyed() || 
+					((Activity)context).isFinishing())
+			{
+				return;
+			}
+			
+			TGHttpResult httpResult = (TGHttpResult)result.getResult();
 
-		if(hasError(httpResult))
-		{
-			onError(httpResult);
-		}
-		else
-		{
-			onSuccess(httpResult);
+			if(hasError(httpResult))
+			{
+				onError(httpResult);
+			}
+			else
+			{
+				onSuccess(httpResult);
+			}
+			
+			onRequestOver();
 		}
 		
-		onRequestOver();
 	}
 	
 	/**
