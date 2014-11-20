@@ -3,6 +3,8 @@ package com.mn.tiger.app;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.otto.Bus;
 
 import android.app.Activity;
@@ -27,20 +29,50 @@ public class TGApplication extends Application
 	/** Application实例 */
 	private static TGApplication instance;
 	
+	/**
+	 * 事件总线
+	 */
 	private static Bus bus;
+	
+	/**
+	 * 图像加载器
+	 */
+	private ImageLoader imageLoader;
 
 	@Override
 	public void onCreate()
 	{
 		super.onCreate();
 		instance = this;
-		bus = new Bus();
 	}
 
 	/** 得到 Application实例 */
 	public static TGApplication getInstance()
 	{
 		return instance;
+	}
+	
+	/**
+	 * 获取ImageLoader
+	 * @return
+	 */
+	public ImageLoader getImageLoader()
+	{
+		if(null == imageLoader)
+		{
+			imageLoader = initImageLoader();
+		}
+		return imageLoader;
+	}
+	
+	/**
+	 * 初始化ImageLoader
+	 */
+	protected ImageLoader initImageLoader()
+	{
+		ImageLoader imageLoader = ImageLoader.getInstance();
+		imageLoader.init(ImageLoaderConfiguration.createDefault(this));
+		return imageLoader;
 	}
 
 	/**
@@ -96,6 +128,10 @@ public class TGApplication extends Application
 
 	public static Bus getBus()
 	{
+		if(null == bus)
+		{
+			bus = new Bus();
+		}
 		return bus;
 	}
 
