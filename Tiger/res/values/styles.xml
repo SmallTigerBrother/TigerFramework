@@ -22,5 +22,12 @@
         <item name="android:backgroundDimEnabled">false</item>
         <!--  -->
     </style>
+    
+    <style name="HeaderLoadingBar">
+        <item name="android:indeterminateOnly">true</item>
+        <item name="android:indeterminateDrawable">@drawable/loading_bar</item>
+        <item name="android:indeterminateBehavior">repeat</item>
+        <item name="android:indeterminateDuration">3500</item>
+    </style>
 
 </resources>
