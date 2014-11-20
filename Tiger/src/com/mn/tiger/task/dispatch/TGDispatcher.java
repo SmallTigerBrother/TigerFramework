@@ -4,11 +4,8 @@ import android.util.SparseArray;
 
 import com.mn.tiger.task.TGScheduleTaskList;
 import com.mn.tiger.task.TGTask;
-import com.mn.tiger.task.queue.TGDownloadTaskQueue;
-import com.mn.tiger.task.queue.TGHttpTaskQueue;
 import com.mn.tiger.task.queue.TGScheduleTaskQueue;
 import com.mn.tiger.task.queue.TGTaskQueue;
-import com.mn.tiger.task.queue.TGUploadTaskQueue;
 import com.mn.tiger.utility.LogTools;
 
 /**
@@ -120,17 +117,20 @@ public class TGDispatcher
 			switch (taskType)
 			{
 				case TGTask.TASK_TYPE_HTTP:
-					taskQueue = new TGHttpTaskQueue();
+					taskQueue = new TGTaskQueue(256);
 					break;
 					
 				case TGTask.TASK_TYPE_UPLOAD:
-					taskQueue = new TGUploadTaskQueue();
+					taskQueue = new TGTaskQueue(3);
 					break;
 					
 				case TGTask.TASK_TYPE_DOWNLOAD:
-					taskQueue = new TGDownloadTaskQueue();
+					taskQueue = new TGTaskQueue(5);
 					break;
 					
+				case TGTask.TASK_TYPE_OTHER:
+					taskQueue = new TGTaskQueue(256);
+					break;
 				default:
 					throw new RuntimeException("The taskType is error taskType = " + taskType);
 			}
