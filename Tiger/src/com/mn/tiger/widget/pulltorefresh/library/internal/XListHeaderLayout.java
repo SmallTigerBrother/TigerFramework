@@ -35,7 +35,7 @@ public class XListHeaderLayout extends LoadingLayout
 	@Override
 	protected int getDefaultDrawableResId()
 	{
-		return 0;
+		return R.drawable.loading_icon_round;
 	}
 
 	@Override
