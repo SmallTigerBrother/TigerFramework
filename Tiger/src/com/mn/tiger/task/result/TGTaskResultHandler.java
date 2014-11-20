@@ -18,7 +18,7 @@ public abstract class TGTaskResultHandler
 	/**
 	 * 日志标签
 	 */
-	protected final String LOG_TAG = "TMPTaskResultHandler";
+	protected final String LOG_TAG = this.getClass().getSimpleName();
 	
 	/**
 	 * 任务结果处理
