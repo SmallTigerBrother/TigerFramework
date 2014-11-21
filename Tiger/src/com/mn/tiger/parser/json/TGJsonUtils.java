@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.mn.tiger.utility.LogTools;
+import com.mn.tiger.log.LogTools;
 
 /**
  * 该类作用及功能说明:使用FastJson库来解析JSON数据： 支持： 1.Json转List 2.Json转Map 3.Object转Json

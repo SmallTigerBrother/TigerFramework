@@ -2,10 +2,11 @@ package com.mn.tiger.utility;
 
 import java.lang.reflect.Field;
 
-import com.mn.tiger.annonation.ViewById;
-
 import android.app.Activity;
 import android.view.View;
+
+import com.mn.tiger.annonation.ViewById;
+import com.mn.tiger.log.LogTools;
 
 
 public class ViewInjector

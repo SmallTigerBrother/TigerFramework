@@ -3,8 +3,8 @@ package com.mn.tiger.download;
 import android.os.Bundle;
 
 import com.mn.tiger.download.observe.TGDownloadObserveController;
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.task.TGTask;
-import com.mn.tiger.utility.LogTools;
 
 /**
  * 

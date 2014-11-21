@@ -5,11 +5,11 @@ import java.util.HashMap;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.task.invoke.TGTaskInvoker;
 import com.mn.tiger.task.invoke.TGTaskParams;
 import com.mn.tiger.task.result.TGTaskResultHandler;
 import com.mn.tiger.task.utils.TGTaskIDCreator;
-import com.mn.tiger.utility.LogTools;
 
 public class TGTaskManager
 {

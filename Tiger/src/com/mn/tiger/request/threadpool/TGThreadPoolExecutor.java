@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import com.mn.tiger.utility.LogTools;
+import com.mn.tiger.log.LogTools;
 
 /**
  * 该类作用及功能说明 

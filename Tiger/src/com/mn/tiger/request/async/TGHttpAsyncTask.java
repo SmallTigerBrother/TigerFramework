@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.request.TGHttpLoader;
 import com.mn.tiger.request.TGHttpLoader.OnLoadCallback;
 import com.mn.tiger.request.async.task.TGDeleteTask;
@@ -20,7 +21,6 @@ import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.task.TGTaskManager;
 import com.mn.tiger.task.invoke.TGTaskParams;
-import com.mn.tiger.utility.LogTools;
 
 /**
  * 该类作用及功能说明

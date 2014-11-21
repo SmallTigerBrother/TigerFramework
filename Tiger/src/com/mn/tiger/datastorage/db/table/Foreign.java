@@ -10,7 +10,7 @@ import com.mn.tiger.datastorage.db.converter.ColumnConverter;
 import com.mn.tiger.datastorage.db.converter.ColumnConverterFactory;
 import com.mn.tiger.datastorage.db.exception.DbException;
 import com.mn.tiger.datastorage.db.sqlite.ForeignLazyLoader;
-import com.mn.tiger.utility.LogTools;
+import com.mn.tiger.log.LogTools;
 
 public class Foreign extends Column
 {

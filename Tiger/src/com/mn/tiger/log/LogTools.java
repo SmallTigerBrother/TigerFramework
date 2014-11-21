@@ -1,4 +1,4 @@
-package com.mn.tiger.utility;
+package com.mn.tiger.log;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -8,6 +8,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import com.mn.tiger.utility.FileUtils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

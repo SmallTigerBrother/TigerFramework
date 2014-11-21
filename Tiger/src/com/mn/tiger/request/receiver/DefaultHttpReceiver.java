@@ -8,9 +8,9 @@ import java.net.HttpURLConnection;
 
 import android.content.Context;
 
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.request.error.TGErrorMsgEnum;
 import com.mn.tiger.request.method.TGHttpMethod;
-import com.mn.tiger.utility.LogTools;
 
 /**
  * 该类作用及功能说明 简单网络请求结果处理类，实现MPHttpReceiver

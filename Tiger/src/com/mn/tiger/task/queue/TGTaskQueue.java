@@ -3,6 +3,7 @@ package com.mn.tiger.task.queue;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.task.ITaskListener;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.task.TGTask.MPTaskState;
@@ -11,7 +12,6 @@ import com.mn.tiger.task.queue.TGLock.onLockListener;
 import com.mn.tiger.task.queue.TGLock.onUnLockListener;
 import com.mn.tiger.task.thread.TGFixedThreadPool;
 import com.mn.tiger.task.thread.TGThreadPool;
-import com.mn.tiger.utility.LogTools;
 
 /**
  * 

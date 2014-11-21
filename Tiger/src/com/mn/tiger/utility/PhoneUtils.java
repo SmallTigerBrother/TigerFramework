@@ -15,6 +15,8 @@ import android.net.wifi.WifiManager;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 
+import com.mn.tiger.log.LogTools;
+
 /**
  * 该类作用及功能说明:获取手机相关的信息
  * 

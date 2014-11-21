@@ -5,12 +5,12 @@ import java.io.InterruptedIOException;
 
 import android.content.Context;
 
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.request.error.TGErrorMsgEnum;
 import com.mn.tiger.request.method.TGHttpMethod;
 import com.mn.tiger.request.receiver.TGHttpReceiver;
 import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.utility.CR;
-import com.mn.tiger.utility.LogTools;
 import com.mn.tiger.utility.NetworkUtils;
 
 /**

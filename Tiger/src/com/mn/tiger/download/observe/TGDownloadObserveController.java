@@ -6,8 +6,8 @@ import java.util.Map;
 import android.database.Observable;
 
 import com.mn.tiger.download.observe.TGDownloadObservable.OnObserverChangeListener;
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.task.result.TGTaskResult;
-import com.mn.tiger.utility.LogTools;
 import com.mn.tiger.utility.StringUtils;
 
 /**

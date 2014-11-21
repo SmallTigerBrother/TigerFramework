@@ -7,6 +7,8 @@ import android.net.NetworkInfo.State;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
+import com.mn.tiger.log.LogTools;
+
 public class NetworkUtils
 {
 	private static final String LOG_TAG = NetworkUtils.class.getSimpleName();

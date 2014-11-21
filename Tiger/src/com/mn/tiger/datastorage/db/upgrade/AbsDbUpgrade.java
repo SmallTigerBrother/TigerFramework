@@ -20,8 +20,8 @@ import com.mn.tiger.datastorage.db.table.DbModel;
 import com.mn.tiger.datastorage.db.table.Finder;
 import com.mn.tiger.datastorage.db.table.Table;
 import com.mn.tiger.datastorage.db.table.TableUtils;
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.utility.FileUtils;
-import com.mn.tiger.utility.LogTools;
 
 /**
  * 数据库升级默认实现类

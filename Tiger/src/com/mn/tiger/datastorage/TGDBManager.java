@@ -31,7 +31,7 @@ import com.mn.tiger.datastorage.db.upgrade.AbsDbUpgrade;
 import com.mn.tiger.datastorage.db.upgrade.DatabaseObject;
 import com.mn.tiger.datastorage.db.upgrade.TigerTables;
 import com.mn.tiger.datastorage.db.util.IOUtils;
-import com.mn.tiger.utility.LogTools;
+import com.mn.tiger.log.LogTools;
 
 
 /**

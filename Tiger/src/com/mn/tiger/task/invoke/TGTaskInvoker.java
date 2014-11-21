@@ -3,11 +3,11 @@ package com.mn.tiger.task.invoke;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.task.TGScheduleTaskList;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.task.TGTaskManager;
 import com.mn.tiger.task.dispatch.TGDispatcher;
-import com.mn.tiger.utility.LogTools;
 
 /**
  * 该类作用及功能说明 Android任务请求类

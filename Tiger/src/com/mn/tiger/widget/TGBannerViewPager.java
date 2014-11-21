@@ -2,9 +2,6 @@ package com.mn.tiger.widget;
 
 import java.util.ArrayList;
 
-import com.mn.tiger.utility.LogTools;
-import com.mn.tiger.widget.adpter.TGPagerAdapter;
-
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +11,9 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.mn.tiger.log.LogTools;
+import com.mn.tiger.widget.adpter.TGPagerAdapter;
 
 public class TGBannerViewPager extends ViewPager
 {

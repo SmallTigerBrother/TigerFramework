@@ -14,6 +14,7 @@ import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
 
 import com.mn.tiger.app.TGApplication;
+import com.mn.tiger.log.LogTools;
 
 public class Commons
 {

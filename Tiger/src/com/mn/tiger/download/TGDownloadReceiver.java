@@ -13,13 +13,13 @@ import java.util.Map;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.request.error.TGErrorMsgEnum;
 import com.mn.tiger.request.method.TGHttpMethod;
 import com.mn.tiger.request.receiver.DefaultHttpReceiver;
 import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.task.TGTask.MPTaskState;
 import com.mn.tiger.utility.FileUtils;
-import com.mn.tiger.utility.LogTools;
 
 /**
  * 

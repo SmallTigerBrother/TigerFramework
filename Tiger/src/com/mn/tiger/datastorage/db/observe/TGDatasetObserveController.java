@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.mn.tiger.datastorage.db.observe.TGDatasetObservable.OnObserverChangeListener;
-import com.mn.tiger.utility.LogTools;
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.utility.StringUtils;
 
 import android.database.Observable;

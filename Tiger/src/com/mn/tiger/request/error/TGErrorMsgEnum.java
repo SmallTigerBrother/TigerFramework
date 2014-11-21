@@ -8,9 +8,9 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.res.Resources.NotFoundException;
 
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.utility.CR;
 import com.mn.tiger.utility.Commons;
-import com.mn.tiger.utility.LogTools;
 import com.mn.tiger.utility.StringUtils;
 
 public enum TGErrorMsgEnum

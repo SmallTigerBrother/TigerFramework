@@ -2,7 +2,7 @@ package com.mn.tiger.task.queue;
 
 import android.content.Context;
 
-import com.mn.tiger.utility.LogTools;
+import com.mn.tiger.log.LogTools;
 
 /**
  * 该类作用及功能说明

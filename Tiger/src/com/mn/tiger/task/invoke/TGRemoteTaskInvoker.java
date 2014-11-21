@@ -12,11 +12,11 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.task.TGTaskManager;
 import com.mn.tiger.task.dispatch.TGDispatcher;
 import com.mn.tiger.task.service.TGRemoteService;
-import com.mn.tiger.utility.LogTools;
 
 /**
  * 该类作用及功能说明 Android任务请求类

@@ -13,7 +13,7 @@ import java.util.Map;
 import android.content.Context;
 import android.os.Build.VERSION;
 
-import com.mn.tiger.utility.LogTools;
+import com.mn.tiger.log.LogTools;
 
 /**
  * 该类作用及功能说明 Get请求方法类

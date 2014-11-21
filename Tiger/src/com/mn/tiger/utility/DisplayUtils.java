@@ -8,6 +8,8 @@ import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.ViewGroup;
 
+import com.mn.tiger.log.LogTools;
+
 public class DisplayUtils
 {
 	private static final String LOG_TAG = DisplayUtils.class.getSimpleName();

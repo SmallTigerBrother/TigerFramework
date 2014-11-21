@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Build;
 
+import com.mn.tiger.log.LogTools;
+
 public class Preferences
 {
 	private static final String LOG_TAG = Preferences.class.getSimpleName();

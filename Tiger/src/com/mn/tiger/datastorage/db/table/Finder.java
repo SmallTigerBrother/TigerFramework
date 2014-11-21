@@ -8,7 +8,7 @@ import android.database.Cursor;
 import com.mn.tiger.datastorage.TGDBManager;
 import com.mn.tiger.datastorage.db.exception.DbException;
 import com.mn.tiger.datastorage.db.sqlite.FinderLazyLoader;
-import com.mn.tiger.utility.LogTools;
+import com.mn.tiger.log.LogTools;
 
 public class Finder extends Column
 {

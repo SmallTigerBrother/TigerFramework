@@ -5,9 +5,9 @@ import java.util.HashMap;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.task.TGTask;
-import com.mn.tiger.utility.LogTools;
 import com.mn.tiger.utility.MD5;
 
 /**

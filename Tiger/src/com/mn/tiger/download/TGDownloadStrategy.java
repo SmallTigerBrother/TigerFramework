@@ -9,6 +9,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.mn.tiger.download.TGDownloadReceiver.IDownloadReceiveListener;
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.request.TGHttpLoader;
 import com.mn.tiger.request.client.DefaultHttpClient;
 import com.mn.tiger.request.client.TGHttpClient;
@@ -18,7 +19,6 @@ import com.mn.tiger.request.method.TGHttpMethod;
 import com.mn.tiger.request.method.TGPostMethod;
 import com.mn.tiger.utility.Commons;
 import com.mn.tiger.utility.FileUtils;
-import com.mn.tiger.utility.LogTools;
 import com.mn.tiger.utility.MD5;
 
 public class TGDownloadStrategy implements IDownloadStrategy

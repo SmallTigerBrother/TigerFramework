@@ -5,6 +5,7 @@ import java.util.Map;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.parser.json.TGJsonUtils;
 import com.mn.tiger.request.async.TGHttpAsyncTask;
 import com.mn.tiger.request.async.task.IRequestParser;
@@ -18,7 +19,6 @@ import com.mn.tiger.request.method.TGPutMethod;
 import com.mn.tiger.request.receiver.DefaultHttpReceiver;
 import com.mn.tiger.request.receiver.TGHttpReceiver;
 import com.mn.tiger.request.receiver.TGHttpResult;
-import com.mn.tiger.utility.LogTools;
 
 public class TGHttpLoader<T> implements IRequestParser
 {

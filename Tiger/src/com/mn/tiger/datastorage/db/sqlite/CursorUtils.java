@@ -10,7 +10,7 @@ import com.mn.tiger.datastorage.db.table.Foreign;
 import com.mn.tiger.datastorage.db.table.Id;
 import com.mn.tiger.datastorage.db.table.Table;
 import com.mn.tiger.datastorage.db.util.core.DoubleKeyValueMap;
-import com.mn.tiger.utility.LogTools;
+import com.mn.tiger.log.LogTools;
 
 /**
  * 

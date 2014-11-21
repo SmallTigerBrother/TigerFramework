@@ -6,9 +6,9 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.task.result.TGTaskResult;
 import com.mn.tiger.task.thread.TGThreadPool;
-import com.mn.tiger.utility.LogTools;
 
 /**
  * 该类作用及功能说明

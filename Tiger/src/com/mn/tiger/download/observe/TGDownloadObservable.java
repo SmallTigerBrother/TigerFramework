@@ -4,7 +4,7 @@ import android.database.Observable;
 
 import com.mn.tiger.download.TGDownloadManager;
 import com.mn.tiger.download.TGDownloader;
-import com.mn.tiger.utility.LogTools;
+import com.mn.tiger.log.LogTools;
 
 /**
  * 
