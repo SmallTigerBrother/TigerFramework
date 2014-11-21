@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.utility.CR;
-import com.mn.tiger.utility.LogTools;
 
 /**
  * 该类作用及功能说明 带横向进度条的提示框

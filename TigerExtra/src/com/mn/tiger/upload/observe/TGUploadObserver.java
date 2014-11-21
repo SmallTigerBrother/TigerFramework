@@ -1,7 +1,7 @@
 package com.mn.tiger.upload.observe;
 
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.upload.TGUploader;
-import com.mn.tiger.utility.LogTools;
 
 /**
  * 该类作用及功能说明 ：数据观察者

@@ -2,9 +2,9 @@ package com.mn.tiger.upload;
 
 import android.os.Bundle;
 
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.upload.observe.TGUploadObserveController;
-import com.mn.tiger.utility.LogTools;
 
 /**
  * 

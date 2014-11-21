@@ -10,10 +10,10 @@ import java.io.UnsupportedEncodingException;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.request.error.TGErrorMsgEnum;
 import com.mn.tiger.request.method.TGPostMethod;
 import com.mn.tiger.task.TGTask.MPTaskState;
-import com.mn.tiger.utility.LogTools;
 
 /**
  * 该类作用及功能说明 文件上传post请求类

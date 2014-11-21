@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.mn.tiger.log.LogTools;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.task.TGTaskManager;
 import com.mn.tiger.task.invoke.TGTaskParams;
@@ -13,7 +14,6 @@ import com.mn.tiger.task.result.TGTaskResult;
 import com.mn.tiger.task.result.TGTaskResultHandler;
 import com.mn.tiger.upload.observe.TGUploadObserveController;
 import com.mn.tiger.upload.observe.TGUploadObserver;
-import com.mn.tiger.utility.LogTools;
 
 /**
  * 
