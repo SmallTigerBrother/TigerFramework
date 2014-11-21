@@ -8,8 +8,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.mn.tiger.request.TGHttpRequester;
-import com.mn.tiger.request.async.TGHttpAsyncRequester.IRequestHandler;
+import com.mn.tiger.request.TGHttpLoader;
+import com.mn.tiger.request.TGHttpLoader.OnLoadCallback;
 import com.mn.tiger.request.async.task.TGDeleteTask;
 import com.mn.tiger.request.async.task.TGGetTask;
 import com.mn.tiger.request.async.task.TGHttpTask;
@@ -48,7 +48,7 @@ public class TGHttpAsyncTask
 	/**
 	 * 请求类型，默认为Post类型
 	 */
-	private int requestType = TGHttpRequester.REQUEST_GET;
+	private int requestType = TGHttpLoader.REQUEST_GET;
 	
 	/**
 	 * 网络请求headers参数
@@ -89,21 +89,21 @@ public class TGHttpAsyncTask
 	 * 请求结果回调类
 	 */
 	@SuppressWarnings("rawtypes")
-	private IRequestHandler requestHandler;
+	private OnLoadCallback loadCallback;
 	
 	/**
 	 * @param context
 	 * @param requestUrl
 	 * @param requestType
-	 * @param handler
+	 * @param callback
 	 */
 	@SuppressWarnings("rawtypes")
 	public TGHttpAsyncTask(String requestUrl, int requestType, 
-			IRequestHandler handler) 
+			OnLoadCallback callback) 
 	{
 		this.requestUrl = requestUrl;
 		this.requestType = requestType;
-		this.requestHandler = handler;
+		this.loadCallback = callback;
 		
 		params = new HashMap<String, String>();
 		properties = new HashMap<String, String>();
@@ -134,9 +134,9 @@ public class TGHttpAsyncTask
 	 */
 	protected void onPreExecute()
 	{
-		if(null != requestHandler)
+		if(null != loadCallback)
 		{
-			requestHandler.onRequestStart();
+			loadCallback.onLoadStart();
 		}
 	}
 	
@@ -171,8 +171,8 @@ public class TGHttpAsyncTask
 	 */
 	protected TGTaskParams initHttpParams(HashMap<String, String> params)
 	{
-		if(requestType > TGHttpRequester.REQUEST_PUT || 
-				requestType < TGHttpRequester.REQUEST_POST)
+		if(requestType > TGHttpLoader.REQUEST_PUT || 
+				requestType < TGHttpLoader.REQUEST_POST)
 		{
 			throw new RuntimeException("Your requestType is invalid!");
 		}
@@ -206,9 +206,9 @@ public class TGHttpAsyncTask
 			{
 				LogTools.i(LOG_TAG, "[Method:onSuccess]");
 				//解析请求结果
-				if(!isCancelled() && null != requestHandler)
+				if(!isCancelled() && null != loadCallback)
 				{
-					requestHandler.onRequestSuccess(httpResult.getObjectResult(), httpResult);
+					loadCallback.onLoadSuccess(httpResult.getObjectResult(), httpResult);
 				}
 			}
 			
@@ -217,9 +217,9 @@ public class TGHttpAsyncTask
 			{
 				LogTools.i(LOG_TAG, "[Method:onError]");
 				//解析请求结果
-				if(!isCancelled() && null != requestHandler)
+				if(!isCancelled() && null != loadCallback)
 				{
-					requestHandler.onRequestError(httpResult.getResponseCode(),
+					loadCallback.onLoadError(httpResult.getResponseCode(),
 							httpResult.getResult(), httpResult);
 				}
 			}
@@ -230,18 +230,18 @@ public class TGHttpAsyncTask
 			{
 				LogTools.i(LOG_TAG, "[Method:onReturnCachedResult]");
 				//解析请求结果
-				if(!isCancelled() && null != requestHandler)
+				if(!isCancelled() && null != loadCallback)
 				{
-					requestHandler.onReturnCachedResult(httpResult.getObjectResult(), httpResult);
+					loadCallback.onLoadCache(httpResult.getObjectResult(), httpResult);
 				}
 			}
 			
 			@Override
 			protected void onRequestOver() 
 			{
-				if(null != requestHandler)
+				if(null != loadCallback)
 				{
-					requestHandler.onRequestOver();
+					loadCallback.onLoadOver();
 				}
 			}
 			
@@ -278,19 +278,19 @@ public class TGHttpAsyncTask
 		{
 			switch (requestType)
 			{
-				case TGHttpRequester.REQUEST_GET:
+				case TGHttpLoader.REQUEST_GET:
 					taskClsName = TGGetTask.class.getName();
 					
 					break;
-				case TGHttpRequester.REQUEST_POST:
+				case TGHttpLoader.REQUEST_POST:
 					taskClsName = TGPostTask.class.getName();
 					
 					break;
-				case TGHttpRequester.REQUEST_PUT:
+				case TGHttpLoader.REQUEST_PUT:
 					taskClsName = TGPutTask.class.getName();
 					
 					break;
-				case TGHttpRequester.REQUEST_DELETE:
+				case TGHttpLoader.REQUEST_DELETE:
 					taskClsName = TGDeleteTask.class.getName();
 					
 					break;
@@ -324,9 +324,9 @@ public class TGHttpAsyncTask
 	{
 		this.isCancel = true;
 		TGTaskManager.getInstance().cancelTask(taskID, TGTask.TASK_TYPE_HTTP);
-		if(null != requestHandler)
+		if(null != loadCallback)
 		{
-			this.requestHandler.onRequestOver();
+			this.loadCallback.onLoadOver();
 		}
 	}
 	
@@ -449,11 +449,11 @@ public class TGHttpAsyncTask
 	
 	/**
 	 * 设置请求回调类
-	 * @param handler
+	 * @param callback
 	 */
 	@SuppressWarnings("rawtypes")
-	public void setRequestHandler(IRequestHandler handler)
+	public void setLoadCallback(OnLoadCallback callback)
 	{
-		this.requestHandler = handler;
+		this.loadCallback = callback;
 	}
 }

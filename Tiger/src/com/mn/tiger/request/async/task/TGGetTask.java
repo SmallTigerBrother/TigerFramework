@@ -1,6 +1,6 @@
 package com.mn.tiger.request.async.task;
 
-import com.mn.tiger.request.TGHttpRequester;
+import com.mn.tiger.request.TGHttpLoader;
 import com.mn.tiger.request.receiver.TGHttpResult;
 
 /**
@@ -10,10 +10,11 @@ import com.mn.tiger.request.receiver.TGHttpResult;
  */
 public class TGGetTask extends TGHttpTask
 {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	protected TGHttpResult executeHttpRequest()
 	{
-		return TGHttpRequester.requestGet(getContext(), getRequestUrl(), 
+		return new TGHttpLoader().loadByGetSync(getContext(), getRequestUrl(), 
 				getRequestParams(), getRequestProperties());
 	}
 }
