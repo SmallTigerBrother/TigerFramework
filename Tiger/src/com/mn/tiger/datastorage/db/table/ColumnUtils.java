@@ -11,16 +11,15 @@ import android.text.TextUtils;
 
 import com.mn.tiger.datastorage.db.annotation.Check;
 import com.mn.tiger.datastorage.db.annotation.NotNull;
+import com.mn.tiger.datastorage.db.annotation.ColumnObject;
 import com.mn.tiger.datastorage.db.annotation.Transient;
 import com.mn.tiger.datastorage.db.annotation.Unique;
 import com.mn.tiger.datastorage.db.converter.ColumnConverter;
 import com.mn.tiger.datastorage.db.converter.ColumnConverterFactory;
-import com.mn.tiger.datastorage.db.sqlite.FinderLazyLoader;
 import com.mn.tiger.datastorage.db.sqlite.ForeignLazyLoader;
 import com.mn.tiger.datastorage.db.annotation.Column;
 import com.mn.tiger.datastorage.db.annotation.Foreign;
 import com.mn.tiger.datastorage.db.annotation.Id;
-import com.mn.tiger.datastorage.db.annotation.Finder;
 import com.mn.tiger.log.LogTools;
 
 public class ColumnUtils
@@ -60,6 +59,22 @@ public class ColumnUtils
 	{
 		String fieldName = field.getName();
 		Method getMethod = null;
+		if(field.isAnnotationPresent(ColumnObject.class))
+		{
+			String methodName = "get" + fieldName.substring(0, 1).toUpperCase()
+					+ fieldName.substring(1) + "Str";
+			try
+			{
+				getMethod = entityType.getDeclaredMethod(methodName);
+			}
+			catch (NoSuchMethodException e)
+			{
+				LogTools.d(methodName + " not exist");
+			}
+			
+			return getMethod;
+		}
+		
 		if (field.getType() == boolean.class)
 		{
 			getMethod = getBooleanColumnGetMethod(entityType, fieldName);
@@ -89,6 +104,23 @@ public class ColumnUtils
 	{
 		String fieldName = field.getName();
 		Method setMethod = null;
+		
+		if(field.isAnnotationPresent(ColumnObject.class))
+		{
+			String methodName = "set" + fieldName.substring(0, 1).toUpperCase()
+					+ fieldName.substring(1) + "Str";
+			try
+			{
+				setMethod = entityType.getDeclaredMethod(methodName);
+			}
+			catch (NoSuchMethodException e)
+			{
+				LogTools.d(methodName + " not exist");
+			}
+			
+			return setMethod;
+		}
+		
 		if (field.getType() == boolean.class)
 		{
 			setMethod = getBooleanColumnSetMethod(entityType, field);
@@ -134,10 +166,10 @@ public class ColumnUtils
 			return foreign.column();
 		}
 
-		Finder finder = field.getAnnotation(Finder.class);
-		if (finder != null)
+		ColumnObject propertyObject = field.getAnnotation(ColumnObject.class);
+		if (propertyObject != null && propertyObject.column().trim().length() != 0)
 		{
-			return field.getName();
+			return propertyObject.column();
 		}
 
 		return field.getName();
@@ -145,7 +177,6 @@ public class ColumnUtils
 
 	public static String getForeignColumnNameByField(Field field)
 	{
-
 		Foreign foreign = field.getAnnotation(Foreign.class);
 		if (foreign != null)
 		{
@@ -175,11 +206,6 @@ public class ColumnUtils
 		return field.getAnnotation(Foreign.class) != null;
 	}
 
-	public static boolean isFinder(Field field)
-	{
-		return field.getAnnotation(Finder.class) != null;
-	}
-
 	public static boolean isUnique(Field field)
 	{
 		return field.getAnnotation(Unique.class) != null;
@@ -188,6 +214,11 @@ public class ColumnUtils
 	public static boolean isNotNull(Field field)
 	{
 		return field.getAnnotation(NotNull.class) != null;
+	}
+	
+	public static boolean isPropertyObject(Field field)
+	{
+		return null != field.getAnnotation(ColumnObject.class);
 	}
 
 	/**
@@ -215,18 +246,6 @@ public class ColumnUtils
 		{
 			result = (Class<?>) ((ParameterizedType) foreignColumn.getColumnField()
 					.getGenericType()).getActualTypeArguments()[0];
-		}
-		return result;
-	}
-
-	public static Class<?> getFinderTargetEntityType(
-			com.mn.tiger.datastorage.db.table.Finder finderColumn)
-	{
-		Class<?> result = finderColumn.getColumnField().getType();
-		if (result.equals(FinderLazyLoader.class) || result.equals(List.class))
-		{
-			result = (Class<?>) ((ParameterizedType) finderColumn.getColumnField().getGenericType())
-					.getActualTypeArguments()[0];
 		}
 		return result;
 	}

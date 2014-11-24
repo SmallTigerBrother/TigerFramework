@@ -15,8 +15,8 @@ public class Column
 	protected final String columnName;
 	private final Object defaultValue;
 
-	protected final Method getMethod;
-	protected final Method setMethod;
+	protected Method getMethod;
+	protected Method setMethod;
 
 	protected final Field columnField;
 	@SuppressWarnings("rawtypes")

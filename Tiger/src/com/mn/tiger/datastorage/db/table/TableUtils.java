@@ -12,8 +12,6 @@ import com.mn.tiger.datastorage.db.annotation.Table;
 import com.mn.tiger.datastorage.db.annotation.Id;
 import com.mn.tiger.log.LogTools;
 
-;
-
 public class TableUtils
 {
 
@@ -52,7 +50,6 @@ public class TableUtils
 	 */
 	public static synchronized HashMap<String, Column> getColumnMap(Class<?> entityType)
 	{
-
 		if (entityColumnsMap.containsKey(entityType.getCanonicalName()))
 		{
 			return entityColumnsMap.get(entityType.getCanonicalName());
@@ -99,9 +96,9 @@ public class TableUtils
 						columnMap.put(column.getColumnName(), column);
 					}
 				}
-				else if (ColumnUtils.isFinder(field))
+				else if (ColumnUtils.isPropertyObject(field))
 				{
-					Finder column = new Finder(entityType, field);
+					ColumnObject column = new ColumnObject(entityType, field);
 					if (!columnMap.containsKey(column.getColumnName()))
 					{
 						columnMap.put(column.getColumnName(), column);

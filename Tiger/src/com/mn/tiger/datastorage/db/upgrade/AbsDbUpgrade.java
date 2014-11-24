@@ -17,7 +17,6 @@ import com.mn.tiger.datastorage.db.sqlite.SqlInfo;
 import com.mn.tiger.datastorage.db.sqlite.WhereBuilder;
 import com.mn.tiger.datastorage.db.table.Column;
 import com.mn.tiger.datastorage.db.table.DbModel;
-import com.mn.tiger.datastorage.db.table.Finder;
 import com.mn.tiger.datastorage.db.table.Table;
 import com.mn.tiger.datastorage.db.table.TableUtils;
 import com.mn.tiger.log.LogTools;
@@ -235,11 +234,6 @@ public abstract class AbsDbUpgrade
 			// 判断该列是否在原有数据库中存在，如存在，拷贝数据，如不存在，写入默认数据
 			Map.Entry<String, Column> entry = (Map.Entry<String, Column>) iter.next();
 			Column column = entry.getValue();
-			if (column instanceof Finder)
-			{
-				length--;
-				continue;
-			}
 
 			sqlBuffer.append(entry.getKey()).append(",");
 			String columnName = column.getColumnName();

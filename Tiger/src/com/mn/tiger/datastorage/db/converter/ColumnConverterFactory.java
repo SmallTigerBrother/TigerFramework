@@ -3,6 +3,8 @@ package com.mn.tiger.datastorage.db.converter;
 import java.util.Date;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.mn.tiger.datastorage.db.table.ColumnUtils;
+
 /**
  * 
  * 列数据与对象属性数据互转工厂 用于预先加载列转换类
@@ -11,7 +13,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @SuppressWarnings("rawtypes")
 public class ColumnConverterFactory
 {
-
 	private ColumnConverterFactory()
 	{
 	}
@@ -21,6 +22,10 @@ public class ColumnConverterFactory
 		if (columnType_columnConverter_map.containsKey(columnType.getCanonicalName()))
 		{
 			return columnType_columnConverter_map.get(columnType.getCanonicalName());
+		}
+		else if(!ColumnUtils.isDbPrimitiveType(columnType))
+		{
+			return new StringColumnConverter();
 		}
 		else if (ColumnConverter.class.isAssignableFrom(columnType))
 		{

@@ -5,9 +5,9 @@ import android.database.Cursor;
 import com.mn.tiger.datastorage.TGDBManager;
 import com.mn.tiger.datastorage.db.table.Column;
 import com.mn.tiger.datastorage.db.table.DbModel;
-import com.mn.tiger.datastorage.db.table.Finder;
 import com.mn.tiger.datastorage.db.table.Foreign;
 import com.mn.tiger.datastorage.db.table.Id;
+import com.mn.tiger.datastorage.db.table.ColumnObject;
 import com.mn.tiger.datastorage.db.table.Table;
 import com.mn.tiger.datastorage.db.util.core.DoubleKeyValueMap;
 import com.mn.tiger.log.LogTools;
@@ -71,6 +71,10 @@ public class CursorUtils
 						foreign.db = db;
 						foreign.setValue2Entity(entity, cursor, i);
 					}
+					else if(column instanceof ColumnObject)
+					{
+						((ColumnObject)column).setValue2Entity(entity, cursor, i);
+					}
 					else
 					{
 						column.setValue2Entity(entity, cursor, i);
@@ -78,15 +82,6 @@ public class CursorUtils
 				}
 			}
 
-			for (Column column : table.columnMap.values())
-			{
-				if (column instanceof Finder)
-				{
-					Finder finder = (Finder) column;
-					finder.db = db;
-					finder.setValue2Entity(entity, null, 0);
-				}
-			}
 			return entity;
 		}
 		catch (Throwable e)
@@ -128,14 +123,11 @@ public class CursorUtils
 		private static long seq = 0;
 		private static final String FOREIGN_LAZY_LOADER_CLASS_NAME = ForeignLazyLoader.class
 				.getName();
-		private static final String FINDER_LAZY_LOADER_CLASS_NAME = FinderLazyLoader.class
-				.getName();
 
 		public static long getSeq()
 		{
 			String findMethodCaller = Thread.currentThread().getStackTrace()[4].getClassName();
-			if (!findMethodCaller.equals(FOREIGN_LAZY_LOADER_CLASS_NAME)
-					&& !findMethodCaller.equals(FINDER_LAZY_LOADER_CLASS_NAME))
+			if (!findMethodCaller.equals(FOREIGN_LAZY_LOADER_CLASS_NAME))
 			{
 				++seq;
 			}
