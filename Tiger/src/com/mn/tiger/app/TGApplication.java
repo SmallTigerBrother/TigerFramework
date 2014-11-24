@@ -1,14 +1,24 @@
 package com.mn.tiger.app;
 
+import java.lang.Thread.UncaughtExceptionHandler;
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import com.mn.tiger.log.Logger;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.otto.Bus;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Build;
 
 /**
  * 该类作用及功能说明 应用App类
@@ -18,11 +28,8 @@ import android.app.Application;
  */
 public class TGApplication extends Application
 {
-	/**
-	 * 日志标签
-	 */
-	protected final String LOG_TAG = this.getClass().getSimpleName();
-
+	private final Logger LOG = Logger.getLogger(this.getClass());
+	
 	/** 启动Activity列表 */
 	private List<Activity> activities = new LinkedList<Activity>();
 
@@ -38,7 +45,7 @@ public class TGApplication extends Application
 	 * 图像加载器
 	 */
 	private ImageLoader imageLoader;
-
+	
 	@Override
 	public void onCreate()
 	{
@@ -126,6 +133,10 @@ public class TGApplication extends Application
 		activities.clear();
 	}
 
+	/**
+	 * 获取数据总线
+	 * @return
+	 */
 	public static Bus getBus()
 	{
 		if(null == bus)
@@ -134,5 +145,110 @@ public class TGApplication extends Application
 		}
 		return bus;
 	}
+	
+	/**
+	 * 设置UncaughtExceptionHandler
+	 */
+	protected void onSetUncaughtExceptionHandler()
+	{
+		Thread.setDefaultUncaughtExceptionHandler(new CrashHandler());
+	}
+	
+	/**
+	 * 处理UncaughtException
+	 * @param thread
+	 * @param ex
+	 */
+	protected void handleUncaughtException(Thread thread, Throwable ex)
+	{
+		
+	}
 
+	/**
+	 * Crash异常捕获类
+	 */
+	private class CrashHandler implements UncaughtExceptionHandler
+	{
+		private Map<String, String> mSystemInformation = new HashMap<String, String>();
+
+		/**
+		 * LOG 到文件中
+		 */
+		private final Logger LOG = Logger.getLogger(this.getClass(), true);
+
+		public CrashHandler()
+		{
+			Thread.getDefaultUncaughtExceptionHandler();
+		}
+
+		@Override
+		public final void uncaughtException(Thread thread, Throwable ex)
+		{
+			LOG.e(ex);
+			
+			handleUnCaughtException(thread, ex);
+			try
+			{
+				Thread.sleep(3000);
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+
+			this.collectDeviceInfo(TGApplication.this);
+			android.os.Process.killProcess(android.os.Process.myPid());
+			System.exit(1);
+		}
+
+		/**
+		 * 处理UncaughtException
+		 * @param thread
+		 * @param ex
+		 */
+		protected void handleUnCaughtException(Thread thread, Throwable ex)
+		{
+			TGApplication.this.handleUncaughtException(thread, ex);
+		}
+
+		/**
+		 * 收集设备信息
+		 * @param ctx
+		 */
+		private void collectDeviceInfo(Context ctx)
+		{
+			try
+			{
+				PackageManager pm = ctx.getPackageManager();
+				PackageInfo pi = pm.getPackageInfo(ctx.getPackageName(), PackageManager.GET_ACTIVITIES);
+				if (pi != null)
+				{
+					String versionName = pi.versionName == null ? "null" : pi.versionName;
+					String versionCode = pi.versionCode + "";
+					mSystemInformation.put("versionName", versionName);
+					mSystemInformation.put("versionCode", versionCode);
+				}
+			}
+			catch (NameNotFoundException e)
+			{
+				LOG.e("An error occured when collect package info : " + e.getMessage());
+			}
+			// 写入系統信息
+			Field[] fields = Build.class.getDeclaredFields();
+			for (Field field : fields)
+			{
+				try
+				{
+					field.setAccessible(true);
+					mSystemInformation.put(field.getName(), field.get(null).toString());
+					LOG.e("SystemInformation " + field.getName() + " : " + field.get(null));
+				}
+				catch (Exception e)
+				{
+					LOG.e("an error occured when collect crash info error : " + e.getMessage());
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }
