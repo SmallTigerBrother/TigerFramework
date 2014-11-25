@@ -9,7 +9,7 @@
 
 
     <application
-        android:theme="@style/AppTheme">		
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">		
 		
     </application>
     
