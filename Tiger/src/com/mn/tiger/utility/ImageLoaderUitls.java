@@ -11,34 +11,34 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
  */
 public class ImageLoaderUitls
 {
-	public void displayImage(String uri, ImageView imageView)
+	public static void displayImage(String uri, ImageView imageView)
 	{
 		TGApplication.getInstance().getImageLoader().displayImage(uri, imageView);
 	}
 	
-	public void displayImage(String uri, ImageView imageView, ImageLoadingListener listener)
+	public static void displayImage(String uri, ImageView imageView, ImageLoadingListener listener)
 	{
 		TGApplication.getInstance().getImageLoader().displayImage(uri, imageView, listener);
 	}
 	
-	public void displayImage(String uri, ImageView imageView, DisplayImageOptions options)
+	public static void displayImage(String uri, ImageView imageView, DisplayImageOptions options)
 	{
 		TGApplication.getInstance().getImageLoader().displayImage(uri, imageView, options);
 	}
 	
-	public void displayImage(String uri, ImageView imageView, DisplayImageOptions options, 
+	public static void displayImage(String uri, ImageView imageView, DisplayImageOptions options, 
 			ImageLoadingListener listener)
 	{
 		TGApplication.getInstance().getImageLoader().displayImage(uri, imageView,
 				options, listener);
 	}
 	
-	public void loadImage(String uri, ImageLoadingListener listener)
+	public static void loadImage(String uri, ImageLoadingListener listener)
 	{
 		TGApplication.getInstance().getImageLoader().loadImage(uri, listener);
 	}
 	
-	public void loadImage(String uri, DisplayImageOptions options, ImageLoadingListener listener)
+	public static void loadImage(String uri, DisplayImageOptions options, ImageLoadingListener listener)
 	{
 		TGApplication.getInstance().getImageLoader().loadImage(uri, options, listener);
 	}

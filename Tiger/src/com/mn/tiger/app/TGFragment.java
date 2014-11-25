@@ -46,8 +46,15 @@ public abstract class TGFragment extends Fragment
 			
 			FrameLayout paneLayout = (FrameLayout) mainView.findViewById(CR.getIdId(getActivity(),
 					"panel"));
-			paneLayout.addView(onCreateView(inflater, savedInstanceState));
+			FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+					FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+			paneLayout.addView(onCreateView(inflater, savedInstanceState), layoutParams);
 		}
+		else
+		{
+			((ViewGroup)mainView.getParent()).removeView(mainView);
+		}
+		
 		return mainView;
 	};
 	
