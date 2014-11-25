@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.view.View;
 
 public class TGFragmentPagerAdapter extends FragmentPagerAdapter
 {
@@ -39,23 +38,5 @@ public class TGFragmentPagerAdapter extends FragmentPagerAdapter
 	public int getCount()
 	{
 		return pagers.size();
-	}
-
-	/**
-	 * 页面是否从Object生成的
-	 */
-	@Override
-	public boolean isViewFromObject(View view, Object object) 
-	{
-		return view == object;
-	}
-	
-	/**
-	 * 获取页面的位置
-	 */
-	@Override
-	public int getItemPosition(Object object) 
-	{
-		return POSITION_NONE;
 	}
 }
