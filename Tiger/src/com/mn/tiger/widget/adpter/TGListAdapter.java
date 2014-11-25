@@ -34,14 +34,20 @@ public class TGListAdapter<T> extends BaseAdapter
 	 */
 	private List<T> items = null;
 	
+	/**
+	 * 列表行视图layoutId
+	 */
 	private int convertViewLayoutId;
 	
+	/**
+	 * viewholder类，用于视图重用，初始化列表行和填充列表行数据
+	 */
 	private Class<? extends TGViewHolder<T>> viewHolderClass;
 	
 	/**
-	 * 
 	 * @param context
 	 * @param items 列表填充数据
+	 * @param convertViewLayoutId  列表行视图layoutId
 	 * @param viewHolderClass ViewHolder类名
 	 */
 	public TGListAdapter(Context context, List<T> items,int convertViewLayoutId, 
@@ -85,7 +91,6 @@ public class TGListAdapter<T> extends BaseAdapter
 		return position;
 	}
 
-	
 	/**
 	 * @see BaseAdapter#getView(int, View, ViewGroup)
 	 */
@@ -133,6 +138,7 @@ public class TGListAdapter<T> extends BaseAdapter
 		{
 			viewHolder = viewHolderClass.newInstance();
 			viewHolder.setContext(context);
+			viewHolder.setAdapter(this);
 		}
 		catch (Exception e)
 		{
@@ -157,6 +163,10 @@ public class TGListAdapter<T> extends BaseAdapter
 		}
 	}
 	
+	/**
+	 * 更新列表行数据
+	 * @param data
+	 */
 	public void updateData(T[] data)
 	{
 		if(null != data)
@@ -167,6 +177,10 @@ public class TGListAdapter<T> extends BaseAdapter
 		}
 	}
 	
+	/**
+	 * 向列表行追加数据
+	 * @param data
+	 */
 	public void appendData(List<T> data)
 	{
 		if(null != data)
@@ -176,6 +190,10 @@ public class TGListAdapter<T> extends BaseAdapter
 		}
 	}
 	
+	/**
+	 * 向列表行追加数据
+	 * @param data
+	 */
 	public void appendData(T[] data)
 	{
 		if(null != data)
