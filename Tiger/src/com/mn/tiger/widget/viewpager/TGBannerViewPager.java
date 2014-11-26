@@ -1,6 +1,8 @@
-package com.mn.tiger.widget;
+package com.mn.tiger.widget.viewpager;
 
 import java.util.ArrayList;
+
+import com.mn.tiger.log.LogTools;
 
 import android.content.Context;
 import android.os.Handler;
@@ -11,9 +13,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.mn.tiger.log.LogTools;
-import com.mn.tiger.widget.adpter.TGPagerAdapter;
 
 public class TGBannerViewPager extends ViewPager
 {
@@ -100,12 +99,12 @@ public class TGBannerViewPager extends ViewPager
 		super.setOnPageChangeListener(new OnPageChangeListener()
 		{
 			@Override
-			public void onPageSelected(int page)
+			public void onPageSelected(int arg0)
 			{
-				currentPageNum = page;
+				currentPageNum = arg0;
 				if(null != internalPageChangeListener)
 				{
-					internalPageChangeListener.onPageSelected(page);
+					internalPageChangeListener.onPageSelected(arg0);
 				}
 			}
 			
