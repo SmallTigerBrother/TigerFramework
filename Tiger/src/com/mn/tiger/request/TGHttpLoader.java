@@ -235,17 +235,21 @@ public class TGHttpLoader<T> implements IRequestParser
 	@Override
 	public Object parseRequestResult(TGHttpResult httpResult, String resultClsName)
 	{
-		String jsonStr = httpResult.getResult();
-
-		if (!TextUtils.isEmpty(jsonStr) && !"{}".equals(jsonStr))
+		//判断解析结果的className是否为Void
+		if(!TextUtils.isEmpty(resultClsName) && !resultClsName.equals(Void.class.getName()))
 		{
-			try
+			String jsonStr = httpResult.getResult();
+			//判断结果是否为空
+			if (!TextUtils.isEmpty(jsonStr))
 			{
-				return TGJsonUtils.parseJson2Object(jsonStr, Class.forName(resultClsName));
-			}
-			catch (ClassNotFoundException e)
-			{
-				LogTools.e(LOG_TAG, e.getMessage(), e);
+				try
+				{
+					return TGJsonUtils.parseJson2Object(jsonStr, Class.forName(resultClsName));
+				}
+				catch (ClassNotFoundException e)
+				{
+					LogTools.e(LOG_TAG, e.getMessage(), e);
+				}
 			}
 		}
 		
