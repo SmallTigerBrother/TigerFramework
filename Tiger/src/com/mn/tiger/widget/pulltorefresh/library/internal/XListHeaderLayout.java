@@ -78,9 +78,5 @@ public class XListHeaderLayout extends LoadingLayout
 	@Override
 	protected void resetImpl()
 	{
-		if(null != header)
-		{
-			header.setState(XListViewHeader.STATE_READY);
-		}
 	}
 }
