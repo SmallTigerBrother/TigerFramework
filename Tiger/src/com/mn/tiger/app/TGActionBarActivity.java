@@ -7,10 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 import android.widget.TextView;
 
-import com.mn.tiger.request.error.IHttpErrorHandler;
-import com.mn.tiger.request.error.TGHttpErrorHandler;
 import com.mn.tiger.utility.CR;
 import com.mn.tiger.widget.TGImageButton;
 import com.mn.tiger.widget.TGNavigationBar;
@@ -20,11 +19,6 @@ import com.mn.tiger.widget.TGNavigationBar;
  */
 public class TGActionBarActivity extends ActionBarActivity
 {
-	/**
-	 * 检查服务返回数据错误处理器
-	 */
-	private IHttpErrorHandler httpErrorHandler = null;
-
 	/**
 	 * 导航条
 	 */
@@ -39,7 +33,6 @@ public class TGActionBarActivity extends ActionBarActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		this.httpErrorHandler = initHttpErrorHandler();
 		
 		//添加到Application中
 		((TGApplication)getApplication()).addActivityToStack(this);
@@ -259,30 +252,16 @@ public class TGActionBarActivity extends ActionBarActivity
 	}
 	
 	/**
-	 * 初始化异常处理接口
-	 * @return
-	 */
-	protected IHttpErrorHandler initHttpErrorHandler()
-	{
-		return new TGHttpErrorHandler(this);
-	}
-
-	/**
-	 * 获取异常处理接口
-	 * @return
-	 */
-	public IHttpErrorHandler getHttpErrorHandler()
-	{
-		return httpErrorHandler;
-	}
-
-	/**
 	 * 设置导航条是否可见
 	 * @param navigationBarVisible
 	 */
 	public void setNavigationBarVisible(boolean navigationBarVisible)
 	{
 		this.navigationBarVisible = navigationBarVisible;
+		if(!navigationBarVisible)
+		{
+			requestWindowFeature(Window.FEATURE_NO_TITLE);
+		}
 	}
 
 }
