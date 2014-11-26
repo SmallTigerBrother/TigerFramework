@@ -2,14 +2,17 @@ package com.mn.tiger.utility;
 
 import java.lang.reflect.Constructor;
 
+import com.mn.tiger.log.LogTools;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.ViewGroup;
 
-import com.mn.tiger.log.LogTools;
-
+/**
+ * 显示工具类
+ */
 public class DisplayUtils
 {
 	private static final String LOG_TAG = DisplayUtils.class.getSimpleName();
@@ -108,7 +111,7 @@ public class DisplayUtils
 	 * @param context
 	 * @return 返回int数组长度为2，0为x 1为y
 	 */
-	public static int[] getDisplay(Activity context)
+	public static int[] getResolution(Activity context)
 	{
 		int[] size = new int[2];
 		DisplayMetrics metrics = new DisplayMetrics();
@@ -118,8 +121,13 @@ public class DisplayUtils
 		return size;
 	}
 	
+	/**
+	 * 创建width = match_parent; height = match_parent的layoutparams
+	 * @param clazz layoutparams的类名           
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	public static <T extends ViewGroup.LayoutParams> T getLayoutParamsMM(Class<T> clazz)
+	public static <T extends ViewGroup.LayoutParams> T newLayoutParamsMM(Class<T> clazz)
 	{
 		try
 		{
@@ -135,8 +143,13 @@ public class DisplayUtils
 					ViewGroup.LayoutParams.MATCH_PARENT);
 	}
 	
+	/**
+	 * 创建width = wrap_content; height = match_parent的layoutparams
+	 * @param clazz layoutparams的类名       
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	public static <T extends ViewGroup.LayoutParams> T getLayoutParamsWM(Class<T> clazz)
+	public static <T extends ViewGroup.LayoutParams> T newLayoutParamsWM(Class<T> clazz)
 	{
 		try
 		{
@@ -152,8 +165,13 @@ public class DisplayUtils
 					ViewGroup.LayoutParams.MATCH_PARENT);
 	}
 	
+	/**
+	 * 创建width = wrap_content; height = wrap_content的layoutparams
+	 * @param clazz layoutparams的类名       
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	public static <T extends ViewGroup.LayoutParams> T getLayoutParamsWW(Class<T> clazz)
+	public static <T extends ViewGroup.LayoutParams> T newLayoutParamsWW(Class<T> clazz)
 	{
 		try
 		{
@@ -169,6 +187,11 @@ public class DisplayUtils
 					ViewGroup.LayoutParams.WRAP_CONTENT);
 	}
 	
+	/**
+	 * 创建width = match_parent; height = wrap_content的layoutparams
+	 * @param clazz clazz layoutparams的类名   
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T extends ViewGroup.LayoutParams> T getLayoutParamsMW(Class<T> clazz)
 	{
