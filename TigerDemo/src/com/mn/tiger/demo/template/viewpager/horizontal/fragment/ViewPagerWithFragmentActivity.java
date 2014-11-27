@@ -34,7 +34,7 @@ public class ViewPagerWithFragmentActivity extends TGActionBarActivity implement
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.viewpager_fragment_activity);
+		setContentView(R.layout.viewpager_fragment_tabview_activity);
 		ViewInjector.initInjectedView(this, this);
 		
 		setupViews();
