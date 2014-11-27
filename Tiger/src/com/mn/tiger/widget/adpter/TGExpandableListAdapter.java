@@ -1,8 +1,10 @@
 package com.mn.tiger.widget.adpter;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
+import android.app.Activity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,7 +15,7 @@ import android.view.ViewGroup;
  * @see JDK1.6,android-8
  * @date 2012-12-28
  */
-public abstract class TGExpandableListAdapter<GParam,CParam> extends android.widget.BaseExpandableListAdapter 
+public abstract class TGExpandableListAdapter<GroupParam,ChildParam> extends android.widget.BaseExpandableListAdapter 
 {
 	/**
 	 * 日志标签
@@ -23,16 +25,36 @@ public abstract class TGExpandableListAdapter<GParam,CParam> extends android.wid
 	/**
 	 * 运行环境
 	 */
-	protected Context context;
+	private Activity activity;
 	/**
 	 * Group数据
 	 */
-	protected List<GParam> groups;
+	private List<GroupParam> groups = new ArrayList<GroupParam>();
 	/**
 	 * Child数据
 	 */
-	protected List<List<CParam>> childs;
-
+	private List<List<ChildParam>> childs = new ArrayList<List<ChildParam>>();
+	
+	/**
+	 * GroupView布局Id
+	 */
+	private int groupLayoutResId;
+	
+	/**
+	 * GroupViewHolder类
+	 */
+	private Class<TGExpandableGroupViewHolder<GroupParam>> groupViewHolderClazz;
+	
+	/**
+	 * ChildView布局Id
+	 */
+	private int childLayoutResId;
+	
+	/**
+	 * GroupViewHolder类
+	 */
+	private Class<TGExpandableChildViewHolder<ChildParam>> childViewHolderClazz;
+	
 	/**
 	 * @date 2012-12-28
 	 * 构造函数
@@ -40,11 +62,19 @@ public abstract class TGExpandableListAdapter<GParam,CParam> extends android.wid
 	 * @param groups Group数据
 	 * @param childs Child数据
 	 */
-	public TGExpandableListAdapter(Context context, List<GParam> groups, List<List<CParam>> childs)
+	public TGExpandableListAdapter(Activity activity, List<GroupParam> groups, 
+			List<List<ChildParam>> childs)
 	{
-		this.context = context;
-		this.groups = groups;
-		this.childs = childs;
+		this.setActivity(activity);
+		if(null != groups)
+		{
+			this.groups.addAll(groups);
+		}
+		
+		if(null != childs)
+		{
+			this.childs.addAll(childs);
+		}
 	}
 	
 	/**
@@ -68,20 +98,80 @@ public abstract class TGExpandableListAdapter<GParam,CParam> extends android.wid
 	/**
 	 * @see BaseExpandableListAdapter#getChildView(int, int, boolean, View, ViewGroup);
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public abstract View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView,
-			ViewGroup parent); 
+	public View getChildView(int groupPosition, int childPosition, 
+			boolean isLastChild, View convertView, ViewGroup parent)
+	{
+		TGExpandableChildViewHolder<ChildParam> viewHolder = null;
+		if(null == convertView)
+		{
+			if(childLayoutResId > 0)
+			{
+				try
+				{
+					convertView = LayoutInflater.from(activity).inflate(childLayoutResId, null);
+				}
+				catch (Exception e)
+				{
+					throw new RuntimeException(e);
+				}
+			}
+			
+			viewHolder = initChildViewHolder();
+			convertView = viewHolder.initView(convertView);
+			convertView.setTag(viewHolder);
+		}
+		else
+		{
+			viewHolder = (TGExpandableChildViewHolder<ChildParam>) convertView.getTag();
+		}
+		
+		viewHolder.fillData(childs.get(groupPosition).get(childPosition), 
+				groupPosition, childPosition, isLastChild);
+		
+		return convertView;
+	}
+	
+	/**
+	 * 初始化ChildViewHolder
+	 * @return
+	 */
+	protected TGExpandableChildViewHolder<ChildParam> initChildViewHolder()
+	{
+		TGExpandableChildViewHolder<ChildParam> viewHolder = null;
+		try
+		{
+			viewHolder = childViewHolderClazz.newInstance();
+			viewHolder.setActivity(activity);
+			viewHolder.setAdapter(this);
+		}
+		catch (Exception e)
+		{
+			throw new RuntimeException(e);
+		}
+		
+		return viewHolder;
+	}
 
+	/**
+	 * 设置ChildViewHolder
+	 * @param childLayoutResId ChildView布局id
+	 * @param clazz holder类
+	 */
+	public void setChildViewHolder(int childLayoutResId, 
+			Class<TGExpandableChildViewHolder<ChildParam>> clazz)
+	{
+		this.childLayoutResId = childLayoutResId;
+		this.childViewHolderClazz = clazz;
+	}
+	
 	/**
 	 * @see BaseExpandableListAdapter#getChildrenCount(int);
 	 */
 	@Override
 	public int getChildrenCount(int groupPosition) 
 	{
-		if(null == childs)
-		{
-			return 0;
-		}
 		return childs.get(groupPosition).size();
 	}
 
@@ -100,10 +190,6 @@ public abstract class TGExpandableListAdapter<GParam,CParam> extends android.wid
 	@Override
 	public int getGroupCount() 
 	{
-		if(null == groups)
-		{
-			return 0;
-		}
 		return groups.size();
 	}
 
@@ -119,9 +205,73 @@ public abstract class TGExpandableListAdapter<GParam,CParam> extends android.wid
 	/**
 	 * @see BaseExpandableListAdapter#getGroupView(int, boolean, View, ViewGroup);
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public abstract View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent);
+	public View getGroupView(int groupPosition, boolean isExpanded, 
+			View convertView, ViewGroup parent)
+	{
+		TGExpandableGroupViewHolder<GroupParam> viewHolder = null;
+		if(null == convertView)
+		{
+			if(groupLayoutResId > 0)
+			{
+				try
+				{
+					convertView = LayoutInflater.from(activity).inflate(groupLayoutResId, null);
+				}
+				catch (Exception e)
+				{
+					throw new RuntimeException(e);
+				}
+			}
+			
+			viewHolder = initGroupViewHolder();
+			convertView = viewHolder.initView(convertView);
+			convertView.setTag(viewHolder);
+		}
+		else
+		{
+			viewHolder = (TGExpandableGroupViewHolder<GroupParam>) convertView.getTag();
+		}
+		
+		viewHolder.fillData(groups.get(groupPosition), groupPosition, isExpanded);
+		
+		return convertView;
+	}
 
+	/**
+	 * 初始化GroupViewHolder
+	 * @return
+	 */
+	protected TGExpandableGroupViewHolder<GroupParam> initGroupViewHolder()
+	{
+		TGExpandableGroupViewHolder<GroupParam> viewHolder = null;
+		try
+		{
+			viewHolder = groupViewHolderClazz.newInstance();
+			viewHolder.setActivity(activity);
+			viewHolder.setAdapter(this);
+		}
+		catch (Exception e)
+		{
+			throw new RuntimeException(e);
+		}
+		
+		return viewHolder;
+	}
+	
+	/**
+	 * 设置GroupViewHolder
+	 * @param groupLayoutResId GroupView布局Id
+	 * @param clazz GroupView类
+	 */
+	public void setGroupViewHolder(int groupLayoutResId, 
+			Class<TGExpandableGroupViewHolder<GroupParam>> clazz)
+	{
+		this.groupLayoutResId = groupLayoutResId;
+		this.groupViewHolderClazz = clazz;
+	}
+	
 	/**
 	 * @see BaseExpandableListAdapter#hasStableIds();
 	 */
@@ -140,4 +290,31 @@ public abstract class TGExpandableListAdapter<GParam,CParam> extends android.wid
 		return true;
 	}
 
+	public Activity getActivity()
+	{
+		return activity;
+	}
+
+	public void setActivity(Activity activity)
+	{
+		this.activity = activity;
+	}
+	
+	/**
+	 * 获取Group数据
+	 * @return
+	 */
+	public List<GroupParam> getGroups()
+	{
+		return groups;
+	}
+	
+	/**
+	 * 获取Child数据
+	 * @return
+	 */
+	public List<List<ChildParam>> getChilds()
+	{
+		return childs;
+	}
 }
