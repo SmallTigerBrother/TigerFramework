@@ -15,7 +15,9 @@ import com.mn.tiger.annonation.ViewById;
 import com.mn.tiger.app.TGActionBarActivity;
 import com.mn.tiger.demo.activity.NavigationBarActivity;
 import com.mn.tiger.demo.activity.SlidingActivity;
+import com.mn.tiger.demo.template.viewpager.horizontal.HorizontalViewPagerActivity;
 import com.mn.tiger.demo.template.viewpager.horizontal.fragment.ViewPagerWithFragmentActivity;
+import com.mn.tiger.demo.template.viewpager.vertical.VerticalViewPagerActivity;
 import com.mn.tiger.demo.widget.searchview.SearchViewActivity;
 import com.mn.tiger.utility.ViewInjector;
 import com.mn.tiger.widget.adpter.TGListAdapter;
@@ -37,7 +39,9 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		ArrayList<DemoModel> demoModels = new ArrayList<MainActivity.DemoModel>();
 		demoModels.add(DemoModel.ActionBarDemo);
 		demoModels.add(DemoModel.SildingMenuDemo);
-		demoModels.add(DemoModel.ViewPagerWithFragment);
+		demoModels.add(DemoModel.HorizontalViewPagerWithFragment);
+		demoModels.add(DemoModel.HorizontalViewPager);
+		demoModels.add(DemoModel.VerticalViewPager);
 		
 		demoListView.setAdapter(new TGListAdapter<DemoModel>(this, demoModels, -1, 
 				ViewHolder.class));
@@ -60,8 +64,16 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 				intent.setClass(this, SlidingActivity.class);
 				break;
 
-			case ViewPagerWithFragment:
+			case HorizontalViewPagerWithFragment:
 				intent.setClass(this, ViewPagerWithFragmentActivity.class);
+				break;
+				
+			case VerticalViewPager:
+				intent.setClass(this, VerticalViewPagerActivity.class);
+				break;
+				
+			case HorizontalViewPager:
+				intent.setClass(this, HorizontalViewPagerActivity.class);
 				break;
 				
 			case SearchViewActivity:
@@ -82,6 +94,7 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		public View initView(View convertView)
 		{
 			textView = new TextView(getActivity());
+			textView.setTextSize(24);
 			return textView;
 		}
 		
@@ -99,7 +112,11 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		
 		SearchViewActivity("SearchViewActivity"),
 		
-		ViewPagerWithFragment("ViewPager + Fragment");
+		HorizontalViewPager("HorizontalViewPager"),
+		
+		VerticalViewPager("VerticalViewPager"),
+		
+		HorizontalViewPagerWithFragment("HorizontalViewPager + Fragment + TabView");
 		
 		private DemoModel(String demoType)
 		{

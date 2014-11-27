@@ -23,27 +23,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name="com.mn.tiger.demo.activity.NavigationBarActivity"
             android:label="@string/app_name" >
         </activity>
-        
-         <activity
+        <activity
             android:name="com.mn.tiger.demo.activity.SlidingActivity"
             android:label="@string/app_name" >
         </activity>
-        
-          <activity
+        <activity
             android:name="com.mn.tiger.demo.widget.searchview.SearchViewActivity"
             android:label="@string/app_name" >
         </activity>
-        
-           <activity
-            android:name="com.mn.tiger.demo.template.viewpager.ViewPagerWithFragmentActivity"
+        <activity
+            android:name="com.mn.tiger.demo.template.viewpager.horizontal.fragment.ViewPagerWithFragmentActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.mn.tiger.demo.template.viewpager.vertical.VerticalViewPagerActivity"
             android:label="@string/app_name" >
         </activity>
         
+        <activity
+            android:name="com.mn.tiger.demo.template.viewpager.horizontal.HorizontalViewPagerActivity"
+            android:label="@string/app_name" >
+        </activity>
         
     </application>
 
