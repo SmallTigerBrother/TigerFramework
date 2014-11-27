@@ -32,12 +32,20 @@ public abstract class TGViewHolder<T>
 		return convertView;
 	}
 	
+	/**
+	 * 获取匹配的Adapter
+	 * @return
+	 */
 	public TGListAdapter<T> getAdapter()
 	{
 		return adapter;
 	}
 
-	public void setAdapter(TGListAdapter<T> adapter)
+	/**
+	 * 设置匹配的Adapter
+	 * @param adapter
+	 */
+	void setAdapter(TGListAdapter<T> adapter)
 	{
 		this.adapter = adapter;
 	}
