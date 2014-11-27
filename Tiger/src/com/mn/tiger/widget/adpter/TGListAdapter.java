@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import android.content.Context;
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +27,7 @@ public class TGListAdapter<T> extends BaseAdapter
 	/**
 	 * 运行环境
 	 */
-	private Context context;
+	private Activity activity;
 	
 	/**
 	 * 列表填充数据
@@ -45,15 +45,15 @@ public class TGListAdapter<T> extends BaseAdapter
 	private Class<? extends TGViewHolder<T>> viewHolderClass;
 	
 	/**
-	 * @param context
+	 * @param activity
 	 * @param items 列表填充数据
 	 * @param convertViewLayoutId  列表行视图layoutId
 	 * @param viewHolderClass ViewHolder类名
 	 */
-	public TGListAdapter(Context context, List<T> items,int convertViewLayoutId, 
+	public TGListAdapter(Activity activity, List<T> items,int convertViewLayoutId, 
 			Class<? extends TGViewHolder<T>> viewHolderClass)
 	{
-		this.context = context;
+		this.activity = activity;
 		this.items = new ArrayList<T>();
 		if(null != items)
 		{
@@ -105,7 +105,7 @@ public class TGListAdapter<T> extends BaseAdapter
 			{
 				try
 				{
-					convertView = LayoutInflater.from(getContext()).inflate(convertViewLayoutId, null);
+					convertView = LayoutInflater.from(activity).inflate(convertViewLayoutId, null);
 				}
 				catch (Exception e)
 				{
@@ -137,7 +137,7 @@ public class TGListAdapter<T> extends BaseAdapter
 		try
 		{
 			viewHolder = viewHolderClass.newInstance();
-			viewHolder.setContext(context);
+			viewHolder.setActivity(activity);
 			viewHolder.setAdapter(this);
 		}
 		catch (Exception e)
@@ -214,25 +214,13 @@ public class TGListAdapter<T> extends BaseAdapter
 		return this.items;
 	}
 	
-	/**
-	 * 该方法的作用:
-	 * 设置Context
-	 * @date 2014年2月10日
-	 * @param context
-	 */
-	public void setContext(Context context)
+	public Activity getActivity()
 	{
-		this.context = context;
+		return activity;
 	}
 	
-	/**
-	 * 该方法的作用:
-	 * 获取Context
-	 * @date 2014年2月10日
-	 * @return
-	 */
-	protected Context getContext()
+	public void setActivity(Activity activity)
 	{
-		return context;
+		this.activity = activity;
 	}
 }

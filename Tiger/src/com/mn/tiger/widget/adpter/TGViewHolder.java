@@ -1,6 +1,6 @@
 package com.mn.tiger.widget.adpter;
 
-import android.content.Context;
+import android.app.Activity;
 import android.view.View;
 
 import com.mn.tiger.utility.ViewInjector;
@@ -10,7 +10,7 @@ import com.mn.tiger.utility.ViewInjector;
  */
 public abstract class TGViewHolder<T>
 {
-	private Context context;
+	private Activity activity;
 	
 	/**
 	 * 搭配使用的Adapter
@@ -19,16 +19,6 @@ public abstract class TGViewHolder<T>
 	
 	public TGViewHolder()
 	{
-	}
-	
-	void setContext(Context context)
-	{
-		this.context = context;
-	}
-	
-	public Context getContext()
-	{
-		return context;
 	}
 	
 	/**
@@ -58,5 +48,15 @@ public abstract class TGViewHolder<T>
 	 * @param position
 	 */
 	public abstract void fillData(T itemData, int position);
+
+	public Activity getActivity()
+	{
+		return activity;
+	}
+
+	public void setActivity(Activity activity)
+	{
+		this.activity = activity;
+	}
 
 }
