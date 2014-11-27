@@ -95,6 +95,8 @@ public class DirectionalViewPager extends ViewPager
 
 	private int mScrollState = SCROLL_STATE_IDLE;
 	
+	private float startY;
+	
 	static class ItemInfo
 	  {
 	    Object object;
@@ -489,6 +491,11 @@ public class DirectionalViewPager extends ViewPager
 	{
 		return mOrientation;
 	}
+	
+	public int getCurItem()
+	{
+		return mCurItem;
+	}
 
 	public void setOrientation(int orientation)
 	{
@@ -767,6 +774,58 @@ public class DirectionalViewPager extends ViewPager
 		{
 			populate();
 		}
+	}
+	
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent ev)
+	{
+		View view = ((TGPagerAdapter)getAdapter()).getPagers().get(mCurItem);
+		
+		//若为可滚动视图，则由滚动视图当前状态决定事件派发
+		if(view instanceof IScrollable)
+		{
+			return dispatchTouchEventOfScrollView((IScrollable)view, ev);
+		}
+		
+		return super.dispatchTouchEvent(ev);
+		
+	}
+	
+	/**
+	 * 由滚动视图当前状态决定事件派发
+	 * @param scrollable
+	 * @param event
+	 * @return
+	 */
+	private boolean dispatchTouchEventOfScrollView(IScrollable scrollable, MotionEvent event)
+	{
+		switch (event.getAction() & MotionEvent.ACTION_MASK)
+		{
+			case MotionEvent.ACTION_DOWN:
+				startY = event.getY();
+				break;
+			case MotionEvent.ACTION_MOVE:
+				final float difY = event.getY() - startY;
+				if(difY > 0 && Math.abs(difY) > mTouchSlop && scrollable.canScrollUp())
+				{
+					//滚动视图可向上滚动时，将事件直接派发给滚动视图
+					return ((View)scrollable).dispatchTouchEvent(event);
+				}
+				else if(difY < 0 && Math.abs(difY) > mTouchSlop && scrollable.canScrollDown())
+				{
+					//滚动视图可向下滚动时，将事件直接派发给滚动视图
+					return ((View)scrollable).dispatchTouchEvent(event);
+				}
+				
+			case MotionEvent.ACTION_UP:
+			case MotionEvent.ACTION_CANCEL:
+				break;
+
+			default:
+				break;
+		}
+		
+		return super.dispatchTouchEvent(event);
 	}
 
 	@Override
