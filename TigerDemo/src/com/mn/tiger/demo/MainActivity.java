@@ -15,7 +15,7 @@ import com.mn.tiger.annonation.ViewById;
 import com.mn.tiger.app.TGActionBarActivity;
 import com.mn.tiger.demo.activity.NavigationBarActivity;
 import com.mn.tiger.demo.activity.SlidingActivity;
-import com.mn.tiger.demo.template.viewpager.ViewPagerWithFragmentActivity;
+import com.mn.tiger.demo.template.viewpager.horizontal.fragment.ViewPagerWithFragmentActivity;
 import com.mn.tiger.demo.widget.searchview.SearchViewActivity;
 import com.mn.tiger.utility.ViewInjector;
 import com.mn.tiger.widget.adpter.TGListAdapter;
@@ -81,7 +81,7 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		@Override
 		public View initView(View convertView)
 		{
-			textView = new TextView(getContext());
+			textView = new TextView(getActivity());
 			return textView;
 		}
 		
@@ -91,7 +91,6 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 			textView.setText(itemData.demoType);
 		}
 	}
-	
 	
 	public static enum DemoModel
 	{

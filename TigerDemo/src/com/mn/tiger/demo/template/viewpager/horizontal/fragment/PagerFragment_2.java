@@ -1,4 +1,4 @@
-package com.mn.tiger.demo.template.viewpager;
+package com.mn.tiger.demo.template.viewpager.horizontal.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
