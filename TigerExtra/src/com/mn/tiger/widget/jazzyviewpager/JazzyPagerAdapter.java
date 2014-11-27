@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-import com.mn.tiger.widget.adpter.TGPagerAdapter;
+import com.mn.tiger.widget.viewpager.TGPagerAdapter;
 
 import android.view.View;
 import android.view.ViewGroup;
