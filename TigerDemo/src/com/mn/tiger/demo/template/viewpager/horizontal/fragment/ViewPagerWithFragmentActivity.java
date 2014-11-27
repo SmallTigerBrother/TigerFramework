@@ -25,6 +25,9 @@ public class ViewPagerWithFragmentActivity extends TGActionBarActivity implement
 	@ViewById(id = R.id.view_pager_tab)
 	private TGTabView tabView;
 	
+	/**
+	 * 填充到ViewPager中的Fragment数组
+	 */
 	private ArrayList<Fragment> fragments;
 	
 	@Override
@@ -34,13 +37,22 @@ public class ViewPagerWithFragmentActivity extends TGActionBarActivity implement
 		setContentView(R.layout.viewpager_fragment_activity);
 		ViewInjector.initInjectedView(this, this);
 		
+		setupViews();
+	}
+
+	private void setupViews()
+	{
+		//初始化ViewPager
 		fragments = new ArrayList<Fragment>();
 		fragments.add(new PagerFragment_1());
 		fragments.add(new PagerFragment_2());
+		fragments.add(new PagerFragment_3());
 		
 		viewPager.setAdapter(new TGFragmentPagerAdapter(getSupportFragmentManager(), 
 				fragments));
+		viewPager.setOnPageChangeListener(this);
 		
+		//初始化TabView
 		ArrayList<TabModel> tabModels = new ArrayList<TabModel>();
 		TabModel tabModel_1 = new TabModel();
 		tabModel_1.setImageResId(R.drawable.tiger_search_submit_icon);
@@ -63,25 +75,50 @@ public class ViewPagerWithFragmentActivity extends TGActionBarActivity implement
 		tabView.setAdapter(new TGListAdapter<TabModel>(this, tabModels,
 				R.layout.fragment_tab_item, TabViewHolder.class));
 		tabView.setSelection(0);
+		tabView.setOnTabChangeListener(this);
 	}
-
+	
 	@Override
 	public void onTabChanged(TGTabView tabView, int lastTabIndex, int currentTabIndex)
 	{
+		//还原上一个选中的tab
 		resetTab(lastTabIndex);
-		
+		//高亮显示当前选中的tab
 		highlightTab(currentTabIndex);
-		
-		viewPager.setCurrentItem(currentTabIndex);
+		//切换Page
+		viewPager.setCurrentItem(currentTabIndex, false);
 	}
 
+	/**
+	 * 还原tab
+	 * @param index
+	 */
 	private void resetTab(int index)
 	{
+		//若index > 0，则说明存在已选中的tab
+		if(index >= 0)
+		{
+			TabViewHolder holder = (TabViewHolder) tabView.getTabItem(index).getConvertView().getTag();
+			TabModel tabModel = (TabModel) tabView.getAdapter().getItem(index);
+			holder.getImageView().setImageResource(tabModel.getImageResId());
+		}
 	}
 	
+	/**
+	 * 高亮tab
+	 * @param index
+	 */
 	private void highlightTab(int index)
 	{
-		
+		TabViewHolder holder = (TabViewHolder) tabView.getTabItem(index).getConvertView().getTag();
+		TabModel tabModel = (TabModel) tabView.getAdapter().getItem(index);
+		holder.getImageView().setImageResource(tabModel.getHighlightResId());
+	}
+	
+	@Override
+	public void onPageSelected(int page)
+	{
+		tabView.setSelection(page);
 	}
 	
 	@Override
@@ -92,11 +129,5 @@ public class ViewPagerWithFragmentActivity extends TGActionBarActivity implement
 	@Override
 	public void onPageScrolled(int page, float arg1, int arg2)
 	{
-	}
-
-	@Override
-	public void onPageSelected(int page)
-	{
-		tabView.setSelection(page);
 	}
 }
