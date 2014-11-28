@@ -42,7 +42,6 @@ public class TGPushPluginManager
 	public void registerPlugin(String tag, TGPushPlugin plugin)
 	{
 		pushPluginMap.put(tag, plugin);
-		plugin.onRegister();
 	}
 	
 	/**

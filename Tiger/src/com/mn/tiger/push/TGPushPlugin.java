@@ -6,11 +6,6 @@ package com.mn.tiger.push;
 public abstract class TGPushPlugin
 {
 	/**
-	 * 注册到PluginManager时的回调方法
-	 */
-	public abstract void onRegister();
-	
-	/**
 	 * 启动服务时的回调方法
 	 */
 	public abstract void onStartPushService();
