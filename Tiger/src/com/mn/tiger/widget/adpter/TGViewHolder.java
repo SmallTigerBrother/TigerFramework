@@ -57,12 +57,12 @@ public abstract class TGViewHolder<T>
 	 */
 	public abstract void fillData(T itemData, int position);
 
-	public Activity getActivity()
+	protected Activity getActivity()
 	{
 		return activity;
 	}
 
-	public void setActivity(Activity activity)
+	void setActivity(Activity activity)
 	{
 		this.activity = activity;
 	}
