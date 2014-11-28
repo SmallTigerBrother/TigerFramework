@@ -1,7 +1,5 @@
 package com.mn.tiger.widget;
 
-import com.mn.tiger.R;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
@@ -15,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.mn.tiger.R;
 
 
 /**
@@ -402,5 +402,26 @@ public class TGSearchView extends RelativeLayout
 		 * 当输入内容被清空时的回调方法
 		 */
 		public void onTextCleaned();
+	}
+	
+	/**
+	 * 布局参数LayoutParams
+	 */
+	public static class LayoutParams extends RelativeLayout.LayoutParams
+	{
+		public LayoutParams(int w, int h)
+		{
+			super(w, h);
+		}
+		
+		public LayoutParams(MarginLayoutParams source)
+		{
+			super(source);
+		}
+		
+		public LayoutParams(RelativeLayout.LayoutParams source)
+		{
+			super(source);
+		}
 	}
 }

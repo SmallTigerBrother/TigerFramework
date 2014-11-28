@@ -326,4 +326,25 @@ public class TGNavigationBar extends RelativeLayout
 	{
 		getRightNaviButton().setEnabled(enabled);
 	}
+	
+	/**
+	 * 布局参数LayoutParams
+	 */
+	public static class LayoutParams extends RelativeLayout.LayoutParams
+	{
+		public LayoutParams(int w, int h)
+		{
+			super(w, h);
+		}
+		
+		public LayoutParams(MarginLayoutParams source)
+		{
+			super(source);
+		}
+		
+		public LayoutParams(RelativeLayout.LayoutParams source)
+		{
+			super(source);
+		}
+	}
 }
