@@ -16,13 +16,14 @@ public abstract class TGPushPlugin
 	public abstract void onStartPushService();
 	
 	/**
+	 * 请求绑定推送服务
+	 */
+	public abstract void requestPushBinding();
+	
+	/**
 	 * 接收消息时的回调方法，在此方法中处理消息
 	 * @param pushMessage
 	 */
 	public abstract void onRecieve(Object pushMessage);
 	
-	/**
-	 * 请求绑定推送服务
-	 */
-	public abstract void requestPushBinding();
 }
