@@ -1,5 +1,6 @@
 package com.mn.tiger.widget.slidingmenu;
 
+import com.mn.tiger.widget.slidingmenu.SlidingMenu.OnOpenListener;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideMode;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideTouchMode;
 
@@ -242,6 +243,14 @@ public class SlidingActivityHelper
 	{
 		mSlidingMenu.toggle();
 	}
+	
+	/**
+	 * Toggle the SlidingMenu. If it is open, it will be closed, and vice versa.
+	 */
+	public void toggleSecondaryMenu()
+	{
+		mSlidingMenu.toggleSecondaryMenu(true);
+	}
 
 	/**
 	 * Close the SlidingMenu and show the content view.
@@ -286,6 +295,32 @@ public class SlidingActivityHelper
 	public void setTouchModeAbove(SlideTouchMode mode)
 	{
 		mSlidingMenu.setTouchModeAbove(mode);
+	}
+	
+	/**
+	 * Sets the OnOpenListener. {@link OnOpenListener#onOpen()
+	 * OnOpenListener.onOpen()} will be called when the SlidingMenu is opened
+	 * 
+	 * @param listener
+	 *            the new OnOpenListener
+	 */
+	public void setOnOpenListener(OnOpenListener listener)
+	{
+		// mViewAbove.setOnOpenListener(listener);
+		mSlidingMenu.setOnOpenListener(listener) ;
+	}
+
+	/**
+	 * Sets the OnOpenListner for secondary menu {@link OnOpenListener#onOpen()
+	 * OnOpenListener.onOpen()} will be called when the secondary SlidingMenu is
+	 * opened
+	 * 
+	 * @param listener
+	 *            the new OnOpenListener
+	 */
+	public void setSecondaryOnOpenListner(OnOpenListener listener)
+	{
+		mSlidingMenu.setSecondaryOnOpenListner(listener);;
 	}
 	
 	/**

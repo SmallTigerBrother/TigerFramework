@@ -600,6 +600,29 @@ public class SlidingMenu extends RelativeLayout
 			showMenu(animate);
 		}
 	}
+	
+	/**
+	 * Toggle the SlidingMenu. If it is open, it will be closed, and vice versa.
+	 */
+	public void toggleSecondaryMenu()
+	{
+		toggleSecondaryMenu(true);
+	}
+	
+	/**
+	 * Toggle the SlidingMenu. If it is open, it will be closed, and vice versa.
+	 */
+	public void toggleSecondaryMenu(boolean animate)
+	{
+		if (isSecondaryMenuShowing())
+		{
+			showContent(animate);
+		}
+		else
+		{
+			showSecondaryMenu(animate);
+		}
+	}
 
 	/**
 	 * Checks if is the behind view showing.
