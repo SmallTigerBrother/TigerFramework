@@ -214,13 +214,34 @@ public class TGListAdapter<T> extends BaseAdapter
 		return this.items;
 	}
 	
-	public Activity getActivity()
+	/**
+	 * 获取列表第一个元素
+	 * @return 若列表无数据，返回null
+	 */
+	public T getFirstItem()
 	{
-		return activity;
+		if(!items.isEmpty())
+		{
+			return items.get(0);
+		}
+		return null;
 	}
 	
-	public void setActivity(Activity activity)
+	/**
+	 * 获取列表最后一个元素
+	 * @return 若列表无数据，返回null
+	 */
+	public T getLastItem()
 	{
-		this.activity = activity;
+		if(!items.isEmpty())
+		{
+			return items.get(items.size() - 1);
+		}
+		return null;
+	}
+	
+	protected Activity getActivity()
+	{
+		return activity;
 	}
 }
