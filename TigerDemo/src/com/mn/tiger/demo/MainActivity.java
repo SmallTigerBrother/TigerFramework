@@ -15,11 +15,16 @@ import com.mn.tiger.annonation.ViewById;
 import com.mn.tiger.app.TGActionBarActivity;
 import com.mn.tiger.demo.activity.NavigationBarActivity;
 import com.mn.tiger.demo.activity.SlidingActivity;
+import com.mn.tiger.demo.datastorage.DataStorageDemoActivity;
+import com.mn.tiger.demo.download.DownloadDemoActivity;
+import com.mn.tiger.demo.request.RequestDemoActivity;
 import com.mn.tiger.demo.template.viewpager.horizontal.HorizontalViewPagerActivity;
 import com.mn.tiger.demo.template.viewpager.horizontal.fragment.ViewPagerWithFragmentActivity;
 import com.mn.tiger.demo.template.viewpager.vertical.VerticalViewPagerActivity;
 import com.mn.tiger.demo.widget.searchview.SearchViewActivity;
 import com.mn.tiger.demo.widget.searchview.actionbar.SearchViewInActionBarActivity;
+import com.mn.tiger.demo.widget.searchview.dialog.DialogDemoActivity;
+import com.mn.tiger.demo.widget.searchview.wheelview.WheelViewActivity;
 import com.mn.tiger.utility.ViewInjector;
 import com.mn.tiger.widget.adpter.TGListAdapter;
 import com.mn.tiger.widget.adpter.TGViewHolder;
@@ -45,6 +50,11 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		demoModels.add(DemoModel.VerticalViewPager);
 		demoModels.add(DemoModel.SearchView);
 		demoModels.add(DemoModel.SearchViewInActionBar);
+		demoModels.add(DemoModel.DataStorageDemo);
+		demoModels.add(DemoModel.DownloadDemo);
+		demoModels.add(DemoModel.RequestDemo);
+		demoModels.add(DemoModel.DialogDemo);
+		demoModels.add(DemoModel.WheelViewDemo);
 		
 		demoListView.setAdapter(new TGListAdapter<DemoModel>(this, demoModels, -1, 
 				ViewHolder.class));
@@ -86,6 +96,27 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 			case SearchViewInActionBar:
 				intent.setClass(this, SearchViewInActionBarActivity.class);
 				break;
+				
+			case DataStorageDemo:
+				intent.setClass(this, DataStorageDemoActivity.class);
+				break;
+				
+			case DownloadDemo:
+				intent.setClass(this, DownloadDemoActivity.class);
+				break;
+				
+			case RequestDemo:
+				intent.setClass(this, RequestDemoActivity.class);
+				break;
+				
+			case DialogDemo:
+				intent.setClass(this, DialogDemoActivity.class);
+				break;
+				
+			case WheelViewDemo:
+				intent.setClass(this, WheelViewActivity.class);
+				break;
+				
 
 			default:
 				break;
@@ -125,7 +156,18 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		
 		VerticalViewPager("VerticalViewPager"),
 		
-		HorizontalViewPagerWithFragment("HorizontalViewPager + Fragment + TabView");
+		HorizontalViewPagerWithFragment("HorizontalViewPager + Fragment + TabView"),
+		
+		DataStorageDemo("DataBaseDemo"),
+		
+		DownloadDemo("DownloadDemo"),
+		
+		RequestDemo("RequestDemo"),
+		
+		DialogDemo("DialogDemo"),
+		
+		WheelViewDemo("WheelViewDemo");
+		
 		
 		private DemoModel(String demoType)
 		{
