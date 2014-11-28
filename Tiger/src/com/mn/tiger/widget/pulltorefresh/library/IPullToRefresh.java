@@ -182,7 +182,7 @@ public interface IPullToRefresh<T extends View>
 	 *            - Listener to be used when the Widget has a pull event to
 	 *            propogate.
 	 */
-	public void setOnPullEventListener(OnPullEventListener<T> listener);
+	public void setOnPullEventListener(OnPullEventListener listener);
 
 	/**
 	 * Set OnRefreshListener for the Widget
@@ -190,7 +190,7 @@ public interface IPullToRefresh<T extends View>
 	 * @param listener
 	 *            - Listener to be used when the Widget is set to Refresh
 	 */
-	public void setOnRefreshListener(OnRefreshListener<T> listener);
+	public void setOnRefreshListener(OnRefreshListener listener);
 
 	/**
 	 * Sets whether Overscroll support is enabled. This is different to

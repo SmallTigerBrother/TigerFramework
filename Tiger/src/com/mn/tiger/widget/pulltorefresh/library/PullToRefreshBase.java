@@ -93,8 +93,8 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 	private LoadingLayout mHeaderLayout;
 	private LoadingLayout mFooterLayout;
 
-	private OnRefreshListener<T> mOnRefreshListener;
-	private OnPullEventListener<T> mOnPullEventListener;
+	private OnRefreshListener mOnRefreshListener;
+	private OnPullEventListener mOnPullEventListener;
 
 	private SmoothScrollRunnable mCurrentSmoothScrollRunnable;
 
@@ -434,12 +434,12 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 		}
 	}
 
-	public void setOnPullEventListener(OnPullEventListener<T> listener)
+	public void setOnPullEventListener(OnPullEventListener listener)
 	{
 		mOnPullEventListener = listener;
 	}
 
-	public final void setOnRefreshListener(OnRefreshListener<T> listener)
+	public final void setOnRefreshListener(OnRefreshListener listener)
 	{
 		mOnRefreshListener = listener;
 	}
@@ -510,7 +510,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 		// Call OnPullEventListener
 		if (null != mOnPullEventListener)
 		{
-			mOnPullEventListener.onPullEvent(this, mState, mCurrentMode);
+			mOnPullEventListener.onPullEvent(mState, mCurrentMode);
 		}
 	}
 
@@ -1090,11 +1090,11 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 		{
 			if (mCurrentMode == Mode.PULL_FROM_START)
 			{
-				mOnRefreshListener.onPullDownToRefresh(this);
+				mOnRefreshListener.onPullDownToRefresh();
 			}
 			else if (mCurrentMode == Mode.PULL_FROM_END)
 			{
-				mOnRefreshListener.onPullUpToRefresh(this);
+				mOnRefreshListener.onPullUpToRefresh();
 			}
 		}
 		
@@ -1519,7 +1519,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 	 * 
 	 * @author Chris Banes
 	 */
-	public static interface OnPullEventListener<V extends View>
+	public static interface OnPullEventListener
 	{
 
 		/**
@@ -1537,7 +1537,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 		 *            {@link State#PULL_TO_REFRESH} or
 		 *            {@link State#RELEASE_TO_REFRESH}.
 		 */
-		public void onPullEvent(final PullToRefreshBase<V> refreshView, State state, Mode direction);
+		public void onPullEvent(State state, Mode direction);
 
 	}
 
@@ -1548,7 +1548,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 	 * 
 	 * @author Chris Banes
 	 */
-	public static interface OnRefreshListener<V extends View>
+	public static interface OnRefreshListener
 	{
 		// TODO These methods need renaming to START/END rather than DOWN/UP
 
@@ -1556,13 +1556,13 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 		 * onPullDownToRefresh will be called only when the user has Pulled from
 		 * the start, and released.
 		 */
-		public void onPullDownToRefresh(final PullToRefreshBase<V> refreshView);
+		public void onPullDownToRefresh();
 
 		/**
 		 * onPullUpToRefresh will be called only when the user has Pulled from
 		 * the end, and released.
 		 */
-		public void onPullUpToRefresh(final PullToRefreshBase<V> refreshView);
+		public void onPullUpToRefresh();
 
 	}
 
