@@ -19,6 +19,7 @@ import com.mn.tiger.demo.template.viewpager.horizontal.HorizontalViewPagerActivi
 import com.mn.tiger.demo.template.viewpager.horizontal.fragment.ViewPagerWithFragmentActivity;
 import com.mn.tiger.demo.template.viewpager.vertical.VerticalViewPagerActivity;
 import com.mn.tiger.demo.widget.searchview.SearchViewActivity;
+import com.mn.tiger.demo.widget.searchview.actionbar.SearchViewInActionBarActivity;
 import com.mn.tiger.utility.ViewInjector;
 import com.mn.tiger.widget.adpter.TGListAdapter;
 import com.mn.tiger.widget.adpter.TGViewHolder;
@@ -37,11 +38,13 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		ViewInjector.initInjectedView(this, this);
 		
 		ArrayList<DemoModel> demoModels = new ArrayList<MainActivity.DemoModel>();
-		demoModels.add(DemoModel.ActionBarDemo);
+		demoModels.add(DemoModel.NavigationBarDemo);
 		demoModels.add(DemoModel.SildingMenuDemo);
 		demoModels.add(DemoModel.HorizontalViewPagerWithFragment);
 		demoModels.add(DemoModel.HorizontalViewPager);
 		demoModels.add(DemoModel.VerticalViewPager);
+		demoModels.add(DemoModel.SearchView);
+		demoModels.add(DemoModel.SearchViewInActionBar);
 		
 		demoListView.setAdapter(new TGListAdapter<DemoModel>(this, demoModels, -1, 
 				ViewHolder.class));
@@ -56,7 +59,7 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		DemoModel itemData = (DemoModel) parent.getAdapter().getItem(position);
 		switch (itemData)
 		{
-			case ActionBarDemo:
+			case NavigationBarDemo:
 				intent.setClass(this, NavigationBarActivity.class);
 				break;
 
@@ -76,8 +79,12 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 				intent.setClass(this, HorizontalViewPagerActivity.class);
 				break;
 				
-			case SearchViewActivity:
+			case SearchView:
 				intent.setClass(this, SearchViewActivity.class);
+				break;
+				
+			case SearchViewInActionBar:
+				intent.setClass(this, SearchViewInActionBarActivity.class);
 				break;
 
 			default:
@@ -107,10 +114,12 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 	
 	public static enum DemoModel
 	{
-		ActionBarDemo("ActionBar"),
-		SildingMenuDemo("SldingMenu"),
+		NavigationBarDemo("部分自定义 NavigationBar"),
+		SildingMenuDemo("SldingMenu + NavigationBar"),
 		
-		SearchViewActivity("SearchViewActivity"),
+		SearchView("SearchView"),
+		
+		SearchViewInActionBar("SearchViewInActionBar"),
 		
 		HorizontalViewPager("HorizontalViewPager"),
 		
