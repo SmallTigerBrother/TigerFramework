@@ -35,7 +35,7 @@ public class TGNavigationBar extends RelativeLayout
 	/**
 	 * 中间标题字体颜色
 	 */
-	public static final int MIDDLE_TEXT_COLOR = 0xFFFFFFFF;
+	public static final int MIDDLE_TEXT_COLOR = 0xFF000000;
 	
 	/**
 	 * 按钮字体大小
@@ -45,7 +45,7 @@ public class TGNavigationBar extends RelativeLayout
 	/**
 	 * 按钮字体颜色
 	 */
-	public static final int BUTTON_TEXT_COLOR = 0xFFFFFFFF;
+	public static final int BUTTON_TEXT_COLOR = 0xFF000000;
 	
 	/**
 	 * 左导航区Layout
