@@ -1,7 +1,7 @@
 package com.mn.tiger.widget.tab;
 
 import java.util.ArrayList;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -10,7 +10,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.HorizontalScrollView;
-
 import com.mn.tiger.widget.tab.TGTabView.OnTabChangeListener;
 import com.mn.tiger.widget.tab.TGTabView.TabItem;
 
@@ -31,6 +30,7 @@ public class TGScrollTabView extends HorizontalScrollView
 	/**
 	 * 用于循环监测scrollview是否停止滚动
 	 */
+	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler()
 	{
 		public void handleMessage(Message msg)
@@ -146,7 +146,7 @@ public class TGScrollTabView extends HorizontalScrollView
 			int itemWidth = 0;
 			for (int i = 0; i < tabItems.size(); i++)
 			{
-				itemView = tabItems.get(i).getContentView();
+				itemView = tabItems.get(i).getConvertView();
 				// 获取item的宽度
 				itemWidth = itemView.getMeasuredWidth();
 				sum += itemWidth;
@@ -158,7 +158,7 @@ public class TGScrollTabView extends HorizontalScrollView
 					// 判断差值是否大于当前item宽度的一半，以此判断是往左移还是右移
 					if (offset < itemWidth / 2)
 					{
-						itemView = tabItems.get(i + 1).getContentView();
+						itemView = tabItems.get(i + 1).getConvertView();
 						TGScrollTabView.this.scrollTo(sum, itemView.getMeasuredWidth());
 					}
 					else
