@@ -29,16 +29,16 @@ import android.webkit.WebView;
 
 public class PullToRefreshWebView extends PullToRefreshBase<WebView>
 {
-	private static final OnRefreshListener<WebView> defaultOnRefreshListener = new OnRefreshListener<WebView>()
+	private final OnRefreshListener defaultOnRefreshListener = new OnRefreshListener()
 	{
 		@Override
-		public void onPullDownToRefresh(PullToRefreshBase<WebView> refreshView)
+		public void onPullDownToRefresh()
 		{
-			refreshView.getRefreshableView().reload();
+			PullToRefreshWebView.this.getRefreshableView().reload();
 		}
 
 		@Override
-		public void onPullUpToRefresh(PullToRefreshBase<WebView> refreshView)
+		public void onPullUpToRefresh()
 		{
 			
 		}

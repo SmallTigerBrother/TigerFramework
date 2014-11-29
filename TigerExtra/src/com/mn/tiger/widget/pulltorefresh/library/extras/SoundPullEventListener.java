@@ -26,7 +26,7 @@ import android.media.MediaPlayer;
 import android.view.View;
 
 public class SoundPullEventListener<V extends View> implements 
-    PullToRefreshBase.OnPullEventListener<V>
+    PullToRefreshBase.OnPullEventListener
 {
 	private final Context mContext;
 	private final HashMap<State, Integer> mSoundMap;
@@ -46,7 +46,7 @@ public class SoundPullEventListener<V extends View> implements
 	}
 
 	@Override
-	public final void onPullEvent(PullToRefreshBase<V> refreshView, State event, Mode direction)
+	public final void onPullEvent(State event, Mode direction)
 	{
 		Integer soundResIdObj = mSoundMap.get(event);
 		if (null != soundResIdObj)
