@@ -36,21 +36,21 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.mn.tiger.demo.template.viewpager.horizontal.fragment.ViewPagerWithFragmentActivity"
+            android:name="com.mn.tiger.demo.widget.viewpager.horizontal.fragment.ViewPagerWithFragmentActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.mn.tiger.demo.template.viewpager.vertical.VerticalViewPagerActivity"
+            android:name="com.mn.tiger.demo.widget.viewpager.vertical.VerticalViewPagerActivity"
             android:label="@string/app_name" >
         </activity>
         
         <activity
-            android:name="com.mn.tiger.demo.template.viewpager.horizontal.HorizontalViewPagerActivity"
+            android:name="com.mn.tiger.demo.widget.viewpager.horizontal.HorizontalViewPagerActivity"
             android:label="@string/app_name" >
         </activity>
         
          <activity
-            android:name="com.mn.tiger.demo.template.viewpager.horizontal.BannerViewPagerActivity"
+            android:name="com.mn.tiger.demo.widget.viewpager.horizontal.BannerViewPagerActivity"
             android:label="@string/app_name" >
         </activity>
         
