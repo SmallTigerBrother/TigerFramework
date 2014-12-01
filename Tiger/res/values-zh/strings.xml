@@ -30,4 +30,6 @@
     <string name="tiger_alert_dialog_yes_no_title">您真的要退出吗?</string>
     
     <string name="tiger_not_space" >空间不足,下载失败!</string>
+    
+    <string name="dialog_sheet_cancel">取消</string>
 </resources>
