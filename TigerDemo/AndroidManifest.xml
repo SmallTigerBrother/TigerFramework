@@ -49,6 +49,11 @@
             android:label="@string/app_name" >
         </activity>
         
+         <activity
+            android:name="com.mn.tiger.demo.template.viewpager.horizontal.BannerViewPagerActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
         <activity
             android:name="com.mn.tiger.demo.widget.searchview.actionbar.SearchViewInActionBarActivity"
             android:label="@string/app_name" >

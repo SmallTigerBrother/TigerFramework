@@ -18,6 +18,7 @@ import com.mn.tiger.demo.activity.SlidingActivity;
 import com.mn.tiger.demo.datastorage.DataStorageDemoActivity;
 import com.mn.tiger.demo.download.DownloadDemoActivity;
 import com.mn.tiger.demo.request.RequestDemoActivity;
+import com.mn.tiger.demo.template.viewpager.horizontal.BannerViewPagerActivity;
 import com.mn.tiger.demo.template.viewpager.horizontal.HorizontalViewPagerActivity;
 import com.mn.tiger.demo.template.viewpager.horizontal.fragment.ViewPagerWithFragmentActivity;
 import com.mn.tiger.demo.template.viewpager.vertical.VerticalViewPagerActivity;
@@ -48,6 +49,7 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		demoModels.add(DemoModel.HorizontalViewPagerWithFragment);
 		demoModels.add(DemoModel.HorizontalViewPager);
 		demoModels.add(DemoModel.VerticalViewPager);
+		demoModels.add(DemoModel.BannerViewPager);
 		demoModels.add(DemoModel.SearchView);
 		demoModels.add(DemoModel.SearchViewInActionBar);
 		demoModels.add(DemoModel.DataStorageDemo);
@@ -87,6 +89,10 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 				
 			case HorizontalViewPager:
 				intent.setClass(this, HorizontalViewPagerActivity.class);
+				break;
+				
+			case BannerViewPager:
+				intent.setClass(this, BannerViewPagerActivity.class);
 				break;
 				
 			case SearchView:
@@ -133,6 +139,7 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		{
 			textView = new TextView(getActivity());
 			textView.setTextSize(24);
+			textView.setPadding(10, 16, 10, 16);
 			return textView;
 		}
 		
@@ -157,6 +164,8 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		VerticalViewPager("VerticalViewPager"),
 		
 		HorizontalViewPagerWithFragment("HorizontalViewPager + Fragment + TabView"),
+		
+		BannerViewPager("BannerViewPager + Indicator"),
 		
 		DataStorageDemo("DataBaseDemo"),
 		
