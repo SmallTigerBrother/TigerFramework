@@ -193,7 +193,7 @@ public class DisplayUtils
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T extends ViewGroup.LayoutParams> T getLayoutParamsMW(Class<T> clazz)
+	public static <T extends ViewGroup.LayoutParams> T newLayoutParamsMW(Class<T> clazz)
 	{
 		try
 		{
