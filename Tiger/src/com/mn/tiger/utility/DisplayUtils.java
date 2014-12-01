@@ -197,9 +197,10 @@ public class DisplayUtils
 	{
 		try
 		{
-			Constructor<T> constructor = clazz.getConstructor(Integer.class ,Integer.class);
-			return constructor.newInstance(ViewGroup.LayoutParams.MATCH_PARENT, 
-					ViewGroup.LayoutParams.WRAP_CONTENT);
+			T layoutParams = clazz.newInstance();
+			layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+			layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+			return layoutParams;
 		}
 		catch (Exception e)
 		{

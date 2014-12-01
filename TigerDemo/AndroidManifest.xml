@@ -64,6 +64,11 @@
             android:label="@string/app_name" >
         </activity>
         
+         <activity
+            android:name="com.mn.tiger.demo.widget.dialog.DialogDemoActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
     </application>
 
 </manifest>
