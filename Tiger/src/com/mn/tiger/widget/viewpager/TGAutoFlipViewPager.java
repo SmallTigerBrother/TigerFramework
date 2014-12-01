@@ -14,12 +14,21 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TGBannerViewPager extends ViewPager
+/**
+ * 可自动翻页的ViewPager
+ */
+public class TGAutoFlipViewPager extends ViewPager
 {
 	protected final String LOG_TAG = this.getClass().getSimpleName();
 	
+	/**
+	 * 当前显示的页码
+	 */
 	private int currentPageNum = 0;
 
+	/**
+	 * 用于接收定时翻页消息的Handler
+	 */
 	private Handler handler = new Handler()
 	{
 		public void handleMessage(Message msg)
@@ -28,14 +37,29 @@ public class TGBannerViewPager extends ViewPager
 		};
 	};
 	
+	/**
+	 * 是否继续翻页
+	 */
 	private boolean isContinue = true;
 	
+	/**
+	 * 是否正在滚动
+	 */
 	private boolean isSrolling = false;
 	
-	private int duration = 2000;
+	/**
+	 * 翻页周期
+	 */
+	private int duration = 4000;
 	
+	/**
+	 * 内置的页码改变监听器
+	 */
 	private OnPageChangeListener internalPageChangeListener = null;
 	
+	/**
+	 * 定时发送翻页消息的线程
+	 */
 	private Thread thread = new Thread()
 	{
 		public void run() 
@@ -60,18 +84,21 @@ public class TGBannerViewPager extends ViewPager
 		};
 	};
 	
-	public TGBannerViewPager(Context context)
+	public TGAutoFlipViewPager(Context context)
 	{
 		super(context);
 		setListeners();
 	}
 
-	public TGBannerViewPager(Context context, AttributeSet attrs)
+	public TGAutoFlipViewPager(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
 		setListeners();
 	}
 	
+	/**
+	 * 设置触摸事件监听器
+	 */
 	private void setListeners()
 	{
 		setOnTouchListener(new OnTouchListener()
@@ -81,11 +108,12 @@ public class TGBannerViewPager extends ViewPager
 			{
 				switch (event.getAction())
 				{
+					//当按下、滑动时不能自动滚动
 					case MotionEvent.ACTION_DOWN:
 					case MotionEvent.ACTION_MOVE:
 						isContinue = false;
 						break;
-					case MotionEvent.ACTION_UP:
+					case MotionEvent.ACTION_UP://当手指抬起后不能自动滚动
 						isContinue = true;
 						break;
 					default:
@@ -99,12 +127,12 @@ public class TGBannerViewPager extends ViewPager
 		super.setOnPageChangeListener(new OnPageChangeListener()
 		{
 			@Override
-			public void onPageSelected(int arg0)
+			public void onPageSelected(int page)
 			{
-				currentPageNum = arg0;
+				currentPageNum = page;
 				if(null != internalPageChangeListener)
 				{
-					internalPageChangeListener.onPageSelected(arg0);
+					internalPageChangeListener.onPageSelected(page);
 				}
 			}
 			
@@ -135,6 +163,9 @@ public class TGBannerViewPager extends ViewPager
 		thread.start();
 	}
 	
+	/**
+	 * 开始滚动
+	 */
 	public void startScroll()
 	{
 		isSrolling = true;
@@ -146,6 +177,7 @@ public class TGBannerViewPager extends ViewPager
 	@Override
 	public void setCurrentItem(int item)
 	{
+		//计算当前页码，确保可以自动滚动
 		if(item < 100 && null != getAdapter())
 		{
 			currentPageNum = item + ((TGPagerAdapter)getAdapter()).getPagers().size() * 100 - 1;
@@ -153,6 +185,7 @@ public class TGBannerViewPager extends ViewPager
 		super.setCurrentItem(currentPageNum);
 	}
 	
+	//计算当前页码，确保可以自动滚动
 	@Override
 	public void setCurrentItem(int item, boolean smoothScroll)
 	{
@@ -164,11 +197,18 @@ public class TGBannerViewPager extends ViewPager
 		super.setCurrentItem(currentPageNum, smoothScroll);
 	}
 	
+	/**
+	 * 停止自动滚动
+	 */
 	public void stopScroll()
 	{
 		isSrolling = false;
 	}
 	
+	/**
+	 * 设置滚动周期
+	 * @param duration
+	 */
 	public void setSrollDuration(int duration)
 	{
 		this.duration = duration;
@@ -180,8 +220,16 @@ public class TGBannerViewPager extends ViewPager
 		this.internalPageChangeListener = listener;
 	}
 	
+	/**
+	 * 循环滚动PagerAdapter
+	 * @author za4480
+	 *
+	 */
 	public static class CirclePagerAdapter extends TGPagerAdapter
 	{
+		/**
+		 * @param views 各个页面的视图
+		 */
 		public CirclePagerAdapter(ArrayList<View> views)
 		{
 			super(views);
@@ -196,12 +244,14 @@ public class TGBannerViewPager extends ViewPager
 		@Override
 		public void destroyItem(ViewGroup container, int position, Object object)
 		{
+			//计算页码，取余数
 			super.destroyItem(container, position % getPagers().size(), object);
 		}
 		
 		@Override
 		public Object instantiateItem(ViewGroup container, int position)
 		{
+			//计算页码，取余数
 			return super.instantiateItem(container, position % getPagers().size());
 		}
 	}
