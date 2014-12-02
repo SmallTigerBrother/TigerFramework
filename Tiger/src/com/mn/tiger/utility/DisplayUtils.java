@@ -1,14 +1,11 @@
 package com.mn.tiger.utility;
 
-import java.lang.reflect.Constructor;
-
-import com.mn.tiger.log.LogTools;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
-import android.view.ViewGroup;
+
+import com.mn.tiger.log.LogTools;
 
 /**
  * 显示工具类
@@ -119,94 +116,5 @@ public class DisplayUtils
 		size[0] = metrics.widthPixels;
 		size[1] = metrics.heightPixels;
 		return size;
-	}
-	
-	/**
-	 * 创建width = match_parent; height = match_parent的layoutparams
-	 * @param clazz layoutparams的类名           
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T extends ViewGroup.LayoutParams> T newLayoutParamsMM(Class<T> clazz)
-	{
-		try
-		{
-			Constructor<T> constructor = clazz.getConstructor(Integer.class ,Integer.class);
-			return constructor.newInstance(ViewGroup.LayoutParams.MATCH_PARENT, 
-					ViewGroup.LayoutParams.MATCH_PARENT);
-		}
-		catch (Exception e)
-		{
-			LogTools.e(LOG_TAG, e.getMessage(), e);
-		}
-		return (T) new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 
-					ViewGroup.LayoutParams.MATCH_PARENT);
-	}
-	
-	/**
-	 * 创建width = wrap_content; height = match_parent的layoutparams
-	 * @param clazz layoutparams的类名       
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T extends ViewGroup.LayoutParams> T newLayoutParamsWM(Class<T> clazz)
-	{
-		try
-		{
-			Constructor<T> constructor = clazz.getConstructor(Integer.class ,Integer.class);
-			return constructor.newInstance(ViewGroup.LayoutParams.WRAP_CONTENT, 
-					ViewGroup.LayoutParams.MATCH_PARENT);
-		}
-		catch (Exception e)
-		{
-			LogTools.e(LOG_TAG, e.getMessage(), e);
-		}
-		return (T) new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 
-					ViewGroup.LayoutParams.MATCH_PARENT);
-	}
-	
-	/**
-	 * 创建width = wrap_content; height = wrap_content的layoutparams
-	 * @param clazz layoutparams的类名       
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T extends ViewGroup.LayoutParams> T newLayoutParamsWW(Class<T> clazz)
-	{
-		try
-		{
-			Constructor<T> constructor = clazz.getConstructor(Integer.class ,Integer.class);
-			return constructor.newInstance(ViewGroup.LayoutParams.WRAP_CONTENT, 
-					ViewGroup.LayoutParams.WRAP_CONTENT);
-		}
-		catch (Exception e)
-		{
-			LogTools.e(LOG_TAG, e.getMessage(), e);
-		}
-		return (T) new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 
-					ViewGroup.LayoutParams.WRAP_CONTENT);
-	}
-	
-	/**
-	 * 创建width = match_parent; height = wrap_content的layoutparams
-	 * @param clazz clazz layoutparams的类名   
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T extends ViewGroup.LayoutParams> T newLayoutParamsMW(Class<T> clazz)
-	{
-		try
-		{
-			T layoutParams = clazz.newInstance();
-			layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-			layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-			return layoutParams;
-		}
-		catch (Exception e)
-		{
-			LogTools.e(LOG_TAG, e.getMessage(), e);
-		}
-		return (T) new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 
-					ViewGroup.LayoutParams.WRAP_CONTENT);
 	}
 }
