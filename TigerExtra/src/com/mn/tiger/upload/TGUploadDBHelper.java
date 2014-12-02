@@ -11,7 +11,7 @@ import com.mn.tiger.datastorage.db.exception.DbException;
 import com.mn.tiger.datastorage.db.sqlite.WhereBuilder;
 import com.mn.tiger.datastorage.db.upgrade.AbsDbUpgrade;
 import com.mn.tiger.log.LogTools;
-import com.mn.tiger.utility.Contant;
+import com.mn.tiger.utility.Constant;
 
 /**
  * 该类作用及功能说明:数据库操作类
@@ -90,7 +90,7 @@ public class TGUploadDBHelper
 	private TGDBManager getDB(Context context)
 	{
 		TGDBManager db = TGDBManager.create(context, context.getApplicationInfo().dataDir
-				+ File.separator + Contant.STORE_DATABASE_PATH, database_name, database_version,
+				+ File.separator + Constant.STORE_DATABASE_PATH, database_name, database_version,
 				new AbsDbUpgrade()
 				{
 					@Override
