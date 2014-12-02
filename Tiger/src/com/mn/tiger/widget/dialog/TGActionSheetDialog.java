@@ -54,6 +54,7 @@ public class TGActionSheetDialog extends Dialog implements View.OnClickListener
 		btnPanelLayout = (LinearLayout) this.findViewById(R.id.sheet_btn_panel);
 		//添加取消按钮
 		cancelBtn = createCancelButton();
+		cancelBtn.setId(CANCEL_BUTTN_ID);
 		cancelBtn.setOnClickListener(this);
 		LinearLayout mainLayout = (LinearLayout) this.findViewById(R.id.sheet_main);
 		mainLayout.addView(cancelBtn);
@@ -88,7 +89,6 @@ public class TGActionSheetDialog extends Dialog implements View.OnClickListener
 	{
 		Button button = new Button(getContext());
 		button.setGravity(Gravity.CENTER);
-		button.setId(CANCEL_BUTTN_ID);
 		button.setText(btnText);
 		button.setBackgroundColor(0xfff6f6f6);
 		button.setTextSize(18);
