@@ -1,5 +1,6 @@
 package com.mn.tiger.demo.widget.dialog;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,15 +11,23 @@ import com.mn.tiger.app.TGActionBarActivity;
 import com.mn.tiger.demo.R;
 import com.mn.tiger.utility.ViewInjector;
 import com.mn.tiger.widget.dialog.TGActionSheetDialog;
+import com.mn.tiger.widget.dialog.TGDateWheelDialog;
 import com.mn.tiger.widget.dialog.TGActionSheetDialog.OnSheetClickListener;
+import com.mn.tiger.widget.dialog.TGDateWheelDialog.OnDateSetListener;
+import com.mn.tiger.widget.wheelview.DateWheel;
 
 public class DialogDemoActivity extends TGActionBarActivity implements 
-    OnClickListener, OnSheetClickListener
+    OnClickListener, OnSheetClickListener, OnDateSetListener
 {
 	@ViewById(id = R.id.dialog_sheet)
 	private Button actionSheetButton;
 	
+	@ViewById(id = R.id.dialog_date_wheel)
+	private Button dateWheelButton;
+	
 	private TGActionSheetDialog actionSheetDialog;
+	
+	private TGDateWheelDialog dateWheelDialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -27,6 +36,7 @@ public class DialogDemoActivity extends TGActionBarActivity implements
 		setContentView(R.layout.dialog_demo);
 		ViewInjector.initInjectedView(this, this);
 		actionSheetButton.setOnClickListener(this);
+		dateWheelButton.setOnClickListener(this);
 	}
 	
 	@Override
@@ -40,9 +50,16 @@ public class DialogDemoActivity extends TGActionBarActivity implements
 				actionSheetDialog.addButton(2, "按钮2");
 				actionSheetDialog.addButton(3, "按钮3");
 				actionSheetDialog.setOnSheetClickListener(this);
+				actionSheetDialog.setBackgroundColor(Color.YELLOW);
 				
 				actionSheetDialog.show();
 				
+				break;
+				
+			case R.id.dialog_date_wheel:
+				dateWheelDialog = new TGDateWheelDialog(this, this, 2014, 12, 2);
+				
+				dateWheelDialog.show();
 				break;
 
 			default:
@@ -72,5 +89,11 @@ public class DialogDemoActivity extends TGActionBarActivity implements
 			default:
 				break;
 		}
+	}
+	
+	@Override
+	public void onDateSet(DateWheel dateWheel, int year, int monthOfYear, int dayOfMonth)
+	{
+		
 	}
 }
