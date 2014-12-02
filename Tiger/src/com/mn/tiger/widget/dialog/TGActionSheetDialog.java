@@ -59,14 +59,6 @@ public class TGActionSheetDialog extends Dialog implements View.OnClickListener
 		mainLayout.addView(cancelBtn);
 	}
 	
-	public TGActionSheetDialog(Context context, boolean cancelable,
-			IDialog.OnCancelListener cancelListener)
-	{
-		this(context, R.style.DialogTheme_Sheet);
-		super.setCancelable(cancelable);
-		super.setOnCancelListener(cancelListener);
-	}
-	
 	/**
 	 * 添加自定义按钮
 	 * @param id 自定义按钮的id
@@ -128,6 +120,24 @@ public class TGActionSheetDialog extends Dialog implements View.OnClickListener
 		layoutParams.rightMargin = DisplayUtils.dip2px(getContext(), 16);
 		button.setLayoutParams(layoutParams);
 		return button;
+	}
+	
+	/**
+	 * 设置背景颜色
+	 * @param color
+	 */
+	public void setBackgroundColor(int color)
+	{
+		this.getWindow().getDecorView().setBackgroundColor(color);
+	}
+	
+	/**
+	 * 设置背景资源文件
+	 * @param resid
+	 */
+	public void setBackgroundResource(int resid)
+	{
+		this.getWindow().getDecorView().setBackgroundResource(resid);
 	}
 	
 	/**
