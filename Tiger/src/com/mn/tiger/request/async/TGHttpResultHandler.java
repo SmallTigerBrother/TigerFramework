@@ -3,7 +3,6 @@ package com.mn.tiger.request.async;
 import android.app.Activity;
 import android.content.Context;
 
-import com.mn.tiger.request.error.TGHttpErrorHandler;
 import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.task.result.TGTaskResult;
 import com.mn.tiger.task.result.TGTaskResultHandler;
@@ -57,13 +56,24 @@ public abstract class TGHttpResultHandler extends TGTaskResultHandler
 	 */
 	protected abstract void onSuccess(TGHttpResult httpResult);
 	
+	/**
+	 * 出现移除时的回调方法
+	 * @param httpResult
+	 */
 	protected abstract void onError(TGHttpResult httpResult);
 	
+	/**
+	 * 返回缓存结果时的处理方法
+	 * @param httpResult
+	 */
 	protected void onReturnCachedResult(TGHttpResult httpResult)
 	{
 		
 	}
 	
+	/**
+	 * 请求结束后的回调方法（不论请求成功与否都会调用）
+	 */
 	protected void onRequestOver()
 	{
 		
@@ -78,6 +88,6 @@ public abstract class TGHttpResultHandler extends TGTaskResultHandler
 	 */
 	protected boolean hasError(TGHttpResult result)
 	{
-		return TGHttpErrorHandler.hasHttpError(result);
+		return false;
 	}
 }

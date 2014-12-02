@@ -119,6 +119,9 @@ public class Commons
 		}
 	}
 
+	/**
+	 * 退出程序
+	 */
 	public static void exit()
 	{
 		TGApplication.getInstance().exit();

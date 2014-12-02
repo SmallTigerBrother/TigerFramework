@@ -197,6 +197,10 @@ public class TGHttpAsyncTask
 		return taskParams;
 	}
 	
+	/**
+	 * 初始化http请求回调接口
+	 * @return
+	 */
 	protected final TGHttpResultHandler initHttpResultHandler()
 	{
 		TGHttpResultHandler resultHandler = new TGHttpResultHandler(context)

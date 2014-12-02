@@ -14,9 +14,7 @@ import android.net.Uri;
 import com.mn.tiger.log.LogTools;
 
 /**
- * 
  * 该类作用及功能说明:对包的操作，安装卸载等
- * 
  * @date 2014-2-11
  */
 public class PackageUtils

@@ -8,7 +8,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 
@@ -153,14 +152,13 @@ public class TGRemoteTaskInvoker
 	{
 		LogTools.d(LOG_TAG, "[Method:createTask]");
 		TGTask task = null;
-		Bundle data = taskParams.getData();
 		try
 		{
-			task = (TGTask) Class.forName(data.getString("taskClassName")).newInstance();
+			task = (TGTask) Class.forName(taskParams.getTaskClsName()).newInstance();
 			task.setMessenger(taskParams.getMessenger());
 			task.setTaskID(taskParams.getTaskID());
 			task.setType(taskParams.getTaskType());
-			task.setParams(parseTaskParams(data));
+			task.setParams(taskParams.getParams());
 			task.setContext(context);
 			return task;
 		}
@@ -169,29 +167,6 @@ public class TGRemoteTaskInvoker
 			LogTools.e(LOG_TAG, "[method:createTask] create task error.", e);
 		}
 		return task;
-	}
-	
-	/**
-	 * 
-	 * 该方法的作用:获取taskParams中Bundle中的任务参数
-	 * 
-	 * @date 2014年5月26日
-	 * @param data
-	 * @return
-	 */
-	private static Object parseTaskParams(Bundle data)
-	{
-		switch (data.getInt("paramType", TGTaskParams.PARAM_TYPE_UNKNOW))
-		{
-			case TGTaskParams.PARAM_TYPE_MAP:
-				return data.getSerializable("params");
-			case TGTaskParams.PARAM_TYPE_BUNDLE:
-				return data.getBundle("params");
-			case TGTaskParams.PARAM_TYPE_STRING:
-				return data.getString("params");
-			default:
-				return null;
-		}
 	}
 	
 	/**

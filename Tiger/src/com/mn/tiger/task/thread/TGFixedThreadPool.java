@@ -10,6 +10,9 @@ import java.util.concurrent.Executors;
  */
 public class TGFixedThreadPool extends TGThreadPool
 {
+	/**
+	 * executor
+	 */
 	private ExecutorService executorService;
 
 	/**

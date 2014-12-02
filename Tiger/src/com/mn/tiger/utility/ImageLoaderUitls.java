@@ -11,21 +11,45 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
  */
 public class ImageLoaderUitls
 {
+	/**
+	 * 异步加载图片
+	 * @param uri 图片地址
+	 * @param imageView
+	 */
 	public static void displayImage(String uri, ImageView imageView)
 	{
 		TGApplication.getInstance().getImageLoader().displayImage(uri, imageView);
 	}
 	
+	/**
+	 * 异步加载图片 
+	 * @param uri 图片地址
+	 * @param imageView
+	 * @param listener 图片加载监听接口
+	 */
 	public static void displayImage(String uri, ImageView imageView, ImageLoadingListener listener)
 	{
 		TGApplication.getInstance().getImageLoader().displayImage(uri, imageView, listener);
 	}
 	
+	/**
+	 * 异步加载图片
+	 * @param uri 图片地址
+	 * @param imageView
+	 * @param options 图片显示参数
+	 */
 	public static void displayImage(String uri, ImageView imageView, DisplayImageOptions options)
 	{
 		TGApplication.getInstance().getImageLoader().displayImage(uri, imageView, options);
 	}
 	
+	/**
+	 * 异步加载图片
+	 * @param uri 图片地址
+	 * @param imageView
+	 * @param options 图片显示参数
+	 * @param listener 图片加载监听接口 
+	 */
 	public static void displayImage(String uri, ImageView imageView, DisplayImageOptions options, 
 			ImageLoadingListener listener)
 	{
@@ -33,11 +57,22 @@ public class ImageLoaderUitls
 				options, listener);
 	}
 	
+	/**
+	 * 异步下载图片
+	 * @param uri 图片地址
+	 * @param listener 图片加载监听接口
+	 */
 	public static void loadImage(String uri, ImageLoadingListener listener)
 	{
 		TGApplication.getInstance().getImageLoader().loadImage(uri, listener);
 	}
 	
+	/**
+	 * 异步下载图片
+	 * @param uri 图片地址
+	 * @param options 图片显示参数
+	 * @param listener 图片加载监听接口
+	 */
 	public static void loadImage(String uri, DisplayImageOptions options, ImageLoadingListener listener)
 	{
 		TGApplication.getInstance().getImageLoader().loadImage(uri, options, listener);

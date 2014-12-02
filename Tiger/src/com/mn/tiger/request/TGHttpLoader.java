@@ -20,6 +20,9 @@ import com.mn.tiger.request.receiver.DefaultHttpReceiver;
 import com.mn.tiger.request.receiver.TGHttpReceiver;
 import com.mn.tiger.request.receiver.TGHttpResult;
 
+/**
+ * Http请求类（包含异步、同步方法）
+ */
 public class TGHttpLoader<T> implements IRequestParser
 {
 	protected final String LOG_TAG = this.getClass().getSimpleName();

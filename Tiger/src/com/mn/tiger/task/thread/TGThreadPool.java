@@ -1,5 +1,8 @@
 package com.mn.tiger.task.thread;
 
+/**
+ * 线程池
+ */
 public abstract class TGThreadPool
 {
 	/**

@@ -9,10 +9,20 @@ import android.os.Build;
 
 import com.mn.tiger.log.LogTools;
 
+/**
+ * SharedPreferences工具类
+ */
 public class Preferences
 {
 	private static final String LOG_TAG = Preferences.class.getSimpleName();
 	
+	/**
+	 * 保存
+	 * @param context
+	 * @param name  SharedPreferences名称
+	 * @param key
+	 * @param value
+	 */
 	@SuppressLint("InlinedApi")
 	public static void save(Context context, String name, String key, String value)
 	{
@@ -28,6 +38,13 @@ public class Preferences
 		LogTools.e(LOG_TAG, "[Method:save] ——> the context is null");
 	}
 
+	/**
+	 * 保存
+	 * @param context
+	 * @param name SharedPreferences名称
+	 * @param key
+	 * @param value
+	 */
 	@SuppressLint("InlinedApi")
 	public static void save(Context context, String name, String key, int value)
 	{
@@ -44,6 +61,13 @@ public class Preferences
 		LogTools.e(LOG_TAG, "[Method:save] ——> the context is null");
 	}
 
+	/**
+	 * 保存
+	 * @param context
+	 * @param name SharedPreferences名称
+	 * @param key
+	 * @param value
+	 */
 	@SuppressLint("InlinedApi")
 	public static void save(Context context, String name, String key, long value)
 	{
@@ -59,6 +83,13 @@ public class Preferences
 		LogTools.e(LOG_TAG, "[Method:save] ——> the context is null");
 	}
 
+	/**
+	 * 保存
+	 * @param context 
+	 * @param name SharedPreferences名称
+	 * @param key
+	 * @param value
+	 */
 	@SuppressLint("InlinedApi")
 	public static void save(Context context, String name, String key, boolean value)
 	{
@@ -74,6 +105,13 @@ public class Preferences
 		LogTools.e(LOG_TAG, "[Method:save] ——> the context is null");
 	}
 
+	/**
+	 * 保存
+	 * @param context
+	 * @param name SharedPreferences名称
+	 * @param key
+	 * @param value
+	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public static void save(Context context, String name, String key, Float value)
 	{
@@ -89,6 +127,14 @@ public class Preferences
 		LogTools.e(LOG_TAG, "[Method:save] ——> the context is null");
 	}
 
+	/**
+	 * 读取
+	 * @param context
+	 * @param name SharedPreferences名称
+	 * @param key
+	 * @param defaultValue
+	 * @return
+	 */
 	@SuppressLint("InlinedApi")
 	public static boolean read(Context context, String name, String key, boolean defaultValue)
 	{
@@ -102,6 +148,14 @@ public class Preferences
 		return defaultValue;
 	}
 
+	/**
+	 * 读取
+	 * @param context
+	 * @param name SharedPreferences名称
+	 * @param key
+	 * @param defaultValue
+	 * @return
+	 */
 	@SuppressLint("InlinedApi")
 	public static int read(Context context, String name, String key, int defaultValue)
 	{
@@ -115,6 +169,14 @@ public class Preferences
 		return defaultValue;
 	}
 
+	/**
+	 * 读取
+	 * @param context
+	 * @param name SharedPreferences名称
+	 * @param key
+	 * @param defaultValue
+	 * @return
+	 */
 	@SuppressLint("InlinedApi")
 	public static float read(Context context, String name, String key, float defaultValue)
 	{
@@ -128,6 +190,14 @@ public class Preferences
 		return defaultValue;
 	}
 
+	/**
+	 * 读取
+	 * @param context
+	 * @param name SharedPreferences名称
+	 * @param key
+	 * @param defaultValue
+	 * @return
+	 */
 	@SuppressLint("InlinedApi")
 	public static long read(Context context, String name, String key, long defaultValue)
 	{
@@ -141,6 +211,14 @@ public class Preferences
 		return defaultValue;
 	}
 
+	/**
+	 * 读取
+	 * @param context
+	 * @param name SharedPreferences名称
+	 * @param key
+	 * @param defaultValue
+	 * @return
+	 */
 	@SuppressLint("InlinedApi")
 	public static String read(Context context, String name, String key, String defaultValue)
 	{
@@ -154,6 +232,12 @@ public class Preferences
 		return defaultValue;
 	}
 	
+	/**
+	 * 获取SharedPreferences（3.0以上版本启用多进程读写权限）
+	 * @param context
+	 * @param name SharedPreferences名称
+	 * @return
+	 */
 	@SuppressLint("InlinedApi")
 	public static SharedPreferences getSharedPreferences(Context context, String name)
 	{

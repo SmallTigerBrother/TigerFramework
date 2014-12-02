@@ -51,6 +51,9 @@ public class TGTaskQueue extends AbsTaskQueue
 	 */
 	private TGThreadPool threadPool;
 	
+	/**
+	 * 最大并发线程数
+	 */
 	private int maxThreadNum;
 	
 	/**
@@ -64,6 +67,10 @@ public class TGTaskQueue extends AbsTaskQueue
 		threadPool = initThreadPool();
 	}
 	
+	/**
+	 * 初始化线程池
+	 * @return
+	 */
 	protected TGThreadPool initThreadPool()
 	{
 		return new TGFixedThreadPool(getMaxThreadNum());
@@ -211,6 +218,10 @@ public class TGTaskQueue extends AbsTaskQueue
 		return false;
 	}
 	
+	/**
+	 * 克隆任务并插入队列
+	 * @param task
+	 */
 	private void cloneTaskEnQueue(TGTask task)
 	{
 		TGTask cloneTask = null;
@@ -342,20 +353,26 @@ public class TGTaskQueue extends AbsTaskQueue
 		this.taskListener = listener;
 	}
 	
+	/**
+	 * 获取最大并发线程数
+	 * @return
+	 */
 	public int getMaxThreadNum()
 	{
 		return maxThreadNum;
 	}
 
+	/**
+	 * 设置最大并发线程数
+	 * @param maxThreadNum
+	 */
 	public void setMaxThreadNum(int maxThreadNum)
 	{
 		this.maxThreadNum = maxThreadNum;
 	}
 
 	/**
-	 * 
 	 * 该类作用及功能说明: 默认任务队列监听
-	 * 
 	 * @date 2014年6月25日
 	 */
 	public class DefaultTaskListener implements ITaskListener

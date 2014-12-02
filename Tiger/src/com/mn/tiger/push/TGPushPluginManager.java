@@ -19,7 +19,11 @@ public class TGPushPluginManager
 	 */
 	private static TGPushPluginManager pushPluginManager;
 	
-	public synchronized TGPushPluginManager getInstance()
+	/**
+	 * 获取单例对象
+	 * @return
+	 */
+	public static synchronized TGPushPluginManager getInstance()
 	{
 		if(null == pushPluginManager)
 		{

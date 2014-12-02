@@ -11,6 +11,9 @@ import com.mn.tiger.task.invoke.TGTaskParams;
 import com.mn.tiger.task.result.TGTaskResultHandler;
 import com.mn.tiger.task.utils.TGTaskIDCreator;
 
+/**
+ * 任务管理器，单例类
+ */
 public class TGTaskManager
 {
 	/**
@@ -18,8 +21,14 @@ public class TGTaskManager
 	 */
 	protected static final String LOG_TAG = TGTaskManager.class.getSimpleName();
 	
+	/**
+	 * Manager单例对象
+	 */
 	private static TGTaskManager instance;
 	
+	/**
+	 * invoker单例对象
+	 */
 	private static TGTaskInvoker invoker;
 	
 	/**
@@ -37,6 +46,10 @@ public class TGTaskManager
 	 */
 	public static final int TASK_PAUSE_MODE = 3;
 	
+	/**
+	 * 获取对象实例
+	 * @return
+	 */
 	public static synchronized TGTaskManager getInstance()
 	{
 		if (null == instance)

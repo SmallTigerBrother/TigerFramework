@@ -6,9 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * 
  * 该类作用及功能说明: 任务结果
- * 
  * @date 2014年7月28日
  */
 public class TGTaskResult implements Serializable, Parcelable
@@ -18,20 +16,44 @@ public class TGTaskResult implements Serializable, Parcelable
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * 数据类型——未知
+	 */
 	public static final int DATA_TYPE_UNKNOWN = 0x00000000;
 
+	/**
+	 * 数据类型——int
+	 */
 	public static final int DATA_TYPE_INT = 0x00000001;
 
+	/**
+	 * 数据类型——String
+	 */
 	public static final int DATA_TYPE_STRING = 0x00000002;
 
+	/**
+	 * 数据类型——Serializeable
+	 */
 	public static final int DATA_TYPE_SERIALIZEABLE = 0x00000003;
 
+	/**
+	 * 数据类型——Parcelable
+	 */
 	public static final int DATA_TYPE_PARCELABLE = 0x00000004;
 
+	/**
+	 * 数据类型
+	 */
 	private int dataType = DATA_TYPE_UNKNOWN;
 	
+	/**
+	 * 任务ID
+	 */
 	private int taskID = -1;
 
+	/**
+	 * 执行结束
+	 */
 	private Object result = null;
 
 	public TGTaskResult()
@@ -39,7 +61,7 @@ public class TGTaskResult implements Serializable, Parcelable
 		
 	}
 
-	public TGTaskResult(Parcel source)
+	protected TGTaskResult(Parcel source)
 	{
 		setTaskID(source.readInt());
 		dataType = source.readInt();
@@ -63,6 +85,10 @@ public class TGTaskResult implements Serializable, Parcelable
 		}
 	}
 	
+	/**
+	 * 设置执行结果
+	 * @param result
+	 */
 	public void setResult(Object result)
 	{
 		if (null != result)
@@ -87,6 +113,16 @@ public class TGTaskResult implements Serializable, Parcelable
 			this.result = result;
 		}
 	}
+	
+	/**
+	 * 获取执行结果
+	 * @return
+	 */
+	public Object getResult()
+	{
+		return result;
+	}
+	
 
 	@Override
 	public int describeContents()
@@ -123,6 +159,9 @@ public class TGTaskResult implements Serializable, Parcelable
 		}
 	}
 
+	/**
+	 * Parcelable接口构建器
+	 */
 	public static final Parcelable.Creator<TGTaskResult> CREATOR = new Parcelable.Creator<TGTaskResult>()
 	{
 		@Override
@@ -145,16 +184,19 @@ public class TGTaskResult implements Serializable, Parcelable
 				+ ", dataType=" + dataType + "]";
 	}
 	
-	public Object getResult()
-	{
-		return result;
-	}
-	
+	/**
+	 * 获取任务ID
+	 * @return
+	 */
 	public int getTaskID()
 	{
 		return taskID;
 	}
 
+	/**
+	 * 设置任务ID
+	 * @param taskID
+	 */
 	public void setTaskID(int taskID)
 	{
 		this.taskID = taskID;

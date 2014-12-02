@@ -9,6 +9,9 @@ import android.net.wifi.WifiManager;
 
 import com.mn.tiger.log.LogTools;
 
+/**
+ * 网络工具类
+ */
 public class NetworkUtils
 {
 	private static final String LOG_TAG = NetworkUtils.class.getSimpleName();

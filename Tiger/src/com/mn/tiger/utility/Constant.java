@@ -1,7 +1,9 @@
 package com.mn.tiger.utility;
 
-
-public class Contant
+/**
+ *常量
+ */
+public class Constant
 {
 
 	/** 下载路径 */

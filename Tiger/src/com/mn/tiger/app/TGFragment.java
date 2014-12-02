@@ -12,9 +12,15 @@ import com.mn.tiger.utility.CR;
 import com.mn.tiger.widget.TGImageButton;
 import com.mn.tiger.widget.TGNavigationBar;
 
+/**
+ * 自定义Fragment基类
+ */
 public abstract class TGFragment extends Fragment
 {
-	protected View mainView;
+	/**
+	 * 主视图
+	 */
+	private View mainView;
 	
 	/**
 	 * 是否显示导航条
@@ -58,6 +64,12 @@ public abstract class TGFragment extends Fragment
 		return mainView;
 	};
 	
+	/**
+	 * 创建视图，Fragment的onCreateView方法中调用
+	 * @param inflater
+	 * @param savedInstanceState
+	 * @return
+	 */
 	protected abstract View onCreateView(LayoutInflater inflater,
 			Bundle savedInstanceState);
 	
@@ -177,11 +189,19 @@ public abstract class TGFragment extends Fragment
 		}
 	}
 	
+	/**
+	 * 导航条是否显示
+	 * @return
+	 */
 	public boolean isNavigationBarVisible()
 	{
 		return navigationBarVisible;
 	}
 	
+	/**
+	 * 设置导航条是否显示
+	 * @param navigationBarVisible
+	 */
 	public void setNavigationBarVisible(boolean navigationBarVisible)
 	{
 		this.navigationBarVisible = navigationBarVisible;

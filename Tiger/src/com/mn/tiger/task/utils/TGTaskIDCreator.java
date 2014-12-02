@@ -17,10 +17,6 @@ public class TGTaskIDCreator
 	 */
 	public static int createNextTaskID()
 	{
-		// //当前任务自动 + 1
-		// CURRENT_TASK_ID += 1;
-		// return CURRENT_TASK_ID;
-		
 		// 获取当前时间后9位
 		String time = System.currentTimeMillis() + System.nanoTime() + "";
 		CURRENT_TASK_ID = Integer.valueOf(time.substring(time.length() - 9, time.length()));

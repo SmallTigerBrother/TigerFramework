@@ -27,6 +27,9 @@ import android.view.View;
 
 import com.mn.tiger.log.LogTools;
 
+/**
+ * 图片处理工具类
+ */
 public class BitmapUtils
 {
 	/**

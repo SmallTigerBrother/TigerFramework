@@ -5,8 +5,14 @@ import java.util.concurrent.Executors;
 
 import com.mn.tiger.task.TGScheduleTaskList;
 
+/**
+ * 顺序执行的线程池
+ */
 public class TGScheduleThreadPool extends TGThreadPool
 {
+	/**
+	 * Executor
+	 */
 	private ExecutorService executorService;
 
 	public TGScheduleThreadPool()

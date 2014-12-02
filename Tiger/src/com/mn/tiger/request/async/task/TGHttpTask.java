@@ -47,6 +47,9 @@ public abstract class TGHttpTask extends TGTask
 	 */
 	public static final String PARAM_CACHEABLE = "cacheable";
 
+	/**
+	 * 缓存用的Key
+	 */
 	private String cacheKey = "";
 	
 	@Override
@@ -132,6 +135,10 @@ public abstract class TGHttpTask extends TGTask
 		return httpResult;
 	}
 	
+	/**
+	 * 将请求结果存入缓存
+	 * @param httpResult
+	 */
 	protected void save2Cache(TGHttpResult httpResult)
 	{
 		if(isCacheable())

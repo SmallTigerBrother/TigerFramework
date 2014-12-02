@@ -1,5 +1,8 @@
 package com.mn.tiger.task;
 
+/**
+ *任务回调接口
+ */
 public interface ITaskListener
 {
 	/**
