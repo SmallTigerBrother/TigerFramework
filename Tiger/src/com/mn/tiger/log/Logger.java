@@ -39,13 +39,15 @@ public class Logger
 
 	private OutputStreamWriter mWriter;
 
-	public static final String LOG_FILE_PATH_DEFAULT = "%1$s/medialab.com/log/%2$s.log";
+	public static final String LOG_FILE_PATH_DEFAULT = "%1$s/%2$s/log/%3$s.log";
 
 	private static SimpleDateFormat mDateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
 	private static SimpleDateFormat mTimeFormatter = new SimpleDateFormat("MM-dd HH:mm:ss");
 
 	private static List<LogConfig> mConfigs = null;
+	
+	private static String packageName = "tiger";
 
 	static
 	{
@@ -66,6 +68,11 @@ public class Logger
 	public void setLogWriter(OutputStreamWriter writer)
 	{
 		mWriter = writer;
+	}
+	
+	public static void setPackageName(String packageName)
+	{
+		Logger.packageName = packageName;
 	}
 
 	public static Logger getLogger(Class<?> cls, boolean isLog2File)
@@ -95,7 +102,7 @@ public class Logger
 		if (isLog2File && Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()))
 		{
 			String sdcardPath = Environment.getExternalStorageDirectory().getPath();
-			String filePath = String.format(LOG_FILE_PATH_DEFAULT, sdcardPath,
+			String filePath = String.format(LOG_FILE_PATH_DEFAULT, sdcardPath, packageName,
 					mDateFormatter.format(new Date()));
 			try
 			{

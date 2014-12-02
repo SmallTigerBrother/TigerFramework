@@ -7,11 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.mn.tiger.log.Logger;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.squareup.otto.Bus;
-
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -19,6 +14,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
+
+import com.mn.tiger.log.Logger;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.squareup.otto.Bus;
 
 /**
  * 该类作用及功能说明 应用App类
@@ -51,12 +51,21 @@ public class TGApplication extends Application
 	{
 		super.onCreate();
 		instance = this;
+		initLogger();
 	}
 
 	/** 得到 Application实例 */
 	public static TGApplication getInstance()
 	{
 		return instance;
+	}
+	
+	/**
+	 * 初始化日志工具
+	 */
+	protected void initLogger()
+	{
+		Logger.setPackageName(getPackageName()); 
 	}
 	
 	/**
@@ -193,7 +202,7 @@ public class TGApplication extends Application
 			}
 			catch (InterruptedException e)
 			{
-				e.printStackTrace();
+				LOG.e(e);
 			}
 
 			this.collectDeviceInfo(TGApplication.this);
