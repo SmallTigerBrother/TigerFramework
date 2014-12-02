@@ -8,8 +8,10 @@
     <LinearLayout
         android:id="@+id/sheet_btn_panel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:layout_marginTop="16dp">
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" 
+        android:orientation="vertical">
 
+    </LinearLayout>
+    
 </LinearLayout>
