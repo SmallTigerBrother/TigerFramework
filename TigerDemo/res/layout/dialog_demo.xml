@@ -9,5 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="DialogActionSheet" />
+    
+    <Button
+        android:id="@+id/dialog_date_wheel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DialogActionSheet" />
 
 </LinearLayout>
