@@ -33,7 +33,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 
-import com.mn.tiger.utility.CR;
 import com.mn.tiger.widget.wheelview.adapters.WheelViewAdapter;
 
 /**
@@ -116,7 +115,6 @@ public class WheelView extends View
 	public WheelView(Context context, AttributeSet attrs, int defStyle)
 	{
 		super(context, attrs, defStyle);
-		setDefaultAttrsForView();
 		initData(context);
 	}
 
@@ -129,25 +127,6 @@ public class WheelView extends View
 	private void initData(Context context)
 	{
 		scroller = new WheelScroller(getContext(), scrollingListener);
-	}
-
-	/**
-	 * 该方法的作用:为视图设置默认的属性
-	 * 
-	 * @date 2013-11-15
-	 */
-	private void setDefaultAttrsForView()
-	{
-		if (centerDrawable == null)
-		{
-			centerDrawable = getContext().getResources().getDrawable(
-					CR.getDrawableId(getContext(), "tiger_date_wheel_center_new"));
-		}
-		if (bgDrawable == null)
-		{
-			bgDrawable = getContext().getResources().getDrawable(
-					CR.getDrawableId(getContext(), "tiger_date_scroll"));
-		}
 	}
 
 	/**

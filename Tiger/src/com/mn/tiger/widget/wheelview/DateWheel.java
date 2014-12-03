@@ -1,13 +1,10 @@
-/**
- * @date 2013-2-6
- * 
- */
 package com.mn.tiger.widget.wheelview;
 
 import java.util.Calendar;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -20,18 +17,17 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mn.tiger.utility.CR;
+import com.mn.tiger.utility.DisplayUtils;
 import com.mn.tiger.widget.wheelview.adapters.ArrayWheelAdapter;
 import com.mn.tiger.widget.wheelview.adapters.NumericWheelAdapter;
 
 /**
- * 
  * 该类作用及功能说明 A view for selecting a month / year / day based on a calendar like
  * layout. For a dialog using this view, see
  * 
  * @version V2.0
  * @see JDK1.6,android-8
  */
-
 public class DateWheel extends FrameLayout
 {
 	private static final int DEFAULT_START_YEAR = 1900;
@@ -66,7 +62,6 @@ public class DateWheel extends FrameLayout
 	 */
 	public interface OnDateChangedListener
 	{
-
 		/**
 		 * @param view
 		 *            The view associated with this listener.
@@ -107,9 +102,7 @@ public class DateWheel extends FrameLayout
 	}
 
 	/**
-	 * 
 	 * 该方法的作用:初始化滚轮式日期选择器 参数: 返回值: 异常: 在什么情况下调用:
-	 * 
 	 * @date 2013-2-18
 	 */
 	private void initWheelView()
@@ -117,20 +110,28 @@ public class DateWheel extends FrameLayout
 		LayoutInflater inflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(CR.getLayoutId(mContext, "tiger_date_wheel_layout"), this, true);
-		this.mYearWheel = (WheelView) findViewById(CR.getIdId(mContext, "tiger_year"));
-		this.mYearWheel.setBackgroundDrawable(mContext.getResources().getDrawable(
-				CR.getDrawableId(mContext, "tiger_date_scroll_left")));
 
-		this.mMonthWheel = (WheelView) findViewById(CR.getIdId(mContext, "tiger_month"));
-		this.mMonthWheel.setBackgroundDrawable(mContext.getResources().getDrawable(
-				CR.getDrawableId(mContext, "tiger_date_scroll_center")));
-
-		this.mDayWheel = (WheelView) findViewById(CR.getIdId(mContext, "tiger_day"));
-		this.mDayWheel.setBackgroundDrawable(mContext.getResources().getDrawable(
-				CR.getDrawableId(mContext, "tiger_date_scroll_right")));
-
-		Calendar calendar = Calendar.getInstance();
 		// year
+		initYearWheel(mYearWheel);
+	
+		// month
+		initMonthWheel(mMonthWheel);
+		
+		// day
+		initDayWheel(mDayWheel);
+		
+		this.init(mYear, mMonth, mDay, null);
+	}
+	
+	/**
+	 * 初始化年WheelView
+	 * @param mYearWheel
+	 */
+	protected void initYearWheel(WheelView mYearWheel)
+	{
+		Calendar calendar = Calendar.getInstance();
+		
+		this.mYearWheel = (WheelView) findViewById(CR.getIdId(mContext, "tiger_year"));
 		this.mYear = calendar.get(Calendar.YEAR);
 		int currYearIndex = this.mYear - this.startYear;
 		this.mYearWheel.setViewAdapter(new DateNumericAdapter(this.getContext(), this.startYear,
@@ -150,8 +151,16 @@ public class DateWheel extends FrameLayout
 				notifyDateChanged();
 			}
 		});
-
-		// month
+	}
+	
+	/**
+	 * 初始化月WheelView
+	 * @param mMonthWheel
+	 */
+	protected void initMonthWheel(WheelView mMonthWheel)
+	{
+		Calendar calendar = Calendar.getInstance();
+		this.mMonthWheel = (WheelView) findViewById(CR.getIdId(mContext, "tiger_month"));
 		this.mMonth = calendar.get(Calendar.MONTH);
 		int maxMonth = calendar.getMaximum(Calendar.MONTH) + 1;// save as
 		this.mMonthWheel.setViewAdapter(new DateNumericAdapter(getContext(), 1, maxMonth,
@@ -173,8 +182,16 @@ public class DateWheel extends FrameLayout
 				notifyDateChanged();
 			}
 		});
-
-		// day
+	}
+	
+	/**
+	 * 初始化天WheelView
+	 * @param mDayWheel
+	 */
+	protected void initDayWheel(WheelView mDayWheel)
+	{
+		Calendar calendar = Calendar.getInstance();
+		this.mDayWheel = (WheelView) findViewById(CR.getIdId(mContext, "tiger_day"));
 		this.mDay = calendar.get(Calendar.DAY_OF_MONTH);
 		this.mDayWheel.setVisibleItems(VISIBLE_ITEMS);
 		this.mDayWheel.setCyclic(true);
@@ -187,13 +204,38 @@ public class DateWheel extends FrameLayout
 				notifyDateChanged();
 			}
 		});
-		this.init(mYear, mMonth, mDay, null);
 	}
+	
+	/**
+	 * 设置年WheelView背景资源
+	 * @param drawable
+	 */
+	public void setYearWheelBackgroud(Drawable drawable)
+	{
+		this.mYearWheel.setBackgroundDrawable(drawable);
+	}
+	
+	/**
+	 * 设置月WheelView背景资源
+	 * @param drawable
+	 */
+	public void setMonthWheelBackgroud(Drawable drawable)
+	{
+		this.mMonthWheel.setBackgroundDrawable(drawable);
+	}
+	
+	/**
+	 * 设置天WheelView背景资源
+	 * @param drawable
+	 */
+	public void setDayWheelBackground(Drawable drawable)
+	{
+		this.mDayWheel.setBackgroundDrawable(drawable);
+	}
+	
 
 	/**
-	 * 
-	 * 该方法的作用:设置起始年份 参数: 返回值: 异常: 在什么情况下调用:
-	 * 
+	 * 该方法的作用:设置起始年份
 	 * @date 2013-2-18
 	 * @param startYear
 	 * @param endYear
@@ -212,9 +254,7 @@ public class DateWheel extends FrameLayout
 	}
 
 	/**
-	 * 
-	 * 该方法的作用:指定年月日，更新滚轮式日期选择器视图 参数: 返回值: 异常: 在什么情况下调用:
-	 * 
+	 * 该方法的作用:指定年月日，更新滚轮式日期选择器视图 
 	 * @date 2013-2-18
 	 * @param year
 	 * @param monthOfYear
@@ -236,7 +276,6 @@ public class DateWheel extends FrameLayout
 
 	/**
 	 * Initialize the state.
-	 * 
 	 * @param year
 	 *            The initial year.
 	 * @param monthOfYear
@@ -256,7 +295,19 @@ public class DateWheel extends FrameLayout
 		mOnDateChangedListener = onDateChangedListener;
 		updateSpinners();
 	}
+	
+	/**
+	 * 设置日期变化事件监听器
+	 * @param onDateChangedListener
+	 */
+	public void setOnDateChangedListener(OnDateChangedListener onDateChangedListener)
+	{
+		mOnDateChangedListener = onDateChangedListener;
+	}
 
+	/**
+	 * 更新各个滚动视图
+	 */
 	private void updateSpinners()
 	{
 		int yearIndex = this.mYear - this.startYear;
@@ -273,9 +324,8 @@ public class DateWheel extends FrameLayout
 	}
 
 	/**
-	 * 
 	 * 该方法的作用:该方法的作用:Updates day wheel. Sets max days according to selected
-	 * month and year 参数: 返回值: 异常: 在什么情况下调用:
+	 * month and year
 	 * 
 	 * @date 2013-2-19
 	 * @param isAnimated
@@ -296,24 +346,38 @@ public class DateWheel extends FrameLayout
 		mDayWheel.setCurrentItem(mDay - 1, isAnimated);
 	}
 
+	/**
+	 * 获取年份
+	 * @return
+	 */
 	public int getYear()
 	{
 		return mYear;
 	}
 
+	/**
+	 * 获取月份
+	 * @return
+	 */
 	public int getMonth()
 	{
 		return mMonth;
 	}
 
+	/**
+	 * 获取天
+	 * @return
+	 */
 	public int getDayOfMonth()
 	{
 		return mDay;
 	}
 
+	/**
+	 * 状态保存类
+	 */
 	private static class SavedState extends BaseSavedState
 	{
-
 		private final int mYear;
 		private final int mMonth;
 		private final int mDay;
@@ -447,8 +511,8 @@ public class DateWheel extends FrameLayout
 				// view.setTextColor(0xFF0000F0);
 			}
 			view.setTypeface(Typeface.SANS_SERIF);
-			view.setPadding(0, dip2px(context, text_padding_value), 0,
-					dip2px(context, text_padding_value));
+			view.setPadding(0, DisplayUtils.dip2px(context, text_padding_value), 0,
+					DisplayUtils.dip2px(context, text_padding_value));
 		}
 
 		@Override
@@ -492,8 +556,8 @@ public class DateWheel extends FrameLayout
 				// view.setTextColor(0xFF0000F0);
 			}
 			view.setTypeface(Typeface.SANS_SERIF);
-			view.setPadding(0, dip2px(context, text_padding_value), 0,
-					dip2px(context, text_padding_value));
+			view.setPadding(0, DisplayUtils.dip2px(context, text_padding_value), 0,
+					DisplayUtils.dip2px(context, text_padding_value));
 		}
 
 		@Override
@@ -502,20 +566,5 @@ public class DateWheel extends FrameLayout
 			currentItem = index;
 			return super.getItem(index, cachedView, parent);
 		}
-	}
-
-	/**
-	 * 
-	 * 该方法的作用:dp转px，sp转px
-	 * 
-	 * @date 2013-3-8
-	 * @param context
-	 * @param dipValue
-	 * @return
-	 */
-	private int dip2px(Context context, float dipValue)
-	{
-		final float scale = context.getResources().getDisplayMetrics().density;
-		return (int) (dipValue * scale + 0.5f);
 	}
 }
