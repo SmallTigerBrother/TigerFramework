@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.mn.tiger.widget.wheelview.DateWheel
+        android:id="@+id/date_wheel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </com.mn.tiger.widget.wheelview.DateWheel>
+
+    <com.mn.tiger.widget.wheelview.TimeWheel
+        android:id="@+id/time_wheel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </com.mn.tiger.widget.wheelview.TimeWheel>
+
+</LinearLayout>
