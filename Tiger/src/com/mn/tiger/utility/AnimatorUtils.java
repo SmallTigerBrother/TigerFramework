@@ -68,26 +68,6 @@ public class AnimatorUtils
 	}
 	
 	/**
-	 * X轴缩放属性
-	 * @param values（第一个值为开始值，第二个值为接收值）
-	 * @return
-	 */
-	public static PropertyValuesHolder getTranslationXPropertyHolder(float... values)
-	{
-		return PropertyValuesHolder.ofFloat("translationX", values);
-	}
-	
-	/**
-	 * X轴缩放属性
-	 * @param values（第一个值为开始值，第二个值为接收值）
-	 * @return
-	 */
-	public static PropertyValuesHolder getTranslationYPropertyHolder(float... values)
-	{
-		return PropertyValuesHolder.ofFloat("translationY", values);
-	}
-	
-	/**
 	 * top属性（可改变View高度）
 	 * @param values（第一个值为开始值，第二个值为接收值）
 	 * @return
