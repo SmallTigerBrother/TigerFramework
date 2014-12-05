@@ -2,12 +2,16 @@ package com.mn.tiger.share;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.mn.tiger.share.result.TGWeiChatShareResult;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.SendMessageToWX;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tencent.mm.sdk.openapi.WXImageObject;
 import com.tencent.mm.sdk.openapi.WXMediaMessage;
+import com.tencent.mm.sdk.openapi.WXTextObject;
+import com.tencent.mm.sdk.openapi.WXWebpageObject;
 
 public class TGWeiChatSharePlugin extends TGSharePlugin<WXMediaMessage, TGWeiChatShareResult>
 {
@@ -78,5 +82,69 @@ public class TGWeiChatSharePlugin extends TGSharePlugin<WXMediaMessage, TGWeiCha
 	protected String getMsgIndicator(TGWeiChatShareResult shareResult)
 	{
 		return shareResult.getTransaction();
+	}
+	
+	public static class TGWeiChatMsgBuilder extends TGShareMsgBuilder<WXMediaMessage>
+	{
+		private String title;
+		
+		private String text;
+		
+		private String description;
+		
+		private String webpageUrl;
+		
+		private String imagePath;
+		
+		public TGWeiChatMsgBuilder(int shareType)
+		{
+			super(shareType);
+		}
+
+		@Override
+		public WXMediaMessage build()
+		{
+			WXMediaMessage mediaMessage = new WXMediaMessage();
+			mediaMessage.title = title;
+			mediaMessage.description = description;
+			if(!TextUtils.isEmpty(webpageUrl))
+			{
+				WXWebpageObject webpageObject = new WXWebpageObject(webpageUrl);
+				mediaMessage.mediaObject = webpageObject;
+			}
+			else if(!TextUtils.isEmpty(text))
+			{
+				WXTextObject textObject = new WXTextObject(text);
+				mediaMessage.mediaObject = textObject;
+			}
+			else if(!TextUtils.isEmpty(imagePath))
+			{
+				WXImageObject imageObject = new WXImageObject();
+				imageObject.imagePath = imagePath;
+				mediaMessage.mediaObject = imageObject;
+			}
+			
+			return mediaMessage;
+		}
+		
+		public void setTitle(String title)
+		{
+			this.title = title;
+		}
+		
+		public void setDescription(String description)
+		{
+			this.description = description;
+		}
+		
+		public void setText(String text)
+		{
+			this.text = text;
+		}
+		
+		public void setWebpageUrl(String webpageUrl)
+		{
+			this.webpageUrl = webpageUrl;
+		}
 	}
 }

@@ -15,7 +15,7 @@ import com.mn.tiger.share.result.TGShareResult;
  */
 public abstract class TGSharePlugin<T, H extends TGShareResult>
 {
-	private TGShareMsgFactory<T> msgFactory;
+	private TGShareMsgBuilder<T> msgBuilder;
 	
 	private T shareMsg;
 	
@@ -39,10 +39,10 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 	
 	protected abstract void registerApp();
 	
-	public final synchronized <E extends TGShareMsgFactory<T>> void share(Activity activity,
-			E msgFactory, IShareResultHandler<H> handler)
+	public final synchronized <E extends TGShareMsgBuilder<T>> void share(Activity activity,
+			E msgBuilder, IShareResultHandler<H> handler)
 	{
-		shareTypeMap.put(getMsgIndicator(getShareMsg()), msgFactory.getShareType());
+		shareTypeMap.put(getMsgIndicator(getShareMsg()), msgBuilder.getShareType());
 		resultHandlerMap.put(getMsgIndicator(getShareMsg()), handler);
 		
 		sendShareMsg(activity, getShareMsg());
@@ -52,9 +52,9 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 	
 	protected final T getShareMsg()
 	{
-		if(null == shareMsg && null != msgFactory)
+		if(null == shareMsg && null != msgBuilder)
 		{
-			shareMsg = msgFactory.createShareMsg();
+			shareMsg = msgBuilder.build();
 		}
 		
 		return shareMsg;
@@ -125,9 +125,9 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 		return context;
 	}
 	
-	public TGShareMsgFactory<T> getMsgFactory()
+	public TGShareMsgBuilder<T> getMsgBuilder()
 	{
-		return msgFactory;
+		return msgBuilder;
 	}
 	
 	public String getAppID()
@@ -135,7 +135,7 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 		return appID;
 	}
 	
-	public static abstract class TGShareMsgFactory<T>
+	public static abstract class TGShareMsgBuilder<T>
 	{
 		/**
 		 * 分享类型
@@ -147,7 +147,7 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 		 * @param shareType 分享类型，为确保相同分享渠道的不同分享信息之间无冲突，
 		 *                  不同界面的相同分享方法，请定义不同的shareType
 		 */
-		public TGShareMsgFactory(int shareType)
+		public TGShareMsgBuilder(int shareType)
 		{
 			this.shareType = shareType;
 		}
@@ -157,6 +157,6 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 			return shareType;
 		}
 		
-		public abstract T createShareMsg();
+		public abstract T build();
 	}
 }

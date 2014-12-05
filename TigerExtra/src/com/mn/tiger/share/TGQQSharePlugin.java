@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import com.mn.tiger.log.Logger;
 import com.mn.tiger.share.result.TGQQShareResult;
+import com.tencent.connect.share.QQShare;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
@@ -114,5 +115,53 @@ public class TGQQSharePlugin extends TGSharePlugin<Bundle, TGQQShareResult> impl
 	public void onError(UiError uiError)
 	{
 		handleShareResult(new TGQQShareResult(uiError));
+	}
+	
+	public static class TGQQShareMsgBuilder extends TGShareMsgBuilder<Bundle>
+	{
+		private Bundle params;
+		
+		public TGQQShareMsgBuilder(int shareType)
+		{
+			super(shareType);
+			params = new Bundle();
+		}
+
+		@Override
+		public Bundle build()
+		{
+			params.putInt(QQShare.SHARE_TO_QQ_EXT_INT, QQShare.SHARE_TO_QQ_FLAG_QZONE_ITEM_HIDE);
+			return params;
+		}
+		
+		public void setQQKeyType(int qqKeyType)
+		{
+			params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, qqKeyType);
+		}
+		
+		public void setQQTargetUrl(int targetUrl)
+		{
+			params.putInt(QQShare.SHARE_TO_QQ_TARGET_URL, targetUrl);
+		}
+		
+		public void setQQTitle(int title)
+		{
+			params.putInt(QQShare.SHARE_TO_QQ_TITLE, title);
+		}
+		
+		public void setQQSummary(int summary)
+		{
+			params.putInt(QQShare.SHARE_TO_QQ_SUMMARY, summary);
+		}
+		
+		public void setQQImageUrl(int imageUrl)
+		{
+			params.putInt(QQShare.SHARE_TO_QQ_IMAGE_URL, imageUrl);
+		}
+		
+		public void setQQAppName(int appName)
+		{
+			params.putInt(QQShare.SHARE_TO_QQ_APP_NAME, appName);
+		}
 	}
 }

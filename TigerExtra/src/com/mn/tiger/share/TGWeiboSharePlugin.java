@@ -2,12 +2,18 @@ package com.mn.tiger.share;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.text.TextUtils;
 
 import com.mn.tiger.share.result.TGWeiboShareResult;
+import com.mn.tiger.utility.BitmapUtils;
+import com.sina.weibo.sdk.api.TextObject;
+import com.sina.weibo.sdk.api.WebpageObject;
 import com.sina.weibo.sdk.api.WeiboMultiMessage;
 import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
 import com.sina.weibo.sdk.api.share.SendMultiMessageToWeiboRequest;
 import com.sina.weibo.sdk.api.share.WeiboShareSDK;
+import com.sina.weibo.sdk.utils.Utility;
 
 public class TGWeiboSharePlugin extends TGSharePlugin<WeiboMultiMessage, TGWeiboShareResult>
 {
@@ -70,5 +76,88 @@ public class TGWeiboSharePlugin extends TGSharePlugin<WeiboMultiMessage, TGWeibo
 	protected IWeiboShareAPI getWeiboShareAPI()
 	{
 		return weiboShareAPI;
+	}
+	
+	public static class TGWeiBoMsgBuilder extends TGShareMsgBuilder<WeiboMultiMessage>
+	{
+		private String title = "";
+		
+		private String description;
+		
+		private String text = "";
+		
+		private String actionUrl;
+		
+		private String defaultText;
+		
+		private Bitmap thumbBitmap;
+		
+		public TGWeiBoMsgBuilder(int shareType)
+		{
+			super(shareType);
+		}
+
+		@Override
+		public WeiboMultiMessage build()
+		{
+			WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
+			
+			TextObject textObject = new TextObject();
+			textObject.text = text;
+			textObject.title = title;
+			weiboMessage.mediaObject = textObject;
+			
+			if(!TextUtils.isEmpty(actionUrl))
+			{
+				WebpageObject webpageObject = new WebpageObject();
+				webpageObject.actionUrl = actionUrl;
+				webpageObject.title = title;
+				webpageObject.identify = Utility.generateGUID();
+				webpageObject.description = description;
+				webpageObject.defaultText = defaultText;
+				if (thumbBitmap != null) 
+				{
+					Bitmap compressed = BitmapUtils.compressBitmapBytes(thumbBitmap, 30);
+					if (compressed != null) 
+					{
+						webpageObject.setThumbImage(compressed);
+					}
+				}
+				
+				weiboMessage.mediaObject = webpageObject;
+			}
+			
+			return weiboMessage;
+		}
+		
+		public void setTitle(String title)
+		{
+			this.title = title;
+		}
+		
+		public void setDescription(String description)
+		{
+			this.description = description;
+		}
+		
+		public void setText(String text)
+		{
+			this.text = text;
+		}
+		
+		public void setActionUrl(String actionUrl)
+		{
+			this.actionUrl = actionUrl;
+		}
+		
+		public void setDefaultText(String defaultText)
+		{
+			this.defaultText = defaultText;
+		}
+		
+		public void setThumbBitmap(Bitmap thumbBitmap)
+		{
+			this.thumbBitmap = thumbBitmap;
+		}
 	}
 }
