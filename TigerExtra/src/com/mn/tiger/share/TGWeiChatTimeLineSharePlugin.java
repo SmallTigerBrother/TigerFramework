@@ -7,9 +7,9 @@ import com.tencent.mm.sdk.openapi.SendMessageToWX.Req;
 
 public class TGWeiChatTimeLineSharePlugin extends TGWeiChatSharePlugin
 {
-	public TGWeiChatTimeLineSharePlugin(Context context)
+	public TGWeiChatTimeLineSharePlugin(Context context, String appID)
 	{
-		super(context);
+		super(context, appID);
 	}
 	
 	@Override
