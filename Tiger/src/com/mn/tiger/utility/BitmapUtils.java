@@ -1,6 +1,7 @@
 package com.mn.tiger.utility;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -529,6 +530,41 @@ public class BitmapUtils
 		}
 
 		return bitmap;
+	}
+	
+	/**
+	 *  压缩bitmap图片大小
+	 * @param bitmap
+	 * @param size 文件大小 
+	 * @return
+	 */
+	public static Bitmap compressBitmapBytes(Bitmap bitmap, int size)
+	{
+		Bitmap localBitmap = null;
+		try
+		{
+			localBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() / 2, bitmap.getHeight() / 2, true);
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			localBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+			int options = 100;
+			// 循环压缩到指定大小以内
+			while (baos.toByteArray().length > size && options != 10)
+			{
+				// 清空baos
+				baos.reset();
+				// 这里压缩options%，把压缩后的数据存放到baos中
+				localBitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);
+				options -= 5;// 每次质量缩减5%
+			}
+
+			baos.close();
+		}
+		catch (Exception e)
+		{
+		}
+
+		return localBitmap;
 	}
 
 	/**
