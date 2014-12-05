@@ -1,24 +1,16 @@
 package com.mn.tiger.share;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.mn.tiger.log.Logger;
 import com.mn.tiger.share.result.TGQQShareResult;
 import com.tencent.connect.share.QQShare;
-import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
-import com.tencent.tauth.UiError;
 
-public class TGQQSharePlugin extends TGSharePlugin<Bundle, TGQQShareResult> implements IUiListener
+public class TGQQSharePlugin extends TGSharePlugin<Bundle, TGQQShareResult>
 {
-	private static final Logger LOG = Logger.getLogger(TGQQSharePlugin.class);
-	
 	private static final String indicatorKey = "indicator";
 	
 	private Tencent tencent;
@@ -89,34 +81,6 @@ public class TGQQSharePlugin extends TGSharePlugin<Bundle, TGQQShareResult> impl
 		
 	}
 
-	@Override
-	public void onCancel()
-	{
-		JSONObject response = new JSONObject();
-		try
-		{
-			response.put("ret", TGQQShareResult.USER_CANCEL);
-		}
-		catch (JSONException e)
-		{
-			LOG.e(e);
-		}
-		
-		handleShareResult(new TGQQShareResult(response));
-	}
-
-	@Override
-	public void onComplete(Object response)
-	{
-		handleShareResult(new TGQQShareResult(response));
-	}
-
-	@Override
-	public void onError(UiError uiError)
-	{
-		handleShareResult(new TGQQShareResult(uiError));
-	}
-	
 	public static class TGQQShareMsgBuilder extends TGShareMsgBuilder<Bundle>
 	{
 		private Bundle params;

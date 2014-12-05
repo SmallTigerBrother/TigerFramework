@@ -109,6 +109,6 @@ public class TGQQEntryActivity extends TGActionBarActivity implements IUiListene
 	public void onComplete(Object response)
 	{
 		TGSharePluginManager.getInstance().postShareResult(TGSharePluginManager.TAG_QQ, 
-				new TGQQShareResult(response));
+				new TGQQShareResult((JSONObject)response));
 	}
 }
