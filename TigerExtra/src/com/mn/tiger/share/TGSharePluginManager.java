@@ -12,9 +12,15 @@ public class TGSharePluginManager
 {
 	private static final Logger LOG = Logger.getLogger(TGWXEntryActivity.class);
 	
-	public static final int TAG_WEI_CHAT = 1234;
+	public static final int TAG_WEI_CHAT = 1000;
 	
-	public static final int TAG_WEI_BO = 2345;
+	public static final int TAG_WEI_CHAT_TIME_LINE = 1001;
+	
+	public static final int TAG_QQ = 1002;
+	
+	public static final int TAG_QQ_ZONE = 1003;
+	
+	public static final int TAG_WEI_BO = 1004;
 	
 	/**
 	 * 插件map

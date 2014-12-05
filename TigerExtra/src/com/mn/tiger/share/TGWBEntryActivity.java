@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import com.mn.tiger.app.TGActionBarActivity;
 import com.mn.tiger.log.Logger;
-import com.mn.tiger.share.result.TGWeiChatShareResult;
 import com.mn.tiger.share.result.TGWeiboShareResult;
 import com.sina.weibo.sdk.api.share.BaseResponse;
 import com.sina.weibo.sdk.api.share.IWeiboHandler;

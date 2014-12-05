@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.mn.tiger.log.Logger;
@@ -21,6 +22,8 @@ public class TGQQSharePlugin extends TGSharePlugin<Bundle, TGQQShareResult> impl
 	
 	private Tencent tencent;
 	
+	private Activity activity;
+	
 	public TGQQSharePlugin(Context context, String appID)
 	{
 		super(context, appID);
@@ -35,7 +38,19 @@ public class TGQQSharePlugin extends TGSharePlugin<Bundle, TGQQShareResult> impl
 	@Override
 	protected void sendShareMsg(Activity activity, Bundle shareMsg)
 	{
-		tencent.shareToQQ(activity, shareMsg, this);
+		this.activity = activity;
+		Intent intent = new Intent(activity, TGQQEntryActivity.class);
+		activity.startActivity(intent);
+	}
+	
+	public void share2QQ()
+	{
+		if(null != getShareMsg())
+		{
+			tencent.shareToQQ(activity, getShareMsg(), null);
+		}
+		//清空actvity，避免内存泄露
+		this.activity = null;
 	}
 
 	@Override
@@ -72,7 +87,7 @@ public class TGQQSharePlugin extends TGSharePlugin<Bundle, TGQQShareResult> impl
 	{
 		
 	}
-	
+
 	@Override
 	public void onCancel()
 	{
@@ -90,14 +105,14 @@ public class TGQQSharePlugin extends TGSharePlugin<Bundle, TGQQShareResult> impl
 	}
 
 	@Override
-	public void onComplete(JSONObject response)
+	public void onComplete(Object response)
 	{
 		handleShareResult(new TGQQShareResult(response));
 	}
 
 	@Override
-	public void onError(UiError error)
+	public void onError(UiError uiError)
 	{
-		handleShareResult(new TGQQShareResult(error));
+		handleShareResult(new TGQQShareResult(uiError));
 	}
 }

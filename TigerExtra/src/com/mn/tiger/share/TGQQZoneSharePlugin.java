@@ -1,13 +1,14 @@
 package com.mn.tiger.share;
 
-import com.tencent.tauth.Tencent;
-
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 public class TGQQZoneSharePlugin extends TGQQSharePlugin
 {
+	private Activity activity;
+	
 	public TGQQZoneSharePlugin(Context context, String appID)
 	{
 		super(context, appID);
@@ -16,9 +17,16 @@ public class TGQQZoneSharePlugin extends TGQQSharePlugin
 	@Override
 	protected void sendShareMsg(Activity activity, Bundle shareMsg)
 	{
-		shareMsg.putInt(Tencent.SHARE_TO_QQ_EXT_INT, Tencent.SHARE_TO_QQ_FLAG_QZONE_AUTO_OPEN);
-		
-		Tencent tencent = Tencent.createInstance(getAppID(), getContext());
-		tencent.shareToQzone(activity, shareMsg, this);
+		this.activity = activity;
+		Intent intent = new Intent(activity, TGQQZoneEntryActivity.class);
+		activity.startActivity(intent);
+	}
+	
+	@Override
+	public void share2QQ()
+	{
+		getTencent().shareToQzone(activity, getShareMsg(), null);
+		//清空actvity，避免内存泄露
+		this.activity = null;
 	}
 }

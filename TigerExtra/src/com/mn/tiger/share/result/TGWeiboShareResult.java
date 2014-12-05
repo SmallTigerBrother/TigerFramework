@@ -13,7 +13,7 @@ public class TGWeiboShareResult extends TGShareResult
 	
 	private String transaction = "";
 	
-	private int resultCode = 0;
+	private int resultCode = SUCCESS;
 	
 	private String reqPackageName = "";
 	

@@ -54,7 +54,7 @@ public class TGQQShareResult extends TGShareResult
 		this.uiError = error;
 	}
 
-	public TGQQShareResult(int resultCode)
+	public TGQQShareResult(Object response)
 	{
 		this.resultCode = resultCode;
 	}

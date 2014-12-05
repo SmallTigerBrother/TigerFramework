@@ -59,9 +59,8 @@ public class TGWXEntryActivity extends TGActionBarActivity implements IWXAPIEven
 	@Override
 	public void onReq(BaseReq req)
 	{
-		TGWeiChatShareResult shareResult = new TGWeiChatShareResult(req);
 		TGSharePluginManager.getInstance().postShareResult(TGSharePluginManager.TAG_WEI_CHAT, 
-				shareResult);
+				new TGWeiChatShareResult(req));
 	}
 
 	@Override

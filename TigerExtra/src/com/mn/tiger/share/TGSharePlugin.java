@@ -21,7 +21,7 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 	
 	private Context context;
 	
-	private ConcurrentHashMap<String, IShareResultHandler<H>> resultHandlderMap;
+	private ConcurrentHashMap<String, IShareResultHandler<H>> resultHandlerMap;
 	
 	private ConcurrentHashMap<String, Integer> shareTypeMap;
 	
@@ -31,7 +31,7 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 	{
 		this.context = context;
 		this.appID = appID;
-		this.resultHandlderMap = new ConcurrentHashMap<String, IShareResultHandler<H>>();
+		this.resultHandlerMap = new ConcurrentHashMap<String, IShareResultHandler<H>>();
 		this.shareTypeMap = new ConcurrentHashMap<String, Integer>();
 		
 		registerApp();
@@ -43,7 +43,7 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 			E msgFactory, IShareResultHandler<H> handler)
 	{
 		shareTypeMap.put(getMsgIndicator(getShareMsg()), msgFactory.getShareType());
-		resultHandlderMap.put(getMsgIndicator(getShareMsg()), handler);
+		resultHandlerMap.put(getMsgIndicator(getShareMsg()), handler);
 		
 		sendShareMsg(activity, getShareMsg());
 	}
@@ -71,7 +71,7 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 	protected final void handleShareResult(H result)
 	{
 		result.setShareType(shareTypeMap.get(getMsgIndicator(result)));
-		IShareResultHandler<H> handler = resultHandlderMap.get(getMsgIndicator(result));
+		IShareResultHandler<H> handler = resultHandlerMap.get(getMsgIndicator(result));
 		if(null != handler)
 		{
 			handler.handleShareResult(result);
@@ -109,7 +109,7 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 	public void removeResultHandler(IShareResultHandler<H> resultHandler)
 	{
 		Iterator<Entry<String, IShareResultHandler<H>>> iterator = 
-				resultHandlderMap.entrySet().iterator();
+				resultHandlerMap.entrySet().iterator();
 		while (iterator.hasNext())
 		{
 			if(resultHandler.equals(iterator.next().getValue()))
