@@ -14,6 +14,8 @@ public class TGSharePluginManager
 	
 	public static final int TAG_WEI_CHAT = 1234;
 	
+	public static final int TAG_WEI_BO = 2345;
+	
 	/**
 	 * 插件map
 	 */

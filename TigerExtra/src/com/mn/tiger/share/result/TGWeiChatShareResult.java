@@ -50,4 +50,10 @@ public class TGWeiChatShareResult extends TGShareResult
 	{
 		return errorMsg;
 	}
+
+	@Override
+	public boolean isSuccess()
+	{
+		return resultCode == SUCCESS;
+	}
 }

@@ -1,6 +1,6 @@
 package com.mn.tiger.share.result;
 
-public class TGShareResult
+public abstract class TGShareResult
 {
 	private int shareType = -1;
 
@@ -13,4 +13,6 @@ public class TGShareResult
 	{
 		this.shareType = shareType;
 	}
+	
+	public abstract boolean isSuccess();
 }

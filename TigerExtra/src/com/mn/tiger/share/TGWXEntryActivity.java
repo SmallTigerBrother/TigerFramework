@@ -10,7 +10,6 @@ import com.tencent.mm.sdk.openapi.BaseReq;
 import com.tencent.mm.sdk.openapi.BaseResp;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 public class TGWXEntryActivity extends TGActionBarActivity implements IWXAPIEventHandler
 {
@@ -18,20 +17,15 @@ public class TGWXEntryActivity extends TGActionBarActivity implements IWXAPIEven
 	
 	private IWXAPI api;
 	
-	private TGWeiChatSharePlugin wxSharePlugin;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		this.setVisible(false);
 		
-		wxSharePlugin = getWeiChatSharePlugin();
-		
-		if(null != wxSharePlugin)
+		api = getIWXAPI();
+		if(null != api)
 		{
-			api = WXAPIFactory.createWXAPI(this, wxSharePlugin.getAppID());
-			api.registerApp(wxSharePlugin.getAppID());
 			api.handleIntent(getIntent(), this);
 		}
 		else
@@ -40,10 +34,11 @@ public class TGWXEntryActivity extends TGActionBarActivity implements IWXAPIEven
 		}
 	}
 	
-	protected TGWeiChatSharePlugin getWeiChatSharePlugin()
+	protected IWXAPI getIWXAPI()
 	{
-		return (TGWeiChatSharePlugin) TGSharePluginManager.getInstance().getPlugin(
+		TGWeiChatSharePlugin plugin = (TGWeiChatSharePlugin) TGSharePluginManager.getInstance().getPlugin(
 				TGSharePluginManager.TAG_WEI_CHAT);
+		return plugin.getIWXApi();
 	}
 	
 	@Override
@@ -51,7 +46,7 @@ public class TGWXEntryActivity extends TGActionBarActivity implements IWXAPIEven
 	{
 		super.onNewIntent(intent);
 		setIntent(intent);
-		if(null != wxSharePlugin)
+		if(null != api)
 		{
 			api.handleIntent(getIntent(), this);
 		}
