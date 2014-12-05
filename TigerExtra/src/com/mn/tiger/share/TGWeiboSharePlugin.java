@@ -117,7 +117,7 @@ public class TGWeiboSharePlugin extends TGSharePlugin<WeiboMultiMessage, TGWeibo
 				webpageObject.defaultText = defaultText;
 				if (thumbBitmap != null) 
 				{
-					Bitmap compressed = BitmapUtils.compressBitmapBytes(thumbBitmap, 30);
+					Bitmap compressed = BitmapUtils.compressBitmapBytes(thumbBitmap, 30 * 1024);
 					if (compressed != null) 
 					{
 						webpageObject.setThumbImage(compressed);
