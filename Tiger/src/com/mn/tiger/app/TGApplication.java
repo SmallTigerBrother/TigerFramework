@@ -52,6 +52,7 @@ public class TGApplication extends Application
 		super.onCreate();
 		instance = this;
 		initLogger();
+		initSharePluginManager();
 	}
 
 	/** 得到 Application实例 */
@@ -66,6 +67,11 @@ public class TGApplication extends Application
 	protected void initLogger()
 	{
 		Logger.setPackageName(getPackageName()); 
+	}
+	
+	protected void initSharePluginManager()
+	{
+		
 	}
 	
 	/**
