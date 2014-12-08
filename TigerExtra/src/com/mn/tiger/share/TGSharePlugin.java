@@ -125,12 +125,12 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 		return context;
 	}
 	
-	public TGShareMsgBuilder<T> getMsgBuilder()
+	protected TGShareMsgBuilder<T> getMsgBuilder()
 	{
 		return msgBuilder;
 	}
 	
-	public String getAppID()
+	protected String getAppID()
 	{
 		return appID;
 	}
