@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.mn.tiger.annonation.ViewById;
 import com.mn.tiger.app.TGActionBarActivity;
+import com.mn.tiger.demo.activity.AniminationDemoActivity;
 import com.mn.tiger.demo.activity.NavigationBarActivity;
 import com.mn.tiger.demo.activity.SlidingActivity;
 import com.mn.tiger.demo.datastorage.DataStorageDemoActivity;
@@ -46,6 +47,7 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		ArrayList<DemoModel> demoModels = new ArrayList<MainActivity.DemoModel>();
 		demoModels.add(DemoModel.NavigationBarDemo);
 		demoModels.add(DemoModel.SildingMenuDemo);
+		demoModels.add(DemoModel.AnimationDemo);
 		demoModels.add(DemoModel.HorizontalViewPagerWithFragment);
 		demoModels.add(DemoModel.HorizontalViewPager);
 		demoModels.add(DemoModel.VerticalViewPager);
@@ -77,6 +79,10 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 
 			case SildingMenuDemo:
 				intent.setClass(this, SlidingActivity.class);
+				break;
+				
+			case AnimationDemo:
+				intent.setClass(this, AniminationDemoActivity.class);
 				break;
 
 			case HorizontalViewPagerWithFragment:
@@ -154,6 +160,8 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 	{
 		NavigationBarDemo("部分自定义 NavigationBar"),
 		SildingMenuDemo("SldingMenu + NavigationBar"),
+		
+		AnimationDemo("AnimationOfActivity"),
 		
 		SearchView("SearchView"),
 		
