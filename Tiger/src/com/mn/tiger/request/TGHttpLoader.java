@@ -65,8 +65,7 @@ public class TGHttpLoader<T> implements IRequestParser
 	 * @param params 请求参数
 	 * @param callback 请求回调方法
 	 */
-	@SuppressWarnings("rawtypes")
-	public void loadByGet(Context context, String requestUrl, Class clazz, 
+	public void loadByGet(Context context, String requestUrl, Class<T> clazz, 
 			OnLoadCallback<T> callback)
 	{
 		execute(context, REQUEST_GET, requestUrl, clazz.getName(), callback);
@@ -104,8 +103,7 @@ public class TGHttpLoader<T> implements IRequestParser
 	 * @param params 请求参数
 	 * @param callback 请求回调方法
 	 */
-	@SuppressWarnings("rawtypes")
-	public void loadByPost(Context context, String requestUrl, Class clazz,
+	public void loadByPost(Context context, String requestUrl, Class<T> clazz,
 			OnLoadCallback<T> callback)
 	{
 		execute(context, REQUEST_POST, requestUrl, clazz.getName(), callback);
@@ -142,8 +140,7 @@ public class TGHttpLoader<T> implements IRequestParser
 	 * @param params 请求参数
 	 * @param callback 请求回调方法
 	 */
-	@SuppressWarnings("rawtypes")
-	public void loadByPut(Context context, String requestUrl, Class clazz,
+	public void loadByPut(Context context, String requestUrl, Class<T> clazz,
 			OnLoadCallback<T> callback)
 	{
 		execute(context, REQUEST_PUT, requestUrl, clazz.getName(), callback);
@@ -180,8 +177,7 @@ public class TGHttpLoader<T> implements IRequestParser
 	 * @param params 请求参数
 	 * @param callback 请求回调方法
 	 */
-	@SuppressWarnings("rawtypes")
-	public void loadByDelete(Context context, String requestUrl, Class clazz,
+	public void loadByDelete(Context context, String requestUrl, Class<T> clazz,
 			OnLoadCallback<T> callback)
 	{
 		execute(context, REQUEST_DELETE, requestUrl, clazz.getName(),  callback);
@@ -219,8 +215,8 @@ public class TGHttpLoader<T> implements IRequestParser
 	 * @param params 请求参数
 	 * @param callback 请求回调方法
 	 */
-	protected void execute(Context context, int requestType, String requestUrl, String resultClsName, 
-			OnLoadCallback<T> callback)
+	protected void execute(Context context, int requestType, String requestUrl,
+			String resultClsName,  OnLoadCallback<T> callback)
 	{
 		getAsyncTask().setContext(context);
 		getAsyncTask().setRequestType(requestType);
