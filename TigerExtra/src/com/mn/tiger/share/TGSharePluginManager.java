@@ -12,14 +12,29 @@ public class TGSharePluginManager
 {
 	private static final Logger LOG = Logger.getLogger(TGWXEntryActivity.class);
 	
+	/**
+	 * TAG —— 微信分享
+	 */
 	public static final int TAG_WEI_CHAT = 1000;
 	
+	/**
+	 * TAG —— 微信朋友圈分享
+	 */
 	public static final int TAG_WEI_CHAT_TIME_LINE = 1001;
 	
+	/**
+	 * TAG —— QQ分享
+	 */
 	public static final int TAG_QQ = 1002;
 	
+	/**
+	 * TAG —— QQ空间分享
+	 */
 	public static final int TAG_QQ_ZONE = 1003;
 	
+	/**
+	 * TAG —— 微博分享
+	 */
 	public static final int TAG_WEI_BO = 1004;
 	
 	/**
@@ -86,7 +101,8 @@ public class TGSharePluginManager
 	
 	/**
 	 * 发送分享结果
-	 * @param shareResult
+	 * @param tag 插件Tag
+	 * @param shareResult 分享结果
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public <T extends TGShareResult> void postShareResult(int tag, T shareResult)

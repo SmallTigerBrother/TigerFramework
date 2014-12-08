@@ -13,10 +13,19 @@ import com.tencent.mm.sdk.openapi.WXMediaMessage;
 import com.tencent.mm.sdk.openapi.WXTextObject;
 import com.tencent.mm.sdk.openapi.WXWebpageObject;
 
+/**
+ * 微信分享插件
+ */
 public class TGWeiChatSharePlugin extends TGSharePlugin<WXMediaMessage, TGWeiChatShareResult>
 {
+	/**
+	 * 微信API
+	 */
 	private IWXAPI api;
 	
+	/**
+	 * 信息请求类
+	 */
 	private SendMessageToWX.Req req;
 	
 	public TGWeiChatSharePlugin(Context context, String appID)
@@ -36,12 +45,17 @@ public class TGWeiChatSharePlugin extends TGSharePlugin<WXMediaMessage, TGWeiCha
 	protected void sendShareMsg(Activity activity, WXMediaMessage shareMsg)
 	{
 		// 发送媒体消息
-		api.sendReq(initReq());
+		req = initReq();
+		api.sendReq(req);
 	}
 	
+	/**
+	 * 初始化请求类
+	 * @return
+	 */
 	protected SendMessageToWX.Req initReq()
 	{
-		req = new SendMessageToWX.Req();
+		SendMessageToWX.Req req = new SendMessageToWX.Req();
 		req.transaction = String.valueOf(System.currentTimeMillis());
 		req.message = getShareMsg();
 		req.scene = SendMessageToWX.Req.WXSceneSession;
@@ -67,23 +81,30 @@ public class TGWeiChatSharePlugin extends TGSharePlugin<WXMediaMessage, TGWeiCha
 		
 	}
 	
-	@Override
-	protected String getMsgIndicator(WXMediaMessage shareMsg)
-	{
-		return req.transaction;
-	}
-	
+	/**
+	 * 获取微信分享API
+	 * @return
+	 */
 	protected IWXAPI getIWXApi()
 	{
 		return api;
 	}
 
 	@Override
+	protected String getMsgIndicator(WXMediaMessage shareMsg)
+	{
+		return req.transaction;
+	}
+	
+	@Override
 	protected String getMsgIndicator(TGWeiChatShareResult shareResult)
 	{
 		return shareResult.getTransaction();
 	}
 	
+	/**
+	 * 获取微信分享信息建造者
+	 */
 	public static class TGWeiChatMsgBuilder extends TGShareMsgBuilder<WXMediaMessage>
 	{
 		private String title;

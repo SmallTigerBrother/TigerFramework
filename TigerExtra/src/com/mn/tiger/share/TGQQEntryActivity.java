@@ -15,12 +15,6 @@ import com.tencent.tauth.UiError;
 
 public class TGQQEntryActivity extends TGActionBarActivity implements IUiListener
 {
-	public static final String SHARE_DATA_KEY = "shareData";
-	
-	public static final String SHARE_MSG_FACTORY_KEY = "msgFactory";
-	
-	public static final String SHARE_RESULT_HANDLER_KEY = "shareResultHandler";
-	
 	private static final Logger LOG = Logger.getLogger(TGQQEntryActivity.class);
 	
 	private Tencent tencent;

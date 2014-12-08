@@ -15,10 +15,19 @@ import com.sina.weibo.sdk.api.share.SendMultiMessageToWeiboRequest;
 import com.sina.weibo.sdk.api.share.WeiboShareSDK;
 import com.sina.weibo.sdk.utils.Utility;
 
+/**
+ * 微博分享插件
+ */
 public class TGWeiBoSharePlugin extends TGSharePlugin<WeiboMultiMessage, TGWeiboShareResult>
 {
+	/**
+	 * 微博分享API
+	 */
 	private IWeiboShareAPI weiboShareAPI;
 	
+	/**
+	 * MultiMessage请求类
+	 */
 	private SendMultiMessageToWeiboRequest request;
 	
 	public TGWeiBoSharePlugin(Context context, String appID)
@@ -73,11 +82,18 @@ public class TGWeiBoSharePlugin extends TGSharePlugin<WeiboMultiMessage, TGWeibo
 		
 	}
 	
+	/**
+	 * 获取微博分享API
+	 * @return
+	 */
 	protected IWeiboShareAPI getWeiboShareAPI()
 	{
 		return weiboShareAPI;
 	}
 	
+	/**
+	 * 微博分享信息建造者
+	 */
 	public static class TGWeiBoMsgBuilder extends TGShareMsgBuilder<WeiboMultiMessage>
 	{
 		private String title = "";
