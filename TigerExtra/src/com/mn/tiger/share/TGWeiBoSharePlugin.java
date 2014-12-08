@@ -15,13 +15,13 @@ import com.sina.weibo.sdk.api.share.SendMultiMessageToWeiboRequest;
 import com.sina.weibo.sdk.api.share.WeiboShareSDK;
 import com.sina.weibo.sdk.utils.Utility;
 
-public class TGWeiboSharePlugin extends TGSharePlugin<WeiboMultiMessage, TGWeiboShareResult>
+public class TGWeiBoSharePlugin extends TGSharePlugin<WeiboMultiMessage, TGWeiboShareResult>
 {
 	private IWeiboShareAPI weiboShareAPI;
 	
 	private SendMultiMessageToWeiboRequest request;
 	
-	public TGWeiboSharePlugin(Context context, String appID)
+	public TGWeiBoSharePlugin(Context context, String appID)
 	{
 		super(context, appID);
 	}

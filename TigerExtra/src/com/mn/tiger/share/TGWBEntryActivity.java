@@ -36,7 +36,7 @@ public class TGWBEntryActivity extends TGActionBarActivity implements IWeiboHand
 	
 	protected IWeiboShareAPI getWeiboShareAPI()
 	{
-		TGWeiboSharePlugin plugin = (TGWeiboSharePlugin) TGSharePluginManager.getInstance().getPlugin(
+		TGWeiBoSharePlugin plugin = (TGWeiBoSharePlugin) TGSharePluginManager.getInstance().getPlugin(
 				TGSharePluginManager.TAG_WEI_BO);
 		return plugin.getWeiboShareAPI();
 	}
