@@ -52,7 +52,7 @@ public class TGHttpLoader<T> implements IRequestParser
 	/**
 	 * 执行异步任务的类
 	 */
-	private TGHttpAsyncTask asyncTask;
+	private TGHttpAsyncTask<T> asyncTask;
 	
 	public TGHttpLoader()
 	{
@@ -310,7 +310,7 @@ public class TGHttpLoader<T> implements IRequestParser
 	 * 获取异步任务
 	 * @return
 	 */
-	protected final TGHttpAsyncTask getAsyncTask()
+	protected final TGHttpAsyncTask<T> getAsyncTask()
 	{
 		if(null == asyncTask)
 		{
@@ -324,9 +324,9 @@ public class TGHttpLoader<T> implements IRequestParser
 	 * 初始化异步任务（可Override）
 	 * @return
 	 */
-	protected TGHttpAsyncTask initAsyncTask()
+	protected TGHttpAsyncTask<T> initAsyncTask()
 	{
-		return new TGHttpAsyncTask("", REQUEST_UNKNOWN, null);
+		return new TGHttpAsyncTask<T>("", REQUEST_UNKNOWN, null);
 	}
 	
 	/**

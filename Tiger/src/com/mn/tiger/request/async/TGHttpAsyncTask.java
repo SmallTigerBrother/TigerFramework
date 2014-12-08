@@ -29,7 +29,7 @@ import com.mn.tiger.task.invoke.TGTaskParams;
  * @see JDK1.6,android-8
  * @date 2014年2月10日
  */
-public class TGHttpAsyncTask
+public class TGHttpAsyncTask<T>
 {
 	/**
 	 * 日志标签
@@ -88,8 +88,7 @@ public class TGHttpAsyncTask
 	/**
 	 * 请求结果回调类
 	 */
-	@SuppressWarnings("rawtypes")
-	private OnLoadCallback loadCallback;
+	private OnLoadCallback<T> loadCallback;
 	
 	/**
 	 * @param context
@@ -97,9 +96,8 @@ public class TGHttpAsyncTask
 	 * @param requestType
 	 * @param callback
 	 */
-	@SuppressWarnings("rawtypes")
 	public TGHttpAsyncTask(String requestUrl, int requestType, 
-			OnLoadCallback callback) 
+			OnLoadCallback<T> callback) 
 	{
 		this.requestUrl = requestUrl;
 		this.requestType = requestType;
@@ -205,7 +203,6 @@ public class TGHttpAsyncTask
 	{
 		TGHttpResultHandler resultHandler = new TGHttpResultHandler(context)
 		{
-			@SuppressWarnings("unchecked")
 			@Override
 			protected void onSuccess(TGHttpResult httpResult)
 			{
@@ -213,7 +210,8 @@ public class TGHttpAsyncTask
 				//解析请求结果
 				if(!isCancelled() && null != loadCallback)
 				{
-					loadCallback.onLoadSuccess(httpResult.getObjectResult(), httpResult);
+					loadCallback.onLoadSuccess(parseResult(httpResult.getObjectResult()),
+							httpResult);
 				}
 			}
 			
@@ -230,14 +228,14 @@ public class TGHttpAsyncTask
 			}
 			
 			@Override
-			@SuppressWarnings("unchecked")
 			protected void onReturnCachedResult(TGHttpResult httpResult)
 			{
 				LogTools.i(LOG_TAG, "[Method:onReturnCachedResult]");
 				//解析请求结果
 				if(!isCancelled() && null != loadCallback)
 				{
-					loadCallback.onLoadCache(httpResult.getObjectResult(), httpResult);
+					loadCallback.onLoadCache(parseResult(httpResult.getObjectResult()), 
+							httpResult);
 				}
 			}
 			
@@ -268,6 +266,17 @@ public class TGHttpAsyncTask
 	protected boolean hasError(TGHttpResult httpResult)
 	{
 		return TGHttpErrorHandler.hasHttpError(httpResult);
+	}
+	
+	/**
+	 * 解析请求结果（从已解析成对象的结果中解析出所需要的结果），默认直接返回原始结果
+	 * @param originalResultObject  已解析成对象的原始结果
+	 * @return 目标对象结果
+	 */
+	@SuppressWarnings("unchecked")
+	protected T parseResult(Object originalResultObject)
+	{
+		return (T) originalResultObject;
 	}
 	
 	/**
@@ -435,6 +444,15 @@ public class TGHttpAsyncTask
 	}
 	
 	/**
+	 * 获取请求结果类名
+	 * @return
+	 */
+	protected String getResultClsName()
+	{
+		return resultClsName;
+	}
+	
+	/**
 	 * 设置请求类型
 	 * @param requestType
 	 */
@@ -456,8 +474,7 @@ public class TGHttpAsyncTask
 	 * 设置请求回调类
 	 * @param callback
 	 */
-	@SuppressWarnings("rawtypes")
-	public void setLoadCallback(OnLoadCallback callback)
+	public void setLoadCallback(OnLoadCallback<T> callback)
 	{
 		this.loadCallback = callback;
 	}
