@@ -69,6 +69,9 @@ public class TGApplication extends Application
 		Logger.setPackageName(getPackageName()); 
 	}
 	
+	/**
+	 * 初始化分先插件管理器（添加默认的分享插件）
+	 */
 	protected void initSharePluginManager()
 	{
 		
