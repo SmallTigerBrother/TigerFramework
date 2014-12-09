@@ -10,14 +10,29 @@ import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
+/**
+ * QQ登录认证类
+ */
 public class TGQQAuthorizer extends TGAuthorizer
 {
+	/**
+	 * 认证范围
+	 */
 	public static final String SCOPE_ALL = "all";
 	
+	/**
+	 * 回调接口
+	 */
 	private IUiListener uiListener;
 	
+	/**
+	 * QQ认证执行类
+	 */
 	private Tencent tencent;
 	
+	/**
+	 * 认证结果回调接口
+	 */
 	private IAuthorizeCallback callback;
 	
 	public TGQQAuthorizer(Activity activity, String appID)
@@ -38,6 +53,7 @@ public class TGQQAuthorizer extends TGAuthorizer
 			{
 				try
 				{
+					//读取认证结果
 					TGAuthorizeResult loginResult = new TGAuthorizeResult();
 					loginResult.setUID(((JSONObject)reponse).getString("openid"));
 					loginResult.setAccessToken(((JSONObject)reponse).getString("access_token"));
@@ -61,6 +77,7 @@ public class TGQQAuthorizer extends TGAuthorizer
 	@Override
 	public void authorize(IAuthorizeCallback callback)
 	{
+		this.callback = callback;
 		tencent.login(getActivity(), SCOPE_ALL, uiListener);
 	}
 	

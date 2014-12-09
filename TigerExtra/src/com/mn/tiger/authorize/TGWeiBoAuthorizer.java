@@ -13,6 +13,9 @@ import com.sina.weibo.sdk.net.AsyncWeiboRunner;
 import com.sina.weibo.sdk.net.WeiboParameters;
 import com.sina.weibo.sdk.utils.LogUtil;
 
+/**
+ * 新浪微博认证类
+ */
 public class TGWeiBoAuthorizer extends TGAuthorizer
 {
 	/**
@@ -25,6 +28,9 @@ public class TGWeiBoAuthorizer extends TGAuthorizer
 	  */
     private static final String REVOKE_OAUTH_URL = "https://api.weibo.com/oauth2/revokeoauth2";
 	
+    /**
+     * 认证范围
+     */
 	public static final String SCOPE =
 			"email,direct_messages_read,direct_messages_write,"
 			+ "friendships_groups_read,friendships_groups_write,statuses_to_me_read,"
@@ -35,12 +41,24 @@ public class TGWeiBoAuthorizer extends TGAuthorizer
 	 */
 	protected static final String KEY_ACCESS_TOKEN = "access_token";
 	
+	/**
+	 * 认证结果accessToken
+	 */
 	public static Oauth2AccessToken accessToken;
 	
+	/**
+	 * SSO认证工具类
+	 */
 	private SsoHandler ssoHandler;
 	
+	/**
+	 * 微博认证回调接口
+	 */
 	private WeiboAuthListener authListener;
 	
+	/**
+	 * 认证结果回调接口
+	 */
 	private IAuthorizeCallback callback;
 	
 	public TGWeiBoAuthorizer(Activity activity, String appID)

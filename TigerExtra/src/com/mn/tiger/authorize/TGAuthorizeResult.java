@@ -1,5 +1,8 @@
 package com.mn.tiger.authorize;
 
+/**
+ * 认证结果
+ */
 public class TGAuthorizeResult
 {
 	private String UID;
