@@ -16,9 +16,11 @@ import com.mn.tiger.app.TGActionBarActivity;
 import com.mn.tiger.demo.activity.AniminationDemoActivity;
 import com.mn.tiger.demo.activity.NavigationBarActivity;
 import com.mn.tiger.demo.activity.SlidingActivity;
+import com.mn.tiger.demo.authorize.AuthorizeDemoActivity;
 import com.mn.tiger.demo.datastorage.DataStorageDemoActivity;
 import com.mn.tiger.demo.download.DownloadDemoActivity;
 import com.mn.tiger.demo.request.RequestDemoActivity;
+import com.mn.tiger.demo.share.ShareDemoActivity;
 import com.mn.tiger.demo.widget.dialog.DialogDemoActivity;
 import com.mn.tiger.demo.widget.searchview.SearchViewActivity;
 import com.mn.tiger.demo.widget.searchview.actionbar.SearchViewInActionBarActivity;
@@ -59,6 +61,8 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		demoModels.add(DemoModel.RequestDemo);
 		demoModels.add(DemoModel.DialogDemo);
 		demoModels.add(DemoModel.WheelViewDemo);
+		demoModels.add(DemoModel.AuthorizeDemo);
+		demoModels.add(DemoModel.ShareDemo);
 		
 		demoListView.setAdapter(new TGListAdapter<DemoModel>(this, demoModels, -1, 
 				ViewHolder.class));
@@ -129,6 +133,13 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 				intent.setClass(this, WheelViewActivity.class);
 				break;
 				
+			case AuthorizeDemo:
+				intent.setClass(this, AuthorizeDemoActivity.class);
+				break;
+				
+			case ShareDemo:
+				intent.setClass(this, ShareDemoActivity.class);
+				break;
 
 			default:
 				break;
@@ -183,8 +194,11 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		
 		DialogDemo("DialogDemo"),
 		
-		WheelViewDemo("WheelViewDemo");
+		WheelViewDemo("WheelViewDemo"),
 		
+		AuthorizeDemo("AuthorzieDemo"),
+		
+		ShareDemo("ShareDemo");
 		
 		private DemoModel(String demoType)
 		{
