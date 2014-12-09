@@ -1,4 +1,4 @@
-package com.mn.tiger.login;
+package com.mn.tiger.authorize;
 
 public interface IAuthorizeCallback
 {
