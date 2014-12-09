@@ -1,8 +1,8 @@
 package com.mn.tiger.login;
 
-public interface ILoginCallback
+public interface IAuthorizeCallback
 {
-	void onSuccess(TGLoginResult loginResult);
+	void onSuccess(TGAuthorizeResult loginResult);
 	
 	void onError(int code, String message, String detail);
 	

@@ -1,19 +1,19 @@
 package com.mn.tiger.login;
 
-public class TGLoginResult
+public class TGAuthorizeResult
 {
-	private String loginID;
+	private String UID;
 	
 	private String accessToken;
 
-	public String getLoginID()
+	public String getUID()
 	{
-		return loginID;
+		return UID;
 	}
 
-	public void setLoginID(String loginID)
+	public void setUID(String UID)
 	{
-		this.loginID = loginID;
+		this.UID = UID;
 	}
 
 	public String getAccessToken()

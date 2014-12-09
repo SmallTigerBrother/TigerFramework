@@ -1,6 +1,7 @@
 package com.mn.tiger.login;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.sina.weibo.sdk.auth.AuthInfo;
@@ -8,15 +9,31 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.exception.WeiboException;
+import com.sina.weibo.sdk.net.AsyncWeiboRunner;
+import com.sina.weibo.sdk.net.WeiboParameters;
+import com.sina.weibo.sdk.utils.LogUtil;
 
-public class TGWeiBoLoginRequest extends TGLoginRequest
+public class TGWeiBoAuthorizer extends TGAuthorizer
 {
-	public static final String REDIRECT_URL = "https://api.weibo.com/oauth2/default.html";
+	/**
+	 * 登录认证地址
+	 */
+	private static final String REDIRECT_URL = "https://api.weibo.com/oauth2/default.html";
+	
+	 /** 
+	  * 注销地址（URL）
+	  */
+    private static final String REVOKE_OAUTH_URL = "https://api.weibo.com/oauth2/revokeoauth2";
 	
 	public static final String SCOPE =
 			"email,direct_messages_read,direct_messages_write,"
 			+ "friendships_groups_read,friendships_groups_write,statuses_to_me_read,"
 			+ "follow_app_official_microblog," + "invitation_write";
+	
+	/**
+	 * HTTP 参数 
+	 */
+	protected static final String KEY_ACCESS_TOKEN = "access_token";
 	
 	public static Oauth2AccessToken accessToken;
 	
@@ -24,9 +41,9 @@ public class TGWeiBoLoginRequest extends TGLoginRequest
 	
 	private WeiboAuthListener authListener;
 	
-	private ILoginCallback callback;
+	private IAuthorizeCallback callback;
 	
-	public TGWeiBoLoginRequest(Activity activity, String appID)
+	public TGWeiBoAuthorizer(Activity activity, String appID)
 	{
 		super(activity, appID);
 		AuthInfo authInfo = new AuthInfo(activity, appID, REDIRECT_URL, SCOPE);
@@ -35,20 +52,31 @@ public class TGWeiBoLoginRequest extends TGLoginRequest
 	}
 
 	@Override
-	public void execute(ILoginCallback callback)
+	public void authorize(IAuthorizeCallback callback)
 	{
 		this.callback = callback;
 		ssoHandler.authorize(authListener);
 	}
 	
-	protected SsoHandler getSsoHandler()
+	@Override
+	public void logout()
 	{
-		return ssoHandler;
+		if (null == accessToken)
+		{
+			LogUtil.e("TGWeiBoLoginRequest", "Argument error!");
+			return;
+		}
+
+		WeiboParameters parameters = new WeiboParameters(getAppID());
+		parameters.put(KEY_ACCESS_TOKEN, accessToken.getToken());
+		new AsyncWeiboRunner(getActivity()).requestAsync(REVOKE_OAUTH_URL, parameters, 
+				"post", null);
 	}
 	
-	protected WeiboAuthListener getAuthListener()
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		return authListener;
+		ssoHandler.authorizeCallBack(requestCode, resultCode, data);
 	}
 	
 	private class AuthorListener implements WeiboAuthListener
@@ -70,9 +98,9 @@ public class TGWeiBoLoginRequest extends TGLoginRequest
 				Oauth2AccessToken accessToken = Oauth2AccessToken.parseAccessToken(response);
 				if(accessToken.isSessionValid())
 				{
-					TGWeiBoLoginRequest.accessToken = accessToken;
-					TGLoginResult loginResult = new TGLoginResult();
-					loginResult.setLoginID(accessToken.getUid());
+					TGWeiBoAuthorizer.accessToken = accessToken;
+					TGAuthorizeResult loginResult = new TGAuthorizeResult();
+					loginResult.setUID(accessToken.getUid());
 					loginResult.setAccessToken(accessToken.getToken());
 					callback.onSuccess(loginResult);
 				}

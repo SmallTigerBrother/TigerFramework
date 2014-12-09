@@ -4,12 +4,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
-public class TGQQLoginRequest extends TGLoginRequest
+public class TGQQAuthorizer extends TGAuthorizer
 {
 	public static final String SCOPE_ALL = "all";
 	
@@ -17,9 +18,9 @@ public class TGQQLoginRequest extends TGLoginRequest
 	
 	private Tencent tencent;
 	
-	private ILoginCallback callback;
+	private IAuthorizeCallback callback;
 	
-	public TGQQLoginRequest(Activity activity, String appID)
+	public TGQQAuthorizer(Activity activity, String appID)
 	{
 		super(activity, appID);
 		tencent = Tencent.createInstance(appID, activity);
@@ -37,15 +38,15 @@ public class TGQQLoginRequest extends TGLoginRequest
 			{
 				try
 				{
-					TGLoginResult loginResult = new TGLoginResult();
-					loginResult.setLoginID(((JSONObject)reponse).getString("openid"));
+					TGAuthorizeResult loginResult = new TGAuthorizeResult();
+					loginResult.setUID(((JSONObject)reponse).getString("openid"));
 					loginResult.setAccessToken(((JSONObject)reponse).getString("access_token"));
 					callback.onSuccess(loginResult);
 				}
 				catch (JSONException e)
 				{
 					//数据解析出错，登录失败
-					callback.onError(0, "", "");
+					callback.onError(0, "认证失败！", "认证失败！");
 				}
 			}
 			
@@ -58,9 +59,20 @@ public class TGQQLoginRequest extends TGLoginRequest
 	}
 	
 	@Override
-	public void execute(ILoginCallback callback)
+	public void authorize(IAuthorizeCallback callback)
 	{
 		tencent.login(getActivity(), SCOPE_ALL, uiListener);
 	}
-
+	
+	@Override
+	public void logout()
+	{
+		tencent.logout(getActivity());
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		tencent.onActivityResult(requestCode, resultCode, data);
+	}
 }
