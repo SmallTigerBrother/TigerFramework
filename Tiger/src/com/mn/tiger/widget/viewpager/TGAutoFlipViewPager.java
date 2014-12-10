@@ -24,7 +24,7 @@ public class TGAutoFlipViewPager extends ViewPager
 	/**
 	 * 当前显示的页码
 	 */
-	private int currentPageNum = 0;
+	private int currentPageNum = -1;
 
 	/**
 	 * 用于接收定时翻页消息的Handler
@@ -161,6 +161,8 @@ public class TGAutoFlipViewPager extends ViewPager
 	{
 		super.setAdapter(adapter);
 		thread.start();
+		//初始化起始页
+		setCurrentItem(1);
 	}
 	
 	/**
@@ -168,10 +170,17 @@ public class TGAutoFlipViewPager extends ViewPager
 	 */
 	public void startScroll()
 	{
-		isSrolling = true;
-		isContinue = true;
-		
-		setCurrentItem(currentPageNum);
+		handler.postDelayed(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				isSrolling = true;
+				isContinue = true;
+				
+				setCurrentItem(currentPageNum + 1);
+			}
+		}, duration);
 	}
 	
 	@Override
