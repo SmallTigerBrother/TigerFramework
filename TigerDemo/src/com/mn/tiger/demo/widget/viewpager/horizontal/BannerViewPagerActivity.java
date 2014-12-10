@@ -58,9 +58,9 @@ public class BannerViewPagerActivity extends TGActionBarActivity implements
 		selectedStatus.add(false);
 		tabView.setAdapter(new TGListAdapter<Boolean>(this, selectedStatus, -1, 
 				TGTabIndicatorHolder.class));
-		tabView.setSelection(0);
-		
 		tabView.setOnTabChangeListener(this);
+		//必须在setOnTabChangeListener后调用
+		tabView.setSelection(0);
 		
 		//初始化banner
 		ArrayList<View> imageViews = new ArrayList<View>();
