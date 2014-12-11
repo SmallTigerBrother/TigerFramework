@@ -90,6 +90,11 @@
             android:label="@string/app_name" >
         </activity>
         
+           <activity
+            android:name="com.mn.tiger.demo.widget.viewpager.horizontal.TransformationDemoActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
     </application>
 
 </manifest>

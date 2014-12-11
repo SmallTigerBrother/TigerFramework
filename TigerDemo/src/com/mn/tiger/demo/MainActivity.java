@@ -26,6 +26,7 @@ import com.mn.tiger.demo.widget.searchview.SearchViewActivity;
 import com.mn.tiger.demo.widget.searchview.actionbar.SearchViewInActionBarActivity;
 import com.mn.tiger.demo.widget.viewpager.horizontal.BannerViewPagerActivity;
 import com.mn.tiger.demo.widget.viewpager.horizontal.HorizontalViewPagerActivity;
+import com.mn.tiger.demo.widget.viewpager.horizontal.TransformationDemoActivity;
 import com.mn.tiger.demo.widget.viewpager.horizontal.fragment.ViewPagerWithFragmentActivity;
 import com.mn.tiger.demo.widget.viewpager.vertical.VerticalViewPagerActivity;
 import com.mn.tiger.demo.widget.wheelview.WheelViewActivity;
@@ -54,6 +55,7 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		demoModels.add(DemoModel.HorizontalViewPager);
 		demoModels.add(DemoModel.VerticalViewPager);
 		demoModels.add(DemoModel.BannerViewPager);
+		demoModels.add(DemoModel.TranformationViewPager);
 		demoModels.add(DemoModel.SearchView);
 		demoModels.add(DemoModel.SearchViewInActionBar);
 		demoModels.add(DemoModel.DataStorageDemo);
@@ -103,6 +105,10 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 				
 			case BannerViewPager:
 				intent.setClass(this, BannerViewPagerActivity.class);
+				break;
+				
+			case TranformationViewPager:
+				intent.setClass(this, TransformationDemoActivity.class);
 				break;
 				
 			case SearchView:
@@ -185,6 +191,8 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		HorizontalViewPagerWithFragment("HorizontalViewPager + Fragment + TabView"),
 		
 		BannerViewPager("BannerViewPager + Indicator"),
+		
+		TranformationViewPager("TranformationViewPagerDemo"),
 		
 		DataStorageDemo("DataBaseDemo"),
 		
