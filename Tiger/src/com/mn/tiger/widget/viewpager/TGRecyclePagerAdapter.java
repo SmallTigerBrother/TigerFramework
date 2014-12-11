@@ -67,8 +67,9 @@ public class TGRecyclePagerAdapter<T> extends PagerAdapter
 	@Override
 	public final Object instantiateItem(ViewGroup container, int position)
 	{
+		int viewType = pagerViewHolder.getItemViewType(pagerData, position);
 		//查找ViewPager中是否已存在子视图
-		View view = recyleArray.getScrapView(pagerViewHolder.getItemViewType(position));
+		View view = recyleArray.getScrapView(viewType);
 		try
 		{
 			TGPagerViewHolder<T> viewHolder;
@@ -79,18 +80,18 @@ public class TGRecyclePagerAdapter<T> extends PagerAdapter
 				viewHolder.setActivity(activity);
 				viewHolder.setPagerAdapter(this);
 				//初始化子视图
-				view = viewHolder.initPage(pagerViewHolder.getItemViewType(position));
+				view = viewHolder.initPage(viewType);
 				view.setTag(viewHolder);
 			}
 			//填充数据
 			viewHolder = (TGPagerViewHolder<T>) view.getTag();
 			if(null != pagerData)
 			{
-				viewHolder.fillData(pagerData.get(position), position);
+				viewHolder.fillData(pagerData.get(position), position,viewType);
 			}
 			else
 			{
-				viewHolder.fillData(null, position);
+				viewHolder.fillData(null, position, viewType);
 			}
 			container.addView(view);
 		}
@@ -111,7 +112,7 @@ public class TGRecyclePagerAdapter<T> extends PagerAdapter
 		container.removeView(view);
 		
 		//加入到已遗弃视图数组中
-		recyleArray.addScrapView(view, pagerViewHolder.getItemViewType(position));
+		recyleArray.addScrapView(view, pagerViewHolder.getItemViewType(pagerData, position));
 	}
 
 	@Override
