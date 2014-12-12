@@ -6,7 +6,7 @@ import java.io.InterruptedIOException;
 import android.content.Context;
 
 import com.mn.tiger.log.LogTools;
-import com.mn.tiger.request.error.TGErrorMsgEnum;
+import com.mn.tiger.request.error.TGHttpError;
 import com.mn.tiger.request.method.TGHttpMethod;
 import com.mn.tiger.request.receiver.TGHttpReceiver;
 import com.mn.tiger.request.receiver.TGHttpResult;
@@ -56,7 +56,7 @@ public class DefaultHttpClient extends TGHttpClient
 				//处理网络异常
 				if (!NetworkUtils.isConnectivityAvailable(getContext())) 
 				{
-					code = TGErrorMsgEnum.NO_NETWORK.code;
+					code = TGHttpError.NO_NETWORK;
 					httpResult.setResult(getContext().getText(
 							CR.getStringsId(getContext(), "tiger_network_alert")).toString());
 					break;
@@ -91,15 +91,15 @@ public class DefaultHttpClient extends TGHttpClient
 					String errorMsg = e.getClass().getName() + ":" + e.getMessage();
 					if (e instanceof IOException)
 					{
-						code = TGErrorMsgEnum.IOEXCEPTION.code;
-						errorMsg = TGErrorMsgEnum.getErrorMsg(getContext(),
-								TGErrorMsgEnum.IOEXCEPTION);
+						code = TGHttpError.IOEXCEPTION;
+						errorMsg = TGHttpError.getDefaultErrorMsg(getContext(),
+								TGHttpError.IOEXCEPTION);
 					}
 					else
 					{
-						code = TGErrorMsgEnum.UNKNOW_EXCEPTION.code;
-						errorMsg = TGErrorMsgEnum.getErrorMsg(getContext(),
-								TGErrorMsgEnum.UNKNOW_EXCEPTION);
+						code = TGHttpError.UNKNOWN_EXCEPTION;
+						errorMsg = TGHttpError.getDefaultErrorMsg(getContext(),
+								TGHttpError.UNKNOWN_EXCEPTION);
 					}
 					httpResult.setResult(errorMsg);
 					break;
@@ -110,9 +110,9 @@ public class DefaultHttpClient extends TGHttpClient
 				httpMethod.disconnect();
 				if (sockCount >= 2) 
 				{
-					code = TGErrorMsgEnum.SOCKET_TIMEOUT.code;
-					httpResult.setResult(TGErrorMsgEnum.getErrorMsg(getContext(),
-							TGErrorMsgEnum.SOCKET_TIMEOUT));
+					code = TGHttpError.SOCKET_TIMEOUT;
+					httpResult.setResult(TGHttpError.getDefaultErrorMsg(getContext(),
+							TGHttpError.SOCKET_TIMEOUT));
 					break;
 				}
 			}

@@ -9,7 +9,7 @@ import java.net.HttpURLConnection;
 import android.content.Context;
 
 import com.mn.tiger.log.LogTools;
-import com.mn.tiger.request.error.TGErrorMsgEnum;
+import com.mn.tiger.request.error.TGHttpError;
 import com.mn.tiger.request.method.TGHttpMethod;
 
 /**
@@ -85,8 +85,8 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 		catch (IOException e)
 		{
 			// 包装应用内部请求错误
-			httpResult.setResponseCode(TGErrorMsgEnum.IOEXCEPTION.code);
-			httpResult.setResult(TGErrorMsgEnum.getErrorMsg(context, TGErrorMsgEnum.IOEXCEPTION));
+			httpResult.setResponseCode(TGHttpError.IOEXCEPTION);
+			httpResult.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.IOEXCEPTION));
 			LogTools.e(LOG_TAG, "", e);
 			return httpResult;
 		}
@@ -102,9 +102,9 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 			}
 			catch (IOException e)
 			{
-				httpResult.setResponseCode(TGErrorMsgEnum.IOEXCEPTION.code);
-				httpResult.setResult(TGErrorMsgEnum
-						.getErrorMsg(context, TGErrorMsgEnum.IOEXCEPTION));
+				httpResult.setResponseCode(TGHttpError.IOEXCEPTION);
+				httpResult.setResult(TGHttpError.getDefaultErrorMsg(
+						context, TGHttpError.IOEXCEPTION));
 				LogTools.e(LOG_TAG, "", e);
 				return httpResult;
 			}

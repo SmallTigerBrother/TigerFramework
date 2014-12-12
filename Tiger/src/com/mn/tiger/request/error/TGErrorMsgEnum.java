@@ -11,17 +11,12 @@ import android.content.res.Resources.NotFoundException;
 import com.mn.tiger.log.LogTools;
 import com.mn.tiger.utility.CR;
 import com.mn.tiger.utility.Commons;
-import com.mn.tiger.utility.StringUtils;
 
 /**
  * Http请求异常
  */
 public enum TGErrorMsgEnum
 {
-	NO_NETWORK(10009, "无网络连接，请确认网络设置是否正确", "No network"),
-	IOEXCEPTION(10011, "请求异常，请稍后再试","Request Error,Please try again later"), 
-	UNKNOW_EXCEPTION(10012, "未知错误", "Unknow error"), 
-	SOCKET_TIMEOUT(10013, "连接超时,请稍后再试", "Connection timed out, please try again later"), 
 	JSON_FORMAT_ERROR(10008, "Json数据格式不正确", "The format of json is error."),
 	
 	/** 文件下载错误码 */
@@ -105,38 +100,5 @@ public enum TGErrorMsgEnum
 		{
 			return errorMsg;
 		}
-	}
-
-	/**
-	 * 该方法的作用:根据错误信息返回错误对象
-	 * 
-	 * @date 2014年3月13日
-	 * @param errorMsg
-	 * @return
-	 */
-	public static int getErrorCode(String errorMsg)
-	{
-		int code = TGErrorMsgEnum.UNKNOW_EXCEPTION.code;// 默认为未知错误
-
-		if (!"".equals(errorMsg))
-		{
-			int startPos = errorMsg.indexOf("(");
-			int endPos = errorMsg.indexOf(")");
-
-			if (startPos != -1 && endPos > startPos)
-			{
-				String codeStr = errorMsg.substring(startPos + 1, endPos);
-				boolean isDigit = StringUtils.isDigit(codeStr);
-				if (isDigit)
-				{
-					code = Integer.parseInt(codeStr);
-				}
-				else
-				{
-					LogTools.e("MPErrorMsgEnum", codeStr + " is not digit...");
-				}
-			}
-		}
-		return code;
 	}
 }
