@@ -121,7 +121,7 @@ public class TGTabView extends LinearLayout
 	 */
 	public void setSelection(int index)
 	{
-		if (index < 0)
+		if (index < 0 || getTabCount() <= 0)
 		{
 			return;
 		}
@@ -182,6 +182,15 @@ public class TGTabView extends LinearLayout
 	public ArrayList<TabItem> getTabItems()
 	{
 		return tabItems;
+	}
+	
+	/**
+	 * 获取Tab个数
+	 * @return
+	 */
+	public int getTabCount()
+	{
+		return tabItems.size();
 	}
 	
 	public BaseAdapter getAdapter()
