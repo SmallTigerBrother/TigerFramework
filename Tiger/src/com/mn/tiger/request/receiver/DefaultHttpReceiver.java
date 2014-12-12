@@ -13,7 +13,7 @@ import com.mn.tiger.request.error.TGHttpError;
 import com.mn.tiger.request.method.TGHttpMethod;
 
 /**
- * 该类作用及功能说明 简单网络请求结果处理类，实现MPHttpReceiver
+ * 该类作用及功能说明 简单网络请求结果处理类，实现TGHttpReceiver
  * 
  * @version V2.0
  * @see JDK1.6,android-8
@@ -80,6 +80,8 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 				{
 					resultBuffer.append(strCurrentLine);
 				}
+				
+				httpResult.setResult(resultBuffer.toString());
 			}
 		}
 		catch (IOException e)
