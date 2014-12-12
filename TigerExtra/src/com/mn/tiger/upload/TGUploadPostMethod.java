@@ -11,7 +11,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.mn.tiger.log.LogTools;
-import com.mn.tiger.request.error.TGErrorMsgEnum;
+import com.mn.tiger.request.error.TGHttpError;
 import com.mn.tiger.request.method.TGPostMethod;
 import com.mn.tiger.task.TGTask.MPTaskState;
 
@@ -68,8 +68,8 @@ public class TGUploadPostMethod extends TGPostMethod
 		// 链接失败或上传信息为空，直接返回
 		if (null == getHttpURLConnection() || TextUtils.isEmpty(uploader.getFilePath()))
 		{
-			uploadFailed(TGErrorMsgEnum.IOEXCEPTION.code,
-					TGErrorMsgEnum.getErrorMsg(getContext(), TGErrorMsgEnum.IOEXCEPTION));
+			uploadFailed(TGHttpError.IOEXCEPTION,
+					TGHttpError.getDefaultErrorMsg(getContext(), TGHttpError.IOEXCEPTION));
 			return;
 		}
 		
@@ -98,8 +98,8 @@ public class TGUploadPostMethod extends TGPostMethod
 		catch (IOException e)
 		{
 			LogTools.e(LOG_TAG, "[method:outputRequestParams] " + e.getMessage(), e);
-			uploadFailed(TGErrorMsgEnum.IOEXCEPTION.code,
-					TGErrorMsgEnum.getErrorMsg(getContext(), TGErrorMsgEnum.IOEXCEPTION));
+			uploadFailed(TGHttpError.IOEXCEPTION,
+					TGHttpError.getDefaultErrorMsg(getContext(), TGHttpError.IOEXCEPTION));
 		}
 		finally
 		{
@@ -112,8 +112,8 @@ public class TGUploadPostMethod extends TGPostMethod
 				catch (IOException e)
 				{
 					LogTools.e(LOG_TAG, "[method:outputRequestParams] " + e.getMessage(), e);
-					uploadFailed(TGErrorMsgEnum.IOEXCEPTION.code,
-							TGErrorMsgEnum.getErrorMsg(getContext(), TGErrorMsgEnum.IOEXCEPTION));
+					uploadFailed(TGHttpError.IOEXCEPTION,
+							TGHttpError.getDefaultErrorMsg(getContext(), TGHttpError.IOEXCEPTION));
 				}
 			}
 		}

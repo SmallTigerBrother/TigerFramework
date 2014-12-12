@@ -15,6 +15,7 @@ import android.text.TextUtils;
 
 import com.mn.tiger.log.LogTools;
 import com.mn.tiger.request.error.TGErrorMsgEnum;
+import com.mn.tiger.request.error.TGHttpError;
 import com.mn.tiger.request.method.TGHttpMethod;
 import com.mn.tiger.request.receiver.DefaultHttpReceiver;
 import com.mn.tiger.request.receiver.TGHttpResult;
@@ -236,8 +237,8 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 		catch (IOException e)
 		{
 			LogTools.e(LOG_TAG, e.getMessage(), e);
-			downloadFailed(TGErrorMsgEnum.IOEXCEPTION.code,
-					TGErrorMsgEnum.getErrorMsg(getContext(), TGErrorMsgEnum.IOEXCEPTION));
+			downloadFailed(TGHttpError.IOEXCEPTION,
+					TGHttpError.getDefaultErrorMsg(getContext(), TGHttpError.IOEXCEPTION));
 		}
 		catch (NumberFormatException e)
 		{
@@ -256,8 +257,8 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 				catch (IOException e)
 				{
 					LogTools.e(LOG_TAG, e.getMessage(), e);
-					downloadFailed(TGErrorMsgEnum.IOEXCEPTION.code,
-							TGErrorMsgEnum.getErrorMsg(getContext(), TGErrorMsgEnum.IOEXCEPTION));
+					downloadFailed(TGHttpError.IOEXCEPTION,
+							TGHttpError.getDefaultErrorMsg(getContext(), TGHttpError.IOEXCEPTION));
 				}
 			}
 		}
@@ -404,8 +405,8 @@ public class TGDownloadReceiver extends DefaultHttpReceiver
 				catch (IOException e)
 				{
 					LogTools.e(LOG_TAG, e.getMessage(), e);
-					downloadFailed(TGErrorMsgEnum.IOEXCEPTION.code,
-							TGErrorMsgEnum.getErrorMsg(getContext(), TGErrorMsgEnum.IOEXCEPTION));
+					downloadFailed(TGHttpError.IOEXCEPTION,
+							TGHttpError.getDefaultErrorMsg(getContext(), TGHttpError.IOEXCEPTION));
 				}
 			}
 		}
