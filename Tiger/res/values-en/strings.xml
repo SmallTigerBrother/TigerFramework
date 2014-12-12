@@ -24,11 +24,16 @@
     <string name="tiger_request_data_error">Request error, please try again later!</string>
 
 
-    <!-- 提示框提示信息 -->
+    <!-- 提示框提示信忿 -->
     <string name="tiger_alert_dialog_yes_no_title">Do you really want to quit?</string>
     
     <string name="tiger_not_space" >Insufficient space , download fail!</string>
     
     <string name="dialog_sheet_cancel">Cancel</string>
+    
+    <string name="http_error_no_network">No Network</string>
+    <string name="http_error_socket_timeout">Connection timed out, please try again later</string>
+    <string name="http_error_ioexception">Request Error,Please try again later</string>
+    <string name="http_error_unknown_exception">Unknow error</string>
     
 </resources>
