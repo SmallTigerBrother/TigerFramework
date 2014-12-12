@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.mn.tiger.log.LogTools;
+
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -14,8 +16,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
-
-import com.mn.tiger.log.LogTools;
+import android.text.TextUtils;
 
 /**
  * 该类作用及功能说明:获取手机相关的信息
@@ -51,6 +52,23 @@ public class PhoneUtils
 		WifiInfo info = manager.getConnectionInfo();
 		return info.getMacAddress();
 	}
+	
+	/**
+	 * 获取peerid(mac地址移除符号)
+	 * @param context
+	 * @return
+	 */
+	public static String getPeerid(Context context)
+	{
+		String mPeerId = "";
+		String mac = getMacAddress(context);
+		mac += "004V";
+		mPeerId = mac.replaceAll(":", "");
+		mPeerId = mPeerId.replaceAll(",", "");
+		mPeerId = mPeerId.replaceAll("[.]", "");
+		mPeerId = mPeerId.toUpperCase();
+		return mPeerId;
+	}
 
 	/**
 	 * 该方法的作用:获取TelephonyManager对象
@@ -73,7 +91,13 @@ public class PhoneUtils
 	 */
 	public static String getDeviceID(Context context)
 	{
-		return getTelManager(context).getDeviceId();
+		String deviceID = getTelManager(context).getDeviceId();
+		if(TextUtils.isEmpty(deviceID))
+		{
+			deviceID = getPeerid(context);
+		}
+		
+		return deviceID;
 	}
 
 	/**

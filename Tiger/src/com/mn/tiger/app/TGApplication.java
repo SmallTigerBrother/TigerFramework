@@ -16,6 +16,8 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 
 import com.mn.tiger.log.Logger;
+import com.mn.tiger.system.AppConfigs;
+import com.mn.tiger.system.SystemConfigs;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.otto.Bus;
@@ -51,7 +53,12 @@ public class TGApplication extends Application
 	{
 		super.onCreate();
 		instance = this;
+		SystemConfigs.initSystemConfigs(this);
+		
+		AppConfigs.initAppConfigs(this);
+		
 		initLogger();
+		
 		initSharePluginManager();
 	}
 
