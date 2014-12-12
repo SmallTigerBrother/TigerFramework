@@ -1,6 +1,6 @@
 package com.mn.tiger.widget.viewpager;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.view.View;
@@ -44,7 +44,7 @@ public abstract class TGPagerViewHolder<T>
 	 * @param position 位置
 	 * @return 默认返回 IGNORE_ITEM_VIEW_TYPE
 	 */
-	public int getItemViewType(ArrayList<T> pagerData, int position)
+	public int getItemViewType(List<T> pagerData, int position)
 	{
 		return TGRecyclePagerAdapter.IGNORE_ITEM_VIEW_TYPE;
 	}

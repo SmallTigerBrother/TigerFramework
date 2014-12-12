@@ -1,9 +1,11 @@
 package com.mn.tiger.widget.viewpager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.mn.tiger.log.LogTools;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -189,7 +191,7 @@ public class TGAutoFlipViewPager extends ViewPager
 		//计算当前页码，确保可以自动滚动
 		if(item < 100 && null != getAdapter())
 		{
-			currentPageNum = item + ((TGPagerAdapter)getAdapter()).getPagers().size() * 100 - 1;
+			currentPageNum = item + getAdapter().getCount() * 100 - 1;
 		}
 		super.setCurrentItem(currentPageNum);
 	}
@@ -200,7 +202,7 @@ public class TGAutoFlipViewPager extends ViewPager
 	{
 		if(item < 100 && null != getAdapter())
 		{
-			currentPageNum = item + ((TGPagerAdapter)getAdapter()).getPagers().size() * 100 - 1;
+			currentPageNum = item + getAdapter().getCount() * 100 - 1;
 		}
 		
 		super.setCurrentItem(currentPageNum, smoothScroll);
@@ -262,6 +264,33 @@ public class TGAutoFlipViewPager extends ViewPager
 		{
 			//计算页码，取余数
 			return super.instantiateItem(container, position % getPagers().size());
+		}
+	}
+	
+	/**
+	 * 循环滚动PagerAdapter
+	 * @author za4480
+	 *
+	 */
+	public static class CirclePagerAdapter2<T> extends TGRecyclePagerAdapter<T>
+	{
+		public CirclePagerAdapter2(Activity activity, List<T> pagerData,
+				Class<? extends TGPagerViewHolder<T>> viewHolderClazz)
+		{
+			super(activity, pagerData, viewHolderClazz);
+		}
+
+		@Override
+		public int getCount()
+		{
+			return Integer.MAX_VALUE;
+		}
+		
+		@Override
+		public final Object instantiateItem(ViewGroup container, int position)
+		{
+			//计算页码，取余数
+			return super.instantiateItem(container, position % getCount());
 		}
 	}
 	

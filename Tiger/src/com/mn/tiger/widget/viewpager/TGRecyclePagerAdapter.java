@@ -1,8 +1,7 @@
 package com.mn.tiger.widget.viewpager;
 
 import java.util.ArrayList;
-
-import com.mn.tiger.log.Logger;
+import java.util.List;
 
 import android.app.Activity;
 import android.support.v4.view.PagerAdapter;
@@ -10,6 +9,8 @@ import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+
+import com.mn.tiger.log.Logger;
 
 /**
  * 支持视图重用的PagerAdapter
@@ -34,7 +35,7 @@ public class TGRecyclePagerAdapter<T> extends PagerAdapter
 	/**
 	 * 分页数据
 	 */
-	private ArrayList<T> pagerData;
+	private List<T> pagerData;
 	
 	/**
 	 * 分页视图ViewHolder类
@@ -46,7 +47,7 @@ public class TGRecyclePagerAdapter<T> extends PagerAdapter
 	 */
 	private TGPagerViewHolder<T> pagerViewHolder;
 
-	public TGRecyclePagerAdapter(Activity activity, ArrayList<T> pagerData, 
+	public TGRecyclePagerAdapter(Activity activity, List<T> pagerData, 
 			Class<? extends TGPagerViewHolder<T>> viewHolderClazz)
 	{
 		this.activity = activity;
@@ -65,7 +66,7 @@ public class TGRecyclePagerAdapter<T> extends PagerAdapter
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public final Object instantiateItem(ViewGroup container, int position)
+	public Object instantiateItem(ViewGroup container, int position)
 	{
 		int viewType = pagerViewHolder.getItemViewType(pagerData, position);
 		//查找ViewPager中是否已存在子视图
@@ -85,7 +86,7 @@ public class TGRecyclePagerAdapter<T> extends PagerAdapter
 			}
 			//填充数据
 			viewHolder = (TGPagerViewHolder<T>) view.getTag();
-			if(null != pagerData)
+			if(null != pagerData && pagerData.size() > position)
 			{
 				viewHolder.fillData(pagerData.get(position), position,viewType);
 			}
