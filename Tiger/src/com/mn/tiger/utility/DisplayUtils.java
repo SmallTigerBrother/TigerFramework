@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewGroup.MarginLayoutParams;
 
 import com.mn.tiger.log.LogTools;
 
@@ -116,5 +119,45 @@ public class DisplayUtils
 		size[0] = metrics.widthPixels;
 		size[1] = metrics.heightPixels;
 		return size;
+	}
+	
+	/**
+	 * 设置视图自适应图片大小
+	 * @param view 需要自适应的View
+	 * @param srcImageWidth 图片宽度
+	 * @param srcImageHeight 图片高度
+	 * @param maxWidth View可现实区域的最大宽度
+	 */
+	public static void adjustImageViewSize(View view, int srcImageWidth,
+			int srcImageHeight, int maxWidth)
+	{
+		if (srcImageWidth == 0 || srcImageHeight == 0)
+		{
+			return;
+		}
+		
+		float ratio = (float) srcImageWidth / (float) srcImageHeight;
+		ViewGroup.LayoutParams lp = view.getLayoutParams();
+		int currentFitWidth = 0;
+		int adjustHeight = 0;
+		
+		if(view.getLayoutParams() instanceof MarginLayoutParams)
+		{
+			MarginLayoutParams marginParams = (MarginLayoutParams) view.getLayoutParams();
+			
+			currentFitWidth = maxWidth - marginParams.leftMargin - marginParams.rightMargin;
+		}
+		else
+		{
+			currentFitWidth = maxWidth;
+		}
+
+		if (lp != null)
+		{
+			adjustHeight = (int) (currentFitWidth / ratio);
+			lp.height = adjustHeight;
+			lp.width = currentFitWidth;
+			view.setLayoutParams(lp);
+		}
 	}
 }
