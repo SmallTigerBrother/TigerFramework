@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.mn.tiger.annonation.ViewById;
@@ -18,6 +17,7 @@ import com.mn.tiger.widget.adpter.TGViewHolder;
 import com.mn.tiger.widget.tab.TGTabView;
 import com.mn.tiger.widget.tab.TGTabView.OnTabChangeListener;
 import com.mn.tiger.widget.viewpager.TGAutoFlipViewPager;
+import com.mn.tiger.widget.viewpager.TGPagerViewHolder;
 
 public class BannerViewPagerActivity extends TGActionBarActivity implements 
     OnTabChangeListener,OnPageChangeListener
@@ -63,18 +63,28 @@ public class BannerViewPagerActivity extends TGActionBarActivity implements
 		tabView.setSelection(0);
 		
 		//初始化banner
-		ArrayList<View> imageViews = new ArrayList<View>();
-		ImageView imageView;
-		for (int i = 0; i < 4; i++)
+//		ArrayList<View> imageViews = new ArrayList<View>();
+//		ImageView imageView;
+//		for (int i = 0; i < 4; i++)
+//		{
+//			imageView = new ImageView(this);
+//			imageView.setBackgroundResource(R.drawable.ic_launcher);
+//			ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+//					ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//			imageView.setLayoutParams(layoutParams);
+//			imageViews.add(imageView);
+//		}
+		
+//		bannerViewPager.setAdapter(new TGAutoFlipViewPager.CirclePagerAdapter(imageViews));
+		
+		ArrayList<Boolean> pagerData = new ArrayList<Boolean>();
+		for (int i = 0; i < 5; i++)
 		{
-			imageView = new ImageView(this);
-			imageView.setBackgroundResource(R.drawable.ic_launcher);
-			ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
-					ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-			imageView.setLayoutParams(layoutParams);
-			imageViews.add(imageView);
+			pagerData.add(false);
 		}
-		bannerViewPager.setAdapter(new TGAutoFlipViewPager.CirclePagerAdapter(imageViews));
+		bannerViewPager.setAdapter(new TGAutoFlipViewPager.CirclePagerAdapter<Boolean>(
+				this, pagerData, BannerViewHolder.class));
+		
 		bannerViewPager.setOnPageChangeListener(this);
 		
 		//开始滚动
@@ -112,6 +122,7 @@ public class BannerViewPagerActivity extends TGActionBarActivity implements
 				R.drawable.banner_indicator_dot_selected);
 	}
 	
+	
 	/**
 	 * indicatorHolder
 	 */
@@ -141,6 +152,35 @@ public class BannerViewPagerActivity extends TGActionBarActivity implements
 		{
 			imageView.setBackgroundResource(R.drawable.banner_indicator_dot_default);
 		}
+	}
+	
+	public static class BannerViewHolder extends TGPagerViewHolder<Boolean>
+	{
+		/**
+		 * indicatorView
+		 */
+		private ImageView imageView;
+		
+		@Override
+		public View initPage(int viewType)
+		{
+			//初始化indicator
+			imageView = new ImageView(getActivity());
+			TGTabView.LayoutParams layoutParams = new TGTabView.LayoutParams(
+					DisplayUtils.dip2px(getActivity(), 5),
+					DisplayUtils.dip2px(getActivity(), 5));
+			layoutParams.leftMargin = DisplayUtils.dip2px(getActivity(), 5);
+			layoutParams.bottomMargin = DisplayUtils.dip2px(getActivity(), 5);
+			imageView.setLayoutParams(layoutParams);
+			return imageView;
+		}
+
+		@Override
+		public void fillData(Boolean itemData, int position, int viewType)
+		{
+			imageView.setBackgroundResource(R.drawable.ic_launcher);
+		}
+		
 	}
 	
 }
