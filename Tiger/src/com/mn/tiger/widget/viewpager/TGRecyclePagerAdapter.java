@@ -51,6 +51,13 @@ public class TGRecyclePagerAdapter<T> extends PagerAdapter
 			Class<? extends TGPagerViewHolder<T>> viewHolderClazz)
 	{
 		this.activity = activity;
+		
+		this.pagerData = new ArrayList<T>();
+		if(null != pagerData)
+		{
+			this.pagerData.addAll(pagerData);
+		}
+		
 		this.pagerData = pagerData;
 		this.viewHolderClazz = viewHolderClazz;
 		recyleArray = new RecyleArray();
@@ -135,6 +142,15 @@ public class TGRecyclePagerAdapter<T> extends PagerAdapter
 			return pagerData.size();
 		}
 		return 0;
+	}
+	
+	/**
+	 * 获取分页数据
+	 * @return
+	 */
+	public List<T> getPagerData()
+	{
+		return pagerData;
 	}
 	
 	/**
