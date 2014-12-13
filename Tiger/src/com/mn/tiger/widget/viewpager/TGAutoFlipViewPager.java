@@ -1,10 +1,8 @@
 package com.mn.tiger.widget.viewpager;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.mn.tiger.log.LogTools;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
@@ -15,6 +13,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.mn.tiger.log.LogTools;
 
 /**
  * 可自动翻页的ViewPager
@@ -31,6 +31,7 @@ public class TGAutoFlipViewPager extends ViewPager
 	/**
 	 * 用于接收定时翻页消息的Handler
 	 */
+	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler()
 	{
 		public void handleMessage(Message msg)
@@ -70,12 +71,14 @@ public class TGAutoFlipViewPager extends ViewPager
 			{
 				if(isContinue && isSrolling)
 				{
+					//切换页码
 					currentPageNum++;
 					handler.obtainMessage(currentPageNum).sendToTarget();
 				}
 				
 				try
 				{
+					//线程等待
 					Thread.sleep(duration);
 				}
 				catch (InterruptedException e)
@@ -126,6 +129,7 @@ public class TGAutoFlipViewPager extends ViewPager
 			}
 		});
 		
+		//设置默认的OnPageChangeListener，记录currentPageNum
 		super.setOnPageChangeListener(new OnPageChangeListener()
 		{
 			@Override
@@ -161,10 +165,17 @@ public class TGAutoFlipViewPager extends ViewPager
 	@Override
 	public void setAdapter(PagerAdapter adapter)
 	{
-		super.setAdapter(adapter);
-		thread.start();
-		//初始化起始页
-		setCurrentItem(1);
+		if(adapter instanceof CirclePagerAdapter)
+		{
+			super.setAdapter(adapter);
+			thread.start();
+			//初始化起始页
+			setCurrentItem(0);
+		}
+		else
+		{
+			throw new IllegalArgumentException("the parameter \"adapter\" must extends TGAutoFlipViewPager.CirclePagerAdapter");
+		}
 	}
 	
 	/**
@@ -179,8 +190,8 @@ public class TGAutoFlipViewPager extends ViewPager
 			{
 				isSrolling = true;
 				isContinue = true;
-				
-				setCurrentItem(currentPageNum + 1);
+				currentPageNum++;
+				setCurrentItem(currentPageNum);
 			}
 		}, duration);
 	}
@@ -188,24 +199,8 @@ public class TGAutoFlipViewPager extends ViewPager
 	@Override
 	public void setCurrentItem(int item)
 	{
-		//计算当前页码，确保可以自动滚动
-		if(item < 100 && null != getAdapter())
-		{
-			currentPageNum = item + getAdapter().getCount() * 100 - 1;
-		}
+		currentPageNum = item;
 		super.setCurrentItem(currentPageNum);
-	}
-	
-	//计算当前页码，确保可以自动滚动
-	@Override
-	public void setCurrentItem(int item, boolean smoothScroll)
-	{
-		if(item < 100 && null != getAdapter())
-		{
-			currentPageNum = item + getAdapter().getCount() * 100 - 1;
-		}
-		
-		super.setCurrentItem(currentPageNum, smoothScroll);
 	}
 	
 	/**
@@ -233,48 +228,10 @@ public class TGAutoFlipViewPager extends ViewPager
 	
 	/**
 	 * 循环滚动PagerAdapter
-	 * @author za4480
-	 *
 	 */
-	public static class CirclePagerAdapter extends TGPagerAdapter
+	public static class CirclePagerAdapter<T> extends TGRecyclePagerAdapter<T>
 	{
-		/**
-		 * @param views 各个页面的视图
-		 */
-		public CirclePagerAdapter(ArrayList<View> views)
-		{
-			super(views);
-		}
-		
-		@Override
-		public int getCount()
-		{
-			return Integer.MAX_VALUE;
-		}
-		
-		@Override
-		public void destroyItem(ViewGroup container, int position, Object object)
-		{
-			//计算页码，取余数
-			super.destroyItem(container, position % getPagers().size(), object);
-		}
-		
-		@Override
-		public Object instantiateItem(ViewGroup container, int position)
-		{
-			//计算页码，取余数
-			return super.instantiateItem(container, position % getPagers().size());
-		}
-	}
-	
-	/**
-	 * 循环滚动PagerAdapter
-	 * @author za4480
-	 *
-	 */
-	public static class CirclePagerAdapter2<T> extends TGRecyclePagerAdapter<T>
-	{
-		public CirclePagerAdapter2(Activity activity, List<T> pagerData,
+		public CirclePagerAdapter(Activity activity, List<T> pagerData,
 				Class<? extends TGPagerViewHolder<T>> viewHolderClazz)
 		{
 			super(activity, pagerData, viewHolderClazz);
@@ -283,6 +240,7 @@ public class TGAutoFlipViewPager extends ViewPager
 		@Override
 		public int getCount()
 		{
+			//设置个数为最大值，无限循环
 			return Integer.MAX_VALUE;
 		}
 		
