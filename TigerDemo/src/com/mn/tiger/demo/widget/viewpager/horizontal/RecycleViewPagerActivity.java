@@ -1,6 +1,7 @@
 package com.mn.tiger.demo.widget.viewpager.horizontal;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -81,7 +82,7 @@ public class RecycleViewPagerActivity extends TGActionBarActivity
 		}
 		
 		@Override
-		public int getItemViewType(ArrayList<Integer> pagerData, int position)
+		public int getItemViewType(List<Integer> pagerData, int position)
 		{
 			//计算不同页的类型，若超过两种类型，必须自定义类型
 			int data = pagerData.get(position);
