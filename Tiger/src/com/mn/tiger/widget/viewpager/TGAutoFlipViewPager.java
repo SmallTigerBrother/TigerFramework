@@ -26,7 +26,7 @@ public class TGAutoFlipViewPager extends ViewPager
 	/**
 	 * 当前显示的页码
 	 */
-	private int currentPageNum = -1;
+	private int currentPageNum = 0;
 
 	/**
 	 * 用于接收定时翻页消息的Handler
