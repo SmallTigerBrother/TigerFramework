@@ -6,7 +6,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 
+import com.mn.tiger.R;
 import com.mn.tiger.log.LogTools;
 
 /**
@@ -21,6 +23,14 @@ public class DateUtils
 	 * 日志标签
 	 */
 	protected static final String LOG_TAG = DateUtils.class.getSimpleName();
+	
+	public final static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	public final static SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+	public final static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+	public final static int ONE_MINUTES = 1000 * 60;
+	public final static int ONE_HOURS = ONE_MINUTES * 60;
+	public final static int ONE_DAY = ONE_HOURS * 24;
 
 	/**
 	 * 该方法的作用:通过传入的format格式将日期转换为字符串
@@ -157,5 +167,40 @@ public class DateUtils
 			return day;
 		}
 		return -1;
+	}
+	
+	/**
+	 * 如果是一天内的，显示为"XX小时/分钟 前"，超过一天的，直接显示日期
+	 * 
+	 * @param ctx
+	 * @param time
+	 * @return
+	 */
+	public static String computeHowLongAgo(Context ctx, long time)
+	{
+		long now = System.currentTimeMillis();
+		long diff = now - time;
+		String timeAgo = "";
+
+		if (diff > ONE_DAY)
+		{
+			timeAgo = dateFormat.format(new Date(time));
+		}
+		else if (diff > ONE_HOURS)
+		{
+			int hours = (int) (diff / ONE_HOURS);
+			timeAgo = ctx.getString(R.string.hours_ago, hours);
+		}
+		else if (diff > ONE_MINUTES)
+		{
+			int minutes = (int) (diff / ONE_MINUTES);
+			timeAgo = ctx.getString(R.string.minutes_ago, minutes);
+		}
+		else
+		{
+			timeAgo = ctx.getString(R.string.just_now);
+		}
+
+		return timeAgo;
 	}
 }
