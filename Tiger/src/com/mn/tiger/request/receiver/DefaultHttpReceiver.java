@@ -112,7 +112,8 @@ public class DefaultHttpReceiver extends TGHttpReceiver
 			}
 		}
 		
-		LogTools.d(LOG_TAG, httpResult.getResponseCode() + " : " + httpResult.getResult());
+		LogTools.d(LOG_TAG, "responseCode == " + httpResult.getResponseCode() + " -- " + 
+			    httpResult.getResult());
 
 		return httpResult;
 	}
