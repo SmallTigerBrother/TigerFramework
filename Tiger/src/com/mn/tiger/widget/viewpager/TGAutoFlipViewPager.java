@@ -247,8 +247,13 @@ public class TGAutoFlipViewPager extends ViewPager
 		@Override
 		public final Object instantiateItem(ViewGroup container, int position)
 		{
+			int size = 1;
+			if(!getPagerData().isEmpty())
+			{
+				size = getPagerData().size();
+			}
 			//计算页码，取余数
-			return super.instantiateItem(container, position % getCount());
+			return super.instantiateItem(container, position % size);
 		}
 	}
 	
