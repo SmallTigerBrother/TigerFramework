@@ -101,18 +101,14 @@ public class TGNavigationBar extends RelativeLayout
 		leftParams.addRule(RelativeLayout.CENTER_VERTICAL);
 		this.addView(getLeftNaviLayout(), leftParams);
 		
-		LinearLayout.LayoutParams leftBtnParams = new LinearLayout.LayoutParams(
-				LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
-		getLeftNaviLayout().addView(getLeftNaviButton(), leftBtnParams);
+		getLeftNaviLayout().addView(getLeftNaviButton());
 		
 		LayoutParams rightParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		rightParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 		rightParams.addRule(RelativeLayout.CENTER_IN_PARENT);
 		this.addView(getRightNaviLayout(), rightParams);
 		
-		LinearLayout.LayoutParams rightBtnParams = new LinearLayout.LayoutParams(
-				LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
-		getRightNaviLayout().addView(getRightNaviButton(), rightBtnParams);
+		getRightNaviLayout().addView(getRightNaviButton());
 		
 		LayoutParams middleParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		middleParams.addRule(RelativeLayout.CENTER_IN_PARENT);
@@ -195,6 +191,11 @@ public class TGNavigationBar extends RelativeLayout
 			leftNaviButton.setVisibility(View.INVISIBLE);
 			leftNaviButton.setTextColor(BUTTON_TEXT_COLOR);
 			leftNaviButton.setTextSize(BUTTON_TEXT_SIZE);
+			
+			LinearLayout.LayoutParams leftBtnParams = new LinearLayout.LayoutParams(
+					LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+			leftBtnParams.leftMargin = DisplayUtils.dip2px(getContext(), 8);
+			leftNaviButton.setLayoutParams(leftBtnParams);
 		}
 		
 		return leftNaviButton;
@@ -227,6 +228,11 @@ public class TGNavigationBar extends RelativeLayout
 			rightNaviButton.setVisibility(View.INVISIBLE);
 			rightNaviButton.setTextColor(BUTTON_TEXT_COLOR);
 			rightNaviButton.setTextSize(BUTTON_TEXT_SIZE);
+			
+			LinearLayout.LayoutParams rightBtnParams = new LinearLayout.LayoutParams(
+					LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+			rightBtnParams.rightMargin = DisplayUtils.dip2px(getContext(), 8);
+			rightNaviButton.setLayoutParams(rightBtnParams);
 		}
 		
 		return rightNaviButton;		
