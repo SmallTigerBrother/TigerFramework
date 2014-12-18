@@ -42,7 +42,6 @@ import android.widget.TextView;
 
 public class TGPagerSlidingTabStrip extends HorizontalScrollView
 {
-
 	public interface IconTabProvider
 	{
 		public int getPageIconResId(int position);
@@ -207,7 +206,6 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 
 	private void addTextTab(final int position, String title)
 	{
-
 		TextView tab = new TextView(getContext());
 		tab.setText(title);
 		tab.setGravity(Gravity.CENTER);
@@ -281,7 +279,6 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 
 	private void scrollToChild(int position, int offset)
 	{
-
 		if (tabCount == 0)
 		{
 			return;
@@ -307,6 +304,15 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 	{
 		super.onDraw(canvas);
 
+		onDrawIndicator(canvas);
+	}
+	
+	/**
+	 * 绘制指示器
+	 * @param canvas
+	 */
+	protected void onDrawIndicator(Canvas canvas)
+	{
 		if (isInEditMode() || tabCount == 0)
 		{
 			return;
@@ -327,7 +333,6 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 		// between current and next tab
 		if (currentPositionOffset > 0f && currentPosition < tabCount - 1)
 		{
-
 			View nextTab = tabsContainer.getChildAt(currentPosition + 1);
 			final float nextTabLeft = nextTab.getLeft();
 			final float nextTabRight = nextTab.getRight();
@@ -358,7 +363,6 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 		@Override
 		public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
 		{
-
 			currentPosition = position;
 			currentPositionOffset = positionOffset;
 
