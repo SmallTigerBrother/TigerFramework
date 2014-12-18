@@ -11,9 +11,12 @@ import com.tencent.mm.sdk.openapi.BaseResp;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 
-public class TGWXEntryActivity extends TGActionBarActivity implements IWXAPIEventHandler
+/**
+ *微信分享回调Activity
+ */
+public class TGWeiChatEntryActivity extends TGActionBarActivity implements IWXAPIEventHandler
 {
-	private static final Logger LOG = Logger.getLogger(TGWXEntryActivity.class);
+	private static final Logger LOG = Logger.getLogger(TGWeiChatEntryActivity.class);
 	
 	private IWXAPI api;
 	

@@ -10,7 +10,7 @@ import com.mn.tiger.share.result.TGShareResult;
  */
 public class TGSharePluginManager
 {
-	private static final Logger LOG = Logger.getLogger(TGWXEntryActivity.class);
+	private static final Logger LOG = Logger.getLogger(TGWeiChatEntryActivity.class);
 	
 	/**
 	 * TAG —— 微信分享

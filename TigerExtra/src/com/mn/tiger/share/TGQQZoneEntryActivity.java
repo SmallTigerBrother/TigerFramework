@@ -1,6 +1,8 @@
 package com.mn.tiger.share;
 
-
+/**
+ * QQZone分享启动/回调Activity
+ */
 public class TGQQZoneEntryActivity extends TGQQEntryActivity
 {
 	@Override

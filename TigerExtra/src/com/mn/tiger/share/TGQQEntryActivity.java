@@ -13,12 +13,21 @@ import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
+/**
+ * QQ分享启动/回调Activity
+ */
 public class TGQQEntryActivity extends TGActionBarActivity implements IUiListener
 {
 	private static final Logger LOG = Logger.getLogger(TGQQEntryActivity.class);
 	
+	/**
+	 * tencent接口
+	 */
 	private Tencent tencent;
 	
+	/**
+	 * 分享插件
+	 */
 	private TGQQSharePlugin plugin;
 	
 	@Override
@@ -37,6 +46,7 @@ public class TGQQEntryActivity extends TGActionBarActivity implements IUiListene
 			LOG.e("Your had not register qq shareplugin ever");
 			return;
 		}
+		//实际调用分享方法
 		shareToQQ();
 	}
 	
@@ -44,6 +54,7 @@ public class TGQQEntryActivity extends TGActionBarActivity implements IUiListene
 	protected void onNewIntent(Intent intent)
 	{
 		super.onNewIntent(intent);
+		//实际调用分享方法
 		shareToQQ();
 	}
 	
@@ -53,6 +64,9 @@ public class TGQQEntryActivity extends TGActionBarActivity implements IUiListene
 				TGSharePluginManager.TAG_QQ);
 	}
 	
+	/**
+	 * 分享到QQ/QQZone
+	 */
 	protected void shareToQQ()
 	{
 		if(null != plugin)
@@ -70,6 +84,7 @@ public class TGQQEntryActivity extends TGActionBarActivity implements IUiListene
 	{
 		if(null != tencent)
 		{
+			//处理分享结果
 			tencent.onActivityResult(requestCode, resultCode, data);
 		}
 		super.onActivityResult(requestCode, resultCode, data);

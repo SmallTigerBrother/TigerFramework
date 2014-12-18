@@ -2,7 +2,10 @@ package com.mn.tiger.share;
 
 import com.tencent.mm.sdk.openapi.IWXAPI;
 
-public class TGWXTimeLineEntryActivity extends TGWXEntryActivity
+/**
+ * 微信朋友圈分享回调Activity
+ */
+public class TGWeiChatTimeLineEntryActivity extends TGWeiChatEntryActivity
 {
 	@Override
 	protected IWXAPI getIWXAPI()

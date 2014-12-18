@@ -10,9 +10,12 @@ import com.sina.weibo.sdk.api.share.BaseResponse;
 import com.sina.weibo.sdk.api.share.IWeiboHandler;
 import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
 
-public class TGWBEntryActivity extends TGActionBarActivity implements IWeiboHandler.Response
+/**
+ * 微博分享回调Activity
+ */
+public class TGWeiBoEntryActivity extends TGActionBarActivity implements IWeiboHandler.Response
 {
-	private static final Logger LOG = Logger.getLogger(TGWBEntryActivity.class);
+	private static final Logger LOG = Logger.getLogger(TGWeiBoEntryActivity.class);
 	
 	private IWeiboShareAPI weiboShareAPI;
 	
