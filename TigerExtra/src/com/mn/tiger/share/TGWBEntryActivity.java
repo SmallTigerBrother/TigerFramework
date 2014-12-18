@@ -45,10 +45,9 @@ public class TGWBEntryActivity extends TGActionBarActivity implements IWeiboHand
 	protected void onNewIntent(Intent intent)
 	{
 		super.onNewIntent(intent);
-		setIntent(intent);
 		if(null != weiboShareAPI)
 		{
-			weiboShareAPI.handleWeiboResponse(getIntent(), this);
+			weiboShareAPI.handleWeiboResponse(intent, this);
 		}
 		else
 		{

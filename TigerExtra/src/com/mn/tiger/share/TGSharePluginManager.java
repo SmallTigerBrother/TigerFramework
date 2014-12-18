@@ -107,6 +107,8 @@ public class TGSharePluginManager
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public <T extends TGShareResult> void postShareResult(int tag, T shareResult)
 	{
+		LOG.d("[Method:postShareResult]  tag == " + tag);
+		
 		TGSharePlugin plugin = getPlugin(tag);
 		if(null != plugin)
 		{

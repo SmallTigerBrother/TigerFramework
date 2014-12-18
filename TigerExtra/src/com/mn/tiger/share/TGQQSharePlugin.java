@@ -43,6 +43,8 @@ public class TGQQSharePlugin extends TGSharePlugin<Bundle, TGQQShareResult>
 	@Override
 	protected void sendShareMsg(Activity activity, Bundle shareMsg)
 	{
+		LOG.d("[Method:sendShareMsg]" + shareMsg.toString());
+		
 		setActivity(activity);
 		//QQ分享必须到指定的Activity执行，因此在这里启动TGQQEntryActivity，在TGQQEntryActivity中会调用share2QQ()方法执行分享功能
 		Intent intent = new Intent(getContext(), TGQQEntryActivity.class);
@@ -54,6 +56,8 @@ public class TGQQSharePlugin extends TGSharePlugin<Bundle, TGQQShareResult>
 	 */
 	public void share2QQ()
 	{
+		LOG.d("[Method:share2QQ]");
+		
 		if(null != getShareMsg())
 		{
 			tencent.shareToQQ(activity, getShareMsg(), null);

@@ -44,6 +44,8 @@ public class TGWeiChatSharePlugin extends TGSharePlugin<WXMediaMessage, TGWeiCha
 	@Override
 	protected void sendShareMsg(Activity activity, WXMediaMessage shareMsg)
 	{
+		LOG.d("[Method:sendShareMsg]" + shareMsg.toString());
+		
 		// 发送媒体消息
 		req = initReq();
 		api.sendReq(req);

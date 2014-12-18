@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import android.app.Activity;
 import android.content.Context;
 
+import com.mn.tiger.log.Logger;
 import com.mn.tiger.share.result.TGShareResult;
 
 /**
@@ -15,6 +16,8 @@ import com.mn.tiger.share.result.TGShareResult;
  */
 public abstract class TGSharePlugin<T, H extends TGShareResult>
 {
+	protected final Logger LOG = Logger.getLogger(this.getClass());
+	
 	/**
 	 * 分享信息建造者
 	 */
@@ -70,6 +73,8 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 	public final synchronized <E extends TGShareMsgBuilder<T>> void share(Activity activity,
 			E msgBuilder, IShareResultHandler<H> handler)
 	{
+		LOG.d("[Method:share]");
+		
 		//绑定分享信息与其分享类型
 		shareTypeMap.put(getMsgIndicator(getShareMsg()), msgBuilder.getShareType());
 		//绑定分享信息与结果回调接口
@@ -119,6 +124,8 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 	 */
 	protected final void handleShareResult(H result)
 	{
+		LOG.d("[Method:handleShareResult] result == " + result.toString());
+		
 		//设置信息分享类型
 		result.setShareType(shareTypeMap.get(getMsgIndicator(result)));
 		//获取分享结果回调接口

@@ -45,6 +45,8 @@ public class TGWeiBoSharePlugin extends TGSharePlugin<WeiboMultiMessage, TGWeibo
 	@Override
 	protected void sendShareMsg(Activity activity, WeiboMultiMessage shareMsg)
 	{
+		LOG.d("[Method:sendShareMsg]" + shareMsg.toString());
+		
 		request = new SendMultiMessageToWeiboRequest();
 		request.multiMessage = shareMsg;
 		request.packageName = getContext().getPackageName();

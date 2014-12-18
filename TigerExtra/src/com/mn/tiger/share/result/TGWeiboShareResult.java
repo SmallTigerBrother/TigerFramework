@@ -41,14 +41,14 @@ public class TGWeiboShareResult extends TGShareResult
 	/**
 	 * 错误信息
 	 */
-	private String errMsg = "";
+	private String errorMsg = "";
 	
 	public TGWeiboShareResult(BaseResponse response)
 	{
 		this.transaction = response.transaction;
 		this.resultCode = response.errCode;
 		this.reqPackageName = response.reqPackageName;
-		this.errMsg = response.errMsg;
+		this.errorMsg = response.errMsg;
 	}
 	
 	@Override
@@ -61,9 +61,9 @@ public class TGWeiboShareResult extends TGShareResult
 	 * 获取错误信息
 	 * @return
 	 */
-	public String getErrMsg()
+	public String getErrorMsg()
 	{
-		return errMsg;
+		return errorMsg;
 	}
 	
 	/**
@@ -91,5 +91,13 @@ public class TGWeiboShareResult extends TGShareResult
 	public String getTransaction()
 	{
 		return transaction;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "transaction == " + transaction + " ; resultCode == " + resultCode + 
+				" ; reqPackageName" + reqPackageName + " ; errorMsg == " + errorMsg +
+				" ; shareType == " + getShareType();
 	}
 }

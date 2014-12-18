@@ -98,4 +98,11 @@ public class TGWeiChatShareResult extends TGShareResult
 	{
 		return resultCode == SUCCESS;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return "transaction == " + transaction + " ; resultCode == " + resultCode + 
+				" ; errorMsg == " + errorMsg + " ; shareType == " + getShareType();
+	}
 }
