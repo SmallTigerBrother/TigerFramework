@@ -75,12 +75,17 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 	{
 		LOG.d("[Method:share]");
 		
-		//绑定分享信息与其分享类型
-		shareTypeMap.put(getMsgIndicator(getShareMsg()), msgBuilder.getShareType());
-		//绑定分享信息与结果回调接口
-		resultHandlerMap.put(getMsgIndicator(getShareMsg()), handler);
-		
+		this.msgBuilder = msgBuilder;
+
 		sendShareMsg(activity, getShareMsg());
+
+		// 绑定分享信息与其分享类型
+		shareTypeMap.put(getMsgIndicator(getShareMsg()), msgBuilder.getShareType());
+		// 绑定分享信息与结果回调接口
+		if(null != handler)
+		{
+			resultHandlerMap.put(getMsgIndicator(getShareMsg()), handler);
+		}
 	}
 	
 	/**
