@@ -128,16 +128,18 @@ public class TGWeiChatSharePlugin extends TGSharePlugin<WXMediaMessage, TGWeiCha
 		public WXMediaMessage build()
 		{
 			WXMediaMessage mediaMessage = new WXMediaMessage();
-			mediaMessage.title = title;
-			mediaMessage.description = description;
+			
 			if(!TextUtils.isEmpty(webpageUrl))
 			{
+				mediaMessage.title = title;
+				mediaMessage.description = description;
 				WXWebpageObject webpageObject = new WXWebpageObject(webpageUrl);
 				mediaMessage.mediaObject = webpageObject;
 			}
 			else if(!TextUtils.isEmpty(text))
 			{
 				WXTextObject textObject = new WXTextObject(text);
+				mediaMessage.description = text;
 				mediaMessage.mediaObject = textObject;
 			}
 			else if(!TextUtils.isEmpty(imagePath))
