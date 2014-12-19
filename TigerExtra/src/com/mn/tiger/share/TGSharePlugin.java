@@ -131,7 +131,7 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 	{
 		LOG.d("[Method:handleShareResult] result == " + result.toString());
 		
-		if(null == shareTypeMap.get(getMsgIndicator(result)))
+		if(!hasSendMessage(result))
 		{
 			LOG.e("[Method:handleShareResult] this plugin had never send the message");
 			return false;
