@@ -1,5 +1,7 @@
 package com.mn.tiger.demo.share;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,6 +25,8 @@ import com.mn.tiger.share.result.TGQQShareResult;
 import com.mn.tiger.share.result.TGWeChatShareResult;
 import com.mn.tiger.share.result.TGWeiboShareResult;
 import com.mn.tiger.utility.ViewInjector;
+import com.tencent.connect.share.QQShare;
+import com.tencent.tauth.Tencent;
 
 public class ShareDemoActivity extends TGActionBarActivity implements OnClickListener
 {
@@ -45,6 +49,7 @@ public class ShareDemoActivity extends TGActionBarActivity implements OnClickLis
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.share_demo_activity);
 		ViewInjector.initInjectedView(this, this);
 		setupViews();
 	}
@@ -128,7 +133,11 @@ public class ShareDemoActivity extends TGActionBarActivity implements OnClickLis
 	private void shareToQQ()
 	{
 		TGQQShareMsgBuilder msgBuilder = new TGQQShareMsgBuilder(0);
-		msgBuilder.setQQTitle("");
+		msgBuilder.setQQTitle("Test");
+		msgBuilder.setQQSummary("自己开发的ShareSDK");
+//		msgBuilder.setQQKeyType(QQShare.SHARE_TO_QQ_TYPE_DEFAULT);
+		msgBuilder.setQQAppName("Test");
+		msgBuilder.setQQTargetUrl("http://www.baidu.com");
 		
 		QQSharePlugin qqSharePlugin = 
 				(QQSharePlugin)TGSharePluginManager.getInstance().getPlugin(
@@ -147,7 +156,14 @@ public class ShareDemoActivity extends TGActionBarActivity implements OnClickLis
 	private void shareToQQZone()
 	{
 		TGQQZoneShareMsgBuilder msgBuilder = new TGQQZoneShareMsgBuilder(0);
-		msgBuilder.setQQTitle("");
+		msgBuilder.setQQTitle("Test");
+		msgBuilder.setQQSummary("自己开发的ShareSDK");
+		msgBuilder.setQQTargetUrl("http://www.baidu.com");
+		
+		ArrayList<String> imageUrls = new ArrayList<String>();
+		imageUrls.add("http://img3.douban.com/lpic/s3635685.jpg");
+		
+		msgBuilder.setQQImageUrl(imageUrls);
 		
 		QQZoneSharePlugin qqZoneSharePlugin = 
 				(QQZoneSharePlugin)TGSharePluginManager.getInstance().getPlugin(

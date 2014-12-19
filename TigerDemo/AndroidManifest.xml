@@ -9,7 +9,7 @@
         android:targetSdkVersion="19" />
 
     <application
-        android:name="com.mn.tiger.app.TGApplication"
+        android:name="com.mn.tiger.demo.App"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -31,12 +31,10 @@
             android:name="com.mn.tiger.demo.activity.SlidingActivity"
             android:label="@string/app_name" >
         </activity>
-        
-         <activity
+        <activity
             android:name="com.mn.tiger.demo.activity.AniminationDemoActivity"
             android:label="@string/app_name" >
         </activity>
-        
         <activity
             android:name="com.mn.tiger.demo.widget.searchview.SearchViewActivity"
             android:label="@string/app_name" >
@@ -49,59 +47,81 @@
             android:name="com.mn.tiger.demo.widget.viewpager.vertical.VerticalViewPagerActivity"
             android:label="@string/app_name" >
         </activity>
-        
         <activity
             android:name="com.mn.tiger.demo.widget.viewpager.horizontal.HorizontalViewPagerActivity"
             android:label="@string/app_name" >
         </activity>
-        
-         <activity
+        <activity
             android:name="com.mn.tiger.demo.widget.viewpager.horizontal.BannerViewPagerActivity"
             android:label="@string/app_name" >
         </activity>
-        
         <activity
             android:name="com.mn.tiger.demo.widget.searchview.actionbar.SearchViewInActionBarActivity"
             android:label="@string/app_name" >
         </activity>
-        
-         <activity
+        <activity
             android:name="com.mn.tiger.demo.widget.dialog.DialogDemoActivity"
             android:label="@string/app_name" >
         </activity>
-        
-         <activity
+        <activity
             android:name="com.mn.tiger.demo.widget.wheelview.WheelViewActivity"
             android:label="@string/app_name" >
         </activity>
-        
-         <activity
+        <activity
             android:name="com.mn.tiger.demo.authorize.AuthorizeDemoActivity"
             android:label="@string/app_name" >
         </activity>
-        
-          <activity
+        <activity
             android:name="com.mn.tiger.demo.share.ShareDemoActivity"
             android:label="@string/app_name" >
         </activity>
-        
-           <activity
+        <activity
             android:name="com.mn.tiger.demo.widget.viewpager.horizontal.TransformationDemoActivity"
             android:label="@string/app_name" >
         </activity>
-        
-            <activity
+        <activity
             android:name="com.mn.tiger.demo.widget.viewpager.horizontal.RecycleViewPagerActivity"
             android:label="@string/app_name" >
         </activity>
-        
-            <activity
+        <activity
             android:name="com.mn.tiger.demo.widget.viewpager.horizontal.PagerSlidingTabStripActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent101009937" />
+                <!-- 100380359 100381104 222222 -->
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> 
+        
+        <activity
+            android:name="com.mn.tiger.share.TGQQEntryActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoDisplay" >
+        </activity>
+        
+        <activity
+            android:name="com.mn.tiger.share.TGQQZoneEntryActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoDisplay" >
+        </activity>
         
     </application>
-    
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

@@ -20,10 +20,10 @@ public class App extends TGApplication
 				TGSharePluginManager.TAG_WEI_CHAT_TIME_LINE, new WeiChatTimeLineSharePlugin(this, ""));
 		
 		TGSharePluginManager.getInstance().registerPlugin(
-				TGSharePluginManager.TAG_QQ, new QQSharePlugin(this, ""));
+				TGSharePluginManager.TAG_QQ, new QQSharePlugin(this, "101009937"));
 		
 		TGSharePluginManager.getInstance().registerPlugin(
-				TGSharePluginManager.TAG_QQ_ZONE, new QQZoneSharePlugin(this, ""));
+				TGSharePluginManager.TAG_QQ_ZONE, new QQZoneSharePlugin(this, "101009937"));
 		
 		TGSharePluginManager.getInstance().registerPlugin(
 				TGSharePluginManager.TAG_WEI_BO, new WeiBoSharePlugin(this, ""));
