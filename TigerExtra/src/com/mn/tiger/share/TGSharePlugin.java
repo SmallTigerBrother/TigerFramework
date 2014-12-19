@@ -127,9 +127,15 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 	 * 接收分享结果
 	 * @param result 分享结果
 	 */
-	protected final void handleShareResult(H result)
+	protected final boolean handleShareResult(H result)
 	{
 		LOG.d("[Method:handleShareResult] result == " + result.toString());
+		
+		if(null == shareTypeMap.get(getMsgIndicator(result)))
+		{
+			LOG.e("[Method:handleShareResult] this plugin had never send the message");
+			return false;
+		}
 		
 		//设置信息分享类型
 		result.setShareType(shareTypeMap.get(getMsgIndicator(result)));
@@ -154,6 +160,8 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 		
 		//移除结果回调接口，防止内存泄露
 		onRemoveResultHandler(result);
+		
+		return true;
 	}
 	
 	/**
@@ -181,6 +189,16 @@ public abstract class TGSharePlugin<T, H extends TGShareResult>
 	{
 		//删除handler
 		resultHandlerMap.remove(getMsgIndicator(result));
+	}
+	
+	protected boolean hasSendMessage(H result)
+	{
+		if(null != shareTypeMap.get(getMsgIndicator(result)))
+		{
+			return true;
+		}
+		
+		return false;
 	}
 	
 	/**
