@@ -107,7 +107,7 @@ public class TGWeChatSharePlugin extends TGSharePlugin<WXMediaMessage, TGWeChatS
 	/**
 	 * 获取微信分享信息建造者
 	 */
-	public static class TGWeiChatMsgBuilder extends TGShareMsgBuilder<WXMediaMessage>
+	public static class TGWeChatMsgBuilder extends TGShareMsgBuilder<WXMediaMessage>
 	{
 		private String title;
 		
@@ -119,7 +119,7 @@ public class TGWeChatSharePlugin extends TGSharePlugin<WXMediaMessage, TGWeChatS
 		
 		private String imagePath;
 		
-		public TGWeiChatMsgBuilder(int shareType)
+		public TGWeChatMsgBuilder(int shareType)
 		{
 			super(shareType);
 		}
