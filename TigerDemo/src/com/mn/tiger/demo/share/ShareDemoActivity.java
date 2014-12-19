@@ -17,10 +17,10 @@ import com.mn.tiger.share.IShareResultHandler;
 import com.mn.tiger.share.TGQQSharePlugin.TGQQShareMsgBuilder;
 import com.mn.tiger.share.TGQQZoneSharePlugin.TGQQZoneShareMsgBuilder;
 import com.mn.tiger.share.TGSharePluginManager;
+import com.mn.tiger.share.TGWeChatSharePlugin.TGWeChatMsgBuilder;
 import com.mn.tiger.share.TGWeiBoSharePlugin.TGWeiBoMsgBuilder;
-import com.mn.tiger.share.TGWeiChatSharePlugin.TGWeiChatMsgBuilder;
 import com.mn.tiger.share.result.TGQQShareResult;
-import com.mn.tiger.share.result.TGWeiChatShareResult;
+import com.mn.tiger.share.result.TGWeChatShareResult;
 import com.mn.tiger.share.result.TGWeiboShareResult;
 import com.mn.tiger.utility.ViewInjector;
 
@@ -89,17 +89,17 @@ public class ShareDemoActivity extends TGActionBarActivity implements OnClickLis
 	
 	private void shareToWeiChat()
 	{
-		TGWeiChatMsgBuilder msgBuilder = new TGWeiChatMsgBuilder(0);
+		TGWeChatMsgBuilder msgBuilder = new TGWeChatMsgBuilder(0);
 		msgBuilder.setTitle("Test");
 		
 		WeiChatSharePlugin weiChatSharePlugin = 
 				(WeiChatSharePlugin) TGSharePluginManager.getInstance().getPlugin(
 						TGSharePluginManager.TAG_WEI_CHAT);
 		
-		weiChatSharePlugin.share(this, msgBuilder, new IShareResultHandler<TGWeiChatShareResult>()
+		weiChatSharePlugin.share(this, msgBuilder, new IShareResultHandler<TGWeChatShareResult>()
 		{
 			@Override
-			public void handleShareResult(TGWeiChatShareResult shareResult)
+			public void handleShareResult(TGWeChatShareResult shareResult)
 			{
 				
 			}
@@ -108,17 +108,17 @@ public class ShareDemoActivity extends TGActionBarActivity implements OnClickLis
 	
 	private void shareToWeiChatTimeLine()
 	{
-		TGWeiChatMsgBuilder msgBuilder = new TGWeiChatMsgBuilder(0);
+		TGWeChatMsgBuilder msgBuilder = new TGWeChatMsgBuilder(0);
 		msgBuilder.setTitle("Test");
 		
 		WeiChatTimeLineSharePlugin weiChatTimeLineSharePlugin = 
 				(WeiChatTimeLineSharePlugin) TGSharePluginManager.getInstance().getPlugin(
 						TGSharePluginManager.TAG_WEI_CHAT_TIME_LINE);
 		
-		weiChatTimeLineSharePlugin.share(this, msgBuilder, new IShareResultHandler<TGWeiChatShareResult>()
+		weiChatTimeLineSharePlugin.share(this, msgBuilder, new IShareResultHandler<TGWeChatShareResult>()
 		{
 			@Override
-			public void handleShareResult(TGWeiChatShareResult shareResult)
+			public void handleShareResult(TGWeChatShareResult shareResult)
 			{
 				
 			}
