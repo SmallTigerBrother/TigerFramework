@@ -61,7 +61,7 @@ public class TGWeiChatShareResult extends TGShareResult
 	
 	public TGWeiChatShareResult(BaseResp req)
 	{
-		this.resultCode = req.getType();
+		this.resultCode = req.errCode;
 		this.transaction = req.transaction;
 		this.errorMsg = req.errStr;
 	}
