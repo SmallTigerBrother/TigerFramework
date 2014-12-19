@@ -1,9 +1,9 @@
 package com.mn.tiger.share;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.mn.tiger.app.TGActionBarActivity;
 import com.mn.tiger.log.Logger;
 import com.mn.tiger.share.result.TGWeChatShareResult;
 import com.tencent.mm.sdk.openapi.BaseReq;
@@ -14,7 +14,7 @@ import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 /**
  *微信分享回调Activity
  */
-public class TGWeChatEntryActivity extends TGActionBarActivity implements IWXAPIEventHandler
+public class TGWeChatEntryActivity extends Activity implements IWXAPIEventHandler
 {
 	private static final Logger LOG = Logger.getLogger(TGWeChatEntryActivity.class);
 	
