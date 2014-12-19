@@ -6,7 +6,7 @@ import com.tencent.mm.sdk.openapi.BaseResp;
 /**
  * 微信分享结果
  */
-public class TGWeiChatShareResult extends TGShareResult
+public class TGWeChatShareResult extends TGShareResult
 {
 	/**
 	 * 错误码 —— 分享成功
@@ -53,13 +53,13 @@ public class TGWeiChatShareResult extends TGShareResult
 	 */
 	private String errorMsg;
 	
-	public TGWeiChatShareResult(BaseReq req)
+	public TGWeChatShareResult(BaseReq req)
 	{
 		this.resultCode = req.getType();
 		this.transaction = req.transaction;
 	}
 	
-	public TGWeiChatShareResult(BaseResp req)
+	public TGWeChatShareResult(BaseResp req)
 	{
 		this.resultCode = req.errCode;
 		this.transaction = req.transaction;
