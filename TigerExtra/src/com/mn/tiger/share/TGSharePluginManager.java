@@ -105,7 +105,7 @@ public class TGSharePluginManager
 	 * @param shareResult 分享结果
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public <T extends TGShareResult> void postShareResult(int tag, T shareResult)
+	public <T extends TGShareResult> boolean postShareResult(int tag, T shareResult)
 	{
 		LOG.d("[Method:postShareResult]  tag == " + tag);
 		
@@ -113,12 +113,14 @@ public class TGSharePluginManager
 		if(null != plugin)
 		{
 			//调用分享结束方法
-			plugin.handleShareResult(shareResult);
+			return plugin.handleShareResult(shareResult);
 		}
 		else
 		{
 			LOG.e("Your had not register this shareplugin that result type is "+ 
 		        shareResult.getClass().getSimpleName() +" ever");
+			
+			return false;
 		}
 	}
 }
