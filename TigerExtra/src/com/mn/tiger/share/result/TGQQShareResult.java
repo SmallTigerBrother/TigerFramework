@@ -120,7 +120,19 @@ public class TGQQShareResult extends TGShareResult
 	@Override
 	public String toString()
 	{
-		return "reponse == " + reponse + " ; UiError == " + uiError.toString() + 
-				" ; shareType == " + getShareType();
+		StringBuilder stringBuilder = new StringBuilder();
+		if(null != stringBuilder)
+		{
+			stringBuilder.append("reponse == " + reponse + " ; ");
+		}
+		
+		if(null != uiError)
+		{
+			stringBuilder.append("UiError == " + uiError.errorMessage + " ; ");
+		}
+		
+		stringBuilder.append("shareType == " + getShareType());
+		
+		return stringBuilder.toString();
 	}
 }
