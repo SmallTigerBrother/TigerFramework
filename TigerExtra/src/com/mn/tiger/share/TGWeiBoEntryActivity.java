@@ -1,9 +1,9 @@
 package com.mn.tiger.share;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.mn.tiger.app.TGActionBarActivity;
 import com.mn.tiger.log.Logger;
 import com.mn.tiger.share.result.TGWeiboShareResult;
 import com.sina.weibo.sdk.api.share.BaseResponse;
@@ -13,7 +13,7 @@ import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
 /**
  * 微博分享回调Activity
  */
-public class TGWeiBoEntryActivity extends TGActionBarActivity implements IWeiboHandler.Response
+public class TGWeiBoEntryActivity extends Activity implements IWeiboHandler.Response
 {
 	private static final Logger LOG = Logger.getLogger(TGWeiBoEntryActivity.class);
 	

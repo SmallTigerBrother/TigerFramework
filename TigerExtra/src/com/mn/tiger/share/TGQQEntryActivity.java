@@ -3,10 +3,10 @@ package com.mn.tiger.share;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.mn.tiger.app.TGActionBarActivity;
 import com.mn.tiger.log.Logger;
 import com.mn.tiger.share.result.TGQQShareResult;
 import com.tencent.tauth.IUiListener;
@@ -16,7 +16,7 @@ import com.tencent.tauth.UiError;
 /**
  * QQ分享启动/回调Activity
  */
-public class TGQQEntryActivity extends TGActionBarActivity implements IUiListener
+public class TGQQEntryActivity extends Activity implements IUiListener
 {
 	private static final Logger LOG = Logger.getLogger(TGQQEntryActivity.class);
 	
