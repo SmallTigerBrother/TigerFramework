@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.mn.tiger.share.result.TGQQShareResult;
 import com.tencent.connect.share.QQShare;
+import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 
 /**
@@ -48,19 +50,19 @@ public class TGQQSharePlugin extends TGSharePlugin<Bundle, TGQQShareResult>
 		setActivity(activity);
 		//QQ分享必须到指定的Activity执行，因此在这里启动TGQQEntryActivity，在TGQQEntryActivity中会调用share2QQ()方法执行分享功能
 		Intent intent = new Intent(getContext(), TGQQEntryActivity.class);
-		getContext().startActivity(intent);
+		activity.startActivity(intent);
 	}
 	
 	/**
 	 * 分享到QQ
 	 */
-	public void share2QQ()
+	protected void share2QQ(IUiListener uiListener)
 	{
 		LOG.d("[Method:share2QQ]");
 		
 		if(null != getShareMsg())
 		{
-			tencent.shareToQQ(activity, getShareMsg(), null);
+			tencent.shareToQQ(activity, getShareMsg(), uiListener);
 		}
 		//清空actvity，避免内存泄露
 		setActivity(null);
@@ -91,6 +93,11 @@ public class TGQQSharePlugin extends TGSharePlugin<Bundle, TGQQShareResult>
 	{
 		this.activity = activity;
 	}
+	
+	protected Activity getActivity()
+	{
+		return activity;
+	}
 
 	@Override
 	public void onShareSuccess(TGQQShareResult result)
@@ -115,6 +122,12 @@ public class TGQQSharePlugin extends TGSharePlugin<Bundle, TGQQShareResult>
 	{
 		//QQ不支持多任务，不移除handler
 	}
+	
+	@Override
+	protected boolean hasSendMessage(TGQQShareResult result)
+	{
+		return true;
+	}
 
 	/**
 	 * QQ分享信息建造者
@@ -137,8 +150,21 @@ public class TGQQSharePlugin extends TGSharePlugin<Bundle, TGQQShareResult>
 		@Override
 		public Bundle build()
 		{
+			if(params.getInt(QQShare.SHARE_TO_QQ_KEY_TYPE, -1) < 0)
+			{
+				params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT);
+			}
 			//设置不显示分享到QQZone
 			params.putInt(QQShare.SHARE_TO_QQ_EXT_INT, QQShare.SHARE_TO_QQ_FLAG_QZONE_ITEM_HIDE);
+			
+			//检测参数是否合法
+			if(TextUtils.isEmpty(params.getString(QQShare.SHARE_TO_QQ_TARGET_URL)) || 
+					TextUtils.isEmpty(params.getString(QQShare.SHARE_TO_QQ_TITLE)) || 
+					TextUtils.isEmpty(params.getString(QQShare.SHARE_TO_QQ_SUMMARY)))
+			{
+				throw new IllegalArgumentException("Please make sure all the params include targetUrl/title/summary were set!");
+			}
+			
 			return params;
 		}
 		

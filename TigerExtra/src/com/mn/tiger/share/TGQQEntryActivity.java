@@ -71,7 +71,7 @@ public class TGQQEntryActivity extends Activity implements IUiListener
 	{
 		if(null != plugin)
 		{
-			plugin.share2QQ();
+			plugin.share2QQ(this);
 		}
 		else
 		{
