@@ -34,6 +34,7 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
@@ -88,6 +89,12 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 	private int tabBackgroundResId = -1;
 
 	private Locale locale;
+	
+	/**
+	 * 控制自动均分tab，当所有tab都不能填充满可见部分时，将自动拉伸各个View，充满可见区域，并均分视图；
+	 * 若所有tab超出可见部分时，自适应大小
+	 */
+	private boolean averageTabAuto = true;
 
 	public TGPagerSlidingTabStrip(Context context)
 	{
@@ -165,7 +172,6 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 
 		for (int i = 0; i < tabCount; i++)
 		{
-
 			if (pager.getAdapter() instanceof IconTabProvider)
 			{
 				addIconTab(i, ((IconTabProvider) pager.getAdapter()).getPageIconResId(i));
@@ -181,13 +187,11 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 
 		getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener()
 		{
-
 			@SuppressWarnings("deprecation")
 			@SuppressLint("NewApi")
 			@Override
 			public void onGlobalLayout()
 			{
-
 				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
 				{
 					getViewTreeObserver().removeGlobalOnLayoutListener(this);
@@ -252,7 +256,6 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 
 			if (v instanceof TextView)
 			{
-
 				TextView tab = (TextView) v;
 				tab.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSize);
 				tab.setTypeface(tabTypeface, tabTypefaceStyle);
@@ -274,7 +277,6 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 				}
 			}
 		}
-
 	}
 
 	private void scrollToChild(int position, int offset)
@@ -296,7 +298,36 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 			lastScrollX = newScrollX;
 			scrollTo(newScrollX, 0);
 		}
-
+	}
+	
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+	{
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		
+		if(averageTabAuto)
+		{
+			//测量内嵌的LinearLayout的宽度
+			tabsContainer.measure(MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST), 0);
+			
+			int width = this.getMeasuredWidth();
+			if(tabsContainer.getMeasuredWidth() <= width)
+			{
+				//均分各个子视图
+				for(int i = 0; i < tabsContainer.getChildCount(); i++)
+				{
+					tabsContainer.getChildAt(i).getLayoutParams().width = width / tabsContainer.getChildCount();
+				}
+			}
+			else
+			{
+				//自适应宽度
+				for(int i = 0; i < tabsContainer.getChildCount(); i++)
+				{
+					tabsContainer.getChildAt(i).getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+				}
+			}
+		}
 	}
 
 	@Override
@@ -357,7 +388,7 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 			canvas.drawLine(tab.getRight(), dividerPadding, tab.getRight(), height - dividerPadding, dividerPaint);
 		}
 	}
-
+	
 	private class PageListener implements OnPageChangeListener
 	{
 		@Override
@@ -398,7 +429,18 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 				delegatePageListener.onPageSelected(position);
 			}
 		}
-
+	}
+	
+	
+	/**
+	 * 控制自动均分tab，当所有tab都不能填充满可见部分时，将自动拉伸各个View，充满可见区域，并均分视图；
+	 * 若所有tab超出可见部分时，自适应大小
+	 * 默认为True
+	 * @param averageTabAuto
+	 */
+	public void setAverageTabAuto(boolean averageTabAuto)
+	{
+		this.averageTabAuto = averageTabAuto;
 	}
 
 	public void setIndicatorColor(int indicatorColor)
