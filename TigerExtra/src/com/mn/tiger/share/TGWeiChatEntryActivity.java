@@ -18,7 +18,7 @@ public class TGWeiChatEntryActivity extends TGActionBarActivity implements IWXAP
 {
 	private static final Logger LOG = Logger.getLogger(TGWeiChatEntryActivity.class);
 	
-	private IWXAPI api;
+	private TGWeiChatSharePlugin sharePlugin;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -26,14 +26,31 @@ public class TGWeiChatEntryActivity extends TGActionBarActivity implements IWXAP
 		super.onCreate(savedInstanceState);
 		this.setVisible(false);
 		
-		api = getIWXAPI();
-		if(null != api)
+		initSharePlugin();
+		if(null != sharePlugin)
 		{
-			api.handleIntent(getIntent(), this);
+			sharePlugin.getIWXApi().handleIntent(getIntent(), this);
 		}
-		else
+	}
+	
+	private void initSharePlugin()
+	{
+		if(null != sharePlugin)
 		{
-			LOG.e("Your had not register weichat shareplugin ever");
+			return;
+		}
+		
+		sharePlugin = (TGWeiChatSharePlugin) TGSharePluginManager.getInstance().getPlugin(
+				TGSharePluginManager.TAG_WEI_CHAT);
+		if(null == sharePlugin)
+		{
+			sharePlugin = (TGWeiChatSharePlugin) TGSharePluginManager.getInstance().getPlugin(
+					TGSharePluginManager.TAG_WEI_CHAT_TIME_LINE);
+		}
+		
+		if(null == sharePlugin)
+		{
+			LOG.e("You had never register WeChatSharePlugin before");
 		}
 	}
 	
@@ -48,28 +65,38 @@ public class TGWeiChatEntryActivity extends TGActionBarActivity implements IWXAP
 	protected void onNewIntent(Intent intent)
 	{
 		super.onNewIntent(intent);
-		setIntent(intent);
-		if(null != api)
+		initSharePlugin();
+		if(null != sharePlugin)
 		{
-			api.handleIntent(getIntent(), this);
-		}
-		else
-		{
-			LOG.e("Your had not register weichat shareplugin ever");
+			sharePlugin.getIWXApi().handleIntent(getIntent(), this);
 		}
 	}
 	
 	@Override
 	public void onReq(BaseReq req)
 	{
-		TGSharePluginManager.getInstance().postShareResult(TGSharePluginManager.TAG_WEI_CHAT, 
-				new TGWeiChatShareResult(req));
+		TGWeiChatShareResult shareResult = new TGWeiChatShareResult(req);
+		
+		boolean postResult = TGSharePluginManager.getInstance().postShareResult(TGSharePluginManager.TAG_WEI_CHAT, 
+				shareResult);
+		if(!postResult)
+		{
+			TGSharePluginManager.getInstance().postShareResult(TGSharePluginManager.TAG_WEI_CHAT_TIME_LINE, 
+					shareResult);
+		}
 	}
 
 	@Override
 	public void onResp(BaseResp req)
 	{
-		TGSharePluginManager.getInstance().postShareResult(TGSharePluginManager.TAG_WEI_CHAT, 
-				new TGWeiChatShareResult(req));
+		TGWeiChatShareResult shareResult = new TGWeiChatShareResult(req);
+		
+		boolean postResult = TGSharePluginManager.getInstance().postShareResult(TGSharePluginManager.TAG_WEI_CHAT, 
+				shareResult);
+		if(!postResult)
+		{
+			TGSharePluginManager.getInstance().postShareResult(TGSharePluginManager.TAG_WEI_CHAT_TIME_LINE, 
+					shareResult);
+		}
 	}
 }
