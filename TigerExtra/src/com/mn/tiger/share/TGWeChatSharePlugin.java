@@ -107,19 +107,13 @@ public class TGWeChatSharePlugin extends TGSharePlugin<WXMediaMessage, TGWeChatS
 	/**
 	 * 获取微信分享信息建造者
 	 */
-	public static class TGWeChatMsgBuilder extends TGShareMsgBuilder<WXMediaMessage>
+	public static class TGWeChatImageMsgBuilder extends TGShareMsgBuilder<WXMediaMessage>
 	{
 		private String title;
 		
-		private String text;
-		
-		private String description;
-		
-		private String webpageUrl;
-		
 		private String imagePath;
 		
-		public TGWeChatMsgBuilder(int shareType)
+		public TGWeChatImageMsgBuilder(int shareType)
 		{
 			super(shareType);
 		}
@@ -129,32 +123,96 @@ public class TGWeChatSharePlugin extends TGSharePlugin<WXMediaMessage, TGWeChatS
 		{
 			WXMediaMessage mediaMessage = new WXMediaMessage();
 			
-			if(!TextUtils.isEmpty(webpageUrl))
+			mediaMessage.title = title;
+			
+			WXImageObject imageObject = new WXImageObject();
+			imageObject.imagePath = imagePath;
+			mediaMessage.mediaObject = imageObject;
+			
+			return mediaMessage;
+		}
+		
+		public void setTitle(String title)
+		{
+			this.title = title;
+		}
+		
+		public void setImagePath(String imagePath)
+		{
+			this.imagePath = imagePath;
+		}
+	}
+	
+	/**
+	 * 获取微信分享信息建造者
+	 */
+	public static class TGWeChatTextMsgBuilder extends TGShareMsgBuilder<WXMediaMessage>
+	{
+		private String text;
+		
+		private String description;
+		
+		public TGWeChatTextMsgBuilder(int shareType)
+		{
+			super(shareType);
+		}
+
+		@Override
+		public WXMediaMessage build()
+		{
+			WXMediaMessage mediaMessage = new WXMediaMessage();
+			
+			WXTextObject textObject = new WXTextObject(text);
+			if(!TextUtils.isEmpty(description))
 			{
-				mediaMessage.title = title;
 				mediaMessage.description = description;
-				WXWebpageObject webpageObject = new WXWebpageObject(webpageUrl);
-				mediaMessage.mediaObject = webpageObject;
 			}
-			else if(!TextUtils.isEmpty(text))
+			else
 			{
-				WXTextObject textObject = new WXTextObject(text);
-				if(!TextUtils.isEmpty(description))
-				{
-					mediaMessage.description = description;
-				}
-				else
-				{
-					mediaMessage.description = text;
-				}
-				mediaMessage.mediaObject = textObject;
+				mediaMessage.description = text;
 			}
-			else if(!TextUtils.isEmpty(imagePath))
-			{
-				WXImageObject imageObject = new WXImageObject();
-				imageObject.imagePath = imagePath;
-				mediaMessage.mediaObject = imageObject;
-			}
+			
+			mediaMessage.mediaObject = textObject;
+			
+			return mediaMessage;
+		}
+		
+		public void setDescription(String description)
+		{
+			this.description = description;
+		}
+		
+		public void setText(String text)
+		{
+			this.text = text;
+		}
+	}
+	
+	/**
+	 * 获取微信分享信息建造者
+	 */
+	public static class TGWeChatWebPageMsgBuilder extends TGShareMsgBuilder<WXMediaMessage>
+	{
+		private String title;
+		
+		private String description;
+		
+		private String webpageUrl;
+		
+		public TGWeChatWebPageMsgBuilder(int shareType)
+		{
+			super(shareType);
+		}
+
+		@Override
+		public WXMediaMessage build()
+		{
+			WXMediaMessage mediaMessage = new WXMediaMessage();
+			
+			mediaMessage.title = title;
+			mediaMessage.description = description;
+			WXWebpageObject webpageObject = new WXWebpageObject(webpageUrl);
+			mediaMessage.mediaObject = webpageObject;
 			
 			return mediaMessage;
 		}
@@ -169,14 +227,10 @@ public class TGWeChatSharePlugin extends TGSharePlugin<WXMediaMessage, TGWeChatS
 			this.description = description;
 		}
 		
-		public void setText(String text)
-		{
-			this.text = text;
-		}
-		
 		public void setWebpageUrl(String webpageUrl)
 		{
 			this.webpageUrl = webpageUrl;
 		}
 	}
+	
 }
