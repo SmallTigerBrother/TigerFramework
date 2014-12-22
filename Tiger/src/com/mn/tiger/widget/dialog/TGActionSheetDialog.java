@@ -3,8 +3,10 @@ package com.mn.tiger.widget.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -22,9 +24,9 @@ public class TGActionSheetDialog extends Dialog implements View.OnClickListener
 	public static final int CANCEL_BUTTN_ID = 123456;
 	
 	/**
-	 * 自定义按钮区的layout
+	 * 自定义区域的layout
 	 */
-	private LinearLayout btnPanelLayout;
+	private LinearLayout panelLayout;
 	
 	/**
 	 * 自带取消按钮
@@ -44,20 +46,42 @@ public class TGActionSheetDialog extends Dialog implements View.OnClickListener
 	public TGActionSheetDialog(Context context, int theme)
 	{
 		super(context, theme);
-		setContentView(R.layout.dialog_sheet);
+		super.setContentView(R.layout.dialog_sheet);
 		//设置对话框宽度、高度
-		this.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
+		this.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 
 				ViewGroup.LayoutParams.WRAP_CONTENT);
+		
 		//设置视图显示在底部
 		this.getWindow().setGravity(Gravity.BOTTOM);
 		
-		btnPanelLayout = (LinearLayout) this.findViewById(R.id.sheet_btn_panel);
+		panelLayout = (LinearLayout) this.findViewById(R.id.sheet_btn_panel);
 		//添加取消按钮
 		cancelBtn = createCancelButton();
 		cancelBtn.setId(CANCEL_BUTTN_ID);
 		cancelBtn.setOnClickListener(this);
 		LinearLayout mainLayout = (LinearLayout) this.findViewById(R.id.sheet_main);
 		mainLayout.addView(cancelBtn);
+	}
+	
+	@Override
+	public void setContentView(int layoutResID)
+	{
+		panelLayout.removeAllViews();
+		panelLayout.addView(LayoutInflater.from(getContext()).inflate(layoutResID, null));
+	}
+	
+	@Override
+	public void setContentView(View view) 
+	{
+		panelLayout.removeAllViews();
+		panelLayout.addView(view);
+	};
+	
+	@Override
+	public void setContentView(View view, LayoutParams params)
+	{
+		panelLayout.removeAllViews();
+		panelLayout.addView(view, params);
 	}
 	
 	/**
@@ -70,9 +94,9 @@ public class TGActionSheetDialog extends Dialog implements View.OnClickListener
 		View button = createSheetButton(btnText);
 		button.setId(id);
 		button.setOnClickListener(this);
-		if(null != btnPanelLayout)
+		if(null != panelLayout)
 		{
-			btnPanelLayout.addView(button);
+			panelLayout.addView(button);
 		}
 		else
 		{
