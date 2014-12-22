@@ -19,14 +19,12 @@ import com.mn.tiger.share.IShareResultHandler;
 import com.mn.tiger.share.TGQQSharePlugin.TGQQShareMsgBuilder;
 import com.mn.tiger.share.TGQQZoneSharePlugin.TGQQZoneShareMsgBuilder;
 import com.mn.tiger.share.TGSharePluginManager;
-import com.mn.tiger.share.TGWeChatSharePlugin.TGWeChatMsgBuilder;
+import com.mn.tiger.share.TGWeChatSharePlugin.TGWeChatTextMsgBuilder;
 import com.mn.tiger.share.TGWeiBoSharePlugin.TGWeiBoMsgBuilder;
 import com.mn.tiger.share.result.TGQQShareResult;
 import com.mn.tiger.share.result.TGWeChatShareResult;
 import com.mn.tiger.share.result.TGWeiboShareResult;
 import com.mn.tiger.utility.ViewInjector;
-import com.tencent.connect.share.QQShare;
-import com.tencent.tauth.Tencent;
 
 public class ShareDemoActivity extends TGActionBarActivity implements OnClickListener
 {
@@ -94,8 +92,7 @@ public class ShareDemoActivity extends TGActionBarActivity implements OnClickLis
 	
 	private void shareToWeiChat()
 	{
-		TGWeChatMsgBuilder msgBuilder = new TGWeChatMsgBuilder(0);
-		msgBuilder.setTitle("Test");
+		TGWeChatTextMsgBuilder msgBuilder = new TGWeChatTextMsgBuilder(0);
 		
 		WeiChatSharePlugin weiChatSharePlugin = 
 				(WeiChatSharePlugin) TGSharePluginManager.getInstance().getPlugin(
@@ -113,8 +110,8 @@ public class ShareDemoActivity extends TGActionBarActivity implements OnClickLis
 	
 	private void shareToWeiChatTimeLine()
 	{
-		TGWeChatMsgBuilder msgBuilder = new TGWeChatMsgBuilder(0);
-		msgBuilder.setTitle("Test");
+		TGWeChatTextMsgBuilder msgBuilder = new TGWeChatTextMsgBuilder(0);
+		msgBuilder.setText("Test");
 		
 		WeiChatTimeLineSharePlugin weiChatTimeLineSharePlugin = 
 				(WeiChatTimeLineSharePlugin) TGSharePluginManager.getInstance().getPlugin(
