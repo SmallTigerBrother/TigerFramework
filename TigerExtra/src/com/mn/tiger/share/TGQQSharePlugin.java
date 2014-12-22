@@ -193,9 +193,19 @@ public class TGQQSharePlugin extends TGSharePlugin<Bundle, TGQQShareResult>
 			params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, imageUrl);
 		}
 		
+		public void setQQImageLocalUrl(String imageLocalUrl)
+		{
+			params.putString(QQShare.SHARE_TO_QQ_IMAGE_LOCAL_URL, imageLocalUrl);
+		}
+		
 		public void setQQAppName(String appName)
 		{
 			params.putString(QQShare.SHARE_TO_QQ_APP_NAME, appName);
+		}
+		
+		public void setQQAudioUrl(String audioUrl)
+		{
+			params.putString(QQShare.SHARE_TO_QQ_AUDIO_URL, audioUrl);
 		}
 	}
 }
