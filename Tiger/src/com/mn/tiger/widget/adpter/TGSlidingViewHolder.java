@@ -5,8 +5,6 @@ import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.mn.tiger.widget.slidingmenu.SlidingMenu;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideMode;
@@ -41,6 +39,8 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T>
 		slidingMenu.setMode(SlideMode.RIGHT);
 		slidingMenu.setTouchModeAbove(SlideTouchMode.TOUCHMODE_FULLSCREEN);
 		
+		slidingMenu.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+		
 		//添加主视图
 		contentView = initContentView();
 		slidingMenu.setContent(contentView);
@@ -72,7 +72,7 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T>
 		
 		//设置SlidingMenu宽高
 		AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(
-				AbsListView.LayoutParams.MATCH_PARENT, 500);
+				AbsListView.LayoutParams.MATCH_PARENT, contentView.getMeasuredHeight());
 		slidingMenu.setLayoutParams(layoutParams);
 		
 		//自适应menu宽度
@@ -108,22 +108,6 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T>
 						((SlidingMenu)child).showContent();
 					}
 				}
-			}
-		};
-	}
-	
-	public static OnItemLongClickListener newSlidingOnItemLongClickListener()
-	{
-		return new OnItemLongClickListener()
-		{
-			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
-			{
-				if(view instanceof SlidingMenu)
-				{
-					((SlidingMenu)view).toggle();
-				}
-				return false;
 			}
 		};
 	}
