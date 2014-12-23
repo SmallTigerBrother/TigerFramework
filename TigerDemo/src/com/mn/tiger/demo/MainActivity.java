@@ -22,6 +22,7 @@ import com.mn.tiger.demo.download.DownloadDemoActivity;
 import com.mn.tiger.demo.request.RequestDemoActivity;
 import com.mn.tiger.demo.share.ShareDemoActivity;
 import com.mn.tiger.demo.widget.dialog.DialogDemoActivity;
+import com.mn.tiger.demo.widget.pulltorefresh.PullToRefreshSwipeListViewActivity;
 import com.mn.tiger.demo.widget.searchview.SearchViewActivity;
 import com.mn.tiger.demo.widget.searchview.actionbar.SearchViewInActionBarActivity;
 import com.mn.tiger.demo.widget.viewpager.horizontal.BannerViewPagerActivity;
@@ -70,6 +71,7 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		demoModels.add(DemoModel.WheelViewDemo);
 		demoModels.add(DemoModel.AuthorizeDemo);
 		demoModels.add(DemoModel.ShareDemo);
+		demoModels.add(DemoModel.PullToRefreshSwipeListView);
 		
 		demoListView.setAdapter(new TGListAdapter<DemoModel>(this, demoModels, -1, 
 				ViewHolder.class));
@@ -159,6 +161,9 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 			case ShareDemo:
 				intent.setClass(this, ShareDemoActivity.class);
 				break;
+				
+			case PullToRefreshSwipeListView:
+				intent.setClass(this, PullToRefreshSwipeListViewActivity.class);
 
 			default:
 				break;
@@ -223,7 +228,9 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		
 		AuthorizeDemo("AuthorzieDemo"),
 		
-		ShareDemo("ShareDemo");
+		ShareDemo("ShareDemo"),
+		
+		PullToRefreshSwipeListView("PullToRefreshSwipeListViewDemo");
 		
 		private DemoModel(String demoType)
 		{
