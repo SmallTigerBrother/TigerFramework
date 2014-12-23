@@ -2,6 +2,7 @@ package com.mn.tiger.widget.adpter;
 
 import android.app.Activity;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.mn.tiger.utility.ViewInjector;
 
@@ -48,6 +49,16 @@ public abstract class TGViewHolder<T>
 	void setAdapter(TGListAdapter<T> adapter)
 	{
 		this.adapter = adapter;
+	}
+	
+	/**
+	 * 更新列表行的尺寸
+	 * @param itemData
+	 * @param position
+	 */
+	public void updateViewDimension(T itemData, int position, ViewGroup parent)
+	{
+		
 	}
 	
 	/**

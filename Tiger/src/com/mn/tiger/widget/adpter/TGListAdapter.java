@@ -122,6 +122,10 @@ public class TGListAdapter<T> extends BaseAdapter
 			viewHolder = (TGViewHolder<T>) convertView.getTag();
 		}
 		
+		//更新列表行尺寸
+		viewHolder.updateViewDimension(items.get(position), position, parent);
+		
+		//填充列表行数据
 		viewHolder.fillData(items.get(position), position);
 		
 		return convertView;

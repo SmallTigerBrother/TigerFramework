@@ -5,6 +5,8 @@ import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.mn.tiger.widget.slidingmenu.SlidingMenu;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideMode;
@@ -106,6 +108,22 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T>
 						((SlidingMenu)child).showContent();
 					}
 				}
+			}
+		};
+	}
+	
+	public static OnItemLongClickListener newSlidingOnItemLongClickListener()
+	{
+		return new OnItemLongClickListener()
+		{
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
+			{
+				if(view instanceof SlidingMenu)
+				{
+					((SlidingMenu)view).toggle();
+				}
+				return false;
 			}
 		};
 	}

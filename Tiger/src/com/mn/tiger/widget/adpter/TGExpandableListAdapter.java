@@ -127,6 +127,9 @@ public abstract class TGExpandableListAdapter<GroupParam,ChildParam> extends and
 			viewHolder = (TGExpandableChildViewHolder<ChildParam>) convertView.getTag();
 		}
 		
+		viewHolder.updateViewDimension(childs.get(groupPosition).get(childPosition),
+				groupPosition, childPosition, isLastChild, parent);
+		
 		viewHolder.fillData(childs.get(groupPosition).get(childPosition), 
 				groupPosition, childPosition, isLastChild);
 		
@@ -234,6 +237,8 @@ public abstract class TGExpandableListAdapter<GroupParam,ChildParam> extends and
 			viewHolder = (TGExpandableGroupViewHolder<GroupParam>) convertView.getTag();
 		}
 		
+		viewHolder.updateViewDimension(groups.get(groupPosition), groupPosition, 
+				isExpanded, parent);
 		viewHolder.fillData(groups.get(groupPosition), groupPosition, isExpanded);
 		
 		return convertView;
