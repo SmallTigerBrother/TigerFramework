@@ -5,7 +5,10 @@ import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 
+import com.mn.tiger.widget.slidingmenu.CustomViewAbove;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideMode;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideTouchMode;
@@ -78,6 +81,9 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T>
 		//自适应menu宽度
 		slidingMenu.setBehindOffset(parent.getMeasuredWidth() - 
 				menuView.getMeasuredWidth());
+		
+		//还原列表行展开状态
+		slidingMenu.showContentRightNow();
 	}
 	
 	/**
@@ -108,6 +114,27 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T>
 						((SlidingMenu)child).showContent();
 					}
 				}
+			}
+		};
+	}
+	
+	/**
+	 * 列表行长按事件监听器，长按时展开菜单
+	 * @return
+	 */
+	public static OnItemLongClickListener newSlidingOnItemLongClickListener()
+	{
+		return new OnItemLongClickListener()
+		{
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
+			{
+				if(view instanceof CustomViewAbove)
+				{
+					//长按时展开菜单
+					((CustomViewAbove)view).setCurrentItem(0);;
+				}
+				return false;
 			}
 		};
 	}
