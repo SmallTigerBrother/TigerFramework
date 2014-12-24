@@ -38,6 +38,7 @@ public class PullToRefreshSwipeListViewActivity extends TGActionBarActivity
 		listAdapter = new TGListAdapter<Integer>(this, integers,
 				-1, ViewHolder.class);
 		swipeListView.setAdapter(listAdapter);
+		swipeListView.setOnItemLongClickListener(TGSlidingViewHolder.newSlidingOnItemLongClickListener());
 		swipeListView.setOnScrollListener(TGSlidingViewHolder.newSlidingOnScrollListener());
 	}
 	
