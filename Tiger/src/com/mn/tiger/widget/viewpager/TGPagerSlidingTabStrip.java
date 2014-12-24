@@ -75,7 +75,7 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 	private int scrollOffset = 52;
 	private int indicatorHeight = 8;
 	private int underlineHeight = 2;
-	private int dividerPadding = 12;
+	private int dividerPadding = 0;
 	private int tabPaddingLeftRight = 24;
 	private int tabPaddingTop = 8;
 	private int tabPaddingBottom = 8;
@@ -336,26 +336,11 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 	protected void onDraw(Canvas canvas)
 	{
 		super.onDraw(canvas);
-
-		onDrawIndicator(canvas);
-	}
-	
-	/**
-	 * 绘制指示器
-	 * @param canvas
-	 */
-	protected void onDrawIndicator(Canvas canvas)
-	{
+		
 		if (isInEditMode() || tabCount == 0)
 		{
 			return;
 		}
-
-		final int height = getHeight();
-
-		// draw indicator line
-
-		rectPaint.setColor(indicatorColor);
 
 		// default: line below current tab
 		View currentTab = tabsContainer.getChildAt(currentPosition);
@@ -374,20 +359,51 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 			lineRight = (currentPositionOffset * nextTabRight + (1f - currentPositionOffset) * lineRight);
 		}
 
-		canvas.drawRect(lineLeft, height - indicatorHeight, lineRight, height, rectPaint);
-
+		onDrawIndicator(canvas, rectPaint, lineLeft, lineRight);
+		
+		onDrawUnderLine(canvas, rectPaint);
+		
+		onDrawDivider(canvas, dividerPaint);
+	}
+	
+	/**
+	 * 绘制指示器
+	 * @param canvas
+	 */
+	protected void onDrawIndicator(Canvas canvas, Paint rectPaint, float lineLeft, float lineRight)
+	{
+		// draw indicator line
+		rectPaint.setColor(indicatorColor);
+		canvas.drawRect(lineLeft, getHeight() - indicatorHeight, lineRight, getHeight(), rectPaint);
+	}
+	
+	/**
+	 * 绘制底部下划线
+	 * @param canvas
+	 * @param rectPaint
+	 */
+	protected void onDrawUnderLine(Canvas canvas, Paint rectPaint)
+	{
 		// draw underline
-
 		rectPaint.setColor(underlineColor);
-		canvas.drawRect(0, height - underlineHeight, tabsContainer.getWidth(), height, rectPaint);
-
+		canvas.drawRect(0, getHeight() - underlineHeight, tabsContainer.getWidth(), 
+				getHeight(), rectPaint);
+	}
+	
+	/**
+	 * 绘制分割线
+	 * @param canvas
+	 * @param dividerPaint
+	 */
+	protected void onDrawDivider(Canvas canvas, Paint dividerPaint)
+	{
 		// draw divider
-
 		dividerPaint.setColor(dividerColor);
 		for (int i = 0; i < tabCount - 1; i++)
 		{
 			View tab = tabsContainer.getChildAt(i);
-			canvas.drawLine(tab.getRight(), dividerPadding, tab.getRight(), height - dividerPadding, dividerPaint);
+			canvas.drawLine(tab.getRight(), dividerPadding, tab.getRight(),
+					getHeight() - dividerPadding, dividerPaint);
 		}
 	}
 	
