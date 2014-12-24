@@ -137,6 +137,21 @@ public class CustomViewAbove extends ViewGroup
 
 	/** The m ignored views. */
 	private List<View> mIgnoredViews = new ArrayList<View>();
+	
+	/**
+	 * Touch事件是否已消费
+	 */
+	private boolean touchEventHasPerformed = false;
+	
+	/**
+	 * 长按事件是否已触发
+	 */
+	private boolean hasPerformLongPress = false;
+	
+	/**
+	 * 长按事件处理线程
+	 */
+	private CheckForLongPress checkForLongPress = new CheckForLongPress();
 
 	// private int mScrollState = SCROLL_STATE_IDLE;
 
@@ -270,6 +285,11 @@ public class CustomViewAbove extends ViewGroup
 		final float density = context.getResources().getDisplayMetrics().density;
 		mFlingDistance = (int) (MIN_DISTANCE_FOR_FLING * density);
 	}
+	
+	void setFlingDistance(int mFlingDistance)
+	{
+		this.mFlingDistance = mFlingDistance;
+	}
 
 	/**
 	 * Set the currently selected page. If the CustomViewPager has already been
@@ -365,6 +385,17 @@ public class CustomViewAbove extends ViewGroup
 			completeScroll();
 			scrollTo(destX, 0);
 		}
+	}
+	
+	/**
+	 * 立刻滚动到指定视图
+	 * @param item
+	 */
+	void setCurrentItemRightNow(int item)
+	{
+		final int destX = getDestScrollX(mCurItem);
+		completeScroll();
+		scrollTo(destX, 0);
 	}
 
 	/**
@@ -984,7 +1015,6 @@ public class CustomViewAbove extends ViewGroup
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev)
 	{
-
 		if (!mEnabled)
 		{
 			return false;
@@ -1071,6 +1101,8 @@ public class CustomViewAbove extends ViewGroup
 		switch (action & MotionEventCompat.ACTION_MASK)
 		{
 			case MotionEvent.ACTION_DOWN:
+				touchEventHasPerformed = false;
+				hasPerformLongPress = false;
 				/*
 				 * If being flinged and user touches, stop the fling. isFinished
 				 * will be false if being flinged.
@@ -1081,8 +1113,14 @@ public class CustomViewAbove extends ViewGroup
 				int index = MotionEventCompat.getActionIndex(ev);
 				mActivePointerId = MotionEventCompat.getPointerId(ev, index);
 				mLastMotionX = mInitialMotionX = ev.getX();
+				
+				postDelayed(checkForLongPress, ViewConfiguration.getLongPressTimeout());
+				
 				break;
 			case MotionEvent.ACTION_MOVE:
+				
+				touchEventHasPerformed = true;
+				
 				if (!mIsBeingDragged)
 				{
 					determineDrag(ev);
@@ -1145,40 +1183,112 @@ public class CustomViewAbove extends ViewGroup
 				}
 				else if (mQuickReturn && mViewBehind.menuTouchInQuickReturn(mContent, mCurItem, ev.getX() + mScrollX))
 				{
-					// close the menu
-					setCurrentItem(1);
-					endDrag();
+					if(!hasPerformLongPress)
+					{
+						touchEventHasPerformed = true;
+						// close the menu
+						setCurrentItem(1);
+						endDrag();
+					}
+					else
+					{
+						touchEventHasPerformed = false;
+					}
+				}
+				else 
+				{
+					if(!hasPerformLongPress)
+					{
+						touchEventHasPerformed = true;
+					}
+					else
+					{
+						touchEventHasPerformed = false;
+					}
 				}
 				break;
 			case MotionEvent.ACTION_CANCEL:
 				if (mIsBeingDragged)
 				{
-					setCurrentItemInternal(mCurItem, true, true);
+					final VelocityTracker velocityTracker = mVelocityTracker;
+					velocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
+					int initialVelocity = (int) VelocityTrackerCompat.getXVelocity(velocityTracker, mActivePointerId);
+					final int scrollX = getScrollX();
+					final float pageOffset = (float) (scrollX - getDestScrollX(mCurItem)) / getBehindWidth();
+					final int activePointerIndex = getPointerIndex(ev, mActivePointerId);
+					final float x = MotionEventCompat.getX(ev, activePointerIndex);
+					final int totalDelta = (int) (x - mInitialMotionX);
+					int nextPage = determineTargetPage(pageOffset, initialVelocity, totalDelta);
+					
+					setCurrentItemInternal(nextPage, true, true);
 					mActivePointerId = INVALID_POINTER;
 					endDrag();
+				}
+				else 
+				{
+					if(!hasPerformLongPress)
+					{
+						touchEventHasPerformed = true;
+					}
+					else
+					{
+						touchEventHasPerformed = false;
+					}
 				}
 				break;
 			case MotionEventCompat.ACTION_POINTER_DOWN:
 			{
+				touchEventHasPerformed = false;
+				
 				final int indexx = MotionEventCompat.getActionIndex(ev);
 				mLastMotionX = MotionEventCompat.getX(ev, indexx);
 				mActivePointerId = MotionEventCompat.getPointerId(ev, indexx);
 				break;
 			}
 			case MotionEventCompat.ACTION_POINTER_UP:
-				onSecondaryPointerUp(ev);
-				int pointerIndex = getPointerIndex(ev, mActivePointerId);
-				if (mActivePointerId == INVALID_POINTER)
+				if(!touchEventHasPerformed)
 				{
-					break;
-				}
+					if(!hasPerformLongPress)
+					{
+						touchEventHasPerformed = true;
+					}
+					else
+					{
+						touchEventHasPerformed = false;
+					}
 					
-				mLastMotionX = MotionEventCompat.getX(ev, pointerIndex);
+					onSecondaryPointerUp(ev);
+					int pointerIndex = getPointerIndex(ev, mActivePointerId);
+					if (mActivePointerId == INVALID_POINTER)
+					{
+						break;
+					}
+						
+					mLastMotionX = MotionEventCompat.getX(ev, pointerIndex);
+				}
+				
+				break;
+				
+			default:
+				touchEventHasPerformed = true;
 				break;
 		}
 		return true;
 	}
 
+	class CheckForLongPress implements Runnable
+	{
+        public void run() 
+        {
+            if (!touchEventHasPerformed && !hasPerformLongPress) 
+            {
+            	performLongClick();
+            	touchEventHasPerformed = true;
+            	hasPerformLongPress = true;
+            }
+        }
+    }
+	
 	/**
 	 * Determine drag.
 	 * 
