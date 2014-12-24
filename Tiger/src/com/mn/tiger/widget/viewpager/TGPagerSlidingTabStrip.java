@@ -76,13 +76,15 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 	private int indicatorHeight = 8;
 	private int underlineHeight = 2;
 	private int dividerPadding = 12;
-	private int tabPadding = 24;
+	private int tabPaddingLeftRight = 24;
+	private int tabPaddingTop = 8;
+	private int tabPaddingBottom = 8;
 	private int dividerWidth = 1;
 
 	private int tabTextSize = 12;
 	private int tabTextColor = 0xFF666666;
 	private Typeface tabTypeface = null;
-	private int tabTypefaceStyle = Typeface.BOLD;
+	private int tabTypefaceStyle = Typeface.NORMAL;
 
 	private int lastScrollX = 0;
 
@@ -124,7 +126,7 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 		indicatorHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, indicatorHeight, dm);
 		underlineHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, underlineHeight, dm);
 		dividerPadding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dividerPadding, dm);
-		tabPadding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, tabPadding, dm);
+		tabPaddingLeftRight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, tabPaddingLeftRight, dm);
 		dividerWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dividerWidth, dm);
 		tabTextSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, tabTextSize, dm);
 
@@ -239,7 +241,7 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 			}
 		});
 
-		tab.setPadding(tabPadding, 0, tabPadding, 0);
+		tab.setPadding(tabPaddingLeftRight, tabPaddingTop, tabPaddingLeftRight, tabPaddingBottom);
 		tabsContainer.addView(tab, position, shouldExpand ? expandedTabLayoutParams : defaultTabLayoutParams);
 	}
 
@@ -431,7 +433,6 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 		}
 	}
 	
-	
 	/**
 	 * 控制自动均分tab，当所有tab都不能填充满可见部分时，将自动拉伸各个View，充满可见区域，并均分视图；
 	 * 若所有tab超出可见部分时，自适应大小
@@ -561,8 +562,18 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 
 	public void setTabPaddingLeftRight(int paddingPx)
 	{
-		this.tabPadding = paddingPx;
+		this.tabPaddingLeftRight = paddingPx;
 		updateTabStyles();
+	}
+	
+	public void setTabPaddingTop(int paddingPx)
+	{
+		this.tabPaddingTop = paddingPx;
+	}
+	
+	public void setTabPaddingBottom(int paddingPx)
+	{
+		this.tabPaddingBottom = paddingPx;
 	}
 
 	@Override
