@@ -29,6 +29,7 @@ import android.widget.Scroller;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.OnCloseListener;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.OnOpenListener;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideTouchMode;
+import com.mn.tiger.widget.slidingmenu.SlidingMenu.onTapListener;
 
 /**
  * The Class CustomViewAbove.
@@ -151,7 +152,11 @@ public class CustomViewAbove extends ViewGroup
 	/**
 	 * 长按事件处理线程
 	 */
-	private CheckForLongPress checkForLongPress = new CheckForLongPress();
+	private CheckForLongPress longPressPerformer;
+	
+	private PerformClick performClick = new PerformClick();
+	
+	private onTapListener onTapListener;
 
 	// private int mScrollState = SCROLL_STATE_IDLE;
 
@@ -1114,10 +1119,19 @@ public class CustomViewAbove extends ViewGroup
 				mActivePointerId = MotionEventCompat.getPointerId(ev, index);
 				mLastMotionX = mInitialMotionX = ev.getX();
 				
-				postDelayed(checkForLongPress, ViewConfiguration.getLongPressTimeout());
+				if(!performOnTap())
+				{
+					this.performClick.setPerformable(true);
+					
+					removeLongPressPerformer();
+					
+					setLongPressPerformer();
+				}
 				
 				break;
 			case MotionEvent.ACTION_MOVE:
+				
+				this.performClick.setPerformable(false);
 				
 				touchEventHasPerformed = true;
 				
@@ -1200,6 +1214,7 @@ public class CustomViewAbove extends ViewGroup
 					if(!hasPerformLongPress)
 					{
 						touchEventHasPerformed = true;
+						post(performClick);
 					}
 					else
 					{
@@ -1235,9 +1250,13 @@ public class CustomViewAbove extends ViewGroup
 						touchEventHasPerformed = false;
 					}
 				}
+				
+				this.performClick.setPerformable(false);
+				
 				break;
 			case MotionEventCompat.ACTION_POINTER_DOWN:
 			{
+				this.performClick.setPerformable(false);
 				touchEventHasPerformed = false;
 				
 				final int indexx = MotionEventCompat.getActionIndex(ev);
@@ -1266,27 +1285,84 @@ public class CustomViewAbove extends ViewGroup
 						
 					mLastMotionX = MotionEventCompat.getX(ev, pointerIndex);
 				}
+				this.performClick.setPerformable(false);
 				
 				break;
 				
 			default:
 				touchEventHasPerformed = true;
+				this.performClick.setPerformable(false);
 				break;
 		}
 		return true;
 	}
+	
+	public void setLongPressPerformer()
+	{
+		this.longPressPerformer = new CheckForLongPress();
+		
+		postDelayed(longPressPerformer, ViewConfiguration.getLongPressTimeout());
+	}
+	
+	private void removeLongPressPerformer()
+	{
+		if(null != longPressPerformer)
+		{
+			longPressPerformer.setDestroy(true);
+		}
+	}
+	
+	private boolean performOnTap()
+	{
+		if(null != onTapListener)
+		{
+			return onTapListener.onTap(this);
+		}
+		
+		return false;
+	}
+	
+	public void setOnTapListener(onTapListener onTapListener)
+	{
+		this.onTapListener = onTapListener;
+	}
+	
+	private final class PerformClick implements Runnable 
+	{
+		private boolean performable = false;
+		
+		public void setPerformable(boolean performable)
+		{
+			this.performable = performable;
+		}
+		
+        public void run() 
+        {
+        	if(performable)
+        	{
+        		((ViewGroup)getParent()).performClick();
+        	}
+        }
+    }
 
 	class CheckForLongPress implements Runnable
 	{
+		private boolean destroy = false;
+		
         public void run() 
         {
-            if (!touchEventHasPerformed && !hasPerformLongPress) 
+            if (!touchEventHasPerformed && !hasPerformLongPress && !destroy) 
             {
-            	performLongClick();
+            	((ViewGroup)getParent()).performLongClick();
             	touchEventHasPerformed = true;
             	hasPerformLongPress = true;
             }
         }
+        
+        public void setDestroy(boolean destroy)
+		{
+			this.destroy = destroy;
+		}
     }
 	
 	/**
