@@ -54,7 +54,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener
 
 	private static final int DISPLACE_CHOICE = 80;
 
-	private int swipeMode = SwipeListView.SWIPE_MODE_BOTH;
+	private int swipeMode = SwipeListView.SWIPE_MODE_LEFT;
 	private boolean swipeOpenOnLongPress = true;
 	private boolean swipeClosesAllItemsWhenListMoves = true;
 
