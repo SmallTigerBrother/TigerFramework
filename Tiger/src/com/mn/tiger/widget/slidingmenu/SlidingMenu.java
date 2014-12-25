@@ -563,6 +563,14 @@ public class SlidingMenu extends RelativeLayout
 	{
 		showContent(true);
 	}
+	
+	/**
+	 * 立刻显示主视图
+	 */
+	public void showContentRightNow()
+	{
+		mViewAbove.setCurrentItemRightNow(1);
+	}
 
 	/**
 	 * Closes the menu and shows the above view.
@@ -644,6 +652,11 @@ public class SlidingMenu extends RelativeLayout
 		return mViewAbove.getCurrentItem() == 2;
 	}
 
+	public void setFlingDistance(int flingDistance)
+	{
+		this.mViewAbove.setFlingDistance(flingDistance);
+	}
+	
 	/**
 	 * Gets the behind offset.
 	 * 
