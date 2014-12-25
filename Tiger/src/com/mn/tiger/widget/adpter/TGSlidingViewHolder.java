@@ -37,8 +37,14 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T> implements
 	 */
 	private View menuView;
 	
+	/**
+	 * 列表行position
+	 */
 	private int position;
 	
+	/**
+	 * 列表行id
+	 */
 	private long id;
 	
 	@Override
@@ -59,7 +65,9 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T> implements
 		menuView = initMenu();
 		slidingMenu.setMenu(menuView);
 		
+		//设置点击事件（伪装onItemClick事件）
 		slidingMenu.setOnClickListener(this);
+		//设置轻击事件（用于还原menu状态）
 		slidingMenu.setOnTapListener(this);
 		
 		return slidingMenu;
