@@ -58,6 +58,11 @@ public class SlidingMenu extends RelativeLayout
 	/** The m close listener. */
 	private OnCloseListener mCloseListener;
 
+	public interface onTapListener
+	{
+		boolean onTap(View view);
+	}
+	
 	/**
 	 * The listener interface for receiving onOpen events. The class that is
 	 * interested in processing a onOpen event implements this interface, and
@@ -491,6 +496,12 @@ public class SlidingMenu extends RelativeLayout
 		return mViewBehind.getMode();
 	}
 
+	
+	public void setOnTapListener(onTapListener onTapListener)
+	{
+		mViewAbove.setOnTapListener(onTapListener);
+	}
+	
 	/**
 	 * Sets whether or not the SlidingMenu is in static mode (i.e. nothing is
 	 * moving and everything is showing)
