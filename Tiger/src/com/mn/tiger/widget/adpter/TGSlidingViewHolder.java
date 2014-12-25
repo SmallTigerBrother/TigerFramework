@@ -2,22 +2,25 @@ package com.mn.tiger.widget.adpter;
 
 import android.view.View;
 import android.view.View.MeasureSpec;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 
-import com.mn.tiger.widget.slidingmenu.CustomViewAbove;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideMode;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideTouchMode;
+import com.mn.tiger.widget.slidingmenu.SlidingMenu.onTapListener;
 
 /**
  * 支持侧滑的ViewHolder
  * @param <T>
  */
-public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T>
+public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T> implements 
+    OnClickListener,onTapListener
 {
 	/**
 	 * 执行侧滑的SlidingMenu
@@ -33,6 +36,10 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T>
 	 * 滑出菜单
 	 */
 	private View menuView;
+	
+	private int position;
+	
+	private long id;
 	
 	@Override
 	public final View initView(View convertView)
@@ -52,6 +59,9 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T>
 		menuView = initMenu();
 		slidingMenu.setMenu(menuView);
 		
+		slidingMenu.setOnClickListener(this);
+		slidingMenu.setOnTapListener(this);
+		
 		return slidingMenu;
 	}
 	
@@ -68,7 +78,7 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T>
 	public abstract View initMenu();
 	
 	@Override
-	public void updateViewDimension(T itemData, int position, ViewGroup parent)
+	public void updateViewDimension(T itemData, final int position, final ViewGroup parent)
 	{
 		contentView.measure(0, MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST));
 		menuView.measure(MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST), 0);
@@ -84,6 +94,51 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T>
 		
 		//还原列表行展开状态
 		slidingMenu.showContentRightNow();
+		
+		this.position = position;
+		this.id = getAdapter().getItemId(position);
+	}
+	
+	@Override
+	public void onClick(View v)
+	{
+		//自身处理onItemClick事件，执行统一操作
+		onItemTap((AdapterView<?>) slidingMenu.getParent(), slidingMenu.getContent(), 
+						position, id);
+		
+		//伪装成onItemClick事件
+		OnItemClickListener onItemClickListener =
+				((AbsListView)slidingMenu.getParent()).getOnItemClickListener();
+		onItemClickListener.onItemClick((AdapterView<?>) slidingMenu.getParent(), slidingMenu.getContent(), 
+				position, id);
+	}
+	
+	@Override
+	public boolean onTap(View view)
+	{
+		onItemTap((AdapterView<?>) slidingMenu.getParent(), slidingMenu, position, id);
+		return false;
+	}
+	
+	/**
+	 * 自身处理onItemClick事件，默认会收起其他列表行的menu，如果想保留其他列表行的menu，请重写该方法
+	 * @param parent
+	 * @param view
+	 * @param position
+	 * @param id
+	 */
+	public void onItemTap(AdapterView<?> parent, View view, int position, long id)
+	{
+		int childCount = parent.getChildCount();
+		SlidingMenu slidingMenu;
+		for(int i = 0; i < childCount; i++)
+		{
+			slidingMenu = (SlidingMenu)parent.getChildAt(i);
+			if(slidingMenu.isMenuShowing())
+			{
+				slidingMenu.showContent();
+			}
+		}
 	}
 	
 	/**
@@ -129,10 +184,10 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T>
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
 			{
-				if(view instanceof CustomViewAbove)
+				if(view instanceof SlidingMenu)
 				{
 					//长按时展开菜单
-					((CustomViewAbove)view).setCurrentItem(0);;
+					((SlidingMenu)view).showMenu();
 				}
 				return false;
 			}
