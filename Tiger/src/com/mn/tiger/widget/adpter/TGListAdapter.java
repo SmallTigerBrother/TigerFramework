@@ -114,6 +114,7 @@ public class TGListAdapter<T> extends BaseAdapter
 			}
 			
 			viewHolder = initViewHolder();
+			viewHolder.setLayoutId(convertViewLayoutId);
 			convertView = viewHolder.initView(convertView);
 			convertView.setTag(viewHolder);
 		}
@@ -242,6 +243,32 @@ public class TGListAdapter<T> extends BaseAdapter
 			return items.get(items.size() - 1);
 		}
 		return null;
+	}
+	
+	/**
+	 * 删除列表行
+	 * @param position 列表行位置
+	 */
+	public void removeItem(int position)
+	{
+		if(items.size() > position)
+		{
+			items.remove(position);
+			notifyDataSetChanged();
+		}
+	}
+	
+	/**
+	 * 删除列表行
+	 * @param item 列表行数据
+	 */
+	public void removeItem(T item)
+	{
+		if(items.contains(item))
+		{
+			items.remove(item);
+			notifyDataSetChanged();
+		}
 	}
 	
 	protected Activity getActivity()
