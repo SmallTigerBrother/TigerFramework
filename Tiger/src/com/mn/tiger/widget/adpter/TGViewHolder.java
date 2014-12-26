@@ -14,6 +14,11 @@ public abstract class TGViewHolder<T>
 	private Activity activity;
 	
 	/**
+	 * 列表航layoutID
+	 */
+	private int layoutId;
+	
+	/**
 	 * 搭配使用的Adapter
 	 */
 	private TGListAdapter<T> adapter;
@@ -76,6 +81,16 @@ public abstract class TGViewHolder<T>
 	void setActivity(Activity activity)
 	{
 		this.activity = activity;
+	}
+	
+	void setLayoutId(int layoutId)
+	{
+		this.layoutId = layoutId;
+	}
+	
+	protected int getLayoutId()
+	{
+		return layoutId;
 	}
 
 }
