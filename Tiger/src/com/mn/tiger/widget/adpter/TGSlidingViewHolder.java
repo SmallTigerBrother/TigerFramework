@@ -1,5 +1,6 @@
 package com.mn.tiger.widget.adpter;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.View.OnClickListener;
@@ -59,7 +60,15 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T> implements
 		slidingMenu.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
 		
 		//添加主视图
-		contentView = initContentView();
+		if(getLayoutId() > 0)
+		{
+			contentView = initContentView(LayoutInflater.from(getActivity()).inflate(getLayoutId(), null));
+		}
+		else
+		{
+			contentView = initContentView(null);
+		}
+		
 		slidingMenu.setContent(contentView);
 		
 		//添加菜单
@@ -80,7 +89,10 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T> implements
 	 * 初始化主视图
 	 * @return
 	 */
-	public abstract View initContentView();
+	public View initContentView(View contentView)
+	{
+		return contentView;
+	}
 	
 	/**
 	 * 初始化菜单
