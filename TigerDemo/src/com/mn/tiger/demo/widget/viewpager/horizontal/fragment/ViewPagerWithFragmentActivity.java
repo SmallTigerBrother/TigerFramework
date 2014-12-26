@@ -74,8 +74,8 @@ public class ViewPagerWithFragmentActivity extends TGActionBarActivity implement
 		
 		tabView.setAdapter(new TGListAdapter<TabModel>(this, tabModels,
 				R.layout.fragment_tab_item, TabViewHolder.class));
-		tabView.setSelection(0);
 		tabView.setOnTabChangeListener(this);
+		tabView.setSelection(0);
 	}
 	
 	@Override
