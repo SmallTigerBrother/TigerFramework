@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 
+import com.mn.tiger.utility.ViewInjector;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideMode;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideTouchMode;
@@ -69,6 +70,8 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T> implements
 		slidingMenu.setOnClickListener(this);
 		//设置轻击事件（用于还原menu状态）
 		slidingMenu.setOnTapListener(this);
+		
+		ViewInjector.initInjectedView(this, slidingMenu);
 		
 		return slidingMenu;
 	}
