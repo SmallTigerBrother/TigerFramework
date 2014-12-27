@@ -6,7 +6,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -50,17 +49,17 @@ public class TGNavigationBar extends RelativeLayout
 	/**
 	 * 左导航区Layout
 	 */
-	private LinearLayout leftNaviLayout;
+	private RelativeLayout leftNaviLayout;
 	
 	/**
 	 * 右导航区Layout
 	 */
-	private LinearLayout rightNaviLayout;
+	private RelativeLayout rightNaviLayout;
 	
 	/**
 	 * 中间导航区Layout
 	 */
-	private LinearLayout middleNaviLayout;
+	private RelativeLayout middleNaviLayout;
 	
 	/**
 	 * 默认左导航按钮
@@ -110,18 +109,14 @@ public class TGNavigationBar extends RelativeLayout
 		
 		getRightNaviLayout().addView(getRightNaviButton());
 		
-		LayoutParams middleParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		LayoutParams middleParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		middleParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-		middleParams.addRule(RelativeLayout.CENTER_VERTICAL);
-		
-		middleParams.leftMargin = DisplayUtils.dip2px(getContext(), 50);
-		middleParams.rightMargin = DisplayUtils.dip2px(getContext(), 50);
 		
 		this.addView(getMiddleNaviLayout(), middleParams);
 		
-		LinearLayout.LayoutParams middleTextParams = new LinearLayout.LayoutParams(
+		RelativeLayout.LayoutParams middleTextParams = new RelativeLayout.LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		middleTextParams.gravity = Gravity.CENTER_VERTICAL;
+		middleTextParams.addRule(RelativeLayout.CENTER_IN_PARENT);
 		getMiddleNaviLayout().addView(getMiddleTextView(), middleTextParams);
 	}
 	
@@ -131,12 +126,11 @@ public class TGNavigationBar extends RelativeLayout
 	 * @date 2013-8-30
 	 * @return
 	 */
-	public LinearLayout getLeftNaviLayout()
+	public RelativeLayout getLeftNaviLayout()
 	{
 		if(null == leftNaviLayout)
 		{
-			leftNaviLayout = new LinearLayout(getContext());
-			leftNaviLayout.setHorizontalGravity(Gravity.CENTER_VERTICAL);
+			leftNaviLayout = new RelativeLayout(getContext());
 		}
 		
 		return leftNaviLayout;
@@ -148,12 +142,11 @@ public class TGNavigationBar extends RelativeLayout
 	 * @date 2013-8-30
 	 * @return
 	 */
-	public LinearLayout getRightNaviLayout()
+	public RelativeLayout getRightNaviLayout()
 	{
 		if(null == rightNaviLayout)
 		{
-			rightNaviLayout = new LinearLayout(getContext());
-			rightNaviLayout.setHorizontalGravity(Gravity.CENTER_VERTICAL);
+			rightNaviLayout = new RelativeLayout(getContext());
 		}
 		
 		return rightNaviLayout;
@@ -165,13 +158,14 @@ public class TGNavigationBar extends RelativeLayout
 	 * @date 2013-8-30
 	 * @return
 	 */
-	public LinearLayout getMiddleNaviLayout()
+	public RelativeLayout getMiddleNaviLayout()
 	{
 		if(null == middleNaviLayout)
 		{
-			middleNaviLayout = new LinearLayout(getContext());
-			middleNaviLayout.setOrientation(LinearLayout.HORIZONTAL);
-			middleNaviLayout.setHorizontalGravity(Gravity.CENTER_VERTICAL);
+			middleNaviLayout = new RelativeLayout(getContext());
+			
+			middleNaviLayout.setPadding(DisplayUtils.dip2px(getContext(), 50), 
+					0, DisplayUtils.dip2px(getContext(), 50), 0);
 		}
 		
 		return middleNaviLayout;
@@ -192,9 +186,10 @@ public class TGNavigationBar extends RelativeLayout
 			leftNaviButton.setTextColor(BUTTON_TEXT_COLOR);
 			leftNaviButton.setTextSize(BUTTON_TEXT_SIZE);
 			
-			LinearLayout.LayoutParams leftBtnParams = new LinearLayout.LayoutParams(
-					LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+			RelativeLayout.LayoutParams leftBtnParams = new RelativeLayout.LayoutParams(
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 			leftBtnParams.leftMargin = DisplayUtils.dip2px(getContext(), 8);
+			
 			leftNaviButton.setLayoutParams(leftBtnParams);
 		}
 		
@@ -229,8 +224,8 @@ public class TGNavigationBar extends RelativeLayout
 			rightNaviButton.setTextColor(BUTTON_TEXT_COLOR);
 			rightNaviButton.setTextSize(BUTTON_TEXT_SIZE);
 			
-			LinearLayout.LayoutParams rightBtnParams = new LinearLayout.LayoutParams(
-					LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+			RelativeLayout.LayoutParams rightBtnParams = new RelativeLayout.LayoutParams(
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 			rightBtnParams.rightMargin = DisplayUtils.dip2px(getContext(), 8);
 			rightNaviButton.setLayoutParams(rightBtnParams);
 		}
@@ -344,11 +339,6 @@ public class TGNavigationBar extends RelativeLayout
 		}
 		
 		public LayoutParams(MarginLayoutParams source)
-		{
-			super(source);
-		}
-		
-		public LayoutParams(RelativeLayout.LayoutParams source)
 		{
 			super(source);
 		}
