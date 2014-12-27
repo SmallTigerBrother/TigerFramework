@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
@@ -101,15 +102,24 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T> implements
 	public abstract View initMenu();
 	
 	@Override
-	public void updateViewDimension(T itemData, final int position, final ViewGroup parent)
+	public void updateViewDimension(ViewGroup parent, View convertView, T itemData, int position)
 	{
-		contentView.measure(0, MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST));
-		menuView.measure(MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST), 0);
+		contentView.getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListener()
+		{
+			@Override
+			public boolean onPreDraw()
+			{
+				//设置SlidingMenu宽高
+				AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(
+						AbsListView.LayoutParams.MATCH_PARENT, contentView.getMeasuredHeight());
+				slidingMenu.setLayoutParams(layoutParams);
+				contentView.getViewTreeObserver().removeOnPreDrawListener(this);
+				
+				return false;
+			}
+		});
 		
-		//设置SlidingMenu宽高
-		AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(
-				AbsListView.LayoutParams.MATCH_PARENT, contentView.getMeasuredHeight());
-		slidingMenu.setLayoutParams(layoutParams);
+		menuView.measure(MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST), 0);
 		
 		//自适应menu宽度
 		slidingMenu.setBehindOffset(parent.getMeasuredWidth() - 
