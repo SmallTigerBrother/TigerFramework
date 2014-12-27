@@ -17,10 +17,11 @@ package com.mn.tiger.widget.viewflow;
 
 import java.util.EnumSet;
 import java.util.LinkedList;
-
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.database.DataSetObserver;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -165,6 +166,7 @@ public class ViewFlow extends AdapterView<Adapter>
 		return mAdapter.getCount();
 	}
 
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
 	{
