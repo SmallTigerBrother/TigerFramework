@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
+import android.widget.FrameLayout;
 import android.widget.Scroller;
 
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.OnCloseListener;
@@ -34,7 +35,7 @@ import com.mn.tiger.widget.slidingmenu.SlidingMenu.onTapListener;
 /**
  * The Class CustomViewAbove.
  */
-public class CustomViewAbove extends ViewGroup
+public class CustomViewAbove extends FrameLayout
 {
 	/** The Constant TAG. */
 	private static final String TAG = "CustomViewAbove";
@@ -754,17 +755,17 @@ public class CustomViewAbove extends ViewGroup
 		mViewBehind = cvb;
 	}
 
-	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-	{
-		int width = getDefaultSize(0, widthMeasureSpec);
-		int height = getDefaultSize(0, heightMeasureSpec);
-		setMeasuredDimension(width, height);
-
-		final int contentWidth = getChildMeasureSpec(widthMeasureSpec, 0, width);
-		final int contentHeight = getChildMeasureSpec(heightMeasureSpec, 0, height);
-		mContent.measure(contentWidth, contentHeight);
-	}
+//	@Override
+//	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+//	{
+//		int width = getDefaultSize(0, widthMeasureSpec);
+//		int height = getDefaultSize(0, heightMeasureSpec);
+//		setMeasuredDimension(width, height);
+//
+//		final int contentWidth = getChildMeasureSpec(widthMeasureSpec, 0, width);
+//		final int contentHeight = getChildMeasureSpec(heightMeasureSpec, 0, height);
+//		mContent.measure(contentWidth, contentHeight);
+//	}
 
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh)
