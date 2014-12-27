@@ -26,9 +26,6 @@
     <!-- 数据请求 -->
     <string name="tiger_request_data_error">请求异常，请稍后再试！</string>
 
-    <!-- 提示框提示信息 -->
-    <string name="tiger_alert_dialog_yes_no_title">您真的要退出吗?</string>
-    
     <string name="tiger_not_space" >空间不足,下载失败!</string>
     
     <string name="dialog_sheet_cancel">取消</string>

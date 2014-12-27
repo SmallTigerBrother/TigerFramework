@@ -23,10 +23,6 @@
     <!-- 数据请求 -->
     <string name="tiger_request_data_error">Request error, please try again later!</string>
 
-
-    <!-- 提示框提示信忿 -->
-    <string name="tiger_alert_dialog_yes_no_title">Do you really want to quit?</string>
-    
     <string name="tiger_not_space" >Insufficient space , download fail!</string>
     
     <string name="dialog_sheet_cancel">Cancel</string>
