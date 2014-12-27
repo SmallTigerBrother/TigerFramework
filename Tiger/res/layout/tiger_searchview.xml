@@ -5,9 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/tiger_search_input_bg"
     android:gravity="center"
-    android:orientation="horizontal" 
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp">
+    android:orientation="horizontal" >
 
     <EditText
         android:id="@+id/tiger_searchview_query"
