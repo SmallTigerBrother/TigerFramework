@@ -61,7 +61,7 @@ public abstract class TGViewHolder<T>
 	 * @param itemData
 	 * @param position
 	 */
-	public void updateViewDimension(T itemData, int position, ViewGroup parent)
+	public void updateViewDimension(ViewGroup parent, View convertView, T itemData, int position)
 	{
 		
 	}
