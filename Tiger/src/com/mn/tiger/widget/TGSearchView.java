@@ -418,10 +418,5 @@ public class TGSearchView extends RelativeLayout
 		{
 			super(source);
 		}
-		
-		public LayoutParams(RelativeLayout.LayoutParams source)
-		{
-			super(source);
-		}
 	}
 }
