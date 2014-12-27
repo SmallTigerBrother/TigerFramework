@@ -122,6 +122,23 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T> implements
 		this.id = getAdapter().getItemId(position);
 	}
 	
+	/**
+	 * 显示主视图
+	 * @param smooth
+	 */
+	protected final void showContent(boolean smooth)
+	{
+		slidingMenu.showContent(smooth);
+	}
+	
+	/**
+	 * 显示侧滑菜单
+	 */
+	protected final void showMenu(boolean smooth)
+	{
+		slidingMenu.showMenu(smooth);
+	}
+	
 	@Override
 	public void onClick(View v)
 	{
