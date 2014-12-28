@@ -24,18 +24,16 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
-import android.widget.FrameLayout;
 import android.widget.Scroller;
 
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.OnCloseListener;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.OnOpenListener;
 import com.mn.tiger.widget.slidingmenu.SlidingMenu.SlideTouchMode;
-import com.mn.tiger.widget.slidingmenu.SlidingMenu.onTapListener;
 
 /**
  * The Class CustomViewAbove.
  */
-public class CustomViewAbove extends FrameLayout
+public class CustomViewAbove extends ViewGroup
 {
 	/** The Constant TAG. */
 	private static final String TAG = "CustomViewAbove";
@@ -139,25 +137,6 @@ public class CustomViewAbove extends FrameLayout
 
 	/** The m ignored views. */
 	private List<View> mIgnoredViews = new ArrayList<View>();
-	
-	/**
-	 * Touch事件是否已消费
-	 */
-	private boolean touchEventHasPerformed = false;
-	
-	/**
-	 * 长按事件是否已触发
-	 */
-	private boolean hasPerformLongPress = false;
-	
-	/**
-	 * 长按事件处理线程
-	 */
-	private CheckForLongPress longPressPerformer;
-	
-	private PerformClick performClick = new PerformClick();
-	
-	private onTapListener onTapListener;
 
 	// private int mScrollState = SCROLL_STATE_IDLE;
 
@@ -291,11 +270,6 @@ public class CustomViewAbove extends FrameLayout
 		final float density = context.getResources().getDisplayMetrics().density;
 		mFlingDistance = (int) (MIN_DISTANCE_FOR_FLING * density);
 	}
-	
-	void setFlingDistance(int mFlingDistance)
-	{
-		this.mFlingDistance = mFlingDistance;
-	}
 
 	/**
 	 * Set the currently selected page. If the CustomViewPager has already been
@@ -391,17 +365,6 @@ public class CustomViewAbove extends FrameLayout
 			completeScroll();
 			scrollTo(destX, 0);
 		}
-	}
-	
-	/**
-	 * 立刻滚动到指定视图
-	 * @param item
-	 */
-	void setCurrentItemRightNow(int item)
-	{
-		final int destX = getDestScrollX(mCurItem);
-		completeScroll();
-		scrollTo(destX, 0);
 	}
 
 	/**
@@ -755,17 +718,17 @@ public class CustomViewAbove extends FrameLayout
 		mViewBehind = cvb;
 	}
 
-//	@Override
-//	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-//	{
-//		int width = getDefaultSize(0, widthMeasureSpec);
-//		int height = getDefaultSize(0, heightMeasureSpec);
-//		setMeasuredDimension(width, height);
-//
-//		final int contentWidth = getChildMeasureSpec(widthMeasureSpec, 0, width);
-//		final int contentHeight = getChildMeasureSpec(heightMeasureSpec, 0, height);
-//		mContent.measure(contentWidth, contentHeight);
-//	}
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+	{
+		int width = getDefaultSize(0, widthMeasureSpec);
+		int height = getDefaultSize(0, heightMeasureSpec);
+		setMeasuredDimension(width, height);
+
+		final int contentWidth = getChildMeasureSpec(widthMeasureSpec, 0, width);
+		final int contentHeight = getChildMeasureSpec(heightMeasureSpec, 0, height);
+		mContent.measure(contentWidth, contentHeight);
+	}
 
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh)
@@ -1021,6 +984,7 @@ public class CustomViewAbove extends FrameLayout
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev)
 	{
+
 		if (!mEnabled)
 		{
 			return false;
@@ -1107,8 +1071,6 @@ public class CustomViewAbove extends FrameLayout
 		switch (action & MotionEventCompat.ACTION_MASK)
 		{
 			case MotionEvent.ACTION_DOWN:
-				touchEventHasPerformed = false;
-				hasPerformLongPress = false;
 				/*
 				 * If being flinged and user touches, stop the fling. isFinished
 				 * will be false if being flinged.
@@ -1119,23 +1081,8 @@ public class CustomViewAbove extends FrameLayout
 				int index = MotionEventCompat.getActionIndex(ev);
 				mActivePointerId = MotionEventCompat.getPointerId(ev, index);
 				mLastMotionX = mInitialMotionX = ev.getX();
-				
-				if(!performOnTap())
-				{
-					this.performClick.setPerformable(true);
-					
-					removeLongPressPerformer();
-					
-					setLongPressPerformer();
-				}
-				
 				break;
 			case MotionEvent.ACTION_MOVE:
-				
-				this.performClick.setPerformable(false);
-				
-				touchEventHasPerformed = true;
-				
 				if (!mIsBeingDragged)
 				{
 					determineDrag(ev);
@@ -1198,174 +1145,40 @@ public class CustomViewAbove extends FrameLayout
 				}
 				else if (mQuickReturn && mViewBehind.menuTouchInQuickReturn(mContent, mCurItem, ev.getX() + mScrollX))
 				{
-					if(!hasPerformLongPress)
-					{
-						touchEventHasPerformed = true;
-						// close the menu
-						setCurrentItem(1);
-						endDrag();
-					}
-					else
-					{
-						touchEventHasPerformed = false;
-					}
-				}
-				else 
-				{
-					if(!hasPerformLongPress)
-					{
-						touchEventHasPerformed = true;
-						post(performClick);
-					}
-					else
-					{
-						touchEventHasPerformed = false;
-					}
+					// close the menu
+					setCurrentItem(1);
+					endDrag();
 				}
 				break;
 			case MotionEvent.ACTION_CANCEL:
 				if (mIsBeingDragged)
 				{
-					final VelocityTracker velocityTracker = mVelocityTracker;
-					velocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
-					int initialVelocity = (int) VelocityTrackerCompat.getXVelocity(velocityTracker, mActivePointerId);
-					final int scrollX = getScrollX();
-					final float pageOffset = (float) (scrollX - getDestScrollX(mCurItem)) / getBehindWidth();
-					final int activePointerIndex = getPointerIndex(ev, mActivePointerId);
-					final float x = MotionEventCompat.getX(ev, activePointerIndex);
-					final int totalDelta = (int) (x - mInitialMotionX);
-					int nextPage = determineTargetPage(pageOffset, initialVelocity, totalDelta);
-					
-					setCurrentItemInternal(nextPage, true, true);
+					setCurrentItemInternal(mCurItem, true, true);
 					mActivePointerId = INVALID_POINTER;
 					endDrag();
 				}
-				else 
-				{
-					if(!hasPerformLongPress)
-					{
-						touchEventHasPerformed = true;
-					}
-					else
-					{
-						touchEventHasPerformed = false;
-					}
-				}
-				
-				this.performClick.setPerformable(false);
-				
 				break;
 			case MotionEventCompat.ACTION_POINTER_DOWN:
 			{
-				this.performClick.setPerformable(false);
-				touchEventHasPerformed = false;
-				
 				final int indexx = MotionEventCompat.getActionIndex(ev);
 				mLastMotionX = MotionEventCompat.getX(ev, indexx);
 				mActivePointerId = MotionEventCompat.getPointerId(ev, indexx);
 				break;
 			}
 			case MotionEventCompat.ACTION_POINTER_UP:
-				if(!touchEventHasPerformed)
+				onSecondaryPointerUp(ev);
+				int pointerIndex = getPointerIndex(ev, mActivePointerId);
+				if (mActivePointerId == INVALID_POINTER)
 				{
-					if(!hasPerformLongPress)
-					{
-						touchEventHasPerformed = true;
-					}
-					else
-					{
-						touchEventHasPerformed = false;
-					}
-					
-					onSecondaryPointerUp(ev);
-					int pointerIndex = getPointerIndex(ev, mActivePointerId);
-					if (mActivePointerId == INVALID_POINTER)
-					{
-						break;
-					}
-						
-					mLastMotionX = MotionEventCompat.getX(ev, pointerIndex);
+					break;
 				}
-				this.performClick.setPerformable(false);
-				
-				break;
-				
-			default:
-				touchEventHasPerformed = true;
-				this.performClick.setPerformable(false);
+					
+				mLastMotionX = MotionEventCompat.getX(ev, pointerIndex);
 				break;
 		}
 		return true;
 	}
-	
-	public void setLongPressPerformer()
-	{
-		this.longPressPerformer = new CheckForLongPress();
-		
-		postDelayed(longPressPerformer, ViewConfiguration.getLongPressTimeout());
-	}
-	
-	private void removeLongPressPerformer()
-	{
-		if(null != longPressPerformer)
-		{
-			longPressPerformer.setDestroy(true);
-		}
-	}
-	
-	private boolean performOnTap()
-	{
-		if(null != onTapListener)
-		{
-			return onTapListener.onTap(this);
-		}
-		
-		return false;
-	}
-	
-	public void setOnTapListener(onTapListener onTapListener)
-	{
-		this.onTapListener = onTapListener;
-	}
-	
-	private final class PerformClick implements Runnable 
-	{
-		private boolean performable = false;
-		
-		public void setPerformable(boolean performable)
-		{
-			this.performable = performable;
-		}
-		
-        public void run() 
-        {
-        	if(performable)
-        	{
-        		((ViewGroup)getParent()).performClick();
-        	}
-        }
-    }
 
-	class CheckForLongPress implements Runnable
-	{
-		private boolean destroy = false;
-		
-        public void run() 
-        {
-            if (!touchEventHasPerformed && !hasPerformLongPress && !destroy) 
-            {
-            	((ViewGroup)getParent()).performLongClick();
-            	touchEventHasPerformed = true;
-            	hasPerformLongPress = true;
-            }
-        }
-        
-        public void setDestroy(boolean destroy)
-		{
-			this.destroy = destroy;
-		}
-    }
-	
 	/**
 	 * Determine drag.
 	 * 
