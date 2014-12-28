@@ -126,8 +126,6 @@ public class SwipeListView extends ListView
 	 */
 	private SwipeListViewTouchListener touchListener;
 	
-	private OnItemClickListener wrapOnItemClickListener;
-	
 	/**
 	 * If you create a View programmatically you need send back and front
 	 * identifier
@@ -180,10 +178,9 @@ public class SwipeListView extends ListView
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{
-				SwipeListView.this.closeAnimate(position);
-				if(null != wrapOnItemClickListener)
+				if(touchListener.isOpened(position))
 				{
-					wrapOnItemClickListener.onItemClick(parent, view, position, id);
+					SwipeListView.this.closeAnimate(position);
 				}
 			}
 		});
@@ -202,7 +199,7 @@ public class SwipeListView extends ListView
 	@Override
 	public void setOnItemClickListener(android.widget.AdapterView.OnItemClickListener listener)
 	{
-		this.wrapOnItemClickListener = listener;
+		//防止将已加入的默认ItemClick替换掉，本方法留空
 	}
 	
 	public void setSwipeAnimationTime(long swipeAnimationTime)

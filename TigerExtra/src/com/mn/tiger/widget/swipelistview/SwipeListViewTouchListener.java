@@ -145,7 +145,14 @@ public class SwipeListViewTouchListener implements View.OnTouchListener
 			@Override
 			public void onClick(View v)
 			{
-				swipeListView.onClickFrontView(frontView, downPosition);
+				if(opened.get(childPosition))
+				{
+					closeAnimate(childPosition);
+				}
+				else
+				{
+					swipeListView.onClickFrontView(frontView, downPosition);
+				}
 			}
 		});
 
@@ -260,6 +267,11 @@ public class SwipeListViewTouchListener implements View.OnTouchListener
 		this.swipeOpenOnLongPress = swipeOpenOnLongPress;
 	}
 
+	boolean isOpened(int position)
+	{
+		return opened.get(position);
+	}
+	
 	/**
 	 * Sets the swipe mode
 	 * 
