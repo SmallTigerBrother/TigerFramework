@@ -102,7 +102,7 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T> implements
 	public abstract View initMenu();
 	
 	@Override
-	public void updateViewDimension(ViewGroup parent, View convertView, T itemData, int position)
+	protected void updateViewDimension(ViewGroup parent, View convertView, T itemData, int position)
 	{
 		contentView.getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListener()
 		{
@@ -152,21 +152,33 @@ public abstract class TGSlidingViewHolder<T> extends TGViewHolder<T> implements
 	@Override
 	public void onClick(View v)
 	{
-		//自身处理onItemClick事件，执行统一操作
-		onItemTap((AdapterView<?>) slidingMenu.getParent(), slidingMenu.getContent(), 
-						position, id);
+		boolean performClick = true;
+		ViewGroup parentView = (ViewGroup) slidingMenu.getParent();
+		int childCount = parentView.getChildCount();
 		
-		//伪装成onItemClick事件
-		OnItemClickListener onItemClickListener =
-				((AbsListView)slidingMenu.getParent()).getOnItemClickListener();
-		onItemClickListener.onItemClick((AdapterView<?>) slidingMenu.getParent(), slidingMenu.getContent(), 
-				position, id);
+		for(int i = 0; i< childCount; i++)
+		{
+			if(((SlidingMenu)parentView.getChildAt(i)).isMenuShowing())
+			{
+				((SlidingMenu)parentView.getChildAt(i)).showContent();
+				performClick = false;
+			}
+		}
+		
+		if(performClick)
+		{
+			//伪装成onItemClick事件
+			OnItemClickListener onItemClickListener =
+					((AbsListView)slidingMenu.getParent()).getOnItemClickListener();
+			onItemClickListener.onItemClick((AdapterView<?>) slidingMenu.getParent(), slidingMenu.getContent(), 
+					position, id);
+		}
 	}
 	
 	@Override
 	public boolean onTap(View view)
 	{
-		onItemTap((AdapterView<?>) slidingMenu.getParent(), slidingMenu, position, id);
+//		onItemTap((AdapterView<?>) slidingMenu.getParent(), slidingMenu, position, id);
 		return false;
 	}
 	
