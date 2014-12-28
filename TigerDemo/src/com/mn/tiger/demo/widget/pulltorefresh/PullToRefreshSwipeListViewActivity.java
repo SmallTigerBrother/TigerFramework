@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.mn.tiger.annonation.ViewById;
 import com.mn.tiger.app.TGActionBarActivity;
 import com.mn.tiger.demo.R;
-import com.mn.tiger.demo.widget.swipelistview.SwipeListViewActivity.ViewHolder;
 import com.mn.tiger.utility.ViewInjector;
 import com.mn.tiger.widget.adpter.TGListAdapter;
 
@@ -34,10 +33,6 @@ public class PullToRefreshSwipeListViewActivity extends TGActionBarActivity
 		{
 			integers.add(i);
 		}
-		
-		listAdapter = new TGListAdapter<Integer>(this, integers,
-				-1, ViewHolder.class);
-		swipeListView.setAdapter(listAdapter);
 	}
 	
 }

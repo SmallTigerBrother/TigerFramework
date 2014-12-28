@@ -30,7 +30,6 @@ import com.mn.tiger.demo.widget.viewpager.horizontal.HorizontalViewPagerActivity
 import com.mn.tiger.demo.widget.viewpager.horizontal.PagerSlidingTabStripActivity;
 import com.mn.tiger.demo.widget.viewpager.horizontal.RecycleViewPagerActivity;
 import com.mn.tiger.demo.widget.viewpager.horizontal.TransformationDemoActivity;
-import com.mn.tiger.demo.widget.viewpager.horizontal.RecycleViewPagerActivity.RecyclePagerViewHolder;
 import com.mn.tiger.demo.widget.viewpager.horizontal.fragment.ViewPagerWithFragmentActivity;
 import com.mn.tiger.demo.widget.viewpager.vertical.VerticalViewPagerActivity;
 import com.mn.tiger.demo.widget.wheelview.WheelViewActivity;
