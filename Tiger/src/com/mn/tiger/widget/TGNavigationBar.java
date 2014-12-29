@@ -185,6 +185,10 @@ public class TGNavigationBar extends RelativeLayout
 			leftNaviButton.setVisibility(View.INVISIBLE);
 			leftNaviButton.setTextColor(BUTTON_TEXT_COLOR);
 			leftNaviButton.setTextSize(BUTTON_TEXT_SIZE);
+			leftNaviButton.setPadding(DisplayUtils.dip2px(getContext(), 8),
+					DisplayUtils.dip2px(getContext(), 8), 
+					DisplayUtils.dip2px(getContext(), 8), 
+					DisplayUtils.dip2px(getContext(), 8));
 			
 			RelativeLayout.LayoutParams leftBtnParams = new RelativeLayout.LayoutParams(
 					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -223,6 +227,10 @@ public class TGNavigationBar extends RelativeLayout
 			rightNaviButton.setVisibility(View.INVISIBLE);
 			rightNaviButton.setTextColor(BUTTON_TEXT_COLOR);
 			rightNaviButton.setTextSize(BUTTON_TEXT_SIZE);
+			rightNaviButton.setPadding(DisplayUtils.dip2px(getContext(), 8),
+					DisplayUtils.dip2px(getContext(), 8), 
+					DisplayUtils.dip2px(getContext(), 8), 
+					DisplayUtils.dip2px(getContext(), 8));
 			
 			RelativeLayout.LayoutParams rightBtnParams = new RelativeLayout.LayoutParams(
 					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
