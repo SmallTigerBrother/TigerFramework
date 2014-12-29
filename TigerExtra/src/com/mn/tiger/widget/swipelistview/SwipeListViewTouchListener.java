@@ -164,14 +164,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener
 			@Override
 			public void onClick(View v)
 			{
-				if(opened.get(childPosition))
-				{
-					closeAnimate(childPosition);
-				}
-				else
-				{
-					swipeListView.onClickFrontView(frontView, downPosition);
-				}
+				swipeListView.onClickFrontView(frontView, downPosition);
 			}
 		});
 
