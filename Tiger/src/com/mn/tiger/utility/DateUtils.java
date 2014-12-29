@@ -1,12 +1,13 @@
 package com.mn.tiger.utility;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import android.annotation.SuppressLint;
-import android.content.Context;
 
 import com.mn.tiger.R;
 import com.mn.tiger.log.LogTools;
@@ -24,14 +25,44 @@ public class DateUtils
 	 */
 	protected static final String LOG_TAG = DateUtils.class.getSimpleName();
 	
-	public final static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	public final static SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-	public final static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	public final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+	public final static SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm:ss");
+	public final static SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
 	public final static int ONE_MINUTES = 1000 * 60;
 	public final static int ONE_HOURS = ONE_MINUTES * 60;
 	public final static int ONE_DAY = ONE_HOURS * 24;
+	
+	/**
+	 * 通过传入的format格式将时间转换为字符串
+	 * @param milliseconds
+	 * @param format
+	 * @return
+	 */
+	public static String date2String(long milliseconds, String format)
+	{
+		if (milliseconds > 0 && format != null)
+		{
+			return date2String(new Date(milliseconds), format);
+		}
+		return "";
+	}
 
+	/**
+	 * 通过传入的format格式将时间转换为字符串
+	 * @param milliseconds
+	 * @param format
+	 * @return
+	 */
+	public static String date2String(long milliseconds, DateFormat format)
+	{
+		if (milliseconds > 0 && format != null)
+		{
+			return date2String(new Date(milliseconds), format);
+		}
+		return "";
+	}
+	
 	/**
 	 * 该方法的作用:通过传入的format格式将日期转换为字符串
 	 * 
@@ -47,6 +78,24 @@ public class DateUtils
 		{
 			SimpleDateFormat dateFormat = new SimpleDateFormat(format);
 			return dateFormat.format(date);
+		}
+		return null;
+	}
+	
+	/**
+	 * 该方法的作用:通过传入的format格式将日期转换为字符串
+	 * 
+	 * @date 2014-1-23
+	 * @param date
+	 * @param format
+	 * @return
+	 */
+	@SuppressLint("SimpleDateFormat")
+	public static String date2String(Date date, DateFormat format)
+	{
+		if (date != null && format != null)
+		{
+			return format.format(date);
 		}
 		return null;
 	}
@@ -184,7 +233,7 @@ public class DateUtils
 
 		if (diff > ONE_DAY)
 		{
-			timeAgo = dateFormat.format(new Date(time));
+			timeAgo = DATE_FORMAT.format(new Date(time));
 		}
 		else if (diff > ONE_HOURS)
 		{
