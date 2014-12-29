@@ -151,13 +151,16 @@ public class DisplayUtils
 		{
 			currentFitWidth = maxWidth;
 		}
+		adjustHeight = (int) (currentFitWidth / ratio);
 
-		if (lp != null)
+		if(currentFitWidth != view.getWidth() && adjustHeight != view.getHeight())
 		{
-			adjustHeight = (int) (currentFitWidth / ratio);
-			lp.height = adjustHeight;
-			lp.width = currentFitWidth;
-			view.setLayoutParams(lp);
+			if (lp != null)
+			{
+				lp.height = adjustHeight;
+				lp.width = currentFitWidth;
+				view.setLayoutParams(lp);
+			}
 		}
 	}
 }
