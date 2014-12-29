@@ -84,6 +84,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener
 	private int dismissAnimationRefCount = 0;
 
 	private float downX;
+	private float downY = 0;
 	private boolean swiping;
 	private boolean swipingRight;
 	private VelocityTracker velocityTracker;
@@ -104,7 +105,9 @@ public class SwipeListViewTouchListener implements View.OnTouchListener
 	private List<Boolean> checked = new ArrayList<Boolean>();
 	private int oldSwipeActionRight;
 	private int oldSwipeActionLeft;
-
+	
+	private float deltaY = 0;
+	
 	/**
 	 * Constructor
 	 * 
@@ -903,7 +906,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener
 			public void onScrollStateChanged(AbsListView absListView, int scrollState)
 			{
 				setEnabled(scrollState != AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL);
-				if (swipeClosesAllItemsWhenListMoves && scrollState == SCROLL_STATE_TOUCH_SCROLL)
+				if (Math.abs(deltaY) > slop && swipeClosesAllItemsWhenListMoves && scrollState == SCROLL_STATE_TOUCH_SCROLL)
 				{
 					closeOpenedItems();
 				}
@@ -1013,6 +1016,8 @@ public class SwipeListViewTouchListener implements View.OnTouchListener
 		{
 			case MotionEvent.ACTION_DOWN:
 			{
+				downY = motionEvent.getRawY();
+				
 				if (paused && downPosition != ListView.INVALID_POSITION)
 				{
 					return false;
@@ -1122,6 +1127,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener
 				velocityTracker.recycle();
 				velocityTracker = null;
 				downX = 0;
+				downY = 0;
 				// change clickable front view
 				// if (swap) {
 				// frontView.setClickable(opened.get(downPosition));
@@ -1144,6 +1150,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener
 				float velocityY = Math.abs(velocityTracker.getYVelocity());
 
 				float deltaX = motionEvent.getRawX() - downX;
+				deltaY = motionEvent.getRawY() - downY;
 				
 				float deltaMode = Math.abs(deltaX);
 
@@ -1243,6 +1250,9 @@ public class SwipeListViewTouchListener implements View.OnTouchListener
 				}
 				break;
 			}
+			
+			default:
+				break;
 		}
 		return false;
 	}
