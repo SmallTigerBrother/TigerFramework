@@ -1,7 +1,5 @@
 package com.mn.tiger.widget;
 
-import com.mn.tiger.utility.DisplayUtils;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -10,6 +8,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+
+import com.mn.tiger.utility.DisplayUtils;
 
 class RightImageButton extends TGImageButton
 {
@@ -27,8 +27,9 @@ class RightImageButton extends TGImageButton
 		{
 			Paint paint = getPaint();
 			Matrix matrix = new Matrix();
-			matrix.setTranslate(DisplayUtils.dip2px(getContext(), getPaddingLeft()) + 
-					bgDrawable.getIntrinsicWidth(), DisplayUtils.dip2px(getContext(), getPaddingTop()));
+			
+			int left = getMeasuredWidth() - bgDrawable.getIntrinsicWidth();
+			matrix.setTranslate(left, DisplayUtils.dip2px(getContext(), getPaddingTop()));
 			canvas.drawBitmap(((BitmapDrawable)bgDrawable).getBitmap(), 
 					matrix, paint);
 		}
