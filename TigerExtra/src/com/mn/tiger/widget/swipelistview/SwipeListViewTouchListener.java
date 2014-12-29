@@ -39,12 +39,15 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AbsListView.RecyclerListener;
 import android.widget.ListView;
 
+import com.mn.tiger.log.LogTools;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
+import com.nineoldandroids.view.ViewPropertyAnimator;
 
 /**
  * Touch listener impl for the SwipeListView
@@ -108,7 +111,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener
 	 * @param swipeListView
 	 *            SwipeListView
 	 */
-	public SwipeListViewTouchListener(SwipeListView swipeListView)
+	public SwipeListViewTouchListener(final SwipeListView swipeListView)
 	{
 		ViewConfiguration vc = ViewConfiguration.get(swipeListView.getContext());
 		slop = vc.getScaledTouchSlop();
@@ -118,6 +121,19 @@ public class SwipeListViewTouchListener implements View.OnTouchListener
 				.getInteger(android.R.integer.config_shortAnimTime);
 		animationTime = configShortAnimationTime;
 		this.swipeListView = swipeListView;
+		
+		//当view被回收时，取消动画，立即还原为未打开
+		swipeListView.setRecyclerListener(new RecyclerListener()
+		{
+			@SuppressWarnings("rawtypes")
+			@Override
+			public void onMovedToScrapHeap(View view)
+			{
+				ViewPropertyAnimator.animate(((SwipeListViewHolder)view.getTag()).getFrontView()).cancel();
+				closeImmediatly(swipeListView.getPositionForView(view));
+				LogTools.d("onChildViewAdded", swipeListView.getPositionForView(view) + " == onChildViewAdded");
+			}
+		});
 	}
 	
 	/**
@@ -363,8 +379,13 @@ public class SwipeListViewTouchListener implements View.OnTouchListener
 	{
 		if (swipeListView.getAdapter() != null)
 		{
+			closeOpenedItemsImmediatly();
+			
+			opened.clear();
+			openedRight.clear();
+			checked.clear();
 			int count = swipeListView.getAdapter().getCount();
-			for (int i = opened.size(); i <= count; i++)
+			for (int i = 0; i <= count; i++)
 			{
 				opened.add(false);
 				openedRight.add(false);
@@ -413,6 +434,47 @@ public class SwipeListViewTouchListener implements View.OnTouchListener
 				{
 					closeAnimate(child, position);
 				}
+			}
+		}
+	}
+	
+	/**
+	 * 立即关闭列表行
+	 * @param position
+	 */
+	@SuppressWarnings("rawtypes")
+	protected void closeImmediatly(int position)
+	{
+		if (swipeListView != null)
+		{
+			int firstVisibleChildPosition = swipeListView.getFirstVisiblePosition();
+			final View childContainer = swipeListView.getChildAt(position - firstVisibleChildPosition);
+			if (childContainer != null)
+			{
+				final View child = ((SwipeListViewHolder)childContainer.getTag()).getFrontView();
+
+				if (child != null)
+				{
+					opened.set(position, false);
+					child.setTranslationX(0);
+					resetCell();
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Close all opened items，立即关闭
+	 */
+	void closeOpenedItemsImmediatly()
+	{
+		if (opened != null)
+		{
+			int start = swipeListView.getFirstVisiblePosition();
+			int end = swipeListView.getLastVisiblePosition();
+			for (int i = start; i <= end; i++)
+			{
+				closeImmediatly(i);
 			}
 		}
 	}
@@ -771,7 +833,9 @@ public class SwipeListViewTouchListener implements View.OnTouchListener
 				moveTo = swapRight ? (int) (viewWidth - rightOffset) : (int) (-viewWidth + leftOffset);
 			}
 		}
-
+		
+		opened.set(position, !opened.get(position));
+		
 		animate(view).translationX(moveTo).setDuration(animationTime).setListener(new AnimatorListenerAdapter()
 		{
 			@Override
@@ -780,8 +844,8 @@ public class SwipeListViewTouchListener implements View.OnTouchListener
 				swipeListView.resetScrolling();
 				if (swap)
 				{
-					boolean aux = !opened.get(position);
-					opened.set(position, aux);
+					boolean aux = opened.get(position);
+					
 					if (aux)
 					{
 						swipeListView.onOpened(position, swapRight);
