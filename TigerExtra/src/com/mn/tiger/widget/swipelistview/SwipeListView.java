@@ -191,7 +191,7 @@ public class SwipeListView extends ListView
 		setOnScrollListener(touchListener.makeScrollListener());
 	}
 	
-	private SwipeListViewTouchListener getSwipeListViewTouchListener()
+	public SwipeListViewTouchListener getSwipeListViewTouchListener()
 	{
 		return touchListener;
 	}
@@ -393,6 +393,11 @@ public class SwipeListView extends ListView
 		touchListener.closeAnimate(position);
 	}
 
+	public void closeImmediatly(int position)
+	{
+		touchListener.closeImmediatly(position);
+	}
+	
 	/**
 	 * Notifies onDismiss
 	 * 
@@ -770,5 +775,4 @@ public class SwipeListView extends ListView
 	{
 		touchListener.closeOpenedItems();
 	}
-
 }
