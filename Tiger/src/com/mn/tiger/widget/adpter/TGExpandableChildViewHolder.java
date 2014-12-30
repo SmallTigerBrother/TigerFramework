@@ -37,7 +37,7 @@ public abstract class TGExpandableChildViewHolder<T>
 	 * @param position
 	 */
 	public void updateViewDimension(T itemData, int groupPosition,
-			int childPosition, boolean isLastChild, ViewGroup parent)
+			int childPosition, boolean isLastChild, View convertView, ViewGroup parent)
 	{
 		
 	}

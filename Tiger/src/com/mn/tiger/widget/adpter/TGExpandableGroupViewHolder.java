@@ -37,7 +37,7 @@ public abstract class TGExpandableGroupViewHolder<T>
 	 * @param position
 	 */
 	public void updateViewDimension(T itemData, int groupPosition, boolean isExpanded, 
-			ViewGroup parent)
+			View convertView, ViewGroup parent)
 	{
 		
 	}
