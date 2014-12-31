@@ -153,7 +153,7 @@ public class DisplayUtils
 		}
 		adjustHeight = (int) (currentFitWidth / ratio);
 
-		if(currentFitWidth != view.getWidth() && adjustHeight != view.getHeight())
+		if(currentFitWidth != view.getWidth() || adjustHeight != view.getHeight())
 		{
 			if (lp != null)
 			{

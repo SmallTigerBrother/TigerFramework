@@ -5,9 +5,11 @@
     android:layout_height="match_parent"
     android:background="@drawable/tiger_search_input_bg"
     android:gravity="center"
-    android:orientation="horizontal" >
+    android:orientation="horizontal" 
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp">
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/tiger_searchview_query"
         android:layout_width="0dp"
         android:layout_height="match_parent"

@@ -8,13 +8,16 @@ import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mn.tiger.R;
+import com.mn.tiger.utility.DisplayUtils;
 
 
 /**
@@ -43,7 +46,7 @@ public class TGSearchView extends RelativeLayout
 	/**
 	 * 搜索内容输入框
 	 */
-	private EditText queryEditText;
+	private AutoCompleteTextView queryEditText;
 
 	/**
 	 * 搜索图标
@@ -106,7 +109,7 @@ public class TGSearchView extends RelativeLayout
 			}
 		});
 
-		queryEditText = (EditText) findViewById(R.id.tiger_searchview_query);
+		queryEditText = (AutoCompleteTextView) findViewById(R.id.tiger_searchview_query);
 		queryEditText.setOnKeyListener(new OnKeyListener()
 		{
 			@Override
@@ -156,6 +159,21 @@ public class TGSearchView extends RelativeLayout
 			{
 			}
 		});
+		
+		queryEditText.setAdapter(new ArrayAdapter<CharSequence>(getContext(), 
+				R.layout.tiger_search_pop_list_item));
+		queryEditText.setThreshold(0);
+		queryEditText.setDropDownHorizontalOffset(DisplayUtils.dip2px(getContext(), -8));
+		queryEditText.getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListener()
+		{
+			@Override
+			public boolean onPreDraw()
+			{
+				queryEditText.setDropDownWidth(queryEditText.getWidth());
+				queryEditText.getViewTreeObserver().removeOnPreDrawListener(this);
+				return false;
+			}
+		});
 
 		searchIcon = ((TextView) findViewById(R.id.tiger_searchview_submitbutton));
 		searchIcon.setOnClickListener(new View.OnClickListener()
@@ -196,7 +214,7 @@ public class TGSearchView extends RelativeLayout
 	 * @date 2013-3-25
 	 * @return
 	 */
-	public EditText getInputTextView()
+	public AutoCompleteTextView getInputTextView()
 	{
 		return queryEditText;
 	}
@@ -415,6 +433,11 @@ public class TGSearchView extends RelativeLayout
 		}
 		
 		public LayoutParams(MarginLayoutParams source)
+		{
+			super(source);
+		}
+		
+		public LayoutParams(RelativeLayout.LayoutParams source)
 		{
 			super(source);
 		}
