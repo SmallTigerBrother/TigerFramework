@@ -14,6 +14,8 @@ public class TGHttpError
 	
 	public static final int IOEXCEPTION = 10003;
 	
+	public static final int ERROR_URL = 10004;
+	
 	public static String getDefaultErrorMsg(Context context, int errorCode)
 	{
 		switch (errorCode)
@@ -30,6 +32,9 @@ public class TGHttpError
 			case UNKNOWN_EXCEPTION:
 				return context.getString(R.string.http_error_unknown_exception);
 
+			case ERROR_URL:
+				return "";
+				
 			default:
 				break;
 		}

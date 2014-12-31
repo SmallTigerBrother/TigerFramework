@@ -149,7 +149,7 @@ public class TGHttpAsyncTask<T>
 	{
 		LogTools.p(LOG_TAG, "[Method: doInBackground]  " + "start request.");
 		
-		if(isCancelled() || TextUtils.isEmpty(requestUrl))
+		if(isCancelled())
 		{
 			loadCallback.onLoadOver();
 			return -1;

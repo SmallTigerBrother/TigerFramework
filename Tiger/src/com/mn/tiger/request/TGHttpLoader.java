@@ -11,6 +11,7 @@ import com.mn.tiger.request.async.TGHttpAsyncTask;
 import com.mn.tiger.request.async.task.IRequestParser;
 import com.mn.tiger.request.client.DefaultHttpClient;
 import com.mn.tiger.request.client.TGHttpClient;
+import com.mn.tiger.request.error.TGHttpError;
 import com.mn.tiger.request.method.TGDeleteMethod;
 import com.mn.tiger.request.method.TGGetMethod;
 import com.mn.tiger.request.method.TGHttpMethod;
@@ -84,6 +85,15 @@ public class TGHttpLoader<T> implements IRequestParser
 	public TGHttpResult loadByGetSync(Context context, String requestUrl, 
 			Object parameters, Map<String, String> properties)
 	{
+		if(TextUtils.isEmpty(requestUrl))
+		{
+			LogTools.e(LOG_TAG, "[Method:loadByGetSync] requestUrl can not be null or \"\" !");
+			TGHttpResult result = new TGHttpResult();
+			result.setResponseCode(TGHttpError.ERROR_URL);
+			result.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.ERROR_URL));
+			return result;
+		}
+		
 		TGHttpMethod getMethod = new TGGetMethod(context, requestUrl, parameters);
 		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context);
 		TGHttpClient httpClient = new DefaultHttpClient(context);
@@ -121,6 +131,15 @@ public class TGHttpLoader<T> implements IRequestParser
 	public TGHttpResult loadByPostSync(Context context, String requestUrl, 
 			Object parameters, Map<String, String> properties)
 	{
+		if(TextUtils.isEmpty(requestUrl))
+		{
+			LogTools.e(LOG_TAG, "[Method:loadByPostSync] requestUrl can not be null or \"\" !");
+			TGHttpResult result = new TGHttpResult();
+			result.setResponseCode(TGHttpError.ERROR_URL);
+			result.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.ERROR_URL));
+			return result;
+		}
+		
 		TGHttpMethod postMethod = new TGPostMethod(context, requestUrl, parameters);
 		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context);
 		TGHttpClient httpClient = new DefaultHttpClient(context);
@@ -158,6 +177,15 @@ public class TGHttpLoader<T> implements IRequestParser
 	public TGHttpResult loadByPutSync(Context context, String requestUrl, 
 			Object parameters, Map<String, String> properties)
 	{
+		if(TextUtils.isEmpty(requestUrl))
+		{
+			LogTools.e(LOG_TAG, "[Method:loadByPutSync] requestUrl can not be null or \"\" !");
+			TGHttpResult result = new TGHttpResult();
+			result.setResponseCode(TGHttpError.ERROR_URL);
+			result.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.ERROR_URL));
+			return result;
+		}
+		
 		TGHttpMethod putMethod = new TGPutMethod(context, requestUrl, parameters);
 		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context);
 		TGHttpClient httpClient = new DefaultHttpClient(context);
@@ -195,6 +223,15 @@ public class TGHttpLoader<T> implements IRequestParser
 	public TGHttpResult loadByDeleteSync(Context context, String requestUrl, 
 			Object parameters, Map<String, String> properties)
 	{
+		if(TextUtils.isEmpty(requestUrl))
+		{
+			LogTools.e(LOG_TAG, "[Method:loadByDeleteSync] requestUrl can not be null or \"\" !");
+			TGHttpResult result = new TGHttpResult();
+			result.setResponseCode(TGHttpError.ERROR_URL);
+			result.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.ERROR_URL));
+			return result;
+		}
+		
 		TGHttpMethod delMethod = new TGDeleteMethod(context, requestUrl, parameters);
 		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context);
 		TGHttpClient httpClient = new DefaultHttpClient(context);
