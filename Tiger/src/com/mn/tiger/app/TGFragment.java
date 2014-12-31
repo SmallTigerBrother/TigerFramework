@@ -63,11 +63,22 @@ public abstract class TGFragment extends Fragment
 			((ViewGroup)mainView.getParent()).removeView(mainView);
 		}
 		
+		afterCreateView();
+		
 		return mainView;
 	};
 	
 	/**
-	 * 创建视图，Fragment的onCreateView方法中调用
+	 * 在onCreateView(LayoutInflater inflater, ViewGroup container, 
+			Bundle savedInstanceState)中调用，初始化完成视图后调用
+	 */
+	protected void afterCreateView()
+	{
+		
+	}
+	
+	/**
+	 * 创建视图，Fragment的onCreateView方法中调用，只有首次创建视图时调用，若视图可以重用，则不会调用该方法
 	 * @param inflater
 	 * @param savedInstanceState
 	 * @return
