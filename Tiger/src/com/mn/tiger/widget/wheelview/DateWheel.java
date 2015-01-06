@@ -372,6 +372,21 @@ public class DateWheel extends FrameLayout
 	{
 		return mDay;
 	}
+	
+	public void setYearTextSize(int textSize)
+	{
+		((NumericWheelAdapter)mYearWheel.getViewAdapter()).setTextSize(textSize);
+	}
+	
+	public void setMonthTextSize(int textSize)
+	{
+		((NumericWheelAdapter)mMonthWheel.getViewAdapter()).setTextSize(textSize);
+	}
+	
+	public void setDayTextSize(int textSize)
+	{
+		((NumericWheelAdapter)mDayWheel.getViewAdapter()).setTextSize(textSize);
+	}
 
 	/**
 	 * 状态保存类
