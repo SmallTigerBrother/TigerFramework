@@ -1,7 +1,9 @@
 package com.mn.tiger.request.method;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.ProtocolException;
@@ -24,38 +26,31 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.mn.tiger.log.LogTools;
+import com.mn.tiger.utility.Commons;
+
 
 /**
- * 该类作用及功能说明
- * Http请求方法类，封装请求初始化，请求连接、请求中断的方法
+ * http请求方法基类
  * @version V2.0
  * @see JDK1.6,android-8
  * @date 2013-12-1
  */
 public abstract class TGHttpMethod 
 {
-	/**
-	 * 日志标签
-	 */
 	protected final String LOG_TAG = this.getClass().getSimpleName();
 	
-	/**
-	 * 请求Url
-	 */
 	private String url;
 	
 	/**
-	 * 业务请求参数
+	 * 请求参数
 	 */
 	private Object params = null;
 	
-	/**
-	 * 请求连接类
-	 */
 	private HttpURLConnection httpConnection = null;
 	
 	/**
-	 * 网络请求参数
+	 * 消息头里的属性参数
 	 */
 	private HashMap<String, String> properties = null;
 	
@@ -65,17 +60,17 @@ public abstract class TGHttpMethod
 	private int connectTimeout = 60000;
 	
 	/**
-	 * 连接读取超时时间
+	 * 读取超时时间
 	 */
 	private int readTimeout = 60000;
 	
 	/**
-	 * 主机的信任列表
+	 * 证书
 	 */
 	static TrustManager[] xtmArray = new TGTmArray[] { new TGTmArray() };  
 
 	/**
-	 * 不做任何验证
+	 * 主机认证
 	 */
 	static HostnameVerifier DO_NOT_VERIFY = new HostnameVerifier() 
 	{
@@ -86,14 +81,10 @@ public abstract class TGHttpMethod
 		}
 	};
 	
-	/**
-	 * 运行环境
-	 */
 	private Context context;
 	
 	/**
 	 * @date 2013-12-1
-	 * 构造函数
 	 * @param context
 	 * @param url
 	 */
@@ -105,8 +96,18 @@ public abstract class TGHttpMethod
 	}
 	
 	/**
-	 * 该方法的作用:
-	 * 设置请求Url
+	 * @date 2013-12-1 
+	 * @param context
+	 * @param url
+	 * @param params
+	 */
+	public TGHttpMethod(Context context, String url, Object params)
+	{
+		this(context, url);
+		this.params = params;
+	}
+	
+	/**
 	 * @date 2013-12-1
 	 * @param url
 	 */
@@ -116,8 +117,6 @@ public abstract class TGHttpMethod
 	}
 	
 	/**
-	 * 该方法的作用:
-	 * 获取请求Url
 	 * @date 2013-12-1
 	 * @return
 	 */
@@ -127,8 +126,6 @@ public abstract class TGHttpMethod
 	}
 	
 	/**
-	 * 该方法的作用:
-	 * 获取网络连接
 	 * @date 2013-12-1
 	 * @return
 	 */
@@ -137,24 +134,12 @@ public abstract class TGHttpMethod
 		return httpConnection;
 	}
 	
-	protected void setHttpConnection(HttpURLConnection httpConnection)
-	{
-		this.httpConnection = httpConnection;
-	}
-
-	/**
-	 * 该方法的作用:
-	 * 获取Context
-	 * @date 2013-12-1
-	 * @return
-	 */
 	protected Context getContext() 
 	{
 		return context;
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 设置请求参数
 	 * @date 2013-12-1
 	 * @param params
@@ -165,8 +150,7 @@ public abstract class TGHttpMethod
 	}
 	
 	/**
-	 * 该方法的作用:
-	 * 设置请求参数
+	 * 获取请求参数
 	 * @date 2013-12-1
 	 * @return
 	 */
@@ -176,9 +160,7 @@ public abstract class TGHttpMethod
 	}
 	
 	/**
-	 * 
-	 * 该方法的作用:设置Connection请求的属性
-	 * @date 2014年4月23日
+	 * 设置消息头里的属性参数
 	 * @param key
 	 * @param value
 	 */
@@ -188,9 +170,7 @@ public abstract class TGHttpMethod
 	}
 	
 	/**
-	 * 
-	 * 该方法的作用: 批量设置请求参数
-	 * @date 2014年5月23日
+	 * 设置消息头里的属性参数
 	 * @param properties
 	 */
 	public void setProperties(Map<String, String> properties)
@@ -199,15 +179,19 @@ public abstract class TGHttpMethod
 	}
 	
 	/**
-	 * 该方法的作用:
-	 * 中断连接
+	 * 断开连接
 	 * @date 2013-12-1
 	 */
-	public abstract void disconnect();
+	public void disconnect()
+	{
+		if (null != httpConnection)
+		{
+			httpConnection.disconnect();
+		}
+	}
 	
 	/**
-	 * 该方法的作用:
-	 * 获取输入流
+	 * 获取请求结果输入流
 	 * @date 2013-12-1
 	 * @return
 	 * @throws IOException
@@ -223,46 +207,123 @@ public abstract class TGHttpMethod
 	}
 	
 	/**
-	 * 该方法的作用:
-	 * 执行网络连接
+	 * 执行http请求
 	 * @date 2013-12-1
 	 * @return
 	 * @throws IOException
 	 * @throws NoSuchAlgorithmException 
 	 * @throws KeyManagementException 
 	 */
-	public int excute() throws IOException, KeyManagementException, NoSuchAlgorithmException
+	public final int excute() throws IOException, KeyManagementException, NoSuchAlgorithmException
 	{
-		httpConnection = initHttpURLConnection(url);
+		//1、向url中加入参数
+		url = appendParams2Url(url, params);
+		
+		//2、打开HttpUrlConnection
+		httpConnection = openHttpUrlConnection(url);
+		
+		if(null != httpConnection)
+		{
+			//3、设置HttpURLConnection控制参数
+			setHttpURLConnectionParams(httpConnection);
+			
+			//4、设置属性参数
+			setProperties();
+			
+			//5、向HttpUrlConnection的输出流中加入参数
+			appendParams2OutputStream(params);
+			
+			//6、执行连接，返回ResponseCode
+			return startConnect();
+		}
+		else
+		{
+			LogTools.e(LOG_TAG, "[Method:excute] There may be something error when openHttpUrlConnection");
+		}
+		
 		return 0;
 	}
 	
 	/**
-	 * 该方法的作用:
-	 * 初始化网络连接类,共两个步骤
-	 * 1、打开网络连接，openHttpUrlConnection(String url)
-	 * 2、设置网络连接参数，setHttpURLConnectionParams(HttpURLConnection httpConnection)
-	 * @date 2013-12-1
-	 * @param url
+	 * 执行连接，返回ResponseCode
 	 * @return
 	 * @throws IOException
-	 * @throws KeyManagementException
-	 * @throws NoSuchAlgorithmException
-	 * @throws ProtocolException
 	 */
-	protected final HttpURLConnection initHttpURLConnection(String url) throws 
-	    IOException, KeyManagementException, NoSuchAlgorithmException, ProtocolException
+	protected int startConnect() throws IOException
 	{
-		httpConnection = openHttpUrlConnection(url);
-		setHttpURLConnectionParams(httpConnection);
-		setProperties();
+		if (null != httpConnection)
+		{
+			httpConnection.connect();
+			try
+			{
+				return httpConnection.getResponseCode();
+			}
+			catch (EOFException e)
+			{
+				LogTools.i(LOG_TAG, e);
+				return httpConnection.getResponseCode();
+			}
+		}
 		
-		return httpConnection;
+		return 0;
 	}
 	
 	/**
-	 * 
-	 * 该方法的作用: 设置Connection请求的属性
+	 * 向url中加入参数
+	 * @param url
+	 * @param params
+	 * @return
+	 */
+	protected String appendParams2Url(String url, Object params)
+	{
+		return url;
+	}
+	
+	/**
+	 * 向HttpUrlConnection的输出流中加入参数
+	 * @throws BusinessException 
+	 */
+	protected final void appendParams2OutputStream(Object params) 
+			throws IOException
+	{
+		byte[] parameters = convertParams2bytes(params);
+		if (null != parameters && parameters.length > 0)
+		{
+			getHttpURLConnection().setRequestProperty("Content-Length",
+					"" + String.valueOf(parameters.length));
+			OutputStream outputStream = getHttpURLConnection().getOutputStream();
+			if (null != outputStream)
+			{
+				try
+				{
+					outputStream.write(parameters, 0, parameters.length);
+					outputStream.flush();
+				}
+				catch (IOException e)
+				{
+					LogTools.e(LOG_TAG, "", e);
+				}
+				finally
+				{
+					Commons.closeOutputStream(outputStream);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * 将参数转换为byte数组
+	 * @param parameters
+	 * @return
+	 * @throws BusinessException 
+	 */
+	protected byte[] convertParams2bytes(Object parameters) 
+	{
+		return null;
+	}
+	
+	/**
+	 * 设置Connection请求的属性
 	 * @date 2014年4月23日
 	 */
 	private void setProperties()
@@ -282,7 +343,6 @@ public abstract class TGHttpMethod
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 打开网络连接
 	 * @date 2013-12-1
 	 * @param url
@@ -334,7 +394,6 @@ public abstract class TGHttpMethod
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 获取请求UrlConnection
 	 * @date 2014年2月10日
 	 * @param requestUrl
@@ -362,7 +421,6 @@ public abstract class TGHttpMethod
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 设置网络连接参数
 	 * @date 2013-12-1
 	 * @param httpConnection
@@ -377,16 +435,15 @@ public abstract class TGHttpMethod
 			httpConnection.setDoInput(true);
 			
 			// 设置连接超时时间
-			httpConnection.setConnectTimeout(getConnectTimeout());
+			httpConnection.setConnectTimeout(connectTimeout);
 			// 设置读取超时时间
-		    httpConnection.setReadTimeout(getReadTimeout());
+		    httpConnection.setReadTimeout(readTimeout);
 		    //防止socketTimeout
 		    httpConnection.setRequestProperty("http.socket.timeout", "60000");
 		}
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 获取请求头的属性key
 	 * @date 2013-12-1
 	 * @param posn
@@ -402,7 +459,6 @@ public abstract class TGHttpMethod
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 获取请求头的属性
 	 * @date 2013-12-1
 	 * @param pos
@@ -418,7 +474,6 @@ public abstract class TGHttpMethod
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 获取请求头信息
 	 * @date 2013-12-1
 	 * @return
@@ -433,7 +488,6 @@ public abstract class TGHttpMethod
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 信任所有主机-对于任何证书都不做检查
 	 * @throws NoSuchAlgorithmException 
 	 * @throws KeyManagementException 
@@ -450,41 +504,5 @@ public abstract class TGHttpMethod
 		HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 		// HttpsURLConnection.setDefaultHostnameVerifier(DO_NOT_VERIFY);//
 		// 不进行主机名确认
-	}
-
-	/**
-	 * 获取设置的连接超时时间
-	 * @return
-	 */
-	public int getConnectTimeout()
-	{
-		return connectTimeout;
-	}
-
-	/**
-	 * 设置链接超时时间
-	 * @param connectTimeout
-	 */
-	public void setConnectTimeout(int connectTimeout)
-	{
-		this.connectTimeout = connectTimeout;
-	}
-
-	/**
-	 * 获取设置的读取超时时间
-	 * @return
-	 */
-	public int getReadTimeout()
-	{
-		return readTimeout;
-	}
-
-	/**
-	 * 设置读取超时时间
-	 * @param readTimeout
-	 */
-	public void setReadTimeout(int readTimeout)
-	{
-		this.readTimeout = readTimeout;
 	}
 }

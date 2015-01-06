@@ -17,6 +17,7 @@ import com.mn.tiger.request.async.task.TGHttpTask;
 import com.mn.tiger.request.async.task.TGPostTask;
 import com.mn.tiger.request.async.task.TGPutTask;
 import com.mn.tiger.request.error.TGHttpErrorHandler;
+import com.mn.tiger.request.method.TGHttpParams;
 import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.task.TGTaskManager;
@@ -40,6 +41,7 @@ public class TGHttpAsyncTask<T>
 	 * 运行环境
 	 */
 	private Context context;
+	
 	/**
 	 * 请求URL
 	 */
@@ -58,7 +60,17 @@ public class TGHttpAsyncTask<T>
 	/**
 	 * 网络请求参数
 	 */
-	private HashMap<String, String> params = null;
+	private TGHttpParams params = null;
+	
+	/**
+	 * 字符串参数
+	 */
+	private HashMap<String, String> StringParams = null;
+	
+	/**
+	 * 文件参数
+	 */
+	private HashMap<String, String> fileParams = null;
 	
 	/**
 	 * 任务是否已取消
@@ -103,8 +115,11 @@ public class TGHttpAsyncTask<T>
 		this.requestType = requestType;
 		this.loadCallback = callback;
 		
-		params = new HashMap<String, String>();
+		params = new TGHttpParams();
+		StringParams = new HashMap<String, String>();
 		properties = new HashMap<String, String>();
+		
+		params.setStringParams(StringParams);
 	}
 	
 	/**
@@ -145,7 +160,7 @@ public class TGHttpAsyncTask<T>
 	 * @param params
 	 * @return
 	 */
-	protected int doInBackground(HashMap<String, String> params) 
+	protected int doInBackground(TGHttpParams params) 
 	{
 		LogTools.p(LOG_TAG, "[Method: doInBackground]  " + "start request.");
 		
@@ -168,7 +183,7 @@ public class TGHttpAsyncTask<T>
 	 * @param params
 	 * @return
 	 */
-	protected TGTaskParams initHttpParams(HashMap<String, String> params)
+	protected TGTaskParams initHttpParams(TGHttpParams params)
 	{
 		if(requestType > TGHttpLoader.REQUEST_PUT || 
 				requestType < TGHttpLoader.REQUEST_POST)
@@ -179,10 +194,10 @@ public class TGHttpAsyncTask<T>
 		// 设置请求参数
 		Bundle data = new Bundle();
 		data.putString(TGHttpTask.PARAM_URL, requestUrl);
-		data.putSerializable(TGHttpTask.PARAM_PROPERTIES, (HashMap<String, String>)properties);
+		data.putSerializable(TGHttpTask.PARAM_PROPERTIES, properties);
 		if(null != params)
 		{
-			data.putSerializable(TGHttpTask.PARAM_PARAMS, (HashMap<String, String>) params);
+			data.putSerializable(TGHttpTask.PARAM_PARAMS, params);
 		}
 		
 		data.putString(TGHttpTask.PARAM_PARSERCLSNAME, parserClsName);
@@ -406,23 +421,39 @@ public class TGHttpAsyncTask<T>
 	}
 	
 	/**
-	 * 设置请求参数（会清空原有参数）
+	 * 设置字符串参数（会清空原有参数）
 	 * @param params
 	 */
 	public void setRequestParams(Map<String, String> params)
 	{
 		this.params.clear();
-		this.params.putAll(params);
+		this.StringParams.putAll(params);
 	}
 	
 	/**
-	 * 添加请求参数
+	 * 添加字符串参数
 	 * @param key
 	 * @param value
 	 */
 	public void addRequestParam(String key, String value)
 	{
-		this.params.put(key, value);
+		this.StringParams.put(key, value);
+	}
+	
+	/**
+	 * 添加文件参数
+	 * @param key
+	 * @param filePath
+	 */
+	public void addFileParam(String key, String filePath)
+	{
+		if(null == fileParams)
+		{
+			fileParams = new HashMap<String, String>();
+			params.put("file_param", fileParams);
+		}
+		
+		fileParams.put(key, filePath);
 	}
 	
 	/**

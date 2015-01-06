@@ -331,6 +331,16 @@ public class TGHttpLoader<T> implements IRequestParser
 	}
 	
 	/**
+	 * 添加请求参数
+	 * @param key
+	 * @param filePath
+	 */
+	public void addFileParam(String key, String filePath)
+	{
+		this.getAsyncTask().addRequestParam(key, filePath);
+	}
+	
+	/**
 	 * 设置请求参数（会将已添加的参数替换）
 	 * @param params
 	 */
