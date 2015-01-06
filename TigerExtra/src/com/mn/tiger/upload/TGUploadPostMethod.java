@@ -63,7 +63,7 @@ public class TGUploadPostMethod extends TGPostMethod
 	}
 
 	@Override
-	protected void outputRequestParams() throws IOException
+	protected void appendParams2OutputStream(Object params) throws IOException
 	{
 		// 链接失败或上传信息为空，直接返回
 		if (null == getHttpURLConnection() || TextUtils.isEmpty(uploader.getFilePath()))
@@ -72,23 +72,25 @@ public class TGUploadPostMethod extends TGPostMethod
 					TGHttpError.getDefaultErrorMsg(getContext(), TGHttpError.IOEXCEPTION));
 			return;
 		}
-		
+
 		// 获取请求参数
-		String params = null;
-		if(getRequestParams() != null){
-			params = (String) getRequestParams();
+		String strParams = null;
+		if (params != null)
+		{
+			strParams = (String) params;
 		}
-		
+
 		// 上传内容
-		BufferedOutputStream outputStream = new BufferedOutputStream(getHttpURLConnection().getOutputStream());
+		BufferedOutputStream outputStream = new BufferedOutputStream(getHttpURLConnection()
+				.getOutputStream());
 		try
-		{	
+		{
 			// 写入参数信息
-			writeStringPart(outputStream, getPartBoundary(), params);
+			writeStringPart(outputStream, getPartBoundary(), strParams);
 
 			// 写文件
 			File uploadFile = new File(uploader.getFilePath());
-			if(uploadFile != null && uploadFile.exists())
+			if (uploadFile != null && uploadFile.exists())
 			{
 				writeFilePart(outputStream, getPartBoundary(), uploadFile,
 						uploader.getStartPosition(), uploader.getEndPosition());
@@ -118,10 +120,9 @@ public class TGUploadPostMethod extends TGPostMethod
 			}
 		}
 	}
-
+	
 	/**
 	 * 该方法的作用:输出文件数据
-	 * 
 	 * @date 2014年3月28日
 	 * @param outputStream
 	 * @param boundary
