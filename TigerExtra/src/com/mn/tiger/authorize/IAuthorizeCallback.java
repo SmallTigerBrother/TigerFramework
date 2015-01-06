@@ -7,9 +7,9 @@ public interface IAuthorizeCallback
 {
 	/**
 	 * 认证成功
-	 * @param loginResult
+	 * @param authorizeResult
 	 */
-	void onSuccess(TGAuthorizeResult loginResult);
+	void onSuccess(TGAuthorizeResult authorizeResult);
 	
 	/**
 	 * 认证出错

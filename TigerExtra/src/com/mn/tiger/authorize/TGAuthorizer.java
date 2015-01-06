@@ -37,7 +37,7 @@ public abstract class TGAuthorizer
 	/**
 	 * 认证注销
 	 */
-	public abstract void logout();
+	public abstract void logout(ILogoutCallback callback);
 	
 	/**
 	 * 获取启动认证的Activity

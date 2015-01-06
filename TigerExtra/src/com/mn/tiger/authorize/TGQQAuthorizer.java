@@ -82,9 +82,10 @@ public class TGQQAuthorizer extends TGAuthorizer
 	}
 	
 	@Override
-	public void logout()
+	public void logout(ILogoutCallback logoutCallback)
 	{
 		tencent.logout(getActivity());
+		logoutCallback.onSuccess();
 	}
 	
 	@Override

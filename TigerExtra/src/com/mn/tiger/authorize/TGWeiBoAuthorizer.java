@@ -10,6 +10,7 @@ import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.AsyncWeiboRunner;
+import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.net.WeiboParameters;
 import com.sina.weibo.sdk.utils.LogUtil;
 
@@ -77,7 +78,7 @@ public class TGWeiBoAuthorizer extends TGAuthorizer
 	}
 	
 	@Override
-	public void logout()
+	public void logout(final ILogoutCallback logoutCallback)
 	{
 		if (null == accessToken)
 		{
@@ -88,7 +89,20 @@ public class TGWeiBoAuthorizer extends TGAuthorizer
 		WeiboParameters parameters = new WeiboParameters(getAppID());
 		parameters.put(KEY_ACCESS_TOKEN, accessToken.getToken());
 		new AsyncWeiboRunner(getActivity()).requestAsync(REVOKE_OAUTH_URL, parameters, 
-				"post", null);
+				"post", new RequestListener()
+				{
+					@Override
+					public void onWeiboException(WeiboException exception)
+					{
+						logoutCallback.onError(-1, exception.getMessage(), "");
+					}
+					
+					@Override
+					public void onComplete(String arg0)
+					{
+						logoutCallback.onSuccess();
+					}
+				});
 	}
 	
 	@Override
