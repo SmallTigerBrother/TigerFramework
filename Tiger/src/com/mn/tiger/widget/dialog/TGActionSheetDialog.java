@@ -58,7 +58,6 @@ public class TGActionSheetDialog extends Dialog implements View.OnClickListener
 		//添加取消按钮
 		cancelBtn = createCancelButton();
 		cancelBtn.setId(CANCEL_BUTTN_ID);
-		cancelBtn.setOnClickListener(this);
 		LinearLayout mainLayout = (LinearLayout) this.findViewById(R.id.sheet_main);
 		mainLayout.addView(cancelBtn);
 	}
@@ -67,6 +66,10 @@ public class TGActionSheetDialog extends Dialog implements View.OnClickListener
 	public void setContentView(int layoutResID)
 	{
 		panelLayout.removeAllViews();
+		LinearLayout.LayoutParams layoutParams = 
+				(LinearLayout.LayoutParams) panelLayout.getLayoutParams();
+		layoutParams.topMargin = 0;
+		
 		panelLayout.addView(LayoutInflater.from(getContext()).inflate(layoutResID, null));
 	}
 	
@@ -74,6 +77,10 @@ public class TGActionSheetDialog extends Dialog implements View.OnClickListener
 	public void setContentView(View view) 
 	{
 		panelLayout.removeAllViews();
+		LinearLayout.LayoutParams layoutParams = 
+				(LinearLayout.LayoutParams) panelLayout.getLayoutParams();
+		layoutParams.topMargin = 0;
+		
 		panelLayout.addView(view);
 	};
 	
@@ -81,6 +88,10 @@ public class TGActionSheetDialog extends Dialog implements View.OnClickListener
 	public void setContentView(View view, LayoutParams params)
 	{
 		panelLayout.removeAllViews();
+		LinearLayout.LayoutParams layoutParams = 
+				(LinearLayout.LayoutParams) panelLayout.getLayoutParams();
+		layoutParams.topMargin = 0;
+		
 		panelLayout.addView(view, params);
 	}
 	
@@ -139,10 +150,20 @@ public class TGActionSheetDialog extends Dialog implements View.OnClickListener
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 		layoutParams.topMargin = DisplayUtils.dip2px(getContext(), 8);
-		layoutParams.bottomMargin = DisplayUtils.dip2px(getContext(), 16);
+		layoutParams.bottomMargin = DisplayUtils.dip2px(getContext(), 8);
 		layoutParams.leftMargin = DisplayUtils.dip2px(getContext(), 16);
 		layoutParams.rightMargin = DisplayUtils.dip2px(getContext(), 16);
 		button.setLayoutParams(layoutParams);
+		
+		button.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				TGActionSheetDialog.this.dismiss();
+			}
+		});
+		
 		return button;
 	}
 	
@@ -180,6 +201,15 @@ public class TGActionSheetDialog extends Dialog implements View.OnClickListener
 	public void setCancelButtonVisibility(int visibility)
 	{
 		cancelBtn.setVisibility(visibility);
+	}
+	
+	/**
+	 * 获取取消按钮
+	 * @return
+	 */
+	public View getCancelButton()
+	{
+		return cancelBtn;
 	}
 	
 	@Override
