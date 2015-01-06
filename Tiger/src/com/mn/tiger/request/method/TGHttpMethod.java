@@ -283,7 +283,7 @@ public abstract class TGHttpMethod
 	 * 向HttpUrlConnection的输出流中加入参数
 	 * @throws BusinessException 
 	 */
-	protected final void appendParams2OutputStream(Object params) 
+	protected void appendParams2OutputStream(Object params) 
 			throws IOException
 	{
 		byte[] parameters = convertParams2bytes(params);
