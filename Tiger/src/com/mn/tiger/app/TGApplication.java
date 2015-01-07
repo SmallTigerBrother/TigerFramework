@@ -30,7 +30,7 @@ import com.squareup.otto.Bus;
  */
 public class TGApplication extends Application
 {
-	private final Logger LOG = Logger.getLogger(this.getClass());
+	protected final Logger LOG = Logger.getLogger(this.getClass());
 	
 	/** 启动Activity列表 */
 	private List<Activity> activities = new LinkedList<Activity>();
