@@ -32,16 +32,9 @@ public class TGHorizontalProgressDialog extends TGDialog implements IProgressDia
 		setupDialog();
 	}
 	
-	public TGHorizontalProgressDialog(Context context, int theme)
+	public TGHorizontalProgressDialog(Context context, TGDialogParams params)
 	{
-		super(context, theme);
-		setupDialog();
-	}
-
-	public TGHorizontalProgressDialog(Context context, boolean cancelable, 
-			OnCancelListener cancelListener)
-	{
-		super(context, cancelable, cancelListener);
+		super(context, params);
 		setupDialog();
 	}
 
