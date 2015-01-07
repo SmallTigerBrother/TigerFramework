@@ -188,7 +188,6 @@ public class TGDialog extends Dialog implements IDialog
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 初始化标题栏
 	 * @date 2014年2月10日
 	 */
@@ -218,7 +217,6 @@ public class TGDialog extends Dialog implements IDialog
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 初始化Body区域
 	 * @date 2014年2月10日
 	 */
@@ -249,7 +247,6 @@ public class TGDialog extends Dialog implements IDialog
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 初始化底部操作栏
 	 * @date 2014年2月10日
 	 */
@@ -307,7 +304,6 @@ public class TGDialog extends Dialog implements IDialog
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 初始化左按钮
 	 * @date 2014年1月6日
 	 * @return
@@ -336,7 +332,6 @@ public class TGDialog extends Dialog implements IDialog
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 设置左按钮位置
 	 * @date 2014年2月10日
 	 */
@@ -409,7 +404,6 @@ public class TGDialog extends Dialog implements IDialog
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 初始化中间按钮
 	 * @date 2014年1月6日
 	 * @return
@@ -438,7 +432,6 @@ public class TGDialog extends Dialog implements IDialog
 	
 	
 	/**
-	 * 该方法的作用:
 	 * 设置中按钮位置
 	 * @date 2014年2月10日
 	 */
@@ -522,7 +515,6 @@ public class TGDialog extends Dialog implements IDialog
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 初始化右按钮
 	 * @date 2014年1月6日
 	 * @return
@@ -551,7 +543,6 @@ public class TGDialog extends Dialog implements IDialog
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 设置右按钮位置
 	 * @date 2014年2月10日
 	 */
@@ -586,7 +577,6 @@ public class TGDialog extends Dialog implements IDialog
 	}
 	
 	/**
-	 * 该方法的作用:
 	 *  获取底部按钮
 	 * @date 2014年2月10日
 	 * @param witch 按钮标识
@@ -613,30 +603,32 @@ public class TGDialog extends Dialog implements IDialog
 	 * @date 2014年3月28日
 	 * @return
 	 */
-	public Button getLeftButton(){
+	public Button getLeftButton()
+	{
 		return getBottomButton(IDialog.BUTTON_LEFT);
 	}
 	
 	/**
-	 * 该方法的作用:获取右边按钮
+	 * 获取右边按钮
 	 * @date 2014年3月28日
 	 * @return
 	 */
-	public Button getRightButton(){
+	public Button getRightButton()
+	{
 		return getBottomButton(IDialog.BUTTON_RIGHT);
 	}
 
 	/**
-	 * 该方法的作用:获取中间按钮
+	 * 获取中间按钮
 	 * @date 2014年3月28日
 	 * @return
 	 */
-	public Button getMiddleButton(){
+	public Button getMiddleButton()
+	{
 		return getBottomButton(IDialog.BUTTON_MIDDLE);
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 获取标题栏Layout
 	 * @date 2014年2月10日
 	 * @return
@@ -647,7 +639,7 @@ public class TGDialog extends Dialog implements IDialog
 	}
 	
 	/**
-	 * 该方法的作用:获取对话框头部Layout填充的view
+	 * 获取对话框头部Layout填充的view
 	 * @date 2013-1-30
 	 * @return 对话框头部视图
 	 */
@@ -702,7 +694,6 @@ public class TGDialog extends Dialog implements IDialog
 		}
 		
 		titleTextView.setText(title);
-		titleTextView.setVisibility(View.VISIBLE);
 	}
 	
 	/**
@@ -717,7 +708,20 @@ public class TGDialog extends Dialog implements IDialog
 		}
 		
 		titleTextView.setTextColor(color);
-		titleTextView.setVisibility(View.VISIBLE);
+	}
+	
+	/**
+	 * 设置标题文本大小
+	 * @param size sp
+	 */
+	public void setTitleTextSize(float size)
+	{
+		if(isTitleCustom)
+		{
+			return;
+		}
+		
+		titleTextView.setTextSize(size);
 	}
 	
 	/**
@@ -784,7 +788,6 @@ public class TGDialog extends Dialog implements IDialog
 		}
 		
 		bodyTextView.setText(text);
-		bodyTextView.setVisibility(View.VISIBLE);
 	}
 	
 	/**
@@ -799,7 +802,20 @@ public class TGDialog extends Dialog implements IDialog
 		}
 		
 		bodyTextView.setTextColor(color);
-		bodyTextView.setVisibility(View.VISIBLE);
+	}
+	
+	/**
+	 * 设置中间显示区域文本颜色
+	 * @param size
+	 */
+	public void setBodyTextSize(float size)
+	{
+		if(isBodyCustom)
+		{
+			return;
+		}
+		
+		bodyTextView.setTextSize(size);
 	}
 
 	/**
@@ -860,7 +876,6 @@ public class TGDialog extends Dialog implements IDialog
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 获取根视图
 	 * @date 2014年1月6日
 	 * @return
@@ -871,36 +886,22 @@ public class TGDialog extends Dialog implements IDialog
 	}
 	
 	/**
-	 * 该方法的作用:
 	 * 获取对话框参数
 	 * @date 2014年1月6日
 	 * @return
 	 */
-	public TGDialogParams getDialogParams()
+	protected TGDialogParams getDialogParams()
 	{
 		return dialogParams;
 	}
 	
 	/**
-	 * 该方法的作用:
-	 * 设置对话框参数
-	 * @date 2014年1月6日
-	 * @param dialogParams
-	 */
-	public void setDialogParams(TGDialogParams dialogParams)
-	{
-		this.dialogParams = dialogParams;
-	}
-	
-	
-	/**
-	 * 该类作用及功能说明
 	 * 对话框参数类
 	 * @version V2.0
 	 * @see JDK1.6,android-8
 	 * @date 2014年2月10日
 	 */
-	public class TGDialogParams 
+	public static class TGDialogParams 
 	{
 		/**
 		 * 日志标签
@@ -920,7 +921,6 @@ public class TGDialog extends Dialog implements IDialog
 		}
 		
 		/**
-		 * 该方法的作用:
 		 * 获取对话框背景资源
 		 * @date 2014年2月10日
 		 * @return
@@ -991,7 +991,7 @@ public class TGDialog extends Dialog implements IDialog
 		 */
 		public int getLeftButtonTextColor()
 		{
-			return 0x1e1e1e;
+			return 0xff1e1e1e;
 		}
 		
 		/**
@@ -1000,7 +1000,7 @@ public class TGDialog extends Dialog implements IDialog
 		 */
 		public int getMiddleButtonTextColor()
 		{
-			return 0x1e1e1e;
+			return 0xff1e1e1e;
 		}
 		
 		/**
@@ -1009,7 +1009,7 @@ public class TGDialog extends Dialog implements IDialog
 		 */
 		public int getRightButtonTextColor()
 		{
-			return 0x1e1e1e;
+			return 0xff1e1e1e;
 		}
 		
 		/**
@@ -1090,7 +1090,7 @@ public class TGDialog extends Dialog implements IDialog
 		 */
 		public int getTitleTextColor()
 		{
-			return 0x1e1e1e;
+			return 0xff1e1e1e;
 		}
 
 		/**
@@ -1108,7 +1108,7 @@ public class TGDialog extends Dialog implements IDialog
 		 */
 		public int getBodyTextColor()
 		{
-			return 0x414141;
+			return 0xff414141;
 		}
 		
 		protected Context getContext()
