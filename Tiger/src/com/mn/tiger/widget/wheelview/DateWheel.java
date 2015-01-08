@@ -368,16 +368,28 @@ public class DateWheel extends FrameLayout
 		return mDay;
 	}
 	
+	/**
+	 * 设置年滚动视图字体大小
+	 * @param textSize
+	 */
 	public void setYearTextSize(int textSize)
 	{
 		((NumericWheelAdapter)mYearWheel.getViewAdapter()).setTextSize(textSize);
 	}
 	
+	/**
+	 * 设置月滚动视图字体大小
+	 * @param textSize
+	 */
 	public void setMonthTextSize(int textSize)
 	{
 		((NumericWheelAdapter)mMonthWheel.getViewAdapter()).setTextSize(textSize);
 	}
 	
+	/**
+	 * 设置天滚动视图字体大小
+	 * @param textSize
+	 */
 	public void setDayTextSize(int textSize)
 	{
 		((NumericWheelAdapter)mDayWheel.getViewAdapter()).setTextSize(textSize);
