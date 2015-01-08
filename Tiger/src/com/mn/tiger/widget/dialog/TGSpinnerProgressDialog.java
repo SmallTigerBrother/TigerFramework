@@ -18,19 +18,13 @@ public class TGSpinnerProgressDialog extends TGDialog implements IProgressDialog
 {
 	public TGSpinnerProgressDialog(Context context)
 	{
-		super(context, CR.getStyleId(context, "tiger_progressDialog"));
-		setupDialog();
-	}
-	
-	public TGSpinnerProgressDialog(Context context, int theme)
-	{
-		super(context, theme);
+		super(context);
 		setupDialog();
 	}
 
-	public TGSpinnerProgressDialog(Context context, boolean cancelable, OnCancelListener cancelListener)
+	public TGSpinnerProgressDialog(Context context, TGDialogParams params)
 	{
-		super(context, cancelable, cancelListener);
+		super(context, params);
 		setupDialog();
 	}
 

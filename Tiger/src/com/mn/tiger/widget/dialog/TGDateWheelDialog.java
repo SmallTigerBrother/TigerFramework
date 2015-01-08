@@ -92,7 +92,7 @@ public class TGDateWheelDialog extends TGDialog
 	public TGDateWheelDialog(Context context, OnDateSetListener callBack, int year,
 			int monthOfYear, int dayOfMonth)
 	{
-		this(context, CR.getStyleId(context, "tiger_baseDialog"), callBack, year, monthOfYear,
+		this(context, null, callBack, year, monthOfYear,
 				dayOfMonth);
 	}
 
@@ -110,10 +110,10 @@ public class TGDateWheelDialog extends TGDialog
 	 * @param dayOfMonth
 	 *            The initial day of the dialog.
 	 */
-	public TGDateWheelDialog(Context context, int theme, OnDateSetListener callBack, int year,
+	public TGDateWheelDialog(Context context, TGDialogParams params, OnDateSetListener callBack, int year,
 			int monthOfYear, int dayOfMonth)
 	{
-		super(context, theme);
+		super(context, params);
 		mContext = context;
 		mCallBack = callBack;
 		mInitialYear = year;
@@ -153,13 +153,13 @@ public class TGDateWheelDialog extends TGDialog
 	 */
 	private void addBodyContentView()
 	{
-		mDateWheel = new DateWheel(this.mContext, 20);
+		mDateWheel = new DateWheel(this.mContext);
 		mDateWheel.init(mInitialYear, mInitialMonth, mInitialDay, dateChangeListener);
 		LinearLayout.LayoutParams bodyParams = new LinearLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		bodyParams.gravity = Gravity.CENTER;
-		mDateWheel.setPadding(dip2px(mContext, 12), dip2px(mContext, 13), dip2px(mContext, 12),
-				dip2px(mContext, 13));
+		mDateWheel.setPadding(dip2px(mContext, 12), dip2px(mContext, 12), dip2px(mContext, 12),
+				dip2px(mContext, 12));
 
 		/** 创建一个填充满父布局的子布局，解决设置背景颜色的问题 */
 		bodyRootLayout = new LinearLayout(mContext);

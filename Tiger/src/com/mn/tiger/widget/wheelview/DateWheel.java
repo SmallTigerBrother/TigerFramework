@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.mn.tiger.utility.CR;
 import com.mn.tiger.utility.DisplayUtils;
-import com.mn.tiger.widget.wheelview.adapters.ArrayWheelAdapter;
 import com.mn.tiger.widget.wheelview.adapters.NumericWheelAdapter;
 
 /**
@@ -36,8 +35,6 @@ public class DateWheel extends FrameLayout
 	private int startYear = DEFAULT_START_YEAR;
 	private int endYear = DEFAULT_END_YEAR;
 
-	/** default text size */
-	private int defaultTextSize = 14;
 	/** 日期默认显示行数 */
 	private final int VISIBLE_ITEMS = 3;
 	/** 字体上/下/左/右的间距 */
@@ -48,6 +45,9 @@ public class DateWheel extends FrameLayout
 	private WheelView mYearWheel;
 
 	private Context mContext;
+	
+	private int dayTextSize = 14;
+	
 	/**
 	 * How we notify users the date has changed.
 	 */
@@ -78,13 +78,7 @@ public class DateWheel extends FrameLayout
 
 	public DateWheel(Context context)
 	{
-		this(context, null);
-	}
-
-	public DateWheel(Context context, int textSize)
-	{
 		super(context);
-		defaultTextSize = textSize;
 		this.mContext = context;
 		this.initWheelView();
 	}
@@ -316,7 +310,7 @@ public class DateWheel extends FrameLayout
 		 * The month display uses 1-12 but our internal state stores it 0-11 so
 		 * add one when setting the display.
 		 */
-		mMonthWheel.setCurrentItem(this.mMonth);
+		mMonthWheel.setCurrentItem(this.mMonth - 1);
 		/**
 		 * Warning:第一次显示，必须设置无动画
 		 */
@@ -342,6 +336,7 @@ public class DateWheel extends FrameLayout
 		mDay = Math.min(maxDays, mDay);
 
 		mDayWheel.setViewAdapter(new DateNumericAdapter(this.getContext(), 1, maxDays, mDay));
+		((NumericWheelAdapter)mDayWheel.getViewAdapter()).setTextSize(dayTextSize);
 
 		mDayWheel.setCurrentItem(mDay - 1, isAnimated);
 	}
@@ -386,6 +381,7 @@ public class DateWheel extends FrameLayout
 	public void setDayTextSize(int textSize)
 	{
 		((NumericWheelAdapter)mDayWheel.getViewAdapter()).setTextSize(textSize);
+		this.dayTextSize = textSize;
 	}
 
 	/**
@@ -515,54 +511,8 @@ public class DateWheel extends FrameLayout
 		{
 			super(context, minValue, maxValue);
 			this.currentValue = current;
-			setTextSize(defaultTextSize);
 		}
 
-		protected void configureTextView(TextView view)
-		{
-			super.configureTextView(view);
-			if (currentItem == currentValue)
-			{
-				// view.setTextColor(0xFF0000F0);
-			}
-			view.setTypeface(Typeface.SANS_SERIF);
-			view.setPadding(0, DisplayUtils.dip2px(context, text_padding_value), 0,
-					DisplayUtils.dip2px(context, text_padding_value));
-		}
-
-		@Override
-		public View getItem(int index, View cachedView, ViewGroup parent)
-		{
-			currentItem = index;
-			return super.getItem(index, cachedView, parent);
-		}
-	}
-
-	/**
-	 * 该类作用及功能说明 Adapter for string based wheel. Highlights the current value.
-	 * 
-	 * @version V2.0
-	 * @see JDK1.6,android-8
-	 */
-	@SuppressWarnings("unused")
-	private class DateArrayAdapter extends ArrayWheelAdapter<String>
-	{
-		// Index of current item
-		int currentItem;
-		// Index of item to be highlighted
-		int currentValue;
-
-		/**
-		 * Constructor
-		 */
-		public DateArrayAdapter(Context context, String[] items, int current)
-		{
-			super(context, items);
-			this.currentValue = current;
-			setTextSize(defaultTextSize);
-		}
-
-		@Override
 		protected void configureTextView(TextView view)
 		{
 			super.configureTextView(view);

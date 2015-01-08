@@ -1,5 +1,7 @@
 package com.mn.tiger.widget.dialog;
 
+import com.mn.tiger.widget.dialog.TGDialog.TGDialogParams;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.View;
@@ -33,32 +35,18 @@ public class TGProgressDialog implements IProgressDialog
 			progressDialog = new TGSpinnerProgressDialog(context);
 		}
 	}
-	
-	public TGProgressDialog(Context context, int theme, int style)
-	{
-		if(style == IProgressDialog.PROGRESS_STYLE_HORIZONTAL)
-		{
-			progressDialog = new TGHorizontalProgressDialog(context, theme);
-		}
-		else 
-		{
-			progressDialog = new TGSpinnerProgressDialog(context, theme);
-		}
-	}
 
-	public TGProgressDialog(Context context, boolean cancelable, OnCancelListener cancelListener, int style)
+	public TGProgressDialog(Context context, TGDialogParams params, int style)
 	{
 		if(style == IProgressDialog.PROGRESS_STYLE_HORIZONTAL)
 		{
-			progressDialog = new TGHorizontalProgressDialog(context);
+			progressDialog = new TGHorizontalProgressDialog(context, params);
 		}
 		else 
 		{
-			progressDialog = new TGSpinnerProgressDialog(context);
+			progressDialog = new TGSpinnerProgressDialog(context, params);
 		}
 		
-		progressDialog.setCancelable(cancelable);
-		progressDialog.setOnCancelListener(cancelListener);
 	}
 
 	/**
