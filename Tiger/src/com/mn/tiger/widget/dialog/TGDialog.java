@@ -126,29 +126,6 @@ public class TGDialog extends Dialog implements IDialog
 		setupDialog();
 	}
 	
-	public TGDialog(Context context, int theme)
-	{
-		super(context, theme);
-		dialogParams = new TGDialogParams(getContext());
-		setupDialog();
-	}
-	
-	public TGDialog(Context context, boolean cancelable,
-			IDialog.OnCancelListener cancelListener)
-	{
-		super(context, cancelable, cancelListener);
-		dialogParams = new TGDialogParams(getContext());
-		setupDialog();
-	}
-	
-	public TGDialog(Context context, boolean cancelable,
-			IDialog.OnCancelListener cancelListener, TGDialogParams dialogParams)
-	{
-		super(context, cancelable, cancelListener);
-		this.dialogParams = dialogParams;
-		setupDialog();
-	}
-	
 	/**
 	 * 初始化对话框
 	 */
