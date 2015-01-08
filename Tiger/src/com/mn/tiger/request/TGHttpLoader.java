@@ -322,8 +322,8 @@ public class TGHttpLoader<T> implements IRequestParser
 	
 	/**
 	 * 添加请求参数
-	 * @param key
-	 * @param value
+	 * @param key 参数键
+	 * @param value 参数值
 	 */
 	public void addRequestParam(String key, String value)
 	{
@@ -332,8 +332,8 @@ public class TGHttpLoader<T> implements IRequestParser
 	
 	/**
 	 * 添加请求参数
-	 * @param key
-	 * @param filePath
+	 * @param key 参数键
+	 * @param filePath 文件路径
 	 */
 	public void addFileParam(String key, String filePath)
 	{
