@@ -10,11 +10,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
-import com.mn.tiger.log.LogTools;
-
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.mn.tiger.log.LogTools;
 
 /**
  * 该类作用及功能说明 缓存文件和读取文件工具类
@@ -275,6 +274,20 @@ public class TGCache
 		File dir = context.getDir("cache", Context.MODE_PRIVATE);
 		File file = new File(dir, filePath);
 		return getDiskCache(file.getAbsolutePath());
+	}
+	
+	/**
+	 * 移除缓存
+	 * @param context
+	 * @param key 缓存数据的键
+	 */
+	public static void removeCache(Context context, String key)
+	{
+		File cacheFile = getNormalCacheFile(context, key);
+		if(cacheFile.exists())
+		{
+			cacheFile.delete();
+		}
 	}
 
 	/**
