@@ -26,7 +26,8 @@ public abstract class TGHttpResultHandler extends TGTaskResultHandler
 	{
 		if(null != context)
 		{
-			if(context instanceof Activity || ((Activity)context).isFinishing())
+			if(context instanceof Activity && ((Activity)context).isDestroyed() || 
+					(context instanceof Activity && ((Activity)context).isFinishing()))
 			{
 				return;
 			}
