@@ -328,7 +328,10 @@ public class TGDBManager
 	public void saveOrUpdateAll(List<?> entities) throws DbException
 	{
 		if (entities == null || entities.size() == 0)
+		{
 			return;
+		}
+			
 		try
 		{
 			beginTransaction();
@@ -387,7 +390,10 @@ public class TGDBManager
 	private void replaceAll(List<?> entities) throws DbException
 	{
 		if (entities == null || entities.size() == 0)
+		{
 			return;
+		}
+		
 		try
 		{
 			beginTransaction();
@@ -444,7 +450,10 @@ public class TGDBManager
 	public void saveAll(List<?> entities) throws DbException
 	{
 		if (entities == null || entities.size() == 0)
+		{
 			return;
+		}
+			
 		try
 		{
 			beginTransaction();
@@ -504,7 +513,10 @@ public class TGDBManager
 	public void saveBindingIdAll(List<?> entities) throws DbException
 	{
 		if (entities == null || entities.size() == 0)
+		{
 			return;
+		}
+		
 		try
 		{
 			beginTransaction();
@@ -539,7 +551,10 @@ public class TGDBManager
 	public void deleteById(Class<?> entityType, Object idValue) throws DbException
 	{
 		if (!tableIsExist(entityType))
+		{
 			return;
+		}
+		
 		try
 		{
 			beginTransaction();
@@ -566,7 +581,10 @@ public class TGDBManager
 	public void delete(Object entity) throws DbException
 	{
 		if (!tableIsExist(entity.getClass()))
+		{
 			return;
+		}
+		
 		try
 		{
 			beginTransaction();
@@ -594,7 +612,10 @@ public class TGDBManager
 	public void delete(Class<?> entityType, WhereBuilder whereBuilder) throws DbException
 	{
 		if (!tableIsExist(entityType))
+		{
 			return;
+		}
+		
 		try
 		{
 			beginTransaction();
@@ -620,8 +641,12 @@ public class TGDBManager
 	 */
 	public void deleteAll(List<?> entities) throws DbException
 	{
-		if (entities == null || entities.size() == 0 || !tableIsExist(entities.get(0).getClass()))
+		if (entities == null || entities.size() == 0 || 
+				!tableIsExist(entities.get(0).getClass()))
+		{
 			return;
+		}
+		
 		try
 		{
 			beginTransaction();
@@ -664,7 +689,10 @@ public class TGDBManager
 	public void update(Object entity, String... updateColumnNames) throws DbException
 	{
 		if (!tableIsExist(entity.getClass()))
+		{
 			return;
+		}
+		
 		try
 		{
 			beginTransaction();
@@ -693,7 +721,10 @@ public class TGDBManager
 	public void update(Object entity, WhereBuilder whereBuilder, String... updateColumnNames) throws DbException
 	{
 		if (!tableIsExist(entity.getClass()))
+		{
 			return;
+		}
+		
 		try
 		{
 			beginTransaction();
@@ -721,7 +752,10 @@ public class TGDBManager
 	public void updateAll(List<?> entities, String... updateColumnNames) throws DbException
 	{
 		if (entities == null || entities.size() == 0 || !tableIsExist(entities.get(0).getClass()))
+		{
 			return;
+		}
+		
 		try
 		{
 			beginTransaction();
@@ -743,7 +777,6 @@ public class TGDBManager
 
 	/**
 	 * 根据条件修改集合中选择列的数据
-	 * 
 	 * @param entity
 	 * @param whereBuilder
 	 * @param updateColumnNames
@@ -753,7 +786,10 @@ public class TGDBManager
 	public void updateAll(List<?> entities, WhereBuilder whereBuilder, String... updateColumnNames) throws DbException
 	{
 		if (entities == null || entities.size() == 0 || !tableIsExist(entities.get(0).getClass()))
+		{
 			return;
+		}
+		
 		try
 		{
 			beginTransaction();
@@ -786,7 +822,9 @@ public class TGDBManager
 	public <T> T findById(Class<T> entityType, Object idValue) throws DbException
 	{
 		if (!tableIsExist(entityType))
+		{
 			return null;
+		}
 
 		Id id = TableUtils.getId(entityType);
 		Selector selector = Selector.from(entityType).where(id.getColumnName(), "=", idValue);
@@ -829,7 +867,9 @@ public class TGDBManager
 	public <T> T findFirst(Selector selector) throws DbException
 	{
 		if (!tableIsExist(selector.getEntityType()))
+		{
 			return null;
+		}
 
 		String sql = selector.limit(1).toString();
 		long seq = CursorUtils.FindCacheSequence.getSeq();
@@ -898,7 +938,9 @@ public class TGDBManager
 	public <T> T findFirst(Object entity) throws DbException
 	{
 		if (!tableIsExist(entity.getClass()))
+		{
 			return null;
+		}
 
 		Selector selector = Selector.from(entity.getClass());
 		List<KeyValue> entityKvList = SqlInfoBuilder.entity2KeyValueList(this, entity);
@@ -930,7 +972,9 @@ public class TGDBManager
 	public <T> List<T> findAll(Selector selector) throws DbException
 	{
 		if (!tableIsExist(selector.getEntityType()))
-			return null;
+		{
+			return new ArrayList<T>();
+		}
 
 		String sql = selector.toString();
 		long seq = CursorUtils.FindCacheSequence.getSeq();
@@ -996,7 +1040,9 @@ public class TGDBManager
 	public <T> List<T> findAll(Object entity) throws DbException
 	{
 		if (!tableIsExist(entity.getClass()))
-			return null;
+		{
+			return new ArrayList<T>();
+		}
 
 		Selector selector = Selector.from(entity.getClass());
 		List<KeyValue> entityKvList = SqlInfoBuilder.entity2KeyValueList(this, entity);
@@ -1054,7 +1100,9 @@ public class TGDBManager
 	public DbModel findDbModelFirst(TGModelSelector selector) throws DbException
 	{
 		if (!tableIsExist(selector.getEntityType()))
+		{
 			return null;
+		}
 
 		Cursor cursor = execQuery(selector.limit(1).toString());
 		try
@@ -1110,7 +1158,9 @@ public class TGDBManager
 	public List<DbModel> findDbModelAll(TGModelSelector selector) throws DbException
 	{
 		if (!tableIsExist(selector.getEntityType()))
-			return null;
+		{
+			return new ArrayList<DbModel>();
+		}
 
 		Cursor cursor = execQuery(selector.toString());
 		List<DbModel> dbModelList = new ArrayList<DbModel>();
@@ -1139,10 +1189,12 @@ public class TGDBManager
 	{
 		Class<?> entityType = selector.getEntityType();
 		if (!tableIsExist(entityType))
+		{
 			return 0;
+		}
 
-		TGModelSelector dmSelector = selector.select("count(" + TableUtils.getId(entityType).getColumnName()
-				+ ") as count");
+		TGModelSelector dmSelector = selector.select("count(" + 
+		    TableUtils.getId(entityType).getColumnName() + ") as count");
 		return findDbModelFirst(dmSelector).getLong("count");
 	}
 
@@ -1186,7 +1238,9 @@ public class TGDBManager
 	public long count(Object entity) throws DbException
 	{
 		if (!tableIsExist(entity.getClass()))
+		{
 			return 0;
+		}
 
 		Selector selector = Selector.from(entity.getClass());
 		List<KeyValue> entityKvList = SqlInfoBuilder.entity2KeyValueList(this, entity);
@@ -1470,7 +1524,10 @@ public class TGDBManager
 	public void dropTable(Class<?> entityType) throws DbException
 	{
 		if (!tableIsExist(entityType))
+		{
 			return;
+		}
+			
 		String tableName = TableUtils.getTableName(entityType);
 		execNonQuery("DROP TABLE " + tableName);
 		Table.remove(this, entityType);
