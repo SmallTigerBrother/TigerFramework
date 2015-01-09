@@ -72,13 +72,17 @@ public class ColumnUtils
 				LogTools.d(methodName + " not exist");
 			}
 			
+			getMethod.setAccessible(true);
 			return getMethod;
 		}
 		
 		if (field.getType() == boolean.class)
 		{
 			getMethod = getBooleanColumnGetMethod(entityType, fieldName);
+			getMethod.setAccessible(true);
+			return getMethod;
 		}
+		
 		if (getMethod == null)
 		{
 			String methodName = "get" + fieldName.substring(0, 1).toUpperCase()
@@ -86,6 +90,7 @@ public class ColumnUtils
 			try
 			{
 				getMethod = entityType.getDeclaredMethod(methodName);
+				getMethod.setAccessible(true);
 			}
 			catch (NoSuchMethodException e)
 			{
@@ -97,6 +102,7 @@ public class ColumnUtils
 		{
 			return getColumnGetMethod(entityType.getSuperclass(), field);
 		}
+		
 		return getMethod;
 	}
 
@@ -112,6 +118,7 @@ public class ColumnUtils
 			try
 			{
 				setMethod = entityType.getDeclaredMethod(methodName);
+				setMethod.setAccessible(true);
 			}
 			catch (NoSuchMethodException e)
 			{
@@ -124,7 +131,9 @@ public class ColumnUtils
 		if (field.getType() == boolean.class)
 		{
 			setMethod = getBooleanColumnSetMethod(entityType, field);
+			setMethod.setAccessible(true);
 		}
+		
 		if (setMethod == null)
 		{
 			String methodName = "set" + fieldName.substring(0, 1).toUpperCase()
@@ -132,6 +141,7 @@ public class ColumnUtils
 			try
 			{
 				setMethod = entityType.getDeclaredMethod(methodName, field.getType());
+				setMethod.setAccessible(true);
 			}
 			catch (NoSuchMethodException e)
 			{
