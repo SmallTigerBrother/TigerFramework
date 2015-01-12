@@ -128,7 +128,7 @@ public class DisplayUtils
 	 * @param srcImageHeight 图片高度
 	 * @param maxWidth View可现实区域的最大宽度
 	 */
-	public static void adjustImageViewSize(View view, int srcImageWidth,
+	public static void adjustViewSizeByWidth(View view, int srcImageWidth,
 			int srcImageHeight, int maxWidth)
 	{
 		if (srcImageWidth == 0 || srcImageHeight == 0)
@@ -159,6 +159,50 @@ public class DisplayUtils
 			{
 				lp.height = adjustHeight;
 				lp.width = currentFitWidth;
+				view.setLayoutParams(lp);
+			}
+		}
+	}
+	
+	/**
+	 * 设置视图自适应图片大小
+	 * @param view 需要自适应的View
+	 * @param srcImageWidth 图片宽度
+	 * @param srcImageHeight 图片高度
+	 * @param maxHeight View可现实区域的最大高度
+	 */
+	public static void adjustViewSizeByHeight(View view, int srcImageWidth,
+			int srcImageHeight, int maxHeight)
+	{
+		if (srcImageWidth == 0 || srcImageHeight == 0)
+		{
+			return;
+		}
+		
+		float ratio = (float) srcImageWidth / (float) srcImageHeight;
+		ViewGroup.LayoutParams lp = view.getLayoutParams();
+		int currentFitHeight = 0;
+		int adjustWidth = 0;
+		
+		if(view.getLayoutParams() instanceof MarginLayoutParams)
+		{
+			MarginLayoutParams marginParams = (MarginLayoutParams) view.getLayoutParams();
+			
+			currentFitHeight = maxHeight - marginParams.topMargin - marginParams.bottomMargin;
+		}
+		else
+		{
+			currentFitHeight = maxHeight;
+		}
+		
+		adjustWidth = (int) (currentFitHeight * ratio);
+
+		if(adjustWidth != view.getWidth() || currentFitHeight != view.getHeight())
+		{
+			if (lp != null)
+			{
+				lp.height = currentFitHeight;
+				lp.width = adjustWidth;
 				view.setLayoutParams(lp);
 			}
 		}
