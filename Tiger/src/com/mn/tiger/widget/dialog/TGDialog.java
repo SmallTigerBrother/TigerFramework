@@ -149,8 +149,6 @@ public class TGDialog extends Dialog implements IDialog
 			rootView.setBackgroundDrawable(backgroundRes);
 		}
 		
-		rootView.setPadding(DisplayUtils.dip2px(getContext(), 8), DisplayUtils.dip2px(getContext(), 8), 
-				DisplayUtils.dip2px(getContext(), 8), DisplayUtils.dip2px(getContext(), 8));
 		setContentView(rootView, params);
 		
 		//初始化Title
@@ -187,7 +185,7 @@ public class TGDialog extends Dialog implements IDialog
 		titleTextView.setGravity(Gravity.CENTER);
 		textParams.leftMargin = DisplayUtils.dip2px(getContext(), 16);
 		textParams.rightMargin = DisplayUtils.dip2px(getContext(), 16);
-		textParams.topMargin = DisplayUtils.dip2px(getContext(), 4);
+		textParams.topMargin = DisplayUtils.dip2px(getContext(), 8);
 		
 		titleLayout.addView(titleTextView, textParams);
 		rootView.addView(titleLayout, layoutParams);
@@ -218,6 +216,7 @@ public class TGDialog extends Dialog implements IDialog
 		textParams.leftMargin = DisplayUtils.dip2px(getContext(), 8);
 		textParams.rightMargin = DisplayUtils.dip2px(getContext(), 8);
 		textParams.topMargin = DisplayUtils.dip2px(getContext(), 8);
+		textParams.bottomMargin = DisplayUtils.dip2px(getContext(), 8);
 		
 		bodyLayout.addView(bodyTextView, textParams);
 		rootView.addView(bodyLayout, layoutParams);
@@ -234,10 +233,6 @@ public class TGDialog extends Dialog implements IDialog
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.MATCH_PARENT,
 				LinearLayout.LayoutParams.WRAP_CONTENT);
-		
-		layoutParams.bottomMargin = DisplayUtils.dip2px(getContext(), 8);
-		layoutParams.topMargin = DisplayUtils.dip2px(getContext(), 16);
-		
 		rootView.addView(bottomLayout, layoutParams);
 	}
 	
@@ -305,6 +300,9 @@ public class TGDialog extends Dialog implements IDialog
 		layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
 		leftButton.setLayoutParams(layoutParams);
 		
+		leftButton.setPadding(0, DisplayUtils.dip2px(getContext(), 8), 0,  
+				DisplayUtils.dip2px(getContext(), 8));
+		
 		return leftButton;
 	}
 	
@@ -327,9 +325,8 @@ public class TGDialog extends Dialog implements IDialog
 			leftParams.width = dialogParams.getButtonWidthOfThree();
 			leftParams.leftMargin = (int)((dialogParams.getDialogWidth() - dialogParams.getButtonWidthOfThree() * 3) /6);
 			//更新中间按钮的宽度
-			RelativeLayout.LayoutParams middleParams = (RelativeLayout.LayoutParams)middleButton.getLayoutParams();
-			middleParams.width = dialogParams.getButtonWidthOfThree();
-			middleButton.setLayoutParams(middleParams);
+			
+			onUpdateMiddleButtonWidth(middleButton, dialogParams.getButtonWidthOfThree());
 		}
 		else 
 		{
@@ -404,6 +401,9 @@ public class TGDialog extends Dialog implements IDialog
 		layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
 		middleButton.setLayoutParams(layoutParams);
 		
+		middleButton.setPadding(0, DisplayUtils.dip2px(getContext(), 8), 0,  
+				DisplayUtils.dip2px(getContext(), 8));
+		
 		return middleButton;
 	}
 	
@@ -446,7 +446,8 @@ public class TGDialog extends Dialog implements IDialog
 		else 
 		{
 			//计算中按钮的大小
-			middleParams.width = dialogParams.getButtonWidthOfOne();
+			onUpdateMiddleButtonWidth(middleButton, dialogParams.getButtonWidthOfOne());
+			return;
 		}
 		
 		middleButton.setLayoutParams(middleParams);
@@ -516,6 +517,9 @@ public class TGDialog extends Dialog implements IDialog
 		layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
 		rightButton.setLayoutParams(layoutParams);
 		
+		rightButton.setPadding(0, DisplayUtils.dip2px(getContext(), 8), 0,  
+				DisplayUtils.dip2px(getContext(), 8));
+		
 		return rightButton;
 	}
 	
@@ -539,9 +543,7 @@ public class TGDialog extends Dialog implements IDialog
 			rightParams.rightMargin = (int)((dialogParams.getDialogWidth() - dialogParams.getButtonWidthOfThree() * 3) /6);
 			
 			//更新中间按钮的宽度
-			RelativeLayout.LayoutParams middleParams = (RelativeLayout.LayoutParams)middleButton.getLayoutParams();
-			middleParams.width = dialogParams.getButtonWidthOfThree();
-			middleButton.setLayoutParams(middleParams);
+			onUpdateMiddleButtonWidth(middleButton, dialogParams.getButtonWidthOfThree());
 		}
 		else 
 		{
@@ -551,6 +553,18 @@ public class TGDialog extends Dialog implements IDialog
 		}
 		
 		rightButton.setLayoutParams(rightParams);
+	}
+	
+	/**
+	 * 更新中间按钮宽度
+	 * @param middleButton 中间按钮
+	 * @param width 按钮宽度
+	 */
+	protected void onUpdateMiddleButtonWidth(Button middleButton, int width)
+	{
+		RelativeLayout.LayoutParams middleParams = (RelativeLayout.LayoutParams)middleButton.getLayoutParams();
+		middleParams.width = width;
+		middleButton.setLayoutParams(middleParams);
 	}
 	
 	/**
@@ -870,6 +884,33 @@ public class TGDialog extends Dialog implements IDialog
 	protected TGDialogParams getDialogParams()
 	{
 		return dialogParams;
+	}
+	
+	/**
+	 * 左侧按钮是否显示
+	 * @return
+	 */
+	protected boolean isShowLeftButton()
+	{
+		return showLeftButton;
+	}
+	
+	/**
+	 * 中间按钮是否显示
+	 * @return
+	 */
+	protected boolean isShowMiddleButton()
+	{
+		return showMiddleButton;
+	}
+	
+	/**
+	 * 右侧按钮是否显示
+	 * @return
+	 */
+	protected boolean isShowRightButton()
+	{
+		return showRightButton;
 	}
 	
 	/**
