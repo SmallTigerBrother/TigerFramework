@@ -10,6 +10,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
+import android.os.Bundle;
 
 import com.mn.tiger.log.LogTools;
 
@@ -171,5 +172,40 @@ public class PackageUtils
 		{
 			return true;
 		}
+	}
+	
+	/**
+	 * 获取MetaData
+	 * @param context
+	 * @param key metaData的key
+	 * @return
+	 */
+	public static String getMetaData(Context context, String key)
+	{
+		Bundle metaData = null;
+		String metaDataValue = null;
+		try
+		{
+			ApplicationInfo applicationInfo = context.getPackageManager().getApplicationInfo(
+					context.getPackageName(), PackageManager.GET_META_DATA);
+			if (null != applicationInfo)
+			{
+				metaData = applicationInfo.metaData;
+			}
+			
+			if (null != metaData)
+			{
+				metaDataValue = metaData.getString(key);
+				if ((null == metaDataValue) || metaDataValue.length() != 24)
+				{
+					metaDataValue = "";
+				}
+			}
+		}
+		catch (NameNotFoundException e)
+		{
+			LogTools.e(LOG_TAG, e);
+		}
+		return metaDataValue;
 	}
 }
