@@ -2,6 +2,7 @@ package com.mn.tiger.app;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,8 @@ public abstract class TGFragment extends Fragment
 	 * 导航条
 	 */
 	private TGNavigationBar navigationBar;
+	
+	private FragmentActivity activity;
 	
 	public final View onCreateView(LayoutInflater inflater, ViewGroup container, 
 			Bundle savedInstanceState) 
@@ -220,4 +223,22 @@ public abstract class TGFragment extends Fragment
 		this.navigationBarVisible = navigationBarVisible;
 	}
 	
+	/**
+	 * 设置activity
+	 * @param activity
+	 */
+	public void setActivity(FragmentActivity activity)
+	{
+		this.activity = activity;
+	}
+	
+	protected FragmentActivity getFragmentActivity()
+	{
+		if(null == activity)
+		{
+			return getActivity();
+		}
+		
+		return activity;
+	}
 }
