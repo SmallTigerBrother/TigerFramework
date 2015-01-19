@@ -163,7 +163,8 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 				
 			case PullToRefreshSwipeListView:
 				intent.setClass(this, PullToRefreshSwipeListViewActivity.class);
-
+				break;
+				
 			default:
 				break;
 		}
