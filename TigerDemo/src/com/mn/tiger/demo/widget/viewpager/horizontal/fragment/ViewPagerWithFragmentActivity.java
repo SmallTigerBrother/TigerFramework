@@ -6,13 +6,18 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.mn.tiger.annonation.ViewById;
 import com.mn.tiger.app.TGActionBarActivity;
 import com.mn.tiger.demo.R;
 import com.mn.tiger.utility.ViewInjector;
 import com.mn.tiger.widget.adpter.TGListAdapter;
+import com.mn.tiger.widget.adpter.TGViewHolder;
 import com.mn.tiger.widget.tab.TGTabView;
+import com.mn.tiger.widget.tab.TGTabView.LayoutParams;
 import com.mn.tiger.widget.tab.TGTabView.OnTabChangeListener;
 import com.mn.tiger.widget.viewpager.TGFragmentPagerAdapter;
 
@@ -125,5 +130,75 @@ public class ViewPagerWithFragmentActivity extends TGActionBarActivity implement
 	@Override
 	public void onPageScrolled(int page, float arg1, int arg2)
 	{
+	}
+	
+	public class TabViewHolder extends TGViewHolder<TabModel>
+	{
+		@ViewById(id = R.id.tab_item_image)
+		private ImageView imageView;
+		
+		@ViewById(id = R.id.tab_item_name)
+		private TextView textView;
+		
+		@Override
+		public View initView(View convertView)
+		{
+			View view = super.initView(convertView);
+			LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, 
+					LayoutParams.WRAP_CONTENT, 1);
+			view.setLayoutParams(layoutParams);
+			return view;
+		}
+		
+		@Override
+		public void fillData(TabModel itemData, int position)
+		{
+			imageView.setImageResource(itemData.getImageResId());
+			textView.setText(itemData.getTabName());
+		}
+		
+		public ImageView getImageView()
+		{
+			return imageView;
+		}
+	}
+	
+	public static class TabModel
+	{
+		private int imageResId;
+		
+		private int highlightResId;
+		
+		private String tabName;
+
+		public int getImageResId()
+		{
+			return imageResId;
+		}
+
+		public void setImageResId(int imageResId)
+		{
+			this.imageResId = imageResId;
+		}
+
+		public String getTabName()
+		{
+			return tabName;
+		}
+
+		public void setTabName(String tabName)
+		{
+			this.tabName = tabName;
+		}
+
+		public int getHighlightResId()
+		{
+			return highlightResId;
+		}
+
+		public void setHighlightResId(int highlightResId)
+		{
+			this.highlightResId = highlightResId;
+		}
 	}
 }
