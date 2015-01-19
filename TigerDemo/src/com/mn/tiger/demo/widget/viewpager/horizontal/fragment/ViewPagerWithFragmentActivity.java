@@ -16,6 +16,10 @@ import com.mn.tiger.widget.tab.TGTabView;
 import com.mn.tiger.widget.tab.TGTabView.OnTabChangeListener;
 import com.mn.tiger.widget.viewpager.TGFragmentPagerAdapter;
 
+/**
+ * 实现类似底部带Tab，分页是Fragment的界面
+ * @author Dalang
+ */
 public class ViewPagerWithFragmentActivity extends TGActionBarActivity implements 
     OnTabChangeListener, OnPageChangeListener
 {
@@ -29,6 +33,23 @@ public class ViewPagerWithFragmentActivity extends TGActionBarActivity implement
 	 * 填充到ViewPager中的Fragment数组
 	 */
 	private ArrayList<Fragment> fragments;
+	
+	/**
+	 * tab默认显示的资源
+	 */
+	private int[] tabDefaultIconResId = {R.drawable.tiger_search_submit_icon, 
+			R.drawable.tiger_search_close_press, R.drawable.loading_icon_down};
+	
+	/**
+	 * tab高亮显示的资源
+	 */
+	private int[] tabHighLightIconResId = {R.drawable.loading_icon_round, 
+			R.drawable.tiger_search_submit_icon, R.drawable.ic_launcher};
+	
+	/**
+	 * tab名称
+	 */
+	private String[] tabNames = {"Fragment_1", "Fragment_2", "Fragment_3"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -54,23 +75,15 @@ public class ViewPagerWithFragmentActivity extends TGActionBarActivity implement
 		
 		//初始化TabView
 		ArrayList<TabModel> tabModels = new ArrayList<TabModel>();
-		TabModel tabModel_1 = new TabModel();
-		tabModel_1.setImageResId(R.drawable.tiger_search_submit_icon);
-		tabModel_1.setTabName("Fragment_1");
-		tabModel_1.setHighlightResId(R.drawable.loading_icon_round);
-		tabModels.add(tabModel_1);
-		
-		TabModel tabModel_2 = new TabModel();
-		tabModel_2.setImageResId(R.drawable.tiger_search_close_press);
-		tabModel_2.setTabName("Fragment_2");
-		tabModel_2.setHighlightResId(R.drawable.tiger_search_submit_icon);
-		tabModels.add(tabModel_2);
-		
-		TabModel tabModel_3 = new TabModel();
-		tabModel_3.setImageResId(R.drawable.loading_icon_down);
-		tabModel_3.setTabName("Fragment_3");
-		tabModel_3.setHighlightResId(R.drawable.ic_launcher);
-		tabModels.add(tabModel_3);
+		TabModel tabModel;
+		for(int i = 0 ; i < tabNames.length; i++)
+		{
+			tabModel = new TabModel();
+			tabModel.setImageResId(tabDefaultIconResId[i]);
+			tabModel.setTabName(tabNames[i]);
+			tabModel.setHighlightResId(tabHighLightIconResId[i]);
+			tabModels.add(tabModel);
+		}
 		
 		tabView.setAdapter(new TGListAdapter<TabModel>(this, tabModels,
 				R.layout.fragment_tab_item, TabViewHolder.class));
@@ -81,40 +94,23 @@ public class ViewPagerWithFragmentActivity extends TGActionBarActivity implement
 	@Override
 	public void onTabChanged(TGTabView tabView, int lastTabIndex, int currentTabIndex)
 	{
-		//还原上一个选中的tab
-		resetTab(lastTabIndex);
-		//高亮显示当前选中的tab
-		highlightTab(currentTabIndex);
-		//切换Page
+		// 还原上一个选中的tab, 若lastTabIndex > 0，则说明存在已选中的tab
+		if (lastTabIndex >= 0)
+		{
+			TabViewHolder holder = (TabViewHolder) tabView.getTabItem(lastTabIndex).getConvertView().getTag();
+			TabModel tabModel = (TabModel) tabView.getAdapter().getItem(lastTabIndex);
+			holder.getImageView().setImageResource(tabModel.getImageResId());
+		}
+		
+		// 高亮显示当前选中的tab
+		TabViewHolder holder = (TabViewHolder) tabView.getTabItem(currentTabIndex).getConvertView().getTag();
+		TabModel tabModel = (TabModel) tabView.getAdapter().getItem(currentTabIndex);
+		holder.getImageView().setImageResource(tabModel.getHighlightResId());
+
+		// 切换Page
 		viewPager.setCurrentItem(currentTabIndex, false);
 	}
 
-	/**
-	 * 还原tab
-	 * @param index
-	 */
-	private void resetTab(int index)
-	{
-		//若index > 0，则说明存在已选中的tab
-		if(index >= 0)
-		{
-			TabViewHolder holder = (TabViewHolder) tabView.getTabItem(index).getConvertView().getTag();
-			TabModel tabModel = (TabModel) tabView.getAdapter().getItem(index);
-			holder.getImageView().setImageResource(tabModel.getImageResId());
-		}
-	}
-	
-	/**
-	 * 高亮tab
-	 * @param index
-	 */
-	private void highlightTab(int index)
-	{
-		TabViewHolder holder = (TabViewHolder) tabView.getTabItem(index).getConvertView().getTag();
-		TabModel tabModel = (TabModel) tabView.getAdapter().getItem(index);
-		holder.getImageView().setImageResource(tabModel.getHighlightResId());
-	}
-	
 	@Override
 	public void onPageSelected(int page)
 	{
