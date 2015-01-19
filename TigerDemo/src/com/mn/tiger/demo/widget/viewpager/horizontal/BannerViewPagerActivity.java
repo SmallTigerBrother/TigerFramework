@@ -63,20 +63,6 @@ public class BannerViewPagerActivity extends TGActionBarActivity implements
 		tabView.setSelection(0);
 		
 		//初始化banner
-//		ArrayList<View> imageViews = new ArrayList<View>();
-//		ImageView imageView;
-//		for (int i = 0; i < 4; i++)
-//		{
-//			imageView = new ImageView(this);
-//			imageView.setBackgroundResource(R.drawable.ic_launcher);
-//			ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
-//					ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//			imageView.setLayoutParams(layoutParams);
-//			imageViews.add(imageView);
-//		}
-		
-//		bannerViewPager.setAdapter(new TGAutoFlipViewPager.CirclePagerAdapter(imageViews));
-		
 		ArrayList<Boolean> pagerData = new ArrayList<Boolean>();
 		for (int i = 0; i < 5; i++)
 		{
@@ -105,7 +91,7 @@ public class BannerViewPagerActivity extends TGActionBarActivity implements
 	public void onPageSelected(int page)
 	{
 		//切换indicator
-		tabView.setSelection(page % selectedStatus.size());
+		tabView.setSelection(page % 4);
 	}
 	
 	@Override
@@ -139,10 +125,10 @@ public class BannerViewPagerActivity extends TGActionBarActivity implements
 			//初始化indicator
 			imageView = new ImageView(getActivity());
 			TGTabView.LayoutParams layoutParams = new TGTabView.LayoutParams(
-					DisplayUtils.dip2px(getActivity(), 5),
-					DisplayUtils.dip2px(getActivity(), 5));
-			layoutParams.leftMargin = DisplayUtils.dip2px(getActivity(), 5);
-			layoutParams.bottomMargin = DisplayUtils.dip2px(getActivity(), 5);
+					DisplayUtils.dip2px(getActivity(), 4),
+					DisplayUtils.dip2px(getActivity(), 4));
+			layoutParams.leftMargin = DisplayUtils.dip2px(getActivity(), 4);
+			layoutParams.bottomMargin = DisplayUtils.dip2px(getActivity(), 4);
 			imageView.setLayoutParams(layoutParams);
 			return imageView;
 		}
@@ -164,14 +150,7 @@ public class BannerViewPagerActivity extends TGActionBarActivity implements
 		@Override
 		public View initPage(int viewType)
 		{
-			//初始化indicator
 			imageView = new ImageView(getActivity());
-			TGTabView.LayoutParams layoutParams = new TGTabView.LayoutParams(
-					DisplayUtils.dip2px(getActivity(), 5),
-					DisplayUtils.dip2px(getActivity(), 5));
-			layoutParams.leftMargin = DisplayUtils.dip2px(getActivity(), 5);
-			layoutParams.bottomMargin = DisplayUtils.dip2px(getActivity(), 5);
-			imageView.setLayoutParams(layoutParams);
 			return imageView;
 		}
 
