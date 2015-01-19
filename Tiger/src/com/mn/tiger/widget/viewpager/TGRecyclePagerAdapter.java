@@ -71,7 +71,6 @@ public class TGRecyclePagerAdapter<T> extends PagerAdapter
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Object instantiateItem(ViewGroup container, int position)
 	{
@@ -80,27 +79,13 @@ public class TGRecyclePagerAdapter<T> extends PagerAdapter
 		View view = recyleArray.getScrapView(viewType);
 		try
 		{
-			TGPagerViewHolder<T> viewHolder;
 			if(null == view)
 			{
-				//初始化viewholder
-				viewHolder = viewHolderClazz.newInstance();
-				viewHolder.setActivity(activity);
-				viewHolder.setPagerAdapter(this);
-				//初始化子视图
-				view = viewHolder.initPage(viewType);
-				view.setTag(viewHolder);
+				view = initPageView(viewType);
 			}
 			//填充数据
-			viewHolder = (TGPagerViewHolder<T>) view.getTag();
-			if(null != pagerData && pagerData.size() > position)
-			{
-				viewHolder.fillData(pagerData.get(position), position,viewType);
-			}
-			else
-			{
-				viewHolder.fillData(null, position, viewType);
-			}
+			fillPageData(position, viewType, pagerData, view);
+			
 			container.addView(view);
 		}
 		catch (Exception e)
@@ -109,6 +94,46 @@ public class TGRecyclePagerAdapter<T> extends PagerAdapter
 		}
 		
 		return view;
+	}
+	
+	/**
+	 * 初始化PageView
+	 * @param viewType
+	 * @return
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	protected View initPageView(int viewType) throws InstantiationException, IllegalAccessException
+	{
+		//初始化viewholder
+		TGPagerViewHolder<T> viewHolder = viewHolderClazz.newInstance();
+		viewHolder.setActivity(activity);
+		viewHolder.setPagerAdapter(this);
+		//初始化子视图
+		View view = viewHolder.initPage(viewType);
+		view.setTag(viewHolder);
+		return view;
+	}
+	
+	/**
+	 * 填充分页数据
+	 * @param position
+	 * @param viewType
+	 * @param pageData
+	 * @param viewOfPage
+	 */
+	@SuppressWarnings("unchecked")
+	protected void fillPageData(int position, int viewType, List<T> pageData, View viewOfPage)
+	{
+		TGPagerViewHolder<T> viewHolder = (TGPagerViewHolder<T>) viewOfPage.getTag();
+		if(null != pagerData && pagerData.size() > position)
+		{
+			viewHolder.fillData(pagerData.get(position), position,viewType);
+		}
+		else
+		{
+			viewHolder.fillData(null, position, viewType);
+		}
 	}
 
 	@Override
