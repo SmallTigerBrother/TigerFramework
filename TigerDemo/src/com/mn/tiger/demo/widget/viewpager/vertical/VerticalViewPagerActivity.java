@@ -12,13 +12,13 @@ import com.mn.tiger.annonation.ViewById;
 import com.mn.tiger.app.TGActionBarActivity;
 import com.mn.tiger.demo.R;
 import com.mn.tiger.utility.ViewInjector;
-import com.mn.tiger.widget.viewpager.TGDirectionalViewPager;
 import com.mn.tiger.widget.viewpager.TGPagerAdapter;
+import com.mn.tiger.widget.viewpager.VerticalViewPager;
 
 public class VerticalViewPagerActivity extends TGActionBarActivity implements OnPageChangeListener
 {
 	@ViewById(id = R.id.view_pager)
-	private TGDirectionalViewPager viewPager;
+	private VerticalViewPager viewPager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -45,7 +45,6 @@ public class VerticalViewPagerActivity extends TGActionBarActivity implements On
 		imageView_3.setBackgroundResource(R.drawable.tiger_search_submit_icon);
 		views.add(imageView_3);
 		
-		viewPager.setOrientation(TGDirectionalViewPager.VERTICAL);
 		viewPager.setAdapter(new TGPagerAdapter(views));
 		viewPager.setOnPageChangeListener(this);
 	}
