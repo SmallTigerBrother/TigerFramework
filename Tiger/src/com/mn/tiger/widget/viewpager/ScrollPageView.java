@@ -1,70 +1,65 @@
 package com.mn.tiger.widget.viewpager;
 
+import com.mn.tiger.utility.DisplayUtils;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ScrollView;
 
-public class ScrollPageView extends ScrollView implements IScrollable
+public class ScrollPageView extends ScrollView
 {
-	private boolean canScrollDown = true;
-	
-	private boolean canScrollUp = true;
-	
-	private boolean canScrollLeft = false;
-	
-	private boolean canScrollRight = false;
-	
 	public ScrollPageView(Context context)
 	{
 		super(context);
 	}
-	
+
 	public ScrollPageView(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
 	}
-	
+
 	public ScrollPageView(Context context, AttributeSet attrs, int defStyle)
 	{
 		super(context, attrs, defStyle);
 	}
-	
+
 	@Override
-	protected void onScrollChanged(int l, int t, int oldl, int oldt)
+	public boolean canScrollVertically(int direction)
 	{
-		super.onScrollChanged(l, t, oldl, oldt);
-		
-		if(getScrollY() + getHeight() >= computeVerticalScrollRange() - 5)
+		final int offset = computeVerticalScrollOffset();
+		final int range = computeVerticalScrollRange() - computeVerticalScrollExtent();
+		if (range < DisplayUtils.dip2px(getContext(), 4))
 		{
-			canScrollDown = false;
-		} 
+			return false;
+		}
+
+		if (direction < 0)
+		{
+			return offset > 0;
+		}
 		else
 		{
-			canScrollDown = true;
+			return offset < range - 1;
 		}
 	}
 
 	@Override
-	public boolean canScrollLeft()
+	public boolean canScrollHorizontally(int direction)
 	{
-		return canScrollLeft;
-	}
-
-	@Override
-	public boolean canScrollRight()
-	{
-		return canScrollRight;
-	}
-
-	@Override
-	public boolean canScrollUp()
-	{
-		return canScrollUp;
-	}
-
-	@Override
-	public boolean canScrollDown()
-	{
-		return canScrollDown;
+		final int offset = computeHorizontalScrollOffset();
+		final int range = computeHorizontalScrollRange() - computeHorizontalScrollExtent();
+		if (range < DisplayUtils.dip2px(getContext(), 4))
+		{
+			return false;
+		}
+			
+		if (direction < 0)
+		{
+			return offset > 0;
+		}
+		else
+		{
+			return offset < range - 1;
+		}
 	}
 }
