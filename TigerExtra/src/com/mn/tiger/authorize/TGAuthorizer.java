@@ -1,69 +1,161 @@
 package com.mn.tiger.authorize;
 
+import java.io.Serializable;
+
 import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
+import android.text.TextUtils;
+
+import com.mn.tiger.cache.TGCache;
 
 /**
- * 认证类
+ * 登录认证类
  */
-public abstract class TGAuthorizer
+public abstract class TGAuthorizer extends AbsAuthorizer
 {
 	/**
-	 * 启动认证的Activity
+	 * 缓存用户信息的键值
 	 */
-	private Activity activity;
+	private static final String USER_INFO_CACHE_KEY = "Tiger_UserInfo";
 	
 	/**
-	 * 第三方认证的appID（独立认证系统由业务而定）
+	 * 用户名/密码为null的异常
 	 */
-	private String appID;
+	public static final int AUTHORIZE_ERROR_ACCOUNT_PASSWORD_NULL = -1;
 	
 	/**
-	 * @param activity 启动认证的Activity
-	 * @param appID 第三方认证的appID（独立认证系统由业务而定）
+	 * 用户密码加密错误的异常
 	 */
-	public TGAuthorizer(Activity activity, String appID)
+	public static final int AUTHORIZE_ERROR_PASSWORD_ENCRYPT = -2;
+	
+	/**
+	 * 未登录调用注销方法的异常
+	 */
+	public static final int LOGOUT_ERROR_NEVER_AUTHORIZED = -10;
+	
+	/**
+	 * 验证码异常————手机号不正确
+	 */
+	public static final int CODE_ERROR_INVALID_MOBILE = -20;
+	
+	/**
+	 * 验证码异常————验证码格式不正确
+	 */
+	public static final int CODE_ERROR_INVALID_CODE_FORMAT = -21;
+	
+	/**
+	 * 手机号（用户名）
+	 */
+	protected String account;
+	
+	/**
+	 * 密码
+	 */
+	protected String password;
+	
+	/**
+	 * 缓存的用户信息
+	 */
+	private static Serializable userInfo;
+	
+	/**
+	 * @param activity
+	 * @param account 手机号（用户名）
+	 * @param password 密码
+	 */
+	public TGAuthorizer(Activity activity,String account, String password)
 	{
-		this.activity = activity;
-		this.appID = appID;
+		super(activity, null);
+		
+		this.account = account;
+		this.password = password;
+	}
+	
+	@Override
+	public void authorize(final IAuthorizeCallback callback)
+	{
+		//检查账号、密码
+		if(TextUtils.isEmpty(account) || TextUtils.isEmpty(password))
+		{
+			if(null != callback)
+			{
+				callback.onError(AUTHORIZE_ERROR_ACCOUNT_PASSWORD_NULL, "", "");
+			}
+			
+			return;
+		}
+		executeAuthorize(callback);
+	}
+	
+	protected abstract void executeAuthorize(IAuthorizeCallback callback);
+
+	@Override
+	public void logout(ILogoutCallback callback)
+	{
+		//检查是否已登录
+		if(!hasAuthorized(getActivity()))
+		{
+			if(null != callback)
+			{
+				callback.onError(LOGOUT_ERROR_NEVER_AUTHORIZED, "", "");
+			}
+			return;
+		}
+		
+		executeLogout(callback);
+		
+		//将缓存数据置为null
+		saveUserInfo(getActivity(), null);
+	}
+	
+	protected abstract void executeLogout(ILogoutCallback callback);
+	
+	@Override
+	public void register(String account, String password, IRegisterCallback callback,
+			Object... args)
+	{
+		
 	}
 	
 	/**
-	 * 启动认证（在主线程调用）
-	 * @param callback 认证结果回调接口
-	 */
-	public abstract void authorize(IAuthorizeCallback callback);
-	
-	/**
-	 * 认证注销
-	 */
-	public abstract void logout(ILogoutCallback callback);
-	
-	/**
-	 * 获取启动认证的Activity
+	 * 判断是否已登录
+	 * @param context
 	 * @return
 	 */
-	protected Activity getActivity()
+	public static boolean hasAuthorized(Context context)
 	{
-		return activity;
+		return null != getUserInfo(context);
 	}
 	
 	/**
-	 * 获取第三方认证的appID（独立认证系统由业务而定）
+	 * 获取用户信息
+	 * @param context
 	 * @return
 	 */
-	protected String getAppID()
+	public static Serializable getUserInfo(Context context)
 	{
-		return appID;
+		if(null == userInfo)
+		{
+			userInfo = (Serializable) TGCache.getCache(context, USER_INFO_CACHE_KEY);
+		}
+		
+		return userInfo;
 	}
 	
 	/**
-	 * 处理认证界面返回的结果
-	 * @param requestCode
-	 * @param resultCode
-	 * @param data
+	 * 保存用户信息
+	 * @param userInfo
 	 */
-	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	public static void saveUserInfo(Context context, Serializable userInfo)
 	{
+		TGAuthorizer.userInfo = userInfo;
+		if(null != userInfo)
+		{
+			TGCache.saveCache(context, USER_INFO_CACHE_KEY, userInfo);
+		}
+		else
+		{
+			TGCache.removeCache(context, USER_INFO_CACHE_KEY);
+		}
 	}
 }

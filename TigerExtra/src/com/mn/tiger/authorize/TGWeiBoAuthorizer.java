@@ -17,7 +17,7 @@ import com.sina.weibo.sdk.utils.LogUtil;
 /**
  * 新浪微博认证类
  */
-public class TGWeiBoAuthorizer extends TGAuthorizer
+public class TGWeiBoAuthorizer extends AbsAuthorizer
 {
 	/**
 	 * 登录认证地址
@@ -103,6 +103,13 @@ public class TGWeiBoAuthorizer extends TGAuthorizer
 						logoutCallback.onSuccess();
 					}
 				});
+	}
+	
+	@Override
+	public void register(String account, String password, IRegisterCallback callback,
+			Object... args)
+	{
+		throw new UnsupportedOperationException("a weibo account can not be registered in this way");
 	}
 	
 	@Override

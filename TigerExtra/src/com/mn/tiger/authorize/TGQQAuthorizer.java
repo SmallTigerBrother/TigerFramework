@@ -13,7 +13,7 @@ import com.tencent.tauth.UiError;
 /**
  * QQ登录认证类
  */
-public class TGQQAuthorizer extends TGAuthorizer
+public class TGQQAuthorizer extends AbsAuthorizer
 {
 	/**
 	 * 认证范围
@@ -86,6 +86,13 @@ public class TGQQAuthorizer extends TGAuthorizer
 	{
 		tencent.logout(getActivity());
 		logoutCallback.onSuccess();
+	}
+	
+	@Override
+	public void register(String account, String password, IRegisterCallback callback,
+			Object... args)
+	{
+		throw new UnsupportedOperationException("a qq account can not be registered in this way");
 	}
 	
 	@Override

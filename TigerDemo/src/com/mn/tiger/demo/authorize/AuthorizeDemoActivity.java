@@ -8,9 +8,9 @@ import android.widget.Button;
 
 import com.mn.tiger.annonation.ViewById;
 import com.mn.tiger.app.TGActionBarActivity;
+import com.mn.tiger.authorize.AbsAuthorizer;
 import com.mn.tiger.authorize.IAuthorizeCallback;
 import com.mn.tiger.authorize.TGAuthorizeResult;
-import com.mn.tiger.authorize.TGAuthorizer;
 import com.mn.tiger.authorize.TGWeiBoAuthorizer;
 import com.mn.tiger.authorize.TGQQAuthorizer;
 import com.mn.tiger.demo.R;
@@ -24,7 +24,7 @@ public class AuthorizeDemoActivity extends TGActionBarActivity implements OnClic
 	@ViewById(id = R.id.weibo_login_btn)
 	private Button weiboAuthButton;
 	
-	private TGAuthorizer authorizer = null;
+	private AbsAuthorizer authorizer = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
