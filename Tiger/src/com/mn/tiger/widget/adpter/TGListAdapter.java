@@ -94,42 +94,62 @@ public class TGListAdapter<T> extends BaseAdapter
 	/**
 	 * @see BaseAdapter#getView(int, View, ViewGroup)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		TGViewHolder<T> viewHolder = null;
 		if(null == convertView)
 		{
-			if(convertViewLayoutId > 0)
-			{
-				try
-				{
-					convertView = LayoutInflater.from(activity).inflate(convertViewLayoutId, null);
-				}
-				catch (Exception e)
-				{
-					throw new RuntimeException(e);
-				}
-			}
-			
-			viewHolder = initViewHolder();
-			viewHolder.setLayoutId(convertViewLayoutId);
-			convertView = viewHolder.initView(convertView);
-			convertView.setTag(viewHolder);
-		}
-		else
-		{
-			viewHolder = (TGViewHolder<T>) convertView.getTag();
+			convertView = initView();
 		}
 		
+		fillData(position, convertView, parent);
+		
+		return convertView;
+	}
+	
+	/**
+	 * 初始化convertView（仅在无法重用视图时调用）
+	 * @return
+	 */
+	protected View initView()
+	{
+		TGViewHolder<T> viewHolder = null;
+		View convertView = null;
+		if(convertViewLayoutId > 0)
+		{
+			try
+			{
+				convertView = LayoutInflater.from(activity).inflate(convertViewLayoutId, null);
+			}
+			catch (Exception e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
+		
+		viewHolder = initViewHolder();
+		viewHolder.setLayoutId(convertViewLayoutId);
+		convertView = viewHolder.initView(convertView);
+		convertView.setTag(viewHolder);
+		
+		return convertView;
+	}
+	
+	/**
+	 * 填充列表行数据（每次调用getView时都会调用）
+	 * @param position
+	 * @param convertView
+	 * @param parent
+	 */
+	@SuppressWarnings("unchecked")
+	protected void fillData(int position, View convertView, ViewGroup parent)
+	{
+		TGViewHolder<T> viewHolder = (TGViewHolder<T>) convertView.getTag();
 		//填充列表行数据
 		viewHolder.fillData(items.get(position), position);
 		
 		//更新列表行尺寸
 		viewHolder.updateViewDimension(parent, convertView, items.get(position), position);
-		
-		return convertView;
 	}
 
 	/**

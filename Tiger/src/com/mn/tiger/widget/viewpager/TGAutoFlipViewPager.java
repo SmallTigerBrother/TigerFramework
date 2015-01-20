@@ -14,8 +14,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mn.tiger.log.LogTools;
-
 /**
  * 可自动翻页的ViewPager
  */
@@ -59,35 +57,6 @@ public class TGAutoFlipViewPager extends ViewPager
 	 * 内置的页码改变监听器
 	 */
 	private OnPageChangeListener internalPageChangeListener = null;
-	
-	/**
-	 * 定时发送翻页消息的线程
-	 */
-	private Thread thread = new Thread()
-	{
-		public void run() 
-		{
-			while (true)
-			{
-				if(isContinue && isSrolling)
-				{
-					//切换页码
-					currentPageNum++;
-					handler.obtainMessage(currentPageNum).sendToTarget();
-				}
-				
-				try
-				{
-					//线程等待
-					Thread.sleep(duration);
-				}
-				catch (InterruptedException e)
-				{
-					LogTools.e(LOG_TAG, e.getMessage(), e);
-				}
-			}
-		};
-	};
 	
 	public TGAutoFlipViewPager(Context context)
 	{
@@ -168,7 +137,6 @@ public class TGAutoFlipViewPager extends ViewPager
 		if(adapter instanceof CirclePagerAdapter)
 		{
 			super.setAdapter(adapter);
-			thread.start();
 			//初始化起始页
 			setCurrentItem(0);
 		}
@@ -188,12 +156,18 @@ public class TGAutoFlipViewPager extends ViewPager
 			@Override
 			public void run()
 			{
-				isSrolling = true;
-				isContinue = true;
-				currentPageNum++;
-				setCurrentItem(currentPageNum);
+				if(isContinue && isSrolling)
+				{
+					//定时重发
+					currentPageNum++;
+					handler.sendEmptyMessage(currentPageNum);
+					handler.postDelayed(this, duration);
+				}
 			}
 		}, duration);
+		
+		isContinue = true;
+		isSrolling = true;
 	}
 	
 	@Override
