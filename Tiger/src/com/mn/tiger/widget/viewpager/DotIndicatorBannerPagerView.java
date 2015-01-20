@@ -55,6 +55,8 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 	 * dot选中资源
 	 */
 	private Drawable dotSelectedRes;
+	
+	private IndicatorShowMode indicatorShowMode = IndicatorShowMode.SHOW_AUTO;
 
 	public DotIndicatorBannerPagerView(Context context, AttributeSet attrs)
 	{
@@ -109,6 +111,29 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 		// 初始化banner
 		bannerViewPager.setAdapter(new BannerPagerAdapter((Activity) getContext(), dataList));
 		bannerViewPager.setOnPageChangeListener(this);
+		
+		//设置导航圆点显示模式
+		switch (indicatorShowMode)
+		{
+			case HIDE_ALWAYS:
+				tabView.setVisibility(View.GONE);
+				break;
+				
+			case SHOW_AUTO:
+				if(dataList.size() == 1)
+				{
+					tabView.setVisibility(View.GONE);
+				}
+				else
+				{
+					tabView.setVisibility(View.VISIBLE);
+				}
+				break;
+
+			default:
+				tabView.setVisibility(View.VISIBLE);
+				break;
+		}
 	}
 
 	/**
@@ -168,6 +193,15 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 		dotSelectedshapeDrawable.setColor(0xff000000);
 		
 		this.dotSelectedRes = dotSelectedshapeDrawable;
+	}
+	
+	/**
+	 * 设置导航圆点显示模式
+	 * @param mode
+	 */
+	public void setIndicatorShowMode(IndicatorShowMode mode)
+	{
+		this.indicatorShowMode = mode;
 	}
 	
 	@Override
@@ -251,6 +285,19 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 		}
 		
 		@Override
+		public int getCount()
+		{
+			if(dataList.size() == 1)
+			{
+				return 1;
+			}
+			else
+			{
+				return super.getCount();
+			}
+		}
+		
+		@Override
 		protected View initPageView(int viewType) throws InstantiationException,
 				IllegalAccessException
 		{
@@ -275,5 +322,24 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 	public static interface IImageViewHolder<T>
 	{
 		public void fillData(ImageView imageView, T itemData, int position, int viewType);
+	}
+	
+	/**
+	 * 底部导航圆点显示模式
+	 */
+	public static enum IndicatorShowMode
+	{
+		/**
+		 * 一直显示
+		 */
+		SHOW_ALWAYS,
+		/**
+		 * 自动控制，当只有一页时，自动隐藏
+		 */
+		SHOW_AUTO,
+		/**
+		 * 一直不显示
+		 */
+		HIDE_ALWAYS;
 	}
 }
