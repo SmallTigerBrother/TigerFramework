@@ -3,7 +3,6 @@ package com.mn.tiger.widget.viewpager;
 import java.util.ArrayList;
 
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -81,7 +80,7 @@ public class TGPagerAdapter extends PagerAdapter
 	@Override
 	public void destroyItem(ViewGroup container, int position, Object object) 
 	{
-		((ViewPager)container).removeView(pagers.get(position));
+		container.removeView(pagers.get(position));
 	}
 	
 	/**
