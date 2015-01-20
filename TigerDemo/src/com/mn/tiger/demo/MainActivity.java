@@ -25,7 +25,7 @@ import com.mn.tiger.demo.widget.dialog.DialogDemoActivity;
 import com.mn.tiger.demo.widget.pulltorefresh.PullToRefreshSwipeListViewActivity;
 import com.mn.tiger.demo.widget.searchview.SearchViewActivity;
 import com.mn.tiger.demo.widget.searchview.actionbar.SearchViewInActionBarActivity;
-import com.mn.tiger.demo.widget.viewpager.horizontal.BannerViewPagerActivity;
+import com.mn.tiger.demo.widget.viewpager.horizontal.DotIndicatorBannerActivity;
 import com.mn.tiger.demo.widget.viewpager.horizontal.HorizontalViewPagerActivity;
 import com.mn.tiger.demo.widget.viewpager.horizontal.PagerSlidingTabStripActivity;
 import com.mn.tiger.demo.widget.viewpager.horizontal.RecycleViewPagerActivity;
@@ -110,7 +110,7 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 				break;
 				
 			case BannerViewPager:
-				intent.setClass(this, BannerViewPagerActivity.class);
+				intent.setClass(this, DotIndicatorBannerActivity.class);
 				break;
 				
 			case TranformationViewPager:
