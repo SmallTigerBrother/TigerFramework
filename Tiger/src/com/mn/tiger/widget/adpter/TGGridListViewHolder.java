@@ -1,20 +1,25 @@
 package com.mn.tiger.widget.adpter;
 
-import java.util.List;
-
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.mn.tiger.utility.ViewInjector;
 
+/**
+ * 用ListView伪装的GridView使用的ViewHolder
+ * @author Dalang
+ * @param <T>
+ */
 public abstract class TGGridListViewHolder<T> extends TGViewHolder<T>
 {
 	@Override
 	public View initView(View convertView, ViewGroup parent)
 	{
-		int columnNum = getColumnNum();
+		int columnNum = ((TGGridListAdapter<T>)getAdapter()).getColumnNum();
 		
+		//默认使用LinearLayout作为convertView
 		LinearLayout linearLayout = new LinearLayout(getActivity());
 		linearLayout.setOrientation(LinearLayout.HORIZONTAL);
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -30,69 +35,98 @@ public abstract class TGGridListViewHolder<T> extends TGViewHolder<T>
 		return linearLayout;
 	}
 	
-	protected abstract View initChildGridView(int columIndex , 
-			LinearLayout rowLayout, ViewGroup parent);
+	/**
+	 * 初始化子Grid视图
+	 * @param columIndex 列索引
+	 * @param rowLayout 行Layout
+	 * @param parent listview
+	 * @return
+	 */
+	protected View initChildGridView(int columIndex ,LinearLayout rowLayout, ViewGroup parent)
+	{
+		//初始化子Grid视图
+		return LayoutInflater.from(getActivity()).inflate(getLayoutId(), null);
+	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void fillData(ViewGroup parent, View convertView, T itemData, int position)
 	{
-		int columnNum = getColumnNum();
-		List<T> allItems = getAdapter().getListItems();
-		int allItemsCount = allItems.size();
+		TGGridListAdapter<T> listAdapter = (TGGridListAdapter<T>) getAdapter();
+ 		int columnNum = listAdapter.getColumnNum();
 		
 		LinearLayout rowLayout = (LinearLayout) convertView;
 		View childGridView;
-		int childDataIndex = 0;
+		//遍历各个子视图，并填充数据
 		for(int i = 0; i< columnNum; i++)
 		{
 			childGridView = rowLayout.getChildAt(i);
-			childDataIndex = position * columnNum + i;
-			if(childDataIndex < allItemsCount)
+			T childData = (T) listAdapter.getItem(position, i);
+			if(null != childData)
 			{
+				//若有数据，则显示视图，并设置为enable
 				childGridView.setVisibility(View.VISIBLE);
 				childGridView.setEnabled(true);
+				
+				//再需要时进行注入赋值
 				ViewInjector.initInjectedView(this, childGridView);
-				this.fillData(i, position, itemData, childGridView, rowLayout, parent);
+				this.fillData(i, position, childData, childGridView, rowLayout, parent);
 			}
 			else
 			{
+				//若无数据，则隐藏视图，并设置为disable
 				childGridView.setVisibility(View.INVISIBLE);
 				childGridView.setEnabled(false);
 			}
 		}
 	}
 	
+	/**
+	 * 填充每个子GridView
+	 * @param rowIndex 行索引
+	 * @param columnIndex 列索引
+	 * @param itemData 数据
+	 * @param childGridView 子视图
+	 * @param rowLayout 行Layout
+	 * @param parent ListView
+	 */
 	protected abstract void fillData(int rowIndex, int columnIndex, T itemData,
 			View childGridView, LinearLayout rowLayout, ViewGroup parent);
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void updateViewDimension(ViewGroup parent, View convertView, T itemData,
 			int position)
 	{
-		int columnNum = getColumnNum();
-		List<T> allItems = getAdapter().getListItems();
-		int allItemsCount = allItems.size();
-		
+		TGGridListAdapter<T> listAdapter = (TGGridListAdapter<T>) getAdapter();
+ 		int columnNum = listAdapter.getColumnNum();
 		LinearLayout rowLayout = (LinearLayout) convertView;
 		View childGridView;
-		int childDataIndex = 0;
+		//遍历更新各个子视图
 		for(int i = 0; i < columnNum; i++)
 		{
 			childGridView = rowLayout.getChildAt(i);
-			childDataIndex = position * columnNum + i;
-			if(childDataIndex < allItemsCount)
+			T childData = (T) listAdapter.getItem(position, i);
+			if(null != childData)
 			{
 				updateViewDimension(parent, (LinearLayout) convertView, 
-						childGridView, allItems.get(childDataIndex), i, position);
+						childGridView, childData, i, position);
 			}
 		}
 	}
 	
+	/**
+	 * 更新各个子视图大小（可能会影响整行的高度）
+	 * @param parent listview
+	 * @param rowLayout 行Layout
+	 * @param childGridView 子视图
+	 * @param itemData 数据
+	 * @param rowIndex 行索引
+	 * @param columnIndex 列索引
+	 */
 	protected void updateViewDimension(ViewGroup parent, LinearLayout rowLayout, 
 			View childGridView, T itemData, int rowIndex, int columnIndex)
 	{
 		
 	}
-	
-	protected abstract int getColumnNum();
 }
