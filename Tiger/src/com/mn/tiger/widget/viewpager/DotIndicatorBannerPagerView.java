@@ -40,22 +40,22 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 	 * Banner中填充的数据
 	 */
 	private ArrayList<T> dataList;
-	
+
 	/**
 	 * 图片填充接口
 	 */
 	private IImageViewHolder<T> imageViewHolder;
-	
+
 	/**
 	 * dot默认图标资源
 	 */
 	private Drawable dotDefaultRes;
-	
+
 	/**
 	 * dot选中资源
 	 */
 	private Drawable dotSelectedRes;
-	
+
 	private IndicatorShowMode indicatorShowMode = IndicatorShowMode.SHOW_AUTO;
 
 	public DotIndicatorBannerPagerView(Context context, AttributeSet attrs)
@@ -71,7 +71,7 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 	{
 		//初始化dot资源
 		initDotViewBackground();
-		
+
 		//添加BannerViewPager
 		bannerViewPager = new TGAutoFlipViewPager(getContext());
 		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
@@ -111,14 +111,14 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 		// 初始化banner
 		bannerViewPager.setAdapter(new BannerPagerAdapter((Activity) getContext(), dataList));
 		bannerViewPager.setOnPageChangeListener(this);
-		
+
 		//设置导航圆点显示模式
 		switch (indicatorShowMode)
 		{
 			case HIDE_ALWAYS:
 				tabView.setVisibility(View.GONE);
 				break;
-				
+
 			case SHOW_AUTO:
 				if(dataList.size() == 1)
 				{
@@ -144,7 +144,7 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 		// 开始滚动
 		bannerViewPager.startScroll();
 	}
-	
+
 	/**
 	 * 停止滚动
 	 */
@@ -152,7 +152,7 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 	{
 		bannerViewPager.stopScroll();
 	}
-	
+
 	/**
 	 * 设置图片资源填充接口
 	 * @param imageViewHolder
@@ -161,7 +161,7 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 	{
 		this.imageViewHolder = imageViewHolder;
 	}
-	
+
 	/**
 	 * 设置背景资源
 	 * @param defaultRes 默认资源
@@ -172,7 +172,7 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 		this.dotDefaultRes = defaultRes;
 		this.dotSelectedRes = selectedRes;
 	}
-	
+
 	/**
 	 * 初始化圆点视图
 	 */
@@ -183,18 +183,18 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 		dotDefaultShapeDrawable.setColor(0xb0000000);
 		dotDefaultShapeDrawable.setSize(DisplayUtils.dip2px(getContext(), 6), 
 				DisplayUtils.dip2px(getContext(), 6));
-		
+
 		this.dotDefaultRes = dotDefaultShapeDrawable;
-		
+
 		GradientDrawable dotSelectedshapeDrawable = new GradientDrawable();
 		dotSelectedshapeDrawable.setShape(GradientDrawable.OVAL);
 		dotSelectedshapeDrawable.setSize(DisplayUtils.dip2px(getContext(), 6), 
 				DisplayUtils.dip2px(getContext(), 6));
 		dotSelectedshapeDrawable.setColor(0xff000000);
-		
+
 		this.dotSelectedRes = dotSelectedshapeDrawable;
 	}
-	
+
 	/**
 	 * 设置导航圆点显示模式
 	 * @param mode
@@ -203,7 +203,7 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 	{
 		this.indicatorShowMode = mode;
 	}
-	
+
 	@Override
 	protected void onDetachedFromWindow()
 	{
@@ -237,11 +237,11 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 		if (lastSelectedIndex >= 0)
 		{
 			tabView.getTabItem(lastSelectedIndex).getConvertView()
-					.setBackgroundDrawable(dotDefaultRes);
+			.setBackgroundDrawable(dotDefaultRes);
 		}
 		// 选中当前的tab
 		tabView.getTabItem(curSelectedIndex).getConvertView()
-				.setBackgroundDrawable(dotSelectedRes);
+		.setBackgroundDrawable(dotSelectedRes);
 	}
 
 	/**
@@ -253,9 +253,9 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 		{
 			super(activity, items, -1, null);
 		}
-		
+
 		@Override
-		protected View initView()
+		protected View initView(ViewGroup parent)
 		{
 			// 初始化indicator
 			ImageView imageView = new ImageView(getActivity());
@@ -265,7 +265,8 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 			imageView.setLayoutParams(layoutParams);
 			return imageView;
 		}
-		
+
+
 		@SuppressWarnings("deprecation")
 		@Override
 		protected void fillData(int position, View convertView, ViewGroup parent)
@@ -273,7 +274,7 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 			convertView.setBackgroundDrawable(dotDefaultRes);
 		}
 	}
-	
+
 	/**
 	 * Banner适配器
 	 */
@@ -283,7 +284,7 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 		{
 			super(activity, pagerData, null);
 		}
-		
+
 		@Override
 		public int getCount()
 		{
@@ -296,14 +297,14 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 				return super.getCount();
 			}
 		}
-		
+
 		@Override
 		protected View initPageView(int viewType) throws InstantiationException,
-				IllegalAccessException
+		IllegalAccessException
 		{
 			return new ImageView(getActivity());
 		}
-		
+
 		@Override
 		protected void fillPageData(int position, int viewType, List<T> pageData, View viewOfPage)
 		{
@@ -314,7 +315,7 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 			}
 		}
 	}
-	
+
 	/**
 	 * ImageView填充接口类
 	 * @param <T>
@@ -323,7 +324,7 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 	{
 		public void fillData(ImageView imageView, T itemData, int position, int viewType);
 	}
-	
+
 	/**
 	 * 底部导航圆点显示模式
 	 */

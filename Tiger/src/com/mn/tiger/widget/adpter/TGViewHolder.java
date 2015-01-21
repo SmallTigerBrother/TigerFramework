@@ -32,7 +32,7 @@ public abstract class TGViewHolder<T>
 	 * @param convertView
 	 * @return 需要返回convertView
 	 */
-	public View initView(View convertView)
+	public View initView(View convertView, ViewGroup parent)
 	{
 		ViewInjector.initInjectedView(this, convertView);
 		return convertView;
@@ -71,7 +71,7 @@ public abstract class TGViewHolder<T>
 	 * @param itemData
 	 * @param position
 	 */
-	public abstract void fillData(T itemData, int position);
+	public abstract void fillData(ViewGroup parent, View convertView, T itemData, int position);
 
 	protected Activity getActivity()
 	{

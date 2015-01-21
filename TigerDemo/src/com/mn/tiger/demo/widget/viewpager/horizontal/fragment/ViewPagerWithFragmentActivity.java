@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -141,9 +142,9 @@ public class ViewPagerWithFragmentActivity extends TGActionBarActivity implement
 		private TextView textView;
 		
 		@Override
-		public View initView(View convertView)
+		public View initView(View convertView, ViewGroup parent)
 		{
-			View view = super.initView(convertView);
+			View view = super.initView(convertView, parent);
 			LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, 
 					LayoutParams.WRAP_CONTENT, 1);
 			view.setLayoutParams(layoutParams);
@@ -151,7 +152,7 @@ public class ViewPagerWithFragmentActivity extends TGActionBarActivity implement
 		}
 		
 		@Override
-		public void fillData(TabModel itemData, int position)
+		public void fillData(ViewGroup parent, View convertView, TabModel itemData, int position)
 		{
 			imageView.setImageResource(itemData.getImageResId());
 			textView.setText(itemData.getTabName());

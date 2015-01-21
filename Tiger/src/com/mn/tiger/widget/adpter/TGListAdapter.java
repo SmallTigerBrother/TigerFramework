@@ -99,7 +99,7 @@ public class TGListAdapter<T> extends BaseAdapter
 	{
 		if(null == convertView)
 		{
-			convertView = initView();
+			convertView = initView(parent);
 		}
 		
 		fillData(position, convertView, parent);
@@ -111,7 +111,7 @@ public class TGListAdapter<T> extends BaseAdapter
 	 * 初始化convertView（仅在无法重用视图时调用）
 	 * @return
 	 */
-	protected View initView()
+	protected View initView(ViewGroup parent)
 	{
 		TGViewHolder<T> viewHolder = null;
 		View convertView = null;
@@ -129,7 +129,7 @@ public class TGListAdapter<T> extends BaseAdapter
 		
 		viewHolder = initViewHolder();
 		viewHolder.setLayoutId(convertViewLayoutId);
-		convertView = viewHolder.initView(convertView);
+		convertView = viewHolder.initView(convertView, parent);
 		convertView.setTag(viewHolder);
 		
 		return convertView;
@@ -146,7 +146,7 @@ public class TGListAdapter<T> extends BaseAdapter
 	{
 		TGViewHolder<T> viewHolder = (TGViewHolder<T>) convertView.getTag();
 		//填充列表行数据
-		viewHolder.fillData(items.get(position), position);
+		viewHolder.fillData(parent, convertView, items.get(position), position);
 		
 		//更新列表行尺寸
 		viewHolder.updateViewDimension(parent, convertView, items.get(position), position);
