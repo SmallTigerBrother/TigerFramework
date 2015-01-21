@@ -1,5 +1,7 @@
 package com.mn.tiger.collection;
 
+import java.util.List;
+
 import android.content.Context;
 
 /**
@@ -50,7 +52,7 @@ public interface ICollectionManager<T extends ICollectable>
 		 * 成功回调方法
 		 * @param collectInfos 查询结果
 		 */
-		void onSuccess(T[] collectInfos);
+		void onSuccess(List<T> collectInfos);
 		
 		void onError(int code, String message);
 	}

@@ -119,7 +119,6 @@ public class LocalCollectionManager<T extends ICollectable> implements ICollecti
 		return null != findLocalCollection(context, collectInfo.getCollectId());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void getCollections(Context context, int pageNo, int pageSize,
 			IQueryCollectionsCallback<T> callback)
@@ -135,7 +134,7 @@ public class LocalCollectionManager<T extends ICollectable> implements ICollecti
 			//调用回调
 			if(null != callback)
 			{
-				callback.onSuccess(null);
+				callback.onSuccess(new ArrayList<T>());
 			}
 			return;
 		}
@@ -149,7 +148,7 @@ public class LocalCollectionManager<T extends ICollectable> implements ICollecti
 		//调用回调
 		if(null != callback)
 		{
-			callback.onSuccess((T[]) allProductInfos.subList(startIndex, endIndex).toArray());
+			callback.onSuccess(allProductInfos.subList(startIndex, endIndex));
 		}
 	}
 	
