@@ -1,6 +1,7 @@
 package com.mn.tiger.widget.viewpager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,7 +19,7 @@ public class TGFragmentPagerAdapter extends FragmentPagerAdapter
 	 */
 	private ArrayList<Fragment> pagers;
 	
-	public TGFragmentPagerAdapter(FragmentManager fm, ArrayList<Fragment> pagers)
+	public TGFragmentPagerAdapter(FragmentManager fm, List<Fragment> pagers)
 	{
 		super(fm);
 		this.pagers = new ArrayList<Fragment>();
