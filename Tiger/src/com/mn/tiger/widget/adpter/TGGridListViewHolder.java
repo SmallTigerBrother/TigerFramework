@@ -70,7 +70,7 @@ public abstract class TGGridListViewHolder<T> extends TGViewHolder<T>
 				
 				//再需要时进行注入赋值
 				ViewInjector.initInjectedView(this, childGridView);
-				this.fillData(i, position, childData, childGridView, rowLayout, parent);
+				this.fillData(position, i, childData, childGridView, rowLayout, parent);
 			}
 			else
 			{
@@ -110,7 +110,7 @@ public abstract class TGGridListViewHolder<T> extends TGViewHolder<T>
 			if(null != childData)
 			{
 				updateViewDimension(parent, (LinearLayout) convertView, 
-						childGridView, childData, i, position);
+						childGridView, childData, position, i);
 			}
 		}
 	}
