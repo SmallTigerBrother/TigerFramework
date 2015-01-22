@@ -22,6 +22,7 @@ import com.mn.tiger.demo.datastorage.DataStorageDemoActivity;
 import com.mn.tiger.demo.download.DownloadDemoActivity;
 import com.mn.tiger.demo.request.RequestDemoActivity;
 import com.mn.tiger.demo.share.ShareDemoActivity;
+import com.mn.tiger.demo.widget.GridListViewActivity;
 import com.mn.tiger.demo.widget.dialog.DialogDemoActivity;
 import com.mn.tiger.demo.widget.pulltorefresh.PullToRefreshSwipeListViewActivity;
 import com.mn.tiger.demo.widget.searchview.SearchViewActivity;
@@ -72,6 +73,7 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		demoModels.add(DemoModel.AuthorizeDemo);
 		demoModels.add(DemoModel.ShareDemo);
 		demoModels.add(DemoModel.PullToRefreshSwipeListView);
+		demoModels.add(DemoModel.GridListView);
 		
 		demoListView.setAdapter(new TGListAdapter<DemoModel>(this, demoModels, -1, 
 				ViewHolder.class));
@@ -166,6 +168,10 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 				intent.setClass(this, PullToRefreshSwipeListViewActivity.class);
 				break;
 				
+			case GridListView:
+				intent.setClass(this, GridListViewActivity.class);
+				break;
+				
 			default:
 				break;
 		}
@@ -231,7 +237,9 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		
 		ShareDemo("ShareDemo"),
 		
-		PullToRefreshSwipeListView("PullToRefreshSwipeListViewDemo");
+		PullToRefreshSwipeListView("PullToRefreshSwipeListViewDemo"),
+		
+		GridListView("GridListView");
 		
 		private DemoModel(String demoType)
 		{
