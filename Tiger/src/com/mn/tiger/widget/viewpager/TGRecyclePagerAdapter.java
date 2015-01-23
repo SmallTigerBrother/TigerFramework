@@ -61,13 +61,21 @@ public class TGRecyclePagerAdapter<T> extends PagerAdapter
 		this.pagerData = pagerData;
 		this.viewHolderClazz = viewHolderClazz;
 		recyleArray = new RecyleArray();
-		try
+		
+		if(null != viewHolderClazz)
 		{
-			pagerViewHolder = viewHolderClazz.newInstance();
+			try
+			{
+				pagerViewHolder = viewHolderClazz.newInstance();
+			}
+			catch (Exception e)
+			{
+				LOG.e(e);
+			}
 		}
-		catch (Exception e)
+		else
 		{
-			LOG.e(e);
+			LOG.w("viewHolderClazz is null, please check your code if you do not want that");
 		}
 	}
 
