@@ -14,12 +14,11 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.mn.tiger.parser.json.TGJsonUtils;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mn.tiger.utility.FileUtils;
 
 /**
- * 
- * @author Stanley Luo
  * @Create at 2013-5-20 下午11:40:17
  * @Version 1.0
  *          <p>
@@ -182,7 +181,7 @@ public class Logger
 			if (logConfigFlie.exists())
 			{
 				String configStr = FileUtils.readFile(logConfigPath);
-				mConfigs = TGJsonUtils.parseJson2List(configStr, LogConfig.class);
+				mConfigs = new Gson().fromJson(configStr, new TypeToken<List<LogConfig>>(){}.getType());
 			}
 		}
 	}

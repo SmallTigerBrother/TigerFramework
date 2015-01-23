@@ -5,8 +5,8 @@ import java.util.Map;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
 import com.mn.tiger.log.LogTools;
-import com.mn.tiger.parser.json.TGJsonUtils;
 import com.mn.tiger.request.async.TGHttpAsyncTask;
 import com.mn.tiger.request.async.task.IRequestParser;
 import com.mn.tiger.request.client.DefaultHttpClient;
@@ -280,7 +280,8 @@ public class TGHttpLoader<T> implements IRequestParser
 			{
 				try
 				{
-					return TGJsonUtils.parseJson2Object(jsonStr, Class.forName(resultClsName));
+					Gson gson = new Gson();
+					return gson.fromJson(jsonStr, Class.forName(resultClsName));
 				}
 				catch (ClassNotFoundException e)
 				{
