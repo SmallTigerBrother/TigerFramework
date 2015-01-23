@@ -24,7 +24,7 @@ import com.mn.tiger.widget.viewpager.TGFragmentPagerAdapter;
  * 带底部Tab的FragmentActivity
  * @author Dalang
  */
-public abstract class TGTabActivity extends TGActionBarActivity implements 
+public class TGTabActivity extends TGActionBarActivity implements 
     OnPageChangeListener, OnTabChangeListener
 {
 	/**
@@ -46,8 +46,6 @@ public abstract class TGTabActivity extends TGActionBarActivity implements
 		
 		tabView = (TGTabView) findViewById(R.id.tiger_tab_bar);
 		viewPager = (ViewPager) findViewById(R.id.tiger_view_pager);
-		
-		tabView.setOnTabChangeListener(this);
 	}
 	
 	/**
@@ -64,6 +62,7 @@ public abstract class TGTabActivity extends TGActionBarActivity implements
 		
 		tabView.setAdapter(new TGListAdapter<TabModel>(this, Arrays.asList(tabModels),
 				R.layout.tiger_fragment_tab_item, TabViewHolder.class));
+		tabView.setOnTabChangeListener(this);
 		tabView.setSelection(0);
 	}
 
