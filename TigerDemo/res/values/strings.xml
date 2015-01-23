@@ -4,5 +4,37 @@
     <string name="app_name">TigerDemo</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    
+     <!-- login activity 2014.12.23 by liupeng -->
+    <string name="user_name">用户名</string>
+    <string name="user_password">密码</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="quick_register">快速注册</string>
+    <string name="user_name_password_can_not_be_null">用户名/密码不能为空！</string>
+    <string name="never_login">尚未登录，无需注销</string>
+    <string name="phone_num">手机号</string>
+    <string name="login">登录</string>
+
+    <!-- register activity 2015.1.6 by liupeng -->
+    <string name="register">注册</string>
+    <string name="please_input_mobile">请填写手机号</string>
+    <string name="next_step">下一步</string>
+    <string name="already_read_protocol">&#160;&#160;已阅读并同意用户使用协议</string>
+    <string name="please_input_valid_mobile">请填写正确的手机号码</string>
+    <string name="please_input_received_code">请填写收到的短信验证码</string>
+    <string name="resend_code_later">%1$d秒后重新获取</string>
+    <string name="resend_code">重新获取</string>
+    <string name="please_set_password">请设置登录密码</string>
+    <string name="code_format_error">验证码格式不正确</string>
+    <string name="input_vertificationcode">填写验证码</string>
+    <string name="set_password">设置密码</string>
+    <string name="please_agree_user_protocol">您必须先同意用户使用协议才能进入下一步</string>
+    <string name="confirm_mobile">确认手机号</string>
+    <string name="we_will_send_code_to_mobile">我们将发送验证短信到这个号码：\n%1$s</string>
+    <string name="cancel">取消</string>
+    <string name="ok">好</string>
+    <string name="vertification_code_send_success">已将验证码通过短信的型式发送到您的手机上，请注意查收</string>
+    <string name="code_check_ok">验证码认证成功</string>
+    <string name="code_check_failed">验证码认证失败</string>
 
 </resources>
