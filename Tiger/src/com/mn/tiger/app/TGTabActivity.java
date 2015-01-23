@@ -175,6 +175,8 @@ public class TGTabActivity extends TGActionBarActivity implements
 		{
 			imageView.setImageResource(itemData.getDefaultResId());
 			textView.setText(itemData.getTabName());
+			textView.setTextColor(itemData.getDefaultTextColor());
+			textView.setTextSize(itemData.getDefaultTextSize());
 		}
 		
 		public ImageView getImageView()
