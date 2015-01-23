@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/register_login_layout_bg">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/please_input_mobile"
+        android:textColor="@color/text_color_normal"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/input_mobile_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/edit_text_bg"
+        android:hint="@string/phone_num"
+        android:padding="8dp"
+        android:textColor="@color/text_color_normal"
+        android:textColorHint="@color/edit_hint_color"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/input_mobile_next_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/btn_bg_purple"
+        android:textColor="@android:color/white"
+        android:text="@string/next_step"
+        android:textSize="18sp" />
+
+    <CheckBox
+        android:id="@+id/input_mobile_protocol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:button="@drawable/register_check_box_icon"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp"
+        android:checked="true"
+        android:text="@string/already_read_protocol"
+        android:textSize="14sp" />
+
+</LinearLayout>

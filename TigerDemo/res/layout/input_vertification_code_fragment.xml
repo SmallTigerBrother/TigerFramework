@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/register_login_layout_bg">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/please_input_received_code"
+        android:textColor="@color/text_color_normal"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp" >
+
+        <com.medialab.fashion.widget.CountDownTimeView
+            android:id="@+id/resend_code_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/resend_code_later"
+            android:textColor="@color/text_color_normal"
+            android:background="@drawable/resend_code_bg_unable"
+            android:padding="8dp"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/input_code_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:layout_toLeftOf="@id/resend_code_button"
+            android:background="@drawable/edit_text_bg"
+            android:hint="@string/phone_num"
+            android:padding="8dp"
+            android:textColor="@color/text_color_normal"
+            android:textColorHint="@color/edit_hint_color"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/input_code_next_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/next_step"
+         android:textColor="@android:color/white"
+        android:textSize="18sp" 
+        android:background="@drawable/btn_bg_purple"/>
+
+</LinearLayout>
