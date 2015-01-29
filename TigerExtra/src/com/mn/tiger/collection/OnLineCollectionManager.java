@@ -1,7 +1,6 @@
 package com.mn.tiger.collection;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Array;
 
 import android.content.Context;
 
@@ -16,9 +15,9 @@ public abstract class OnLineCollectionManager<T extends ICollectable> implements
 	public void insertCollection(Context context, T productInfo,
 			final IModifyCollectionCallback callback)
 	{
-		List<T> productInfos = new ArrayList<T>();
-		productInfos.add(productInfo);
-		insertCollection(context, (T[])productInfos.toArray(), callback);
+		T[] productInfos = (T[]) Array.newInstance(productInfo.getClass(), 1);
+		productInfos[0] = productInfo;
+		insertCollection(context, productInfos, callback);
 	}
 	
 	@Override
@@ -26,6 +25,4 @@ public abstract class OnLineCollectionManager<T extends ICollectable> implements
 	{
 		return productInfo.isCollected();
 	}
-	
-
 }
