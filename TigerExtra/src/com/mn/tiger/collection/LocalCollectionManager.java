@@ -19,15 +19,30 @@ public class LocalCollectionManager<T extends ICollectable> implements ICollecti
 {
 	private static final Logger LOG = Logger.getLogger(LocalCollectionManager.class);
 	
+	/**
+	 * 收藏数据类名
+	 */
 	private Class<T> collectableClazz;
 	
+	/**
+	 * 排序列名
+	 */
 	private String orderColumnName;
 	
+	/**
+	 * 数据库名
+	 */
+	private String dbName;
+	
+	/**
+	 * id列名
+	 */
 	private String idColumnName;
 	
-	public LocalCollectionManager(Class<T> collectableClazz, String idColumnName)
+	public LocalCollectionManager(Class<T> collectableClazz,String dbName, String idColumnName)
 	{
 		this.collectableClazz = collectableClazz;
+		this.dbName = dbName;
 		this.idColumnName = idColumnName;
 	}
 	
@@ -36,11 +51,15 @@ public class LocalCollectionManager<T extends ICollectable> implements ICollecti
 	 * @param context
 	 * @return
 	 */
-	private static TGDBManager getDBManager(Context context)
+	private TGDBManager getDBManager(Context context)
 	{
-		return TGDBManager.create(context, "CollectionManager", 1, null);
+		return TGDBManager.create(context, dbName, 1, null);
 	}
 	
+	/**
+	 * 设置排序列名
+	 * @param orderColumnName
+	 */
 	public void setOrderColumnName(String orderColumnName)
 	{
 		this.orderColumnName = orderColumnName;
