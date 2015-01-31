@@ -18,6 +18,7 @@ import android.os.Build;
 import com.mn.tiger.log.Logger;
 import com.mn.tiger.system.AppConfigs;
 import com.mn.tiger.system.SystemConfigs;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.otto.Bus;
@@ -103,7 +104,22 @@ public class TGApplication extends Application
 	protected ImageLoader initImageLoader()
 	{
 		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.init(ImageLoaderConfiguration.createDefault(this));
+		
+		//启用内存缓存、磁盘缓存
+		DisplayImageOptions displayImageOptions = new DisplayImageOptions.Builder()
+				.cacheInMemory(true)
+				.cacheOnDisk(true)
+				.build();
+		
+		//设置缓存大小，最大缓存文件个数
+		ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(this)
+				.memoryCacheSize(10 * 1024 * 1024)
+				.diskCacheSize(40 * 1024 * 1024)
+				.diskCacheFileCount(1024)
+				.defaultDisplayImageOptions(displayImageOptions)
+				.build();
+		
+		imageLoader.init(configuration);
 		return imageLoader;
 	}
 
