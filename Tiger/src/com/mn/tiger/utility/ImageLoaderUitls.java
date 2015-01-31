@@ -77,4 +77,30 @@ public class ImageLoaderUitls
 	{
 		TGApplication.getInstance().getImageLoader().loadImage(uri, options, listener);
 	}
+	
+	/**
+	 * 获取磁盘缓存的大小
+	 * @return 磁盘缓存大小，单位为byte
+	 */
+	@SuppressWarnings("deprecation")
+	public static double getDiskCacheSize()
+	{
+		return FileUtils.getDirSize(TGApplication.getInstance().getImageLoader().getDiskCache().getDirectory());
+	}
+	
+	/**
+	 * 清理磁盘缓存
+	 */
+	public static void clearDiskCache()
+	{
+		 TGApplication.getInstance().getImageLoader().clearDiskCache();
+	}
+	
+	/**
+	 * 清理内存缓存
+	 */
+	public static void clearMemoryCache()
+	{
+		TGApplication.getInstance().getImageLoader().clearMemoryCache();
+	}
 }
