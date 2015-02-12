@@ -3,6 +3,9 @@ package com.mn.tiger.utility;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.text.TextUtils;
+import android.widget.TextView;
+
 import com.mn.tiger.log.LogTools;
 
 
@@ -19,6 +22,21 @@ public class StringUtils
 	 */
 	protected static final String LOG_TAG = StringUtils.class.getSimpleName();
 
+	/**
+	 * 判断TextView中的字符串是否为null或者""
+	 * @param textView
+	 * @return
+	 */
+	public static boolean isTextEmpty(TextView textView)
+	{
+		if(null == textView)
+		{
+			throw new IllegalArgumentException("the textview can not be null");
+		}
+		
+		return TextUtils.isEmpty(textView.getText().toString().trim());
+	}
+	
 	/**
 	 * 该方法的作用:判断字符串是否为null 或者为""
 	 * 
