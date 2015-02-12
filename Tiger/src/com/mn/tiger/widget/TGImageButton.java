@@ -404,6 +404,9 @@ public class TGImageButton extends LinearLayout
 		badgeView.setPadding(left, top, right, bottom);
 	}
 
+	/**
+	 * 显示徽标
+	 */
 	public void showBadgeView()
 	{
 		if (badgeView == null)
@@ -411,6 +414,17 @@ public class TGImageButton extends LinearLayout
 			initBadgeView();
 		}
 		badgeView.show();
+	}
+	
+	/**
+	 * 隐藏徽标
+	 */
+	public void hideBadgeView()
+	{
+		if (badgeView != null)
+		{
+			badgeView.hide();
+		}
 	}
 
 	/**
