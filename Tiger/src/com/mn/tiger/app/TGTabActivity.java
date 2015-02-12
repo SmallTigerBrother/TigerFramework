@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mn.tiger.R;
+import com.mn.tiger.widget.TGBadgeView;
 import com.mn.tiger.widget.adpter.TGListAdapter;
 import com.mn.tiger.widget.adpter.TGViewHolder;
 import com.mn.tiger.widget.tab.TGTabView;
@@ -146,6 +147,38 @@ public class TGTabActivity extends TGActionBarActivity implements
 	}
 	
 	/**
+	 * 显示徽标
+	 * @param tabIndex tab索引
+	 * @param text 文本内容
+	 */
+	public void showBadge(int tabIndex, String text)
+	{
+		TGBadgeView badgeView = 
+		((TabViewHolder) tabView.getTabItem(tabIndex).getConvertView().getTag()).getBadgeView();
+		
+		badgeView.setText(text);
+		badgeView.show();
+	}
+
+	/**
+	 * 显示徽标
+	 * @param tabIndex tab索引
+	 */
+	public void showBadge(int tabIndex)
+	{
+		((TabViewHolder) tabView.getTabItem(tabIndex).getConvertView().getTag()).getBadgeView().show();
+	}
+
+	/**
+	 * 隐藏徽标
+	 * @param tabIndex tab索引
+	 */
+	public void hideBadge(int tabIndex)
+	{
+		((TabViewHolder) tabView.getTabItem(tabIndex).getConvertView().getTag()).getBadgeView().hide();
+	}
+	
+	/**
 	 * 自定义的TabViewHolder
 	 * @author Dalang
 	 */
@@ -154,6 +187,8 @@ public class TGTabActivity extends TGActionBarActivity implements
 		private ImageView imageView;
 		
 		private TextView textView;
+		
+		private TGBadgeView badgeView;
 		
 		@Override
 		public View initView(View convertView, ViewGroup parent)
@@ -166,6 +201,9 @@ public class TGTabActivity extends TGActionBarActivity implements
 			
 			imageView = (ImageView) view.findViewById(R.id.tab_item_image);
 			textView = (TextView) view.findViewById(R.id.tab_item_name);
+			badgeView = new TGBadgeView(getActivity(), imageView);
+			badgeView.setBadgePosition(TGBadgeView.POSITION_TOP_RIGHT);
+			badgeView.setBadgeMargin(0, 1, 1, 0);
 			
 			return view;
 		}
@@ -177,6 +215,11 @@ public class TGTabActivity extends TGActionBarActivity implements
 			textView.setText(itemData.getTabName());
 			textView.setTextColor(itemData.getDefaultTextColor());
 			textView.setTextSize(itemData.getDefaultTextSize());
+			
+			if(itemData.getBadgeBackgroundResId() != 0)
+			{
+				badgeView.setImageResource(itemData.getBadgeBackgroundResId());
+			}
 		}
 		
 		public ImageView getImageView()
@@ -187,6 +230,11 @@ public class TGTabActivity extends TGActionBarActivity implements
 		public TextView getTextView()
 		{
 			return textView;
+		}
+		
+		public TGBadgeView getBadgeView()
+		{
+			return badgeView;
 		}
 	}
 	
@@ -230,6 +278,11 @@ public class TGTabActivity extends TGActionBarActivity implements
 		 * 选中时的文字大小
 		 */
 		private float highlightTextSize = 16f;
+		
+		/**
+		 * 徽标背景资源
+		 */
+		private int badgeBackgroundResId = 0;
 		
 		public TabModel()
 		{
@@ -304,5 +357,16 @@ public class TGTabActivity extends TGActionBarActivity implements
 		{
 			this.highlightTextSize = highlightTextSize;
 		}
+		
+		public void setBadgeBackgroundResId(int badgeBackgroundResId)
+		{
+			this.badgeBackgroundResId = badgeBackgroundResId;
+		}
+		
+		public int getBadgeBackgroundResId()
+		{
+			return badgeBackgroundResId;
+		}
 	}
+	
 }
