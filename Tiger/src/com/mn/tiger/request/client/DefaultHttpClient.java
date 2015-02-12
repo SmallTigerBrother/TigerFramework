@@ -73,7 +73,6 @@ public class DefaultHttpClient extends TGHttpClient
 					codeCount++;
 					LogTools.d(LOG_TAG, "[Method:executeHttpMethod]" + "connect-->retry--->" + codeCount);
 					httpMethod.disconnect();
-					httpMethod = null;
 					if (codeCount >= 2)
 					{
 						break;

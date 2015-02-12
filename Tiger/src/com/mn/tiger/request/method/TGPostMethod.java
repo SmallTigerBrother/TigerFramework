@@ -3,6 +3,7 @@ package com.mn.tiger.request.method;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.URLEncoder;
 import java.util.Map;
 
 import com.mn.tiger.log.LogTools;
@@ -92,6 +93,15 @@ public class TGPostMethod extends TGHttpMethod
 		}
 		else
 		{
+			try
+			{
+				String str = URLEncoder.encode(parameters.toString(), "utf-8");
+				return str.getBytes();
+			}
+			catch (UnsupportedEncodingException e)
+			{
+				LogTools.e(LOG_TAG, e);
+			}
 			return parameters.toString().getBytes();
 		}
 	}

@@ -440,6 +440,10 @@ public abstract class TGHttpMethod
 		    httpConnection.setReadTimeout(readTimeout);
 		    //防止socketTimeout
 		    httpConnection.setRequestProperty("http.socket.timeout", "60000");
+		    //设置接受的字符类型为utf-8
+		    httpConnection.setRequestProperty("Accept-Charset", "utf-8"); 
+		    //设置内容字符类型为utf-8
+		    httpConnection.setRequestProperty("contentType", "utf-8");  
 		}
 	}
 	
