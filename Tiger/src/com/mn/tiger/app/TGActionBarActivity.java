@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -262,6 +263,13 @@ public class TGActionBarActivity extends ActionBarActivity
 		{
 			requestWindowFeature(Window.FEATURE_NO_TITLE);
 		}
+	}
+	
+	@Override
+	public boolean onCreatePanelMenu(int featureId, Menu menu) 
+	{
+		//方式flyme系统中弹出清理内存工具条时，应用崩溃
+		return false;
 	}
 
 }
