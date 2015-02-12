@@ -3,6 +3,7 @@ package com.mn.tiger.app;
 import java.util.Arrays;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -215,6 +216,7 @@ public class TGTabActivity extends TGActionBarActivity implements
 			textView.setText(itemData.getTabName());
 			textView.setTextColor(itemData.getDefaultTextColor());
 			textView.setTextSize(itemData.getDefaultTextSize());
+			textView.setTypeface(Typeface.defaultFromStyle(itemData.getDefaultTypeface()));
 			
 			if(itemData.getBadgeBackgroundResId() != 0)
 			{
@@ -283,6 +285,16 @@ public class TGTabActivity extends TGActionBarActivity implements
 		 * 徽标背景资源
 		 */
 		private int badgeBackgroundResId = 0;
+		
+		/**
+		 * 默认文字样式
+		 */
+		private int defaultTypeface = Typeface.NORMAL;
+		
+		/**
+		 * 高亮文字样式
+		 */
+		private int highlightTypeface = Typeface.NORMAL;
 		
 		public TabModel()
 		{
@@ -366,6 +378,26 @@ public class TGTabActivity extends TGActionBarActivity implements
 		public int getBadgeBackgroundResId()
 		{
 			return badgeBackgroundResId;
+		}
+		
+		public void setDefaultTypeface(int defaultTypeface)
+		{
+			this.defaultTypeface = defaultTypeface;
+		}
+		
+		public int getDefaultTypeface()
+		{
+			return defaultTypeface;
+		}
+		
+		public void setHighlightTypeface(int highlightTypeface)
+		{
+			this.highlightTypeface = highlightTypeface;
+		}
+		
+		public int getHighlightTypeface()
+		{
+			return highlightTypeface;
 		}
 	}
 	
