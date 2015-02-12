@@ -200,54 +200,6 @@ public class TGCache
 	}
 
 	/**
-	 * 该方法的作用: 保存文件和其保存的时间
-	 * 
-	 * @date 2013-8-14
-	 * @param content
-	 * @param identify
-	 *            缓存文件名
-	 * @param context
-	 */
-	public static void saveCache(Object content, String identify, Context context)
-	{
-		String filename = null;
-		if (identify == null || "".equals(identify))
-		{
-			filename = "cache.hw";
-		}
-		else
-		{
-			filename = identify + ".hw";
-		}
-
-		writeObject(filename, content, context);
-	}
-
-	/**
-	 * 该方法的作用:
-	 * 
-	 * @date 2013-11-12
-	 * @param content
-	 * @param identify
-	 * @param context
-	 * @return
-	 */
-	public static Object readCache(String identify, Context context)
-	{
-		String filename = null;
-		if (identify == null || "".equals(identify))
-		{
-			filename = "cache.hw";
-		}
-		else
-		{
-			filename = identify + ".hw";
-		}
-
-		return readObject(filename, context);
-	}
-
-	/**
 	 * 该方法的作用: 将object对象写入outFile文件
 	 * 
 	 * @date 2013-8-14
