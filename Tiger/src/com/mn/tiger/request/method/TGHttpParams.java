@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
+import android.text.TextUtils;
+
 import com.mn.tiger.log.LogTools;
 import com.mn.tiger.utility.Commons;
 
@@ -82,15 +84,20 @@ public class TGHttpParams extends ConcurrentHashMap<String, HashMap<String, Stri
 	/**
 	 * 初始化边界
 	 */
-	private void initBoundary()
+	public String initBoundary()
 	{
-		final StringBuffer buf = new StringBuffer();
-		final Random rand = new Random();
-		for (int i = 0; i < 30; i++)
+		if(TextUtils.isEmpty(boundary))
 		{
-			buf.append(MULTIPART_CHARS[rand.nextInt(MULTIPART_CHARS.length)]);
+			final StringBuffer buf = new StringBuffer();
+			final Random rand = new Random();
+			for (int i = 0; i < 30; i++)
+			{
+				buf.append(MULTIPART_CHARS[rand.nextInt(MULTIPART_CHARS.length)]);
+			}
+			this.boundary = buf.toString();
 		}
-		this.boundary = buf.toString();
+		
+		return this.boundary;
 	}
 	
 	/**
@@ -151,7 +158,7 @@ public class TGHttpParams extends ConcurrentHashMap<String, HashMap<String, Stri
 				FileInputStream inputStream;
 				for (HashMap.Entry<String, String> entry : fileParams.entrySet())
 				{
-					boolean isLast = currentIndex == lastIndex;
+					boolean isLast = (currentIndex == lastIndex);
 					inputStream = new FileInputStream(entry.getValue());
 					addPart(entry.getKey(), entry.getValue(), inputStream,
 							"application/octet-stream", isLast);
@@ -170,7 +177,6 @@ public class TGHttpParams extends ConcurrentHashMap<String, HashMap<String, Stri
 
 		Commons.closeOutputStream(out);
 		out = null;
-		
 		return result;
 	}
 	

@@ -82,7 +82,16 @@ public class TGPostMethod extends TGHttpMethod
 			}
 			else
 			{
-				return ((TGHttpParams)parameters).toByteArray();
+				try
+				{
+					getHttpURLConnection().addRequestProperty("Content-Type", "multipart/form-data; boundary=" + 
+							((TGHttpParams)parameters).initBoundary());
+					return ((TGHttpParams)parameters).toByteArray();
+				}
+				catch (Exception e)
+				{
+					LogTools.e(LOG_TAG, e);
+				}
 			}
 		}
 		

@@ -134,6 +134,12 @@ public class TGHttpAsyncTask<T>
 			return;
 		}
 		
+		if(TextUtils.isEmpty(requestUrl))
+		{
+			LogTools.e(LOG_TAG, "[Method:execute] the requestUrl is null, please check your code");
+			return;
+		}
+		
 		if(null != context)
 		{
 			onPreExecute();
