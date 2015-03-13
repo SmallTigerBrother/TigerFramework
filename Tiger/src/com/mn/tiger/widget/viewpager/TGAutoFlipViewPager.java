@@ -194,6 +194,9 @@ public class TGAutoFlipViewPager extends ViewPager
 		this.duration = duration;
 	}
 	
+	/**
+	 * 重写基类的设置页面切换监听接口
+	 */
 	@Override
 	public void setOnPageChangeListener(OnPageChangeListener listener)
 	{
@@ -216,6 +219,15 @@ public class TGAutoFlipViewPager extends ViewPager
 		{
 			//设置个数为最大值，无限循环
 			return Integer.MAX_VALUE;
+		}
+		
+		/**
+		 * 获取真实页数（不循环的页数）
+		 * @return
+		 */
+		public int getRealPageCount()
+		{
+			return getPagerData().size();
 		}
 		
 		@Override

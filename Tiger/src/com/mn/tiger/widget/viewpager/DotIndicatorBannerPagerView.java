@@ -56,8 +56,21 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 	 */
 	private Drawable dotSelectedRes;
 
+	/**
+	 * 圆点指示器显示模式
+	 */
 	private IndicatorShowMode indicatorShowMode = IndicatorShowMode.SHOW_AUTO;
 
+	/**
+	 * 页面切换监听接口
+	 */
+	private OnPageChangeListener onPageChangeListener;
+	
+	/**
+	 * 是否支持循环
+	 */
+	private boolean circleable = true;
+	
 	public DotIndicatorBannerPagerView(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
@@ -172,6 +185,15 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 		this.dotDefaultRes = defaultRes;
 		this.dotSelectedRes = selectedRes;
 	}
+	
+	/**
+	 * 设置是否支持循环
+	 * @param circleable
+	 */
+	public void setCircleable(boolean circleable)
+	{
+		this.circleable = circleable;
+	}
 
 	/**
 	 * 初始化圆点视图
@@ -211,15 +233,40 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 		bannerViewPager.stopScroll();
 		super.onDetachedFromWindow();
 	}
-
+	
+	/**
+	 * 设置界面切换监听接口
+	 * @param onPageChangeListener
+	 */
+	public void setOnPageChangeListener(OnPageChangeListener onPageChangeListener)
+	{
+		this.onPageChangeListener = onPageChangeListener;
+	}
+	
+	/**
+	 * 设置OnToucheEvent事件监听接口
+	 */
+	public void setOnTouchListener(OnTouchListener listener)
+	{
+		this.bannerViewPager.setOnTouchListener(listener);
+	}
+	
 	@Override
 	public void onPageScrolled(int arg0, float arg1, int arg2)
 	{
+		if(null != onPageChangeListener)
+		{
+			onPageChangeListener.onPageScrolled(arg0, arg1, arg2);
+		}
 	}
 
 	@Override
-	public void onPageScrollStateChanged(int arg0)
+	public void onPageScrollStateChanged(int state)
 	{
+		if(null != onPageChangeListener)
+		{
+			onPageChangeListener.onPageScrollStateChanged(state);
+		}
 	}
 
 	@Override
@@ -227,6 +274,29 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 	{
 		// 切换indicator
 		tabView.setSelection(page % dataList.size());
+		if(null != onPageChangeListener)
+		{
+			onPageChangeListener.onPageSelected(page);
+		}
+	}
+	
+	/**
+	 * 获取实际页数
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	public int getRealPageCount()
+	{
+		return ((CirclePagerAdapter)bannerViewPager.getAdapter()).getRealPageCount();
+	}
+	
+	/**
+	 * 获取当前页码
+	 * @return
+	 */
+	public int getCurrentPage()
+	{
+		return bannerViewPager.getCurrentItem();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -294,7 +364,15 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 			}
 			else
 			{
-				return super.getCount();
+				//若支持循环，则返回基类的数量，若不支持循环，返回实际页码
+				if(circleable)
+				{
+					return super.getCount();
+				}
+				else
+				{
+					return getRealPageCount();
+				}
 			}
 		}
 
