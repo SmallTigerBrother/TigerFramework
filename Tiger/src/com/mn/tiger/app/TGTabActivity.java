@@ -93,7 +93,7 @@ public class TGTabActivity extends TGActionBarActivity implements
 	{
 		TabViewHolder holder = (TabViewHolder) tabView.getTabItem(lastTabIndex).getConvertView().getTag();
 		TabModel tabModel = (TabModel) tabView.getAdapter().getItem(lastTabIndex);
-		holder.getImageView().setImageResource(tabModel.getDefaultResId());
+		TGTabView.displayImage(tabModel.getDefaultResName(), holder.getImageView());
 		holder.getTextView().setTextColor(tabModel.getDefaultTextColor());
 		holder.getTextView().setTextSize(tabModel.getDefaultTextSize());
 	}
@@ -107,7 +107,7 @@ public class TGTabActivity extends TGActionBarActivity implements
 	{
 		TabViewHolder holder = (TabViewHolder) tabView.getTabItem(currentTabIndex).getConvertView().getTag();
 		TabModel tabModel = (TabModel) tabView.getAdapter().getItem(currentTabIndex);
-		holder.getImageView().setImageResource(tabModel.getHighlightResId());
+		TGTabView.displayImage(tabModel.getHighlightResName(), holder.getImageView());
 		holder.getTextView().setTextColor(tabModel.getHighlightTextColor());
 		holder.getTextView().setTextSize(tabModel.getHighlightTextSize());
 	}
@@ -212,7 +212,7 @@ public class TGTabActivity extends TGActionBarActivity implements
 		@Override
 		public void fillData(ViewGroup parent, View convertView, TabModel itemData, int position)
 		{
-			imageView.setImageResource(itemData.getDefaultResId());
+			TGTabView.displayImage(itemData.getDefaultResName(), imageView);
 			textView.setText(itemData.getTabName());
 			textView.setTextColor(itemData.getDefaultTextColor());
 			textView.setTextSize(itemData.getDefaultTextSize());
@@ -244,17 +244,17 @@ public class TGTabActivity extends TGActionBarActivity implements
 	 * 底部Tab数据模型
 	 * @author Dalang
 	 */
-	protected static class TabModel
+	public static class TabModel
 	{
 		/**
 		 * 默认图片资源
 		 */
-		private int defaultResId;
+		private String defaultResName;
 		
 		/**
 		 * 高亮图片资源
 		 */
-		private int highlightResId;
+		private String highlightResName;
 		
 		/**
 		 * tab名称
@@ -299,15 +299,15 @@ public class TGTabActivity extends TGActionBarActivity implements
 		public TabModel()
 		{
 		}
-
-		public int getDefaultResId()
+		
+		public String getDefaultResName()
 		{
-			return defaultResId;
+			return defaultResName;
 		}
-
-		public void setDefaultResId(int defaultResId)
+		
+		public void setDefaultResName(String defaultResName)
 		{
-			this.defaultResId = defaultResId;
+			this.defaultResName = defaultResName;
 		}
 
 		public String getTabName()
@@ -320,16 +320,16 @@ public class TGTabActivity extends TGActionBarActivity implements
 			this.tabName = tabName;
 		}
 
-		public int getHighlightResId()
+		public String getHighlightResName()
 		{
-			return highlightResId;
+			return highlightResName;
 		}
-
-		public void setHighlightResId(int highlightResId)
+		
+		public void setHighlightResName(String highlightResName)
 		{
-			this.highlightResId = highlightResId;
+			this.highlightResName = highlightResName;
 		}
-
+		
 		public int getDefaultTextColor()
 		{
 			return defaultTextColor;
