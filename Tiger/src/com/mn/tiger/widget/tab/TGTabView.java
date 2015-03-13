@@ -4,16 +4,25 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.mn.tiger.log.Logger;
+import com.mn.tiger.utility.ImageLoaderUitls;
 
 /**
  * 自定义Tab视图
  */
 public class TGTabView extends LinearLayout
 {
+	private static final Logger LOG = Logger.getLogger(TGTabView.class);
+	
 	/**
 	 * 所有TabItem选项
 	 */
@@ -263,7 +272,47 @@ public class TGTabView extends LinearLayout
 			setAdapter(adapter);
 		}
 	}
-
+	
+	/**
+	 * 显示图片资源
+	 * @param imageName image的名称，支持http，file，和资源文件名称
+	 * @param imageView
+	 */
+	public static void displayImage(String imageName, ImageView imageView)
+	{
+		if(!TextUtils.isEmpty(imageName))
+		{
+			if(imageName.startsWith("http"))
+			{
+				//如果是在线文件，使用ImageLoader加载
+				ImageLoaderUitls.displayImage(imageName, imageView);
+			}
+			else if(imageName.startsWith("file"))
+			{
+				//如果是本地存储中的文件，直接加载
+				Drawable drawable = BitmapDrawable.createFromPath(imageName);
+				if(null != drawable)
+				{
+					imageView.setImageDrawable(drawable);
+				}
+			}
+			else
+			{
+				//其他默认为资源文件，直接填充
+				int resId = imageView.getContext().getResources().getIdentifier(imageName, 
+						"drawable", imageView.getContext().getPackageName());
+				if(resId != 0)
+				{
+					imageView.setImageResource(resId);
+				}
+				else
+				{
+					LOG.e("[Method:diplayImage] no resource found of name " + imageName);
+				}
+			}
+		}
+	}
+	
 	/**
 	 * Tab切换事件监听器接口
 	 */
