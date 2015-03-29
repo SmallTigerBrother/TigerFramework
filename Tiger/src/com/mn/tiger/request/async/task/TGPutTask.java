@@ -1,7 +1,7 @@
 package com.mn.tiger.request.async.task;
 
-import com.mn.tiger.request.TGHttpLoader;
-import com.mn.tiger.request.receiver.TGHttpResult;
+import com.mn.tiger.request.sync.TGSyncHttpLoaderFactory;
+import com.mn.tiger.request.sync.receiver.TGHttpResult;
 
 /**
  * 该类作用及功能说明
@@ -10,10 +10,9 @@ import com.mn.tiger.request.receiver.TGHttpResult;
  */
 public class TGPutTask extends TGHttpTask
 {
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected TGHttpResult executeHttpRequest() 
 	{
-		return new TGHttpLoader().loadByPutSync(getContext(), getRequestUrl(), 
+		return TGSyncHttpLoaderFactory.createSyncHttpLoader(getHttpImplementionType()).loadByPutSync(getContext(), getRequestUrl(), 
 				getRequestParams(), getRequestProperties());
 	}
 }

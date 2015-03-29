@@ -4,7 +4,7 @@ import java.net.HttpURLConnection;
 
 import android.content.Context;
 
-import com.mn.tiger.request.receiver.TGHttpResult;
+import com.mn.tiger.request.sync.receiver.TGHttpResult;
 
 /**
  * 该类作用及功能说明:自定义错误处理类

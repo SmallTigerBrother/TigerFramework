@@ -1,6 +1,6 @@
 package com.mn.tiger.request.async.task;
 
-import com.mn.tiger.request.receiver.TGHttpResult;
+import com.mn.tiger.request.sync.receiver.TGHttpResult;
 
 /**
  * 请求结果解析接口

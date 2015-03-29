@@ -1,7 +1,7 @@
 package com.mn.tiger.request.async.task;
 
-import com.mn.tiger.request.TGHttpLoader;
-import com.mn.tiger.request.receiver.TGHttpResult;
+import com.mn.tiger.request.sync.TGSyncHttpLoaderFactory;
+import com.mn.tiger.request.sync.receiver.TGHttpResult;
 
 /**
  * 该类作用及功能说明
@@ -10,11 +10,10 @@ import com.mn.tiger.request.receiver.TGHttpResult;
  */
 public class TGPostTask extends TGHttpTask
 {
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	protected TGHttpResult executeHttpRequest()
 	{
-		return new TGHttpLoader().loadByPostSync(getContext(), getRequestUrl(), 
+		return TGSyncHttpLoaderFactory.createSyncHttpLoader(getHttpImplementionType()).loadByPostSync(getContext(), getRequestUrl(), 
 				getRequestParams(), getRequestProperties());
 	}
 }

@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.mn.tiger.log.LogTools;
-import com.mn.tiger.request.receiver.TGHttpResult;
+import com.mn.tiger.request.sync.HttpImplementionType;
+import com.mn.tiger.request.sync.receiver.TGHttpResult;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.utility.MD5;
 
@@ -46,6 +47,8 @@ public abstract class TGHttpTask extends TGTask
 	 * 参数名--是否支持缓存
 	 */
 	public static final String PARAM_CACHEABLE = "cacheable";
+	
+	public static final String PARAM_HTTP_IMPLEMENTATION_TYPE = "httpImplementationType";
 
 	/**
 	 * 缓存用的Key
@@ -175,6 +178,12 @@ public abstract class TGHttpTask extends TGTask
 		}
 		
 		return cacheKey;
+	}
+	
+	public HttpImplementionType getHttpImplementionType()
+	{
+		Bundle httpParams = (Bundle)getParams();
+		return HttpImplementionType.valueOf(httpParams.getString(PARAM_HTTP_IMPLEMENTATION_TYPE));
 	}
 	
 	/**

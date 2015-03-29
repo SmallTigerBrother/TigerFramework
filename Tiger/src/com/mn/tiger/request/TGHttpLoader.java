@@ -9,17 +9,8 @@ import com.google.gson.Gson;
 import com.mn.tiger.log.LogTools;
 import com.mn.tiger.request.async.TGHttpAsyncTask;
 import com.mn.tiger.request.async.task.IRequestParser;
-import com.mn.tiger.request.client.DefaultHttpClient;
-import com.mn.tiger.request.client.TGHttpClient;
-import com.mn.tiger.request.error.TGHttpError;
-import com.mn.tiger.request.method.TGDeleteMethod;
-import com.mn.tiger.request.method.TGGetMethod;
-import com.mn.tiger.request.method.TGHttpMethod;
-import com.mn.tiger.request.method.TGPostMethod;
-import com.mn.tiger.request.method.TGPutMethod;
-import com.mn.tiger.request.receiver.DefaultHttpReceiver;
-import com.mn.tiger.request.receiver.TGHttpReceiver;
-import com.mn.tiger.request.receiver.TGHttpResult;
+import com.mn.tiger.request.sync.HttpImplementionType;
+import com.mn.tiger.request.sync.receiver.TGHttpResult;
 
 /**
  * Http请求类（包含异步、同步方法）
@@ -73,40 +64,6 @@ public class TGHttpLoader<T> implements IRequestParser
 	}
 	
 	/**
-	 * 该方法的作用:
-	 * Get请求
-	 * @date 2013-12-1
-	 * @param context
-	 * @param requestUrl
-	 * @param parameters
-	 * @param properties content-type等请求参数
-	 * @return
-	 */
-	public TGHttpResult loadByGetSync(Context context, String requestUrl, 
-			Object parameters, Map<String, String> properties)
-	{
-		if(TextUtils.isEmpty(requestUrl))
-		{
-			LogTools.e(LOG_TAG, "[Method:loadByGetSync] requestUrl can not be null or \"\" !");
-			TGHttpResult result = new TGHttpResult();
-			result.setResponseCode(TGHttpError.ERROR_URL);
-			result.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.ERROR_URL));
-			return result;
-		}
-		
-		TGHttpMethod getMethod = new TGGetMethod(context, requestUrl, parameters);
-		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context);
-		TGHttpClient httpClient = new DefaultHttpClient(context);
-		
-		if(properties != null && properties.size() > 0)
-		{
-			getMethod.setProperties(properties);
-		}
-		
-		return httpClient.executeHttpMethod(getMethod, httpReceiver);
-	}
-	
-	/**
 	 * 执行post请求
 	 * @param requestUrl 请求url
 	 * @param resultClsName 解析结果类名
@@ -117,39 +74,6 @@ public class TGHttpLoader<T> implements IRequestParser
 			OnLoadCallback<T> callback)
 	{
 		execute(context, REQUEST_POST, requestUrl, clazz.getName(), callback);
-	}
-	
-	/**
-	 * 该方法的作用:post请求，请求参数可以自定义设置
-	 * @date 2014年5月23日
-	 * @param context
-	 * @param requestUrl
-	 * @param parameters
-	 * @param properties content-type等请求参数
-	 * @return
-	 */
-	public TGHttpResult loadByPostSync(Context context, String requestUrl, 
-			Object parameters, Map<String, String> properties)
-	{
-		if(TextUtils.isEmpty(requestUrl))
-		{
-			LogTools.e(LOG_TAG, "[Method:loadByPostSync] requestUrl can not be null or \"\" !");
-			TGHttpResult result = new TGHttpResult();
-			result.setResponseCode(TGHttpError.ERROR_URL);
-			result.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.ERROR_URL));
-			return result;
-		}
-		
-		TGHttpMethod postMethod = new TGPostMethod(context, requestUrl, parameters);
-		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context);
-		TGHttpClient httpClient = new DefaultHttpClient(context);
-		
-		if(properties != null && properties.size() > 0)
-		{
-			postMethod.setProperties(properties);
-		}
-		
-		return httpClient.executeHttpMethod(postMethod, httpReceiver);
 	}
 	
 	/**
@@ -166,39 +90,6 @@ public class TGHttpLoader<T> implements IRequestParser
 	}
 	
 	/**
-	 * 该方法的作用: put请求，请求参数可以自定义设置
-	 * @date 2014年5月23日
-	 * @param context
-	 * @param requestUrl
-	 * @param parameters
-	 * @param properties content-type等请求参数
-	 * @return
-	 */
-	public TGHttpResult loadByPutSync(Context context, String requestUrl, 
-			Object parameters, Map<String, String> properties)
-	{
-		if(TextUtils.isEmpty(requestUrl))
-		{
-			LogTools.e(LOG_TAG, "[Method:loadByPutSync] requestUrl can not be null or \"\" !");
-			TGHttpResult result = new TGHttpResult();
-			result.setResponseCode(TGHttpError.ERROR_URL);
-			result.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.ERROR_URL));
-			return result;
-		}
-		
-		TGHttpMethod putMethod = new TGPutMethod(context, requestUrl, parameters);
-		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context);
-		TGHttpClient httpClient = new DefaultHttpClient(context);
-		
-		if(properties != null && properties.size() > 0)
-		{
-			putMethod.setProperties(properties);
-		}
-		
-		return httpClient.executeHttpMethod(putMethod, httpReceiver);
-	}
-	
-	/**
 	 * 执行delete请求
 	 * @param requestUrl 请求url
 	 * @param resultClsName 解析结果类名
@@ -209,39 +100,6 @@ public class TGHttpLoader<T> implements IRequestParser
 			OnLoadCallback<T> callback)
 	{
 		execute(context, REQUEST_DELETE, requestUrl, clazz.getName(),  callback);
-	}
-	
-	/**
-	 * 该方法的作用: Delete请求
-	 * @date 2014年5月19日
-	 * @param context
-	 * @param requestUrl
-	 * @param parameters
-	 * @param properties content-type等请求参数
-	 * @return
-	 */
-	public TGHttpResult loadByDeleteSync(Context context, String requestUrl, 
-			Object parameters, Map<String, String> properties)
-	{
-		if(TextUtils.isEmpty(requestUrl))
-		{
-			LogTools.e(LOG_TAG, "[Method:loadByDeleteSync] requestUrl can not be null or \"\" !");
-			TGHttpResult result = new TGHttpResult();
-			result.setResponseCode(TGHttpError.ERROR_URL);
-			result.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.ERROR_URL));
-			return result;
-		}
-		
-		TGHttpMethod delMethod = new TGDeleteMethod(context, requestUrl, parameters);
-		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context);
-		TGHttpClient httpClient = new DefaultHttpClient(context);
-		
-		if(properties != null && properties.size() > 0)
-		{
-			delMethod.setProperties(properties);
-		}
-		
-		return httpClient.executeHttpMethod(delMethod, httpReceiver);
 	}
 	
 	/**
@@ -351,6 +209,15 @@ public class TGHttpLoader<T> implements IRequestParser
 	}
 	
 	/**
+	 * 设置http请求实现方式
+	 * @param httpImplementationType
+	 */
+	public void setHttpImplementationType(HttpImplementionType httpImplementationType)
+	{
+		this.getAsyncTask().setHttpImplementationType(httpImplementationType);
+	}
+	
+	/**
 	 * 获取异步任务
 	 * @return
 	 */
@@ -410,5 +277,4 @@ public class TGHttpLoader<T> implements IRequestParser
 		 */
 		void onLoadOver();
 	}
-
 }
