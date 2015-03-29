@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 
 import com.mn.tiger.app.TGTabActivity;
-import com.mn.tiger.demo.R;
 import com.mn.tiger.widget.tab.TGTabView.OnTabChangeListener;
 
 /**
@@ -19,14 +18,14 @@ public class ViewPagerWithFragmentActivity extends TGTabActivity implements
 	/**
 	 * tab默认显示的资源
 	 */
-	private int[] tabDefaultIconResId = {R.drawable.tiger_search_submit_icon, 
-			R.drawable.tiger_search_close_press, R.drawable.loading_icon_down};
+	private String[] defaultIconResName = {"tiger_search_submit_icon", 
+			"tiger_search_close_press", "loading_icon_down"};
 	
 	/**
 	 * tab高亮显示的资源
 	 */
-	private int[] tabHighLightIconResId = {R.drawable.loading_icon_round, 
-			R.drawable.tiger_search_submit_icon, R.drawable.ic_launcher};
+	private String[] highLightIconResName = {"loading_icon_round", 
+			"tiger_search_submit_icon", "ic_launcher"};
 	
 	/**
 	 * tab名称
@@ -48,9 +47,9 @@ public class ViewPagerWithFragmentActivity extends TGTabActivity implements
 		for(int i = 0 ; i < tabNames.length; i++)
 		{
 			tabModel = new TabModel();
-			tabModel.setDefaultResId(tabDefaultIconResId[i]);
+			tabModel.setDefaultResName(defaultIconResName[i]);
 			tabModel.setTabName(tabNames[i]);
-			tabModel.setHighlightResId(tabHighLightIconResId[i]);
+			tabModel.setHighlightResName(highLightIconResName[i]);
 			tabModel.setHighlightTextColor(Color.BLUE);
 			tabModel.setHighlightTextSize(24f);
 			tabModels[i] = tabModel;
