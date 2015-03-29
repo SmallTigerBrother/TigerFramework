@@ -157,11 +157,11 @@ public class TGDownloadStrategy implements IDownloadStrategy
 		TGHttpMethod httpMethod = null;
 		if (download.getRequestType() == TGHttpLoader.REQUEST_POST)
 		{
-			httpMethod = new TGPostMethod(context, download.getUrlString(), download.getParams());
+			httpMethod = new TGPostMethod(context, download.getUrlString(), null);
 		}
 		else
 		{
-			httpMethod = new TGGetMethod(context, download.getUrlString(), download.getParams());
+			httpMethod = new TGGetMethod(context, download.getUrlString(), null);
 		}
 		return httpMethod;
 	}

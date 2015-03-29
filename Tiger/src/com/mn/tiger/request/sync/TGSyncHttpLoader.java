@@ -5,22 +5,21 @@ import java.util.Map;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.mn.tiger.log.LogTools;
-import com.mn.tiger.request.error.TGHttpError;
 import com.mn.tiger.request.sync.client.DefaultHttpClient;
 import com.mn.tiger.request.sync.client.TGHttpClient;
 import com.mn.tiger.request.sync.method.TGDeleteMethod;
 import com.mn.tiger.request.sync.method.TGGetMethod;
 import com.mn.tiger.request.sync.method.TGHttpMethod;
+import com.mn.tiger.request.sync.method.TGHttpParams;
 import com.mn.tiger.request.sync.method.TGPostMethod;
 import com.mn.tiger.request.sync.method.TGPutMethod;
 import com.mn.tiger.request.sync.receiver.DefaultHttpReceiver;
 import com.mn.tiger.request.sync.receiver.TGHttpReceiver;
 import com.mn.tiger.request.sync.receiver.TGHttpResult;
 
-public class TGSyncHttpLoader implements ISyncHttpLoader
+public class TGSyncHttpLoader extends AbstractSyncHttpLoader
 {
-	protected final String LOG_TAG = this.getClass().getSimpleName();
+	protected static final String LOG_TAG = TGSyncHttpLoader.class.getSimpleName();
 	
 	/**
 	 * 该方法的作用:
@@ -33,15 +32,11 @@ public class TGSyncHttpLoader implements ISyncHttpLoader
 	 * @return
 	 */
 	public TGHttpResult loadByGetSync(Context context, String requestUrl, 
-			Object parameters, Map<String, String> properties)
+			TGHttpParams parameters, Map<String, String> properties)
 	{
 		if(TextUtils.isEmpty(requestUrl))
 		{
-			LogTools.e(LOG_TAG, "[Method:loadByGetSync] requestUrl can not be null or \"\" !");
-			TGHttpResult result = new TGHttpResult();
-			result.setResponseCode(TGHttpError.ERROR_URL);
-			result.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.ERROR_URL));
-			return result;
+			return getHttpResultWhileUrlIsNULL(context);
 		}
 		
 		TGHttpMethod getMethod = new TGGetMethod(context, requestUrl, parameters);
@@ -66,15 +61,11 @@ public class TGSyncHttpLoader implements ISyncHttpLoader
 	 * @return
 	 */
 	public TGHttpResult loadByPostSync(Context context, String requestUrl, 
-			Object parameters, Map<String, String> properties)
+			TGHttpParams parameters, Map<String, String> properties)
 	{
 		if(TextUtils.isEmpty(requestUrl))
 		{
-			LogTools.e(LOG_TAG, "[Method:loadByPostSync] requestUrl can not be null or \"\" !");
-			TGHttpResult result = new TGHttpResult();
-			result.setResponseCode(TGHttpError.ERROR_URL);
-			result.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.ERROR_URL));
-			return result;
+			return getHttpResultWhileUrlIsNULL(context);
 		}
 		
 		TGHttpMethod postMethod = new TGPostMethod(context, requestUrl, parameters);
@@ -99,15 +90,11 @@ public class TGSyncHttpLoader implements ISyncHttpLoader
 	 * @return
 	 */
 	public TGHttpResult loadByPutSync(Context context, String requestUrl, 
-			Object parameters, Map<String, String> properties)
+			TGHttpParams parameters, Map<String, String> properties)
 	{
 		if(TextUtils.isEmpty(requestUrl))
 		{
-			LogTools.e(LOG_TAG, "[Method:loadByPutSync] requestUrl can not be null or \"\" !");
-			TGHttpResult result = new TGHttpResult();
-			result.setResponseCode(TGHttpError.ERROR_URL);
-			result.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.ERROR_URL));
-			return result;
+			return getHttpResultWhileUrlIsNULL(context);
 		}
 		
 		TGHttpMethod putMethod = new TGPutMethod(context, requestUrl, parameters);
@@ -132,15 +119,11 @@ public class TGSyncHttpLoader implements ISyncHttpLoader
 	 * @return
 	 */
 	public TGHttpResult loadByDeleteSync(Context context, String requestUrl, 
-			Object parameters, Map<String, String> properties)
+			TGHttpParams parameters, Map<String, String> properties)
 	{
 		if(TextUtils.isEmpty(requestUrl))
 		{
-			LogTools.e(LOG_TAG, "[Method:loadByDeleteSync] requestUrl can not be null or \"\" !");
-			TGHttpResult result = new TGHttpResult();
-			result.setResponseCode(TGHttpError.ERROR_URL);
-			result.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.ERROR_URL));
-			return result;
+			return getHttpResultWhileUrlIsNULL(context);
 		}
 		
 		TGHttpMethod delMethod = new TGDeleteMethod(context, requestUrl, parameters);

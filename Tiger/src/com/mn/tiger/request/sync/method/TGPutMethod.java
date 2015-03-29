@@ -34,7 +34,7 @@ public class TGPutMethod extends TGHttpMethod
 	 * @param url
 	 * @param params
 	 */
-	public TGPutMethod(Context context, String url, Object params)
+	public TGPutMethod(Context context, String url, TGHttpParams params)
 	{
 		super(context, url, params);
 	}

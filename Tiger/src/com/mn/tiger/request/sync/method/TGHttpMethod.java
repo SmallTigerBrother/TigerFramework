@@ -36,7 +36,7 @@ import com.mn.tiger.utility.Commons;
  * @see JDK1.6,android-8
  * @date 2013-12-1
  */
-public abstract class TGHttpMethod 
+public abstract class TGHttpMethod
 {
 	protected final String LOG_TAG = this.getClass().getSimpleName();
 	
@@ -45,7 +45,7 @@ public abstract class TGHttpMethod
 	/**
 	 * 请求参数
 	 */
-	private Object params = null;
+	private TGHttpParams params = null;
 	
 	private HttpURLConnection httpConnection = null;
 	
@@ -57,12 +57,12 @@ public abstract class TGHttpMethod
 	/**
 	 * 连接超时时间
 	 */
-	private int connectTimeout = 60000;
+	private int connectTimeout = 30000;
 	
 	/**
 	 * 读取超时时间
 	 */
-	private int readTimeout = 60000;
+	private int readTimeout = 30000;
 	
 	/**
 	 * 证书
@@ -101,7 +101,7 @@ public abstract class TGHttpMethod
 	 * @param url
 	 * @param params
 	 */
-	public TGHttpMethod(Context context, String url, Object params)
+	public TGHttpMethod(Context context, String url, TGHttpParams params)
 	{
 		this(context, url);
 		this.params = params;
@@ -139,12 +139,13 @@ public abstract class TGHttpMethod
 		return context;
 	}
 	
+
 	/**
 	 * 设置请求参数
 	 * @date 2013-12-1
 	 * @param params
 	 */
-	public void setReqeustParams(Object params)
+	public void setReqeustParams(TGHttpParams params)
 	{
 		this.params = params;
 	}
@@ -178,10 +179,6 @@ public abstract class TGHttpMethod
 		this.properties.putAll(properties);
 	}
 	
-	/**
-	 * 断开连接
-	 * @date 2013-12-1
-	 */
 	public void disconnect()
 	{
 		if (null != httpConnection)
@@ -206,14 +203,6 @@ public abstract class TGHttpMethod
 		return null;
 	}
 	
-	/**
-	 * 执行http请求
-	 * @date 2013-12-1
-	 * @return
-	 * @throws IOException
-	 * @throws NoSuchAlgorithmException 
-	 * @throws KeyManagementException 
-	 */
 	public final int excute() throws IOException, KeyManagementException, NoSuchAlgorithmException
 	{
 		//1、向url中加入参数
@@ -439,7 +428,7 @@ public abstract class TGHttpMethod
 			// 设置读取超时时间
 		    httpConnection.setReadTimeout(readTimeout);
 		    //防止socketTimeout
-		    httpConnection.setRequestProperty("http.socket.timeout", "60000");
+		    httpConnection.setRequestProperty("http.socket.timeout", "30000");
 		    //设置接受的字符类型为utf-8
 		    httpConnection.setRequestProperty("Accept-Charset", "utf-8"); 
 		    //设置内容字符类型为utf-8

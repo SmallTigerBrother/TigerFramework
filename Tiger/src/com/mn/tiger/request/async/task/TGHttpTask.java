@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.mn.tiger.log.LogTools;
 import com.mn.tiger.request.sync.HttpImplementionType;
+import com.mn.tiger.request.sync.method.TGHttpParams;
 import com.mn.tiger.request.sync.receiver.TGHttpResult;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.utility.MD5;
@@ -192,10 +193,10 @@ public abstract class TGHttpTask extends TGTask
 	 * @date 2014年8月15日
 	 * @return
 	 */
-	public Object getRequestParams()
+	public TGHttpParams getRequestParams()
 	{
 		Bundle httpParams = (Bundle)getParams();
-		return httpParams.get(PARAM_PARAMS);
+		return (TGHttpParams) httpParams.getSerializable(PARAM_PARAMS);
 	}
 	
 	/**

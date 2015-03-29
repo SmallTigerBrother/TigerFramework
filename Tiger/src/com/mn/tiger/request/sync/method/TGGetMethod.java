@@ -36,7 +36,7 @@ public class TGGetMethod extends TGHttpMethod
 	 * @param url
 	 * @param params
 	 */
-	public TGGetMethod(Context context, String url, Object params)
+	public TGGetMethod(Context context, String url, TGHttpParams params)
 	{
 		super(context, url, params);
 	}

@@ -36,7 +36,7 @@ public class TGDeleteMethod extends TGHttpMethod
 	 * @param url
 	 * @param params
 	 */
-	public TGDeleteMethod(Context context, String url, Object params)
+	public TGDeleteMethod(Context context, String url, TGHttpParams params)
 	{
 		super(context, url, params);
 	}

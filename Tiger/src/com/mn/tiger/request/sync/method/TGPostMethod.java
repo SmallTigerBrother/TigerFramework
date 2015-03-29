@@ -38,7 +38,7 @@ public class TGPostMethod extends TGHttpMethod
 	 * @param url
 	 * @param params
 	 */
-	public TGPostMethod(Context context, String url, Object params)
+	public TGPostMethod(Context context, String url, TGHttpParams params)
 	{
 		super(context, url, params);
 	}

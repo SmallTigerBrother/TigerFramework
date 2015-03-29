@@ -3,7 +3,7 @@ package com.mn.tiger.request.sync;
 
 public class TGSyncHttpLoaderFactory
 {
-	public static ISyncHttpLoader createSyncHttpLoader(HttpImplementionType syncHttpLoaderType)
+	public static AbstractSyncHttpLoader createSyncHttpLoader(HttpImplementionType syncHttpLoaderType)
 	{
 		switch (syncHttpLoaderType)
 		{
