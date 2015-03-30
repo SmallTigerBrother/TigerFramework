@@ -23,7 +23,11 @@ public class ApacheSyncHttpLoader extends AbstractSyncHttpLoader
 		}
 		
 		ApacheHttpClient httpClient = new ApacheHttpClient(context);
-		return httpClient.execute(new ApacheGetMethod());
+		ApacheGetMethod getMethod = new ApacheGetMethod();
+		getMethod.setUrl(requestUrl);
+		getMethod.setReqeustParams(parameters);
+		getMethod.setProperties(properties);
+		return httpClient.execute(getMethod);
 	}
 
 	@Override
@@ -36,7 +40,11 @@ public class ApacheSyncHttpLoader extends AbstractSyncHttpLoader
 		}
 		
 		ApacheHttpClient httpClient = new ApacheHttpClient(context);
-		return httpClient.execute(new ApachePostMethod());
+		ApachePostMethod getMethod = new ApachePostMethod();
+		getMethod.setUrl(requestUrl);
+		getMethod.setReqeustParams(parameters);
+		getMethod.setProperties(properties);
+		return httpClient.execute(getMethod);
 	}
 
 	@Override

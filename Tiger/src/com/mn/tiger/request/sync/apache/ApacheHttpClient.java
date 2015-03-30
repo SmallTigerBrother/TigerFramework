@@ -4,6 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.zip.GZIPInputStream;
 
 import org.apache.http.Header;
@@ -31,15 +34,17 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.protocol.SyncBasicHttpContext;
 
-import android.R.integer;
 import android.content.Context;
 
+import com.mn.tiger.log.Logger;
 import com.mn.tiger.request.error.TGHttpError;
 import com.mn.tiger.request.sync.receiver.TGHttpResult;
 import com.mn.tiger.utility.CR;
 
 public class ApacheHttpClient
 {
+	private static final Logger LOG = Logger.getLogger(ApacheHttpClient.class);
+	
 	private static final int DEFAULT_SOCKET_BUFFER_SIZE = 8 * 1024; // 8KB
 	private static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
 	private static final String ENCODING_GZIP = "gzip";
@@ -118,15 +123,16 @@ public class ApacheHttpClient
 			try
 			{
 				HttpResponse response = httpClient.execute(httpMethod.createHttpRequest(), httpContext);
-				return handleEntity(response.getStatusLine().getStatusCode(), response.getEntity(), charset);
+				return handleEntity(response.getEntity(), response.getStatusLine().getStatusCode(), 
+						response.getAllHeaders(), charset);
 			}
 			catch (UnknownHostException e)
 			{
 				httpResult.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.ERROR_URL));
-				retry = retryHandler.retryRequest(cause, ++executionCount, httpContext);
 			}
 			catch (IOException e)
 			{
+				cause = e;
 				httpResult.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.IOEXCEPTION));
 				retry = retryHandler.retryRequest(cause, ++executionCount, httpContext);
 			}
@@ -134,11 +140,13 @@ public class ApacheHttpClient
 			{
 				// HttpClient 4.0.x 之前的一个bug
 				// http://code.google.com/p/android/issues/detail?id=5255
+				cause = new IOException("NPE in HttpClient" + e.getMessage());
 				httpResult.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.UNKNOWN_EXCEPTION));
 				retry = retryHandler.retryRequest(cause, ++executionCount, httpContext);
 			}
 			catch (Exception e)
 			{
+				cause = new IOException("Exception" + e.getMessage());
 				httpResult.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.UNKNOWN_EXCEPTION));
 				retry = retryHandler.retryRequest(cause, ++executionCount, httpContext);
 			}
@@ -147,9 +155,12 @@ public class ApacheHttpClient
 		return httpResult;
 	}
 	
-	public TGHttpResult handleEntity(int responseCode, HttpEntity entity, String charset) throws IOException
+	public TGHttpResult handleEntity(HttpEntity entity, int responseCode, Header[] headers,
+			String charset) throws IOException
 	{
 		TGHttpResult httpResult = initHttpResult();
+		httpResult.setResponseCode(responseCode);
+		httpResult.setHeaders(convertToMap(headers));
 		if (null != entity)
 		{
 			ByteArrayOutputStream outStream = new ByteArrayOutputStream();
@@ -166,10 +177,42 @@ public class ApacheHttpClient
 			inputStream.close();
 			
 			httpResult.setResult(new String(data, charset));
+			LOG.d("[Method:handleEntity] result = " + httpResult.getResult());
 			return httpResult;
 		}
 		
 		return httpResult;
+	}
+	
+	private HashMap<String, List<String>> convertToMap(Header[] headers)
+	{
+		HashMap<String, List<String>> headerMap = new HashMap<String, List<String>>();
+		List<String> headerElementsList;
+		if(null != headers && headers.length > 0)
+		{
+			for (Header header : headers)
+			{
+				headerElementsList = new ArrayList<String>();
+				//添加所有element的值
+				HeaderElement[] elements = header.getElements();
+				if(null != elements && elements.length > 0)
+				{
+					for (HeaderElement element : header.getElements())
+					{
+						if(null != element.getValue())
+						{
+							headerElementsList.add(element.getValue());
+						}
+					}
+				}
+				//添加自身的值
+				headerElementsList.add(header.getValue());
+				
+				headerMap.put(header.getName(), headerElementsList);
+			}
+		}
+		
+		return headerMap;
 	}
 	
 	/**

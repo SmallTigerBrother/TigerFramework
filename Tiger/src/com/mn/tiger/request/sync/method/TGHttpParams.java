@@ -311,7 +311,7 @@ public class TGHttpParams extends ConcurrentHashMap<String, HashMap<String, Stri
 		HashMap<String, String> stringParams = getStringParams();
 		HashMap<String, String> fileParams = getFileParams();
 
-		if (!fileParams.isEmpty())
+		if (null != fileParams && !fileParams.isEmpty())
 		{
 			MultipartEntity multipartEntity = new MultipartEntity();
 

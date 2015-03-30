@@ -20,7 +20,7 @@ public abstract class ApacheHttpMethod
 	/**
 	 * 消息头里的属性参数
 	 */
-	private HashMap<String, String> properties = null;
+	private HashMap<String, String> properties = new HashMap<String, String>();
 	
 	public ApacheHttpMethod()
 	{
@@ -58,7 +58,10 @@ public abstract class ApacheHttpMethod
 	
 	public void setProperties(Map<String, String> properties)
 	{
-		this.properties.putAll(properties);
+		if(null != properties)
+		{
+			this.properties.putAll(properties);
+		}
 	}
 	
 	public HttpUriRequest createHttpRequest()
