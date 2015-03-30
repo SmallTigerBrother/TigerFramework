@@ -12,7 +12,7 @@ import com.mn.tiger.authorize.TGAuthorizer;
 import com.mn.tiger.demo.R;
 import com.mn.tiger.demo.request.HttpLoader;
 import com.mn.tiger.demo.request.SimpleLoadCallback;
-import com.mn.tiger.request.receiver.TGHttpResult;
+import com.mn.tiger.request.sync.receiver.TGHttpResult;
 import com.mn.tiger.utility.MD5;
 import com.mn.tiger.utility.StringUtils;
 
