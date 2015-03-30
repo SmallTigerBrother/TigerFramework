@@ -5,11 +5,11 @@ import java.net.HttpURLConnection;
 import android.content.Context;
 
 import com.mn.tiger.log.LogTools;
-import com.mn.tiger.request.client.DefaultHttpClient;
-import com.mn.tiger.request.client.TGHttpClient;
-import com.mn.tiger.request.receiver.DefaultHttpReceiver;
-import com.mn.tiger.request.receiver.TGHttpReceiver;
-import com.mn.tiger.request.receiver.TGHttpResult;
+import com.mn.tiger.request.sync.client.DefaultHttpClient;
+import com.mn.tiger.request.sync.client.TGHttpClient;
+import com.mn.tiger.request.sync.receiver.DefaultHttpReceiver;
+import com.mn.tiger.request.sync.receiver.TGHttpReceiver;
+import com.mn.tiger.request.sync.receiver.TGHttpResult;
 import com.mn.tiger.upload.TGUploadPostMethod.IUploadSendListener;
 import com.mn.tiger.utility.FileUtils;
 

@@ -12,7 +12,7 @@ import android.text.TextUtils;
 
 import com.mn.tiger.log.LogTools;
 import com.mn.tiger.request.error.TGHttpError;
-import com.mn.tiger.request.method.TGPostMethod;
+import com.mn.tiger.request.sync.method.TGPostMethod;
 import com.mn.tiger.task.TGTask.MPTaskState;
 
 /**
@@ -55,7 +55,7 @@ public class TGUploadPostMethod extends TGPostMethod
 			TGUploadTask uploadTask, IUploadSendListener sendListener)
 	{	
 		// 初始化上传参数
-		super(context, uploader.getServiceURL(), uploader.getParams());
+		super(context, uploader.getServiceURL(), null);
 		this.uploader = uploader;
 		this.completeSize = uploader.getCompleteSize();
 		this.uploadTask = uploadTask;
