@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 import com.mn.tiger.log.LogTools;
 import com.mn.tiger.request.TGHttpLoader;
 import com.mn.tiger.request.async.TGHttpAsyncTask;
-import com.mn.tiger.request.receiver.TGHttpResult;
+import com.mn.tiger.request.sync.receiver.TGHttpResult;
 import com.mn.tiger.utility.PackageUtils;
 
 /**

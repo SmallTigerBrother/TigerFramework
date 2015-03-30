@@ -74,6 +74,7 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		demoModels.add(DemoModel.ShareDemo);
 		demoModels.add(DemoModel.PullToRefreshSwipeListView);
 		demoModels.add(DemoModel.GridListView);
+		demoModels.add(DemoModel.HttpRequest);
 		
 		demoListView.setAdapter(new TGListAdapter<DemoModel>(this, demoModels, -1, 
 				ViewHolder.class));
@@ -172,6 +173,10 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 				intent.setClass(this, GridListViewActivity.class);
 				break;
 				
+			case HttpRequest:
+				intent.setClass(this, RequestDemoActivity.class);
+				break;
+				
 			default:
 				break;
 		}
@@ -239,7 +244,9 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		
 		PullToRefreshSwipeListView("PullToRefreshSwipeListViewDemo"),
 		
-		GridListView("GridListView");
+		GridListView("GridListView"),
+		
+		HttpRequest("HttpRequest");
 		
 		private DemoModel(String demoType)
 		{
