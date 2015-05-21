@@ -55,7 +55,7 @@ public class TGDropDownGridView extends TGDropDownAdapterView
 		super(context);
 		mainView = LayoutInflater.from(context).inflate(
 				CR.getLayoutId(context, "tiger_webview_dropdown_gridview"), null);
-		gridView = (GridView) mainView.findViewById(CR.getIdId(context, "tiger_dropdown_gridview"));
+		gridView = (GridView) mainView.findViewById(CR.getViewId(context, "tiger_dropdown_gridview"));
 		super.popupWindow = new PopupWindow(mainView, width, height, true);
 		this.popuwindowHeight = height;
 		this.popuwindowWidth = width;

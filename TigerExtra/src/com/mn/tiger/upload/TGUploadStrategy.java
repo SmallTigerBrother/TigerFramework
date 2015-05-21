@@ -5,11 +5,7 @@ import java.net.HttpURLConnection;
 import android.content.Context;
 
 import com.mn.tiger.log.LogTools;
-import com.mn.tiger.request.sync.client.DefaultHttpClient;
-import com.mn.tiger.request.sync.client.TGHttpClient;
-import com.mn.tiger.request.sync.receiver.DefaultHttpReceiver;
-import com.mn.tiger.request.sync.receiver.TGHttpReceiver;
-import com.mn.tiger.request.sync.receiver.TGHttpResult;
+import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.upload.TGUploadPostMethod.IUploadSendListener;
 import com.mn.tiger.utility.FileUtils;
 
@@ -121,27 +117,27 @@ public class TGUploadStrategy implements IUploadStrategy
 	 */
 	protected void executeUpload(Context context, TGUploader uploader)
 	{
-		LogTools.p(LOG_TAG, "[Method:request]");
-
-		// 任务结束，不执行上传
-		if (null == uploadTask)
-		{
-			uploadCancel(mpUploader);
-			return;
-		}
-		
-		TGHttpClient httpClient = new DefaultHttpClient(context);
-		// 创建post请求的方法
-		TGUploadPostMethod postMethod = new TGUploadPostMethod(context, uploader, uploadTask, sendListener);
-		setProperties(postMethod);
-		
-		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context);
-		// 执行上传操作
-		TGHttpResult httpResult = httpClient.executeHttpMethod(postMethod, httpReceiver);
-
-		dealRequestResult(uploader, httpResult);
-		
-		sendListener.onFinish(mpUploader);
+//		LogTools.p(LOG_TAG, "[Method:request]");
+//
+//		// 任务结束，不执行上传
+//		if (null == uploadTask)
+//		{
+//			uploadCancel(mpUploader);
+//			return;
+//		}
+//		
+//		TGHttpClient httpClient = new DefaultHttpClient(context);
+//		// 创建post请求的方法
+//		TGUploadPostMethod postMethod = new TGUploadPostMethod(context, uploader, uploadTask, sendListener);
+//		setProperties(postMethod);
+//		
+//		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context);
+//		// 执行上传操作
+//		TGHttpResult httpResult = httpClient.executeHttpMethod(postMethod, httpReceiver);
+//
+//		dealRequestResult(uploader, httpResult);
+//		
+//		sendListener.onFinish(mpUploader);
 	}
 
 	/**

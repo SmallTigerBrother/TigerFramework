@@ -53,8 +53,8 @@ public class TGDropDownListView extends TGDropDownAdapterView
 		super(context);
 		View rootView = LayoutInflater.from(context).inflate(
 				CR.getLayoutId(context, "tiger_webview_dropdown_listview"), null);
-		mainView = rootView.findViewById(CR.getIdId(context, "tiger_dropdown_listview_main"));
-		listView = (ListView) mainView.findViewById(CR.getIdId(context, "tiger_dropdown_listview"));
+		mainView = rootView.findViewById(CR.getViewId(context, "tiger_dropdown_listview_main"));
+		listView = (ListView) mainView.findViewById(CR.getViewId(context, "tiger_dropdown_listview"));
 		listView.setSelector(context.getResources().getDrawable(
 				CR.getDrawableId(context, "tiger_webview_dropdown_list_selector")));
 		this.popuwindowHeight = height;

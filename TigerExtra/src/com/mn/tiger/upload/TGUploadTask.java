@@ -51,12 +51,12 @@ public class TGUploadTask extends TGTask
 	 * @return
 	 */
 	@Override
-	protected MPTaskState executeOnSubThread()
+	protected TGTaskState executeOnSubThread()
 	{
 		// 后台执行上传任务
 		uploadInBackground();
 		// 任务完成，结束任务
-		return MPTaskState.FINISHED;
+		return TGTaskState.FINISHED;
 	}
 	
 	/**

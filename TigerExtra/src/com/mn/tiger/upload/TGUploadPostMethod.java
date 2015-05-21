@@ -1,6 +1,5 @@
 package com.mn.tiger.upload;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -8,19 +7,17 @@ import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.mn.tiger.log.LogTools;
-import com.mn.tiger.request.error.TGHttpError;
-import com.mn.tiger.request.sync.method.TGPostMethod;
-import com.mn.tiger.task.TGTask.MPTaskState;
+import com.mn.tiger.request.method.ApachePostMethod;
+import com.mn.tiger.task.TGTask.TGTaskState;
 
 /**
  * 该类作用及功能说明 文件上传post请求类
  * 
  * @date 2014年3月28日
  */
-public class TGUploadPostMethod extends TGPostMethod
+public class TGUploadPostMethod extends ApachePostMethod
 {
 	private final String LOG_TAG = this.getClass().getSimpleName();
 
@@ -55,71 +52,70 @@ public class TGUploadPostMethod extends TGPostMethod
 			TGUploadTask uploadTask, IUploadSendListener sendListener)
 	{	
 		// 初始化上传参数
-		super(context, uploader.getServiceURL(), null);
+//		super(context, uploader.getServiceURL(), null);
 		this.uploader = uploader;
 		this.completeSize = uploader.getCompleteSize();
 		this.uploadTask = uploadTask;
 		this.sendListener = sendListener;
 	}
 
-	@Override
-	protected void appendParams2OutputStream(Object params) throws IOException
-	{
-		// 链接失败或上传信息为空，直接返回
-		if (null == getHttpURLConnection() || TextUtils.isEmpty(uploader.getFilePath()))
-		{
-			uploadFailed(TGHttpError.IOEXCEPTION,
-					TGHttpError.getDefaultErrorMsg(getContext(), TGHttpError.IOEXCEPTION));
-			return;
-		}
-
-		// 获取请求参数
-		String strParams = null;
-		if (params != null)
-		{
-			strParams = (String) params;
-		}
-
-		// 上传内容
-		BufferedOutputStream outputStream = new BufferedOutputStream(getHttpURLConnection()
-				.getOutputStream());
-		try
-		{
-			// 写入参数信息
-			writeStringPart(outputStream, getPartBoundary(), strParams);
-
-			// 写文件
-			File uploadFile = new File(uploader.getFilePath());
-			if (uploadFile != null && uploadFile.exists())
-			{
-				writeFilePart(outputStream, getPartBoundary(), uploadFile,
-						uploader.getStartPosition(), uploader.getEndPosition());
-			}
-			outputStream.flush();
-		}
-		catch (IOException e)
-		{
-			LogTools.e(LOG_TAG, "[method:outputRequestParams] " + e.getMessage(), e);
-			uploadFailed(TGHttpError.IOEXCEPTION,
-					TGHttpError.getDefaultErrorMsg(getContext(), TGHttpError.IOEXCEPTION));
-		}
-		finally
-		{
-			if (null != outputStream)
-			{
-				try
-				{
-					outputStream.close();
-				}
-				catch (IOException e)
-				{
-					LogTools.e(LOG_TAG, "[method:outputRequestParams] " + e.getMessage(), e);
-					uploadFailed(TGHttpError.IOEXCEPTION,
-							TGHttpError.getDefaultErrorMsg(getContext(), TGHttpError.IOEXCEPTION));
-				}
-			}
-		}
-	}
+//	protected void appendParams2OutputStream(Object params) throws IOException
+//	{
+//		// 链接失败或上传信息为空，直接返回
+//		if (null == getHttpURLConnection() || TextUtils.isEmpty(uploader.getFilePath()))
+//		{
+//			uploadFailed(TGHttpError.IOEXCEPTION,
+//					TGHttpError.getDefaultErrorMsg(getContext(), TGHttpError.IOEXCEPTION));
+//			return;
+//		}
+//
+//		// 获取请求参数
+//		String strParams = null;
+//		if (params != null)
+//		{
+//			strParams = (String) params;
+//		}
+//
+//		// 上传内容
+//		BufferedOutputStream outputStream = new BufferedOutputStream(getHttpURLConnection()
+//				.getOutputStream());
+//		try
+//		{
+//			// 写入参数信息
+//			writeStringPart(outputStream, getPartBoundary(), strParams);
+//
+//			// 写文件
+//			File uploadFile = new File(uploader.getFilePath());
+//			if (uploadFile != null && uploadFile.exists())
+//			{
+//				writeFilePart(outputStream, getPartBoundary(), uploadFile,
+//						uploader.getStartPosition(), uploader.getEndPosition());
+//			}
+//			outputStream.flush();
+//		}
+//		catch (IOException e)
+//		{
+//			LogTools.e(LOG_TAG, "[method:outputRequestParams] " + e.getMessage(), e);
+//			uploadFailed(TGHttpError.IOEXCEPTION,
+//					TGHttpError.getDefaultErrorMsg(getContext(), TGHttpError.IOEXCEPTION));
+//		}
+//		finally
+//		{
+//			if (null != outputStream)
+//			{
+//				try
+//				{
+//					outputStream.close();
+//				}
+//				catch (IOException e)
+//				{
+//					LogTools.e(LOG_TAG, "[method:outputRequestParams] " + e.getMessage(), e);
+//					uploadFailed(TGHttpError.IOEXCEPTION,
+//							TGHttpError.getDefaultErrorMsg(getContext(), TGHttpError.IOEXCEPTION));
+//				}
+//			}
+//		}
+//	}
 	
 	/**
 	 * 该方法的作用:输出文件数据
@@ -162,7 +158,7 @@ public class TGUploadPostMethod extends TGPostMethod
 		for (int i = 0; i < bufferCount; i++)
 		{
 			if (uploadTask == null || 
-							uploadTask.getTaskState() == MPTaskState.PAUSE)
+							uploadTask.getTaskState() == TGTaskState.PAUSE)
 			{
 				uploadStop(uploader);
 				return;
