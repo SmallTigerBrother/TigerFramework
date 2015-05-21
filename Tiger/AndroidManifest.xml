@@ -6,11 +6,5 @@
     <uses-sdk
         android:minSdkVersion="10"
         android:targetSdkVersion="15" />
-
-
-    <application
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">		
-		
-    </application>
     
 </manifest>
