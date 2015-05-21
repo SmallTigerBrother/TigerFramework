@@ -36,7 +36,7 @@ public class TGDownloadObserver
 	 * @date 2014年6月29日
 	 * @return
 	 */
-	public String getKey()
+	String getKey()
 	{
 		return key;
 	}
@@ -48,7 +48,7 @@ public class TGDownloadObserver
 	 * @date 2014年6月29日
 	 * @param key
 	 */
-	public void setKey(String key)
+	void setKey(String key)
 	{
 		this.key = key;
 	}
@@ -98,7 +98,7 @@ public class TGDownloadObserver
 	 */
 	public void onFailed(TGDownloader downloader, int errorCode, String errorMessage)
 	{
-		LogTools.p(TAG, "[Method:onFailed] errorCode: " + errorCode + "; errorMessage: "
+		LogTools.e(TAG, "[Method:onFailed] errorCode: " + errorCode + "; errorMessage: "
 				+ errorMessage);
 	}
 
@@ -109,6 +109,15 @@ public class TGDownloadObserver
 	 * @date 2014年6月27日
 	 */
 	public void onPause(TGDownloader downloader)
+	{
+		LogTools.p(TAG, "[Method:onPause]");
+	}
+	
+	/**
+	 * 任务取消回调
+	 * @param downloader
+	 */
+	public void onCancel(TGDownloader downloader)
 	{
 		LogTools.p(TAG, "[Method:onPause]");
 	}

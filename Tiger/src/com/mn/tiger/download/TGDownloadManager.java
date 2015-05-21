@@ -1,6 +1,7 @@
 package com.mn.tiger.download;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -30,21 +31,6 @@ public class TGDownloadManager
 	 * 日志标签
 	 */
 	protected final String LOG_TAG = this.getClass().getSimpleName();
-
-	/**
-	 * 下载状态
-	 */
-	public static final int DOWNLOAD_WAITING = -2;
-	
-	public static final int DOWNLOAD_STARTING = -1;
-
-	public static final int DOWNLOAD_DOWNLOADING = 0;
-
-	public static final int DOWNLOAD_SUCCEED = 1;
-
-	public static final int DOWNLOAD_FAILED = 2;
-
-	public static final int DOWNLOAD_PAUSE = 3;
 
 	/**
 	 * 上下文信息
@@ -120,7 +106,7 @@ public class TGDownloadManager
 							.getParamsClsName()).newInstance();
 					downloadParams.setRequestType(downloader.getRequestType());
 					downloadParams.setSavePath(downloader.getSavePath());
-					downloadParams.setUrlString(downloader.getUrlString());
+					downloadParams.setUrl(downloader.getUrl());
 					downloadParams.setParams(downloader.getParams());
 					if (!TextUtils.isEmpty(downloader.getTaskClsName()))
 					{
@@ -196,7 +182,7 @@ public class TGDownloadManager
 							.getParamsClsName()).newInstance();
 					downloadParams.setRequestType(downloader.getRequestType());
 					downloadParams.setSavePath(downloader.getSavePath());
-					downloadParams.setUrlString(downloader.getUrlString());
+					downloadParams.setUrl(downloader.getUrl());
 					downloadParams.setParams(downloader.getParams());
 					if (!TextUtils.isEmpty(downloader.getTaskClsName()))
 					{
@@ -275,17 +261,25 @@ public class TGDownloadManager
 		downloader = checkLocalDownloader(downloader);
 		
 		// 构建任务参数，当没有taskID传入时，直接构建新任务下载。
-		// 当有taskID传入时，需要在下载队列中查看是否已经有该下载任务，如果有，则不不需要新加入任务。
+		// 当有taskID传入时，需要在下载队列中查看是否已经有该下载任务，如果有，则不需要新加入任务。
 		TGTaskParams taskParams = null;
 		if(downloader != null)
 		{
-			taskParams = TGTaskManager.createTaskParams(params,
-					downloadParams.getTaskClsName(), getResultHandler(), Integer.parseInt(downloader.getId()));
+			//如果当前任务正在下载中，直接返回当前任务的id
+			if(downloader.getDownloadStatus() == TGDownloader.DOWNLOAD_DOWNLOADING)
+			{
+				return Integer.parseInt(downloader.getId());
+			}
+			else
+			{
+				taskParams = TGTaskManager.createTaskParams(params,
+						downloadParams.getTaskClsName(), resultHandler, Integer.parseInt(downloader.getId()));
+			}
 		}
 		else
 		{
 			taskParams = TGTaskManager.createTaskParams(params,
-				downloadParams.getTaskClsName(), getResultHandler());
+				downloadParams.getTaskClsName(), resultHandler);
 		}
 
 		taskParams.setBundleParams(params);
@@ -296,7 +290,6 @@ public class TGDownloadManager
 	}
 
 	/**
-	 * 
 	 * 该方法的作用: 根据下载参数从本地数据库中查询对应的downloader，查询策略由使用者自行决定。
 	 *              如果没有重复的下载任务，返回null
 	 * @date 2014年9月3日
@@ -304,16 +297,15 @@ public class TGDownloadManager
 	 */
 	public TGDownloader getLocalDownloader(TGDownloadParams downloadParams)
 	{
-		return null;
+		return getDownloadInfo(downloadParams.getUrl(), downloadParams.getParams(), downloadParams.getSavePath());
 	}
 	
 	/**
-	 * 
 	 * 该方法的作用: 检测本地文件和本地下载记录是否一致
 	 * @date 2014年9月3日
 	 * @param downloader
 	 */
-	public TGDownloader checkLocalDownloader(TGDownloader downloader)
+	private TGDownloader checkLocalDownloader(TGDownloader downloader)
 	{
 		if(downloader == null)
 		{
@@ -340,7 +332,7 @@ public class TGDownloadManager
 	 * @param entityType
 	 * @param observer
 	 */
-	public void registerDataSetObserver(int taskId, TGDownloadObserver observer)
+	public void registerDownloadObserver(int taskId, TGDownloadObserver observer)
 	{
 		TGDownloadObserveController.getInstance().registerDataSetObserver(String.valueOf(taskId),
 				observer);
@@ -352,7 +344,7 @@ public class TGDownloadManager
 	 * @date 2014年3月31日
 	 * @param observer
 	 */
-	public void unregisterObserver(TGDownloadObserver observer)
+	public void unregisterDownloadObserver(TGDownloadObserver observer)
 	{
 		TGDownloadObserveController.getInstance().unregisterObserver(observer);
 	}
@@ -366,10 +358,10 @@ public class TGDownloadManager
 	 * @param params
 	 * @return
 	 */
-	public TGDownloader getDownloadInfo(String urlstr, String params)
+	public TGDownloader getDownloadInfo(String urlstr, HashMap<String, String> params, String savePath)
 	{
 		TGDownloader downloader = null;
-		downloader = TGDownloadDBHelper.getInstance(mContext).getDownloader(urlstr, params);
+		downloader = TGDownloadDBHelper.getInstance(mContext).getDownloader(urlstr, params, savePath);
 
 		return downloader;
 	}
@@ -385,22 +377,6 @@ public class TGDownloadManager
 	public List<TGDownloader> getDownloadInfoByType(String downloadType)
 	{
 		return TGDownloadDBHelper.getInstance(mContext).getDownloader(downloadType);
-	}
-
-	/**
-	 * 
-	 * 该方法的作用:根据docid获取文件下载信息（edm用）
-	 * 
-	 * @date 2014年8月19日
-	 * @param docId
-	 * @return
-	 */
-	public TGDownloader getDownloadByDocId(String docId)
-	{
-		TGDownloader downloader = null;
-		downloader = TGDownloadDBHelper.getInstance(mContext).getDownloaderByDocId(docId);
-
-		return downloader;
 	}
 
 	/**
@@ -449,15 +425,5 @@ public class TGDownloadManager
 	public void setContext(Context mContext)
 	{
 		this.mContext = mContext;
-	}
-
-	public TGTaskResultHandler getResultHandler()
-	{
-		return resultHandler;
-	}
-
-	public void setResultHandler(TGTaskResultHandler resultHandler)
-	{
-		this.resultHandler = resultHandler;
 	}
 }

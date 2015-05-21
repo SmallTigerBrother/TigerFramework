@@ -2,6 +2,7 @@ package com.mn.tiger.download;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -35,16 +36,15 @@ public class TGDownloadDBHelper
 	private static int database_version = 1;
 
 	/** 文件下载url列名 */
-	private final String LOAD_INFO_URL_COLUMN_NAME = "urlString";
+	private final String LOAD_INFO_URL_COLUMN_NAME = "url";
 
 	/** 下载任务请求的参数 */
 	private final String LOAD_INFO_PARAM_COLUMN_NAME = "params";
+	
+	private final String LOAD_INFO_SAVE_PATH = "savePath";
 
 	/** 文件下载类型 */
-	private final String LOAD_INFO_COLUMN_TYPE = "type";
-
-	/** edm文件下载docid */
-	private final String LOAD_INFO_COLUMN_DOCID = "docId";
+	private final String LOAD_INFO_COLUMN_TYPE = "downloadType";
 
 	public static TGDownloadDBHelper getInstance(Context context)
 	{
@@ -95,7 +95,7 @@ public class TGDownloadDBHelper
 	 * 
 	 * @throws DbException
 	 */
-	public synchronized TGDownloader getDownloader(String urlstr, String params)
+	public synchronized TGDownloader getDownloader(String urlstr, HashMap<String, String> params, String savePath)
 	{
 		TGDownloader downloader = null;
 		try
@@ -103,28 +103,8 @@ public class TGDownloadDBHelper
 			downloader = dbManager.findFirst(
 					TGDownloader.class,
 					WhereBuilder.b(LOAD_INFO_URL_COLUMN_NAME, "=", urlstr).and(
-							LOAD_INFO_PARAM_COLUMN_NAME, "=", params));
-		}
-		catch (DbException e)
-		{
-			LogTools.e(LOG_TAG, e.getMessage(), e);
-		}
-
-		return downloader;
-	}
-
-	/**
-	 * 根据docid得到下载具体信息
-	 * 
-	 * @throws DbException
-	 */
-	public synchronized TGDownloader getDownloaderByDocId(String docId)
-	{
-		TGDownloader downloader = null;
-		try
-		{
-			downloader = dbManager.findFirst(TGDownloader.class,
-					WhereBuilder.b(LOAD_INFO_COLUMN_DOCID, "=", docId));
+							LOAD_INFO_PARAM_COLUMN_NAME, "=", TGDownloader.getParamsString(params)).and(
+									LOAD_INFO_SAVE_PATH, "=", savePath));
 		}
 		catch (DbException e)
 		{
@@ -200,7 +180,7 @@ public class TGDownloadDBHelper
 	 * 
 	 * @throws DbException
 	 */
-	public synchronized boolean isHasDownloaders(String urlstr, String params)
+	public synchronized boolean isHasDownloaders(String urlstr, HashMap<String, String> params)
 	{
 		long count = 0;
 		try
@@ -208,7 +188,7 @@ public class TGDownloadDBHelper
 			count = dbManager.count(
 					TGDownloader.class,
 					WhereBuilder.b(LOAD_INFO_URL_COLUMN_NAME, "=", urlstr).and(
-							LOAD_INFO_PARAM_COLUMN_NAME, "=", params));
+							LOAD_INFO_PARAM_COLUMN_NAME, "=", TGDownloader.getParamsString(params)));
 		}
 		catch (DbException e)
 		{
@@ -228,7 +208,7 @@ public class TGDownloadDBHelper
 	{
 		try
 		{
-			dbManager.save(info);
+			dbManager.saveOrUpdate(info);
 		}
 		catch (DbException e)
 		{
@@ -270,26 +250,6 @@ public class TGDownloadDBHelper
 		try
 		{
 			dbManager.delete(info);
-		}
-		catch (DbException e)
-		{
-			LogTools.e(LOG_TAG, e.getMessage(), e);
-		}
-	}
-
-	/**
-	 * 下载完成后删除数据库中的数据
-	 * 
-	 * @throws DbException
-	 */
-	public synchronized void deleteDownloader(String url, String params)
-	{
-		try
-		{
-			dbManager.delete(
-					TGDownloader.class,
-					WhereBuilder.b(LOAD_INFO_URL_COLUMN_NAME, "=", url).and(
-							LOAD_INFO_PARAM_COLUMN_NAME, "=", params));
 		}
 		catch (DbException e)
 		{

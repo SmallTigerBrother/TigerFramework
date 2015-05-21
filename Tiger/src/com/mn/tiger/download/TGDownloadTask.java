@@ -2,9 +2,10 @@ package com.mn.tiger.download;
 
 import android.os.Bundle;
 
-import com.mn.tiger.download.observe.TGDownloadObserveController;
 import com.mn.tiger.log.LogTools;
+import com.mn.tiger.request.error.TGHttpError;
 import com.mn.tiger.task.TGTask;
+import com.mn.tiger.utility.NetworkUtils;
 
 /**
  * 
@@ -25,9 +26,9 @@ public class TGDownloadTask extends TGTask
 	private TGDownloadParams mDownloadParams;
 	
 	/**
-	 * 下载任务监听
+	 * 下载进度
 	 */
-	private IDownloadListener downloadListener = new DefaultDownloadListener();
+	private int progress = -1; 
 	
 	/**
 	 * 构造函数
@@ -46,12 +47,34 @@ public class TGDownloadTask extends TGTask
 	 * @return
 	 */
 	@Override
-	protected MPTaskState executeOnSubThread()
+	protected TGTaskState executeOnSubThread()
 	{
 		// 后台执行下载任务
 		downloadInBackground();
 		// 任务完成，结束任务
-		return MPTaskState.FINISHED;
+		return TGTaskState.FINISHED;
+	}
+	
+	@Override
+	protected void onTaskPause()
+	{
+		if(getTaskState() == TGTaskState.WAITING)
+		{
+			TGDownloader downloader = TGDownloader.getInstance(getContext(), mDownloadParams, this.getTaskID());
+			onDownloadPause(downloader);
+		}
+		super.onTaskPause();
+	}
+	
+	@Override
+	protected void onTaskCancel()
+	{
+		if(getTaskState() == TGTaskState.CANCEL)
+		{
+			TGDownloader downloader = TGDownloader.getInstance(getContext(), mDownloadParams, this.getTaskID());
+			onDownloadCancel(downloader);
+		}
+		super.onTaskCancel();
 	}
 	
 	/**
@@ -94,119 +117,99 @@ public class TGDownloadTask extends TGTask
 	 */
 	protected void executeDownload()
 	{
-		// 下载
-		downloadStrategy = new TGDownloadStrategy(getContext(), this, downloadListener);
-		downloadStrategy.download(mDownloadParams);
+		if(NetworkUtils.isConnectivityAvailable(getContext()))
+		{
+			downloadStrategy = new TGDownloadStrategy(getContext(), this);
+			downloadStrategy.download(mDownloadParams);
+		}
+		else
+		{
+			TGDownloader downloader = TGDownloader.getInstance(getContext(), mDownloadParams, getTaskID());
+			downloader.setErrorCode(TGHttpError.NO_NETWORK);
+			downloader.setErrorMsg(TGHttpError.getDefaultErrorMsg(getContext(), TGHttpError.NO_NETWORK));
+			onDownloadFailed(downloader);
+		}
 	}
 	
 	@Override
-	protected void onTaskCancel() 
+	protected void onDestory()
 	{
-		TGDownloadObserveController.getInstance().unregisterObserverByKey(String.valueOf(this.getTaskID()));
-		super.onTaskCancel();
+		progress = -1;
+		super.onDestory();
 	}
 	
 	/**
-	 * 下载任务，暂停时的克隆方法，设置新的执行时间，放到下载任务的最后执行
+	 * 下载回调方法——开始
+	 * @param downloader
 	 */
-	@Override
-	public Object clone() throws CloneNotSupportedException
+	void onDownloadStart(TGDownloader downloader) 
 	{
-		TGTask task = (TGTask)super.clone();
-		
-		return task;
+		LogTools.p(LOG_TAG, "[Metohd:downloadStart]" + "; taskid: " + TGDownloadTask.this.getTaskID());
+		sendTaskResult(downloader);
 	}
 	
 	/**
-	 * 
-	 * 该类作用及功能说明 : 默认下载监听
-	 * 
-	 * @date 2014年8月25日
+	 * 下载回调方法——成功
+	 * @param downloader
 	 */
-	public class DefaultDownloadListener implements IDownloadListener
+	void onDownloadSuccess(TGDownloader downloader)
 	{
-		private final String LOG_TAG = this.getClass().getSimpleName();
-		
-		@Override
-		public void downloadStart(TGDownloader downloader) 
+		LogTools.p(LOG_TAG, "[Metohd:downloadSucceed]" + "; taskid: " + TGDownloadTask.this.getTaskID());
+		sendTaskResult(downloader);
+		onTaskFinished();
+	}
+	
+	/**
+	 * 下载回调方法——下载中
+	 * @param downloader
+	 */
+	void onDownloading(TGDownloader downloader)
+	{
+		// 每1%, 向外推一次进度
+		int currentProgress = (int) (downloader.getCompleteSize() * 100 / downloader.getFileSize());
+		if (currentProgress != progress)
 		{
-			LogTools.p(LOG_TAG, "[Metohd:downloadStart]" + "; taskid: " + TGDownloadTask.this.getTaskID());
-			sendDownloadResult(downloader);
-		}
-		
-		@Override
-		public void downloadSucceed(TGDownloader downloader)
-		{
-			LogTools.p(LOG_TAG, "[Metohd:downloadSucceed]" + "; taskid: " + TGDownloadTask.this.getTaskID());
-			sendDownloadResult(downloader);
-			onTaskFinished();
-		}
-		
-		@Override
-		public void downloadProgress(TGDownloader downloader, int progress)
-		{
-			LogTools.d(LOG_TAG, "[Metohd:downloadProgress]" + "; taskid: " + TGDownloadTask.this.getTaskID() + "; progress:" + progress);
+			LogTools.d(LOG_TAG, "[Metohd:downloadProgress]" + "; taskid: " + TGDownloadTask.this.getTaskID() + 
+					" ; progress : " + currentProgress);
 			
-			sendDownloadResult(downloader);
-			
-			onTaskChanged(progress);
-		}
-		
-		@Override
-		public void downloadFailed(TGDownloader downloader)
-		{
-			LogTools.p(LOG_TAG, "[Metohd:downloadFailed]" + "; taskid: " + TGDownloadTask.this.getTaskID());
-			sendDownloadResult(downloader);
-			onTaskError(((TGDownloader)downloader).getErrorCode(), ((TGDownloader)downloader).getErrorMsg());
-		}
-		
-		@Override
-		public void downloadPause(TGDownloader downloader)
-		{
-			LogTools.p(LOG_TAG, "[Metohd:downloadPause]" + "; taskid: " + TGDownloadTask.this.getTaskID());
-			sendDownloadResult(downloader);
-		}
-		
-		@Override
-		public void downloadCanceled(TGDownloader downloader)
-		{
-			LogTools.p(LOG_TAG, "[Metohd:downloadCanceled]" + "; taskid: " + TGDownloadTask.this.getTaskID());
-			sendDownloadResult(downloader);
-		}
-		
-		private void sendDownloadResult(Object downloader)
-		{
+			progress = currentProgress;
 			sendTaskResult(downloader);
 		}
 	}
-
-	public IDownloadStrategy getDownloadStrategy()
+	
+	/**
+	 * 下载回调方法——失败
+	 * @param downloader
+	 */
+	void onDownloadFailed(TGDownloader downloader)
 	{
-		return downloadStrategy;
+		LogTools.p(LOG_TAG, "[Metohd:downloadFailed]" + "; taskid: " + TGDownloadTask.this.getTaskID());
+		sendTaskResult(downloader);
+		onTaskError(((TGDownloader)downloader).getErrorCode(), ((TGDownloader)downloader).getErrorMsg());
 	}
-
+	
+	/**
+	 * 下载回调方法——暂停
+	 * @param downloader
+	 */
+	void onDownloadPause(TGDownloader downloader)
+	{
+		LogTools.p(LOG_TAG, "[Metohd:downloadPause]" + "; taskid: " + TGDownloadTask.this.getTaskID());
+		sendTaskResult(downloader);
+	}
+	
+	/**
+	 * 下载回调方法——取消
+	 * @param downloader
+	 */
+	void onDownloadCancel(TGDownloader downloader)
+	{
+		LogTools.p(LOG_TAG, "[Metohd:downloadCanceled]" + "; taskid: " + TGDownloadTask.this.getTaskID());
+		sendTaskResult(downloader);
+	}
+	
 	public void setDownloadStrategy(IDownloadStrategy downloadStrategy)
 	{
 		this.downloadStrategy = downloadStrategy;
-	}
-
-	public IDownloadListener getDownloadListener()
-	{
-		return downloadListener;
-	}
-
-	public void setDownloadListener(IDownloadListener downloadListener)
-	{
-		this.downloadListener = downloadListener;
-	}
-
-	public TGDownloadParams getmDownloadParams()
-	{
-		return mDownloadParams;
-	}
-
-	public void setmDownloadParams(TGDownloadParams mDownloadParams)
-	{
-		this.mDownloadParams = mDownloadParams;
 	}
 }

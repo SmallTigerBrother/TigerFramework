@@ -1,8 +1,14 @@
 package com.mn.tiger.download;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
+import android.content.Context;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mn.tiger.datastorage.db.annotation.Column;
+import com.mn.tiger.datastorage.db.annotation.ColumnObject;
 import com.mn.tiger.datastorage.db.annotation.Id;
 import com.mn.tiger.datastorage.db.annotation.Table;
 import com.mn.tiger.datastorage.db.annotation.Transient;
@@ -13,20 +19,57 @@ import com.mn.tiger.datastorage.db.annotation.Transient;
  * 
  * @date 2014年8月18日
  */
-@Table(name = "Downloader", execAfterTableCreated = "CREATE INDEX index_name ON Downloader(urlstring,params)")
+@Table(name = "Downloader", execAfterTableCreated = "CREATE INDEX index_name ON Downloader(url,params)")
 public class TGDownloader implements Serializable
 {
+	/**
+	 * 下载状态——等待
+	 */
+	public static final int DOWNLOAD_WAITING = -2;
+	
+	/**
+	 * 下载状态——开始
+	 */
+	public static final int DOWNLOAD_STARTING = -1;
+
+	/**
+	/**
+	 * 下载状态——下砸中
+	 */
+	public static final int DOWNLOAD_DOWNLOADING = 0;
+
+	/**
+	 * 下载状态——成功
+	 */
+	public static final int DOWNLOAD_SUCCEED = 1;
+
+	/**
+	 * 下载状态——失败
+	 */
+	public static final int DOWNLOAD_FAILED = 2;
+
+	/**
+	 * 下载状态——暂停
+	 */
+	public static final int DOWNLOAD_PAUSE = 3;
+	
+	/**
+	 * 下载状态——取消
+	 */
+	public static final int DOWNLOAD_CANCEL = 4;
+	
 	@Transient
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String id;
 	// 下载url地址
-	@Column(column = "urlString")
-	private String urlString;
+	@Column(column = "url")
+	private String url;
 	// 下载请求参数
+	@ColumnObject
 	@Column(column = "params")
-	private String params;
+	private HashMap<String, String> params;
 	// 文件大小（字节）
 	@Column(column = "fileSize")
 	private long fileSize;
@@ -36,7 +79,7 @@ public class TGDownloader implements Serializable
 	// 文件下载状态，DonwnloadConstant:INIT:0
 	// DOWNLOADING:1,SUCCESS:2,FAILURE:3,PAUSE:4,SOURCE_ERROR:5(下载来源错误，文件长度或MD5校验出错)
 	@Column(column = "downloadStatus")
-	private int downloadStatus = TGDownloadManager.DOWNLOAD_WAITING;
+	private int downloadStatus = DOWNLOAD_WAITING;
 	// 文件下载保存的位置
 	@Column(column = "savePath")
 	private String savePath;
@@ -64,21 +107,34 @@ public class TGDownloader implements Serializable
 	@Column(column = "paramsClsName")
 	private String paramsClsName= TGDownloadParams.class.getName();
 	
-	// 下载文档id（edm用）
-	@Column(column = "docId")
-	private String docId;
-	// 获取业务服务器token的url（edm用）
-	@Column(column = "requetsTokenUrl")
-	private String requetsTokenUrl;
-	// 下载缩略图用（edm用）
-	@Column(column = "thumb")
-	private String thumb;
-	// edm文档版本（edm用）
-	@Column(column = "version")
-	private String version;
+	/**
+	 * 用于区分不同类型下载任务，在同一客户端存在多个下载中心时使用
+	 */
 	// 下载类型
-	@Column(column = "type")
-	private String type;
+	@Column(column = "downloadType")
+	private String downloadType;
+	
+	public static TGDownloader getInstance(Context context, TGDownloadParams downloadParams, int downloadTaskId)
+	{
+		TGDownloader downloader = null;
+		downloader = TGDownloadDBHelper.getInstance(context).getDownloader(
+				downloadParams.getUrl(), downloadParams.getParams(), downloadParams.getSavePath());
+		
+		if(downloader == null)
+		{
+			downloader = new TGDownloader();
+			downloader.setId(downloadTaskId + "");
+			downloader.setUrl(downloadParams.getUrl());
+			downloader.setParams(downloadParams.getParams());
+			downloader.setRequestType(downloadParams.getRequestType());
+			downloader.setDownloadType(downloadParams.getDownloadType());
+			downloader.setSavePath(downloadParams.getSavePath());
+			downloader.setTaskClsName(downloadParams.getTaskClsName());
+			downloader.setParamsClsName(downloadParams.getClass().getName());
+		}
+		
+		return downloader;
+	}
 	
 	public TGDownloader()
 	{
@@ -131,29 +187,47 @@ public class TGDownloader implements Serializable
 	/**
 	 * @return the urlstring
 	 */
-	public String getUrlString()
+	public String getUrl()
 	{
-		return urlString;
+		return url;
 	}
 
 	/**
-	 * @param urlstring
-	 *            the urlstring to set
+	 * @param url
+	 *            the url string to set
 	 */
-	public void setUrlString(String urlstring)
+	public void setUrl(String url)
 	{
-		this.urlString = urlstring;
+		this.url = url;
 	}
 
-	public String getParams()
+	public HashMap<String, String> getParams()
 	{
 		return params;
 	}
 
-	public void setParams(String params)
+	public void setParams(HashMap<String, String> params)
 	{
 		this.params = params;
 	}
+	
+	@SuppressWarnings("unused")
+	private String getParamsStr()
+	{
+		return new Gson().toJson(params);
+	}
+	
+	static String getParamsString(HashMap<String, String> params)
+	{
+		return new Gson().toJson(params);
+	}
+
+	@SuppressWarnings("unused")
+	private void setParamsStr(String params)
+	{
+		this.params = new Gson().fromJson(params, new TypeToken<HashMap<String, String>>(){}.getType());
+	}
+
 
 	/**
 	 * @return the downloadStatus
@@ -249,56 +323,6 @@ public class TGDownloader implements Serializable
 		return taskClsName;
 	}
 
-	public String getDocId()
-	{
-		return docId;
-	}
-
-	public void setDocId(String docId)
-	{
-		this.docId = docId;
-	}
-
-	public String getRequetsTokenUrl()
-	{
-		return requetsTokenUrl;
-	}
-
-	public void setRequetsTokenUrl(String requetsTokenUrl)
-	{
-		this.requetsTokenUrl = requetsTokenUrl;
-	}
-
-	public String getThumb()
-	{
-		return thumb;
-	}
-
-	public void setThumb(String thumb)
-	{
-		this.thumb = thumb;
-	}
-
-	public String getVersion()
-	{
-		return version;
-	}
-
-	public void setVersion(String version)
-	{
-		this.version = version;
-	}
-
-	public String getType()
-	{
-		return type;
-	}
-
-	public void setType(String type)
-	{
-		this.type = type;
-	}
-	
 	public String getParamsClsName()
 	{
 		return paramsClsName;
@@ -309,12 +333,26 @@ public class TGDownloader implements Serializable
 		this.paramsClsName = paramsClsName;
 	}
 	
+	public String getDownloadType()
+	{
+		return downloadType;
+	}
+	
+	/**
+	 * 用于区别不同类型的下载任务，当同一个客户端存在多个下载中心时，可以用此属性区分
+	 * @param type
+	 */
+	public void setDownloadType(String type)
+	{
+		this.downloadType = type;
+	}
+	
 	@Override
 	public String toString()
 	{
-		return "Downloader [fileSize=" + fileSize + ", complete=" + completeSize + ", urlString=" + urlString
+		return "Downloader [fileSize=" + fileSize + ", complete=" + completeSize + ", urlString=" + url
 				+ ", params=" + params + ", savePath=" + savePath + ", downloadStatus=" + downloadStatus
 				+ ", requestType=" + requestType + ", checkKey=" + checkKey + ", isBreakPoints=" + isBreakPoints
-				+ ", type=" + type + ", docId=" + docId + "]";
+				+ ", downloadType=" + downloadType + "]";
 	}
 }
