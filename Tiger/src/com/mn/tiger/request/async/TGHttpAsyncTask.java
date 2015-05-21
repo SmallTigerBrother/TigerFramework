@@ -16,7 +16,6 @@ import com.mn.tiger.request.async.task.TGGetTask;
 import com.mn.tiger.request.async.task.TGHttpTask;
 import com.mn.tiger.request.async.task.TGPostTask;
 import com.mn.tiger.request.async.task.TGPutTask;
-import com.mn.tiger.request.error.TGHttpErrorHandler;
 import com.mn.tiger.request.method.TGHttpParams;
 import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.request.sync.HttpImplementionType;
@@ -290,7 +289,16 @@ public class TGHttpAsyncTask<T>
 	 */
 	protected boolean hasError(TGHttpResult httpResult)
 	{
-		return TGHttpErrorHandler.hasHttpError(httpResult);
+		int code = httpResult.getResponseCode();
+
+		if (code < 300 && code >= 200)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 	
 	/**
