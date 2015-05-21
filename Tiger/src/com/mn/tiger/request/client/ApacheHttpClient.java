@@ -1,4 +1,4 @@
-package com.mn.tiger.request.sync.apache;
+package com.mn.tiger.request.client;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -38,9 +38,12 @@ import android.content.Context;
 
 import com.mn.tiger.log.Logger;
 import com.mn.tiger.request.error.TGHttpError;
-import com.mn.tiger.request.sync.receiver.TGHttpResult;
-import com.mn.tiger.utility.CR;
+import com.mn.tiger.request.method.ApacheHttpMethod;
+import com.mn.tiger.request.receiver.TGHttpResult;
 
+/**
+ * Apache网络请求类
+ */
 public class ApacheHttpClient
 {
 	private static final Logger LOG = Logger.getLogger(ApacheHttpClient.class);
@@ -59,9 +62,14 @@ public class ApacheHttpClient
 
 	private DefaultHttpClient httpClient;
 	
+	/**
+	 * 执行次数，用于自动重试
+	 */
 	private int executionCount = 0;
 	
 	private Context context;
+	
+	private ApacheHttpMethod httpMethod;
 	
 	public ApacheHttpClient(Context context)
 	{
@@ -97,6 +105,10 @@ public class ApacheHttpClient
 		httpContext = new SyncBasicHttpContext(new BasicHttpContext());
 	}
 
+	/**
+	 * 初始化请求参数
+	 * @return
+	 */
 	private BasicHttpParams initHttpParams()
 	{
 		BasicHttpParams httpParams = new BasicHttpParams();
@@ -112,8 +124,16 @@ public class ApacheHttpClient
 		return httpParams;
 	}
 	
+	/**
+	 * 执行Http请求
+	 * @param httpMethod
+	 * @return
+	 */
 	public TGHttpResult execute(ApacheHttpMethod httpMethod)
 	{
+		LOG.d("[Method:execute]");
+		this.httpMethod = httpMethod;
+		
 		TGHttpResult httpResult = initHttpResult();
 		boolean retry = true;
 		IOException cause = null;
@@ -123,12 +143,13 @@ public class ApacheHttpClient
 			try
 			{
 				HttpResponse response = httpClient.execute(httpMethod.createHttpRequest(), httpContext);
-				return handleEntity(response.getEntity(), response.getStatusLine().getStatusCode(), 
-						response.getAllHeaders(), charset);
+				return handleResponse(response, charset);
 			}
 			catch (UnknownHostException e)
 			{
 				httpResult.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.ERROR_URL));
+				cause = e;
+				retry = false;
 			}
 			catch (IOException e)
 			{
@@ -140,7 +161,8 @@ public class ApacheHttpClient
 			{
 				// HttpClient 4.0.x 之前的一个bug
 				// http://code.google.com/p/android/issues/detail?id=5255
-				cause = new IOException("NPE in HttpClient" + e.getMessage());
+				cause = new IOException("NullPointException in HttpClient, please check your params, "
+						+ "and make sure request tpye is correct. " + e.getMessage());
 				httpResult.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.UNKNOWN_EXCEPTION));
 				retry = retryHandler.retryRequest(cause, ++executionCount, httpContext);
 			}
@@ -150,17 +172,31 @@ public class ApacheHttpClient
 				httpResult.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.UNKNOWN_EXCEPTION));
 				retry = retryHandler.retryRequest(cause, ++executionCount, httpContext);
 			}
+			
+			if(null != cause)
+			{
+				LOG.e("[Method:execute] " + cause.getMessage());
+			}
 		}
 		
 		return httpResult;
 	}
 	
-	public TGHttpResult handleEntity(HttpEntity entity, int responseCode, Header[] headers,
-			String charset) throws IOException
+	/**
+	 * 处理Http请求结果
+	 * @param response
+	 * @param charset
+	 * @return
+	 * @throws IOException
+	 */
+	protected TGHttpResult handleResponse(HttpResponse response, String charset) throws IOException
 	{
+		LOG.d("[Method:handleResponse]");
+		
 		TGHttpResult httpResult = initHttpResult();
-		httpResult.setResponseCode(responseCode);
-		httpResult.setHeaders(convertToMap(headers));
+		httpResult.setResponseCode(response.getStatusLine().getStatusCode());
+		httpResult.setHeaders(convertToMap(response.getAllHeaders()));
+		HttpEntity entity = response.getEntity();
 		if (null != entity)
 		{
 			ByteArrayOutputStream outStream = new ByteArrayOutputStream();
@@ -177,13 +213,19 @@ public class ApacheHttpClient
 			inputStream.close();
 			
 			httpResult.setResult(new String(data, charset));
-			LOG.d("[Method:handleEntity] result = " + httpResult.getResult());
+			LOG.d("[Method:handleEntity] url : " + httpMethod.getUrl() + "\n" + "params : " + httpMethod.getParams().toString() + "\n" + 
+			    "\n  result : " + httpResult.getResult());
 			return httpResult;
 		}
 		
 		return httpResult;
 	}
 	
+	/**
+	 * 转换headers未Map
+	 * @param headers
+	 * @return
+	 */
 	private HashMap<String, List<String>> convertToMap(Header[] headers)
 	{
 		HashMap<String, List<String>> headerMap = new HashMap<String, List<String>>();
@@ -224,11 +266,15 @@ public class ApacheHttpClient
 	protected TGHttpResult initHttpResult()
 	{
 		TGHttpResult httpResult = new TGHttpResult();
-		httpResult.setResponseCode(Integer.valueOf(4936));
-		httpResult.setResult(getContext().getText(CR.getStringsId(getContext(), "tiger_try_later")).toString());
+		httpResult.setResponseCode(TGHttpError.UNKNOWN_EXCEPTION);
+		httpResult.setResult(TGHttpError.getDefaultErrorMsg(context, TGHttpError.UNKNOWN_EXCEPTION));
 		return httpResult;
 	}
 	
+	/**
+	 * 添加GZIP压缩
+	 * @param request
+	 */
 	private void addGZIPProperty(HttpRequest request)
 	{
 		if (!request.containsHeader(HEADER_ACCEPT_ENCODING))
@@ -237,6 +283,10 @@ public class ApacheHttpClient
 		}
 	}
 
+	/**
+	 * 解析GZIP压缩
+	 * @param response
+	 */
 	private void decodingGZIP(HttpResponse response)
 	{
 		final HttpEntity entity = response.getEntity();
@@ -258,11 +308,24 @@ public class ApacheHttpClient
 		}
 	}
 	
-	public Context getContext()
+	protected Context getContext()
 	{
 		return context;
 	}
-
+	
+	public ApacheHttpMethod getHttpMethod()
+	{
+		return httpMethod;
+	}
+	
+	public DefaultHttpClient getHttpClient()
+	{
+		return httpClient;
+	}
+	
+	/**
+	 * 封装GZIP压缩
+	 */
 	private static class InflatingEntity extends HttpEntityWrapper
 	{
 		public InflatingEntity(HttpEntity wrapped)

@@ -37,7 +37,7 @@ public class TGSpinnerProgressDialog extends TGDialog implements IProgressDialog
 		LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(
 				Context.LAYOUT_INFLATER_SERVICE);
 		View view = inflater.inflate(CR.getLayoutId(getContext(), "tiger_progress_dialog"), null);
-		ImageView load_icon = (ImageView) view.findViewById(CR.getIdId(getContext(),
+		ImageView load_icon = (ImageView) view.findViewById(CR.getViewId(getContext(),
 				"tiger_progress_loading_icon"));
 
 		// 获取动画图片

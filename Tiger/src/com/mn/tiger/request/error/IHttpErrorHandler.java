@@ -1,7 +1,7 @@
 package com.mn.tiger.request.error;
 
 
-import com.mn.tiger.request.sync.receiver.TGHttpResult;
+import com.mn.tiger.request.receiver.TGHttpResult;
 
 /**
  * 该类作用及功能说明

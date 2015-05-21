@@ -2,10 +2,10 @@ package com.mn.tiger.app;
 
 import java.util.Arrays;
 
+import android.app.Fragment;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mn.tiger.R;
+import com.mn.tiger.log.Logger;
 import com.mn.tiger.widget.TGBadgeView;
 import com.mn.tiger.widget.adpter.TGListAdapter;
 import com.mn.tiger.widget.adpter.TGViewHolder;
@@ -29,6 +30,8 @@ import com.mn.tiger.widget.viewpager.TGFragmentPagerAdapter;
 public class TGTabActivity extends TGActionBarActivity implements 
     OnPageChangeListener, OnTabChangeListener
 {
+	private Logger LOG = Logger.getLogger(TGTabActivity.class);
+	
 	/**
 	 * 底部Tab
 	 */
@@ -58,7 +61,7 @@ public class TGTabActivity extends TGActionBarActivity implements
 	public void setTabs(TabModel[] tabModels, Fragment[] fragments)
 	{
 		TGFragmentPagerAdapter pagerAdapter = new TGFragmentPagerAdapter(
-				getSupportFragmentManager(), Arrays.asList(fragments));
+				getFragmentManager(), Arrays.asList(fragments));
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOnPageChangeListener(this);
 		
@@ -91,6 +94,7 @@ public class TGTabActivity extends TGActionBarActivity implements
 	 */
 	protected void resetLastTab(TGTabView tabView, int lastTabIndex)
 	{
+		LOG.d("resetLastTab(tabview, int)   lastTabIndex:"+lastTabIndex);
 		TabViewHolder holder = (TabViewHolder) tabView.getTabItem(lastTabIndex).getConvertView().getTag();
 		TabModel tabModel = (TabModel) tabView.getAdapter().getItem(lastTabIndex);
 		TGTabView.displayImage(tabModel.getDefaultResName(), holder.getImageView());
@@ -105,6 +109,7 @@ public class TGTabActivity extends TGActionBarActivity implements
 	 */
 	protected void highLightCurrentTab(TGTabView tabView, int currentTabIndex)
 	{
+		LOG.d("highLightCurrentTab(tabview,int)   currentTabIndex:"+currentTabIndex);
 		TabViewHolder holder = (TabViewHolder) tabView.getTabItem(currentTabIndex).getConvertView().getTag();
 		TabModel tabModel = (TabModel) tabView.getAdapter().getItem(currentTabIndex);
 		TGTabView.displayImage(tabModel.getHighlightResName(), holder.getImageView());
@@ -154,6 +159,7 @@ public class TGTabActivity extends TGActionBarActivity implements
 	 */
 	public void showBadge(int tabIndex, String text)
 	{
+		LOG.d("showBadge(int,string)   tabIndex:"+tabIndex);
 		TGBadgeView badgeView = 
 		((TabViewHolder) tabView.getTabItem(tabIndex).getConvertView().getTag()).getBadgeView();
 		
@@ -167,6 +173,7 @@ public class TGTabActivity extends TGActionBarActivity implements
 	 */
 	public void showBadge(int tabIndex)
 	{
+		LOG.d("showBadge(int)   tabIndex:"+tabIndex);
 		((TabViewHolder) tabView.getTabItem(tabIndex).getConvertView().getTag()).getBadgeView().show();
 	}
 
@@ -176,6 +183,7 @@ public class TGTabActivity extends TGActionBarActivity implements
 	 */
 	public void hideBadge(int tabIndex)
 	{
+		LOG.d("hideBadge(int)   tabIndex:"+tabIndex);
 		((TabViewHolder) tabView.getTabItem(tabIndex).getConvertView().getTag()).getBadgeView().hide();
 	}
 	

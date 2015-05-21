@@ -3,10 +3,13 @@ package com.mn.tiger.widget.viewpager;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.app.Fragment;
+import android.app.FragmentManager;
 
+
+/**
+ * 自定义的FragmentPagerAdapter
+ */
 public class TGFragmentPagerAdapter extends FragmentPagerAdapter
 {
 	/**

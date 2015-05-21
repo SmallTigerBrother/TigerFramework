@@ -104,10 +104,17 @@ public class StringUtils
 	 * @param emailString
 	 * @return
 	 */
-	public static boolean isEmailAddress(String emailString)
+	public static boolean isEmailAddress(String email)
 	{
-		String format = "\\p{Alpha}\\w{2,15}[@][a-z0-9]{3,}[.]\\p{Lower}{2,}";
-		return isMatch(format, emailString);
+		boolean tag = true;
+		final String pattern1 = "^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$";
+		final Pattern pattern = Pattern.compile(pattern1);
+		final Matcher mat = pattern.matcher(email);
+		if (!mat.find())
+		{
+			tag = false;
+		}
+		return tag;
 	}
 
 	/**

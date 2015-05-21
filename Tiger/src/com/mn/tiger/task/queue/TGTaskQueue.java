@@ -6,7 +6,7 @@ import java.util.List;
 import com.mn.tiger.log.LogTools;
 import com.mn.tiger.task.ITaskListener;
 import com.mn.tiger.task.TGTask;
-import com.mn.tiger.task.TGTask.MPTaskState;
+import com.mn.tiger.task.TGTask.TGTaskState;
 import com.mn.tiger.task.TGTask.TaskError;
 import com.mn.tiger.task.queue.TGLock.onLockListener;
 import com.mn.tiger.task.queue.TGLock.onUnLockListener;
@@ -111,7 +111,7 @@ public class TGTaskQueue extends AbsTaskQueue
 			if(totalTask > index && runningTaskList.size() <= getMaxThreadNum())
 			{
 				TGTask runTask = getTaskArray().get(this.get(index));
-				if (runTask != null && runTask.getTaskState() == MPTaskState.WAITING)
+				if (runTask != null && runTask.getTaskState() == TGTaskState.WAITING)
 				{
 					runTask.executeTask(threadPool);
 					runningTaskList.add(runTask.getTaskID());

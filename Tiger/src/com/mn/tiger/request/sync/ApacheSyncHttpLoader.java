@@ -5,11 +5,12 @@ import java.util.Map;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.mn.tiger.request.sync.apache.ApacheGetMethod;
-import com.mn.tiger.request.sync.apache.ApacheHttpClient;
-import com.mn.tiger.request.sync.apache.ApachePostMethod;
-import com.mn.tiger.request.sync.method.TGHttpParams;
-import com.mn.tiger.request.sync.receiver.TGHttpResult;
+import com.mn.tiger.request.client.ApacheHttpClient;
+import com.mn.tiger.request.method.ApacheGetMethod;
+import com.mn.tiger.request.method.ApachePostMethod;
+import com.mn.tiger.request.method.TGHttpParams;
+import com.mn.tiger.request.receiver.TGHttpResult;
+
 
 public class ApacheSyncHttpLoader extends AbstractSyncHttpLoader
 {

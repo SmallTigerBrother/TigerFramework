@@ -125,7 +125,7 @@ public class DateWheel extends FrameLayout
 	{
 		Calendar calendar = Calendar.getInstance();
 		
-		this.mYearWheel = (WheelView) findViewById(CR.getIdId(mContext, "tiger_year"));
+		this.mYearWheel = (WheelView) findViewById(CR.getViewId(mContext, "tiger_year"));
 		this.mYear = calendar.get(Calendar.YEAR);
 		int currYearIndex = this.mYear - this.startYear;
 		this.mYearWheel.setViewAdapter(new DateNumericAdapter(this.getContext(), this.startYear,
@@ -154,7 +154,7 @@ public class DateWheel extends FrameLayout
 	protected void initMonthWheel(WheelView mMonthWheel)
 	{
 		Calendar calendar = Calendar.getInstance();
-		this.mMonthWheel = (WheelView) findViewById(CR.getIdId(mContext, "tiger_month"));
+		this.mMonthWheel = (WheelView) findViewById(CR.getViewId(mContext, "tiger_month"));
 		this.mMonth = calendar.get(Calendar.MONTH);
 		int maxMonth = calendar.getMaximum(Calendar.MONTH) + 1;// save as
 		this.mMonthWheel.setViewAdapter(new DateNumericAdapter(getContext(), 1, maxMonth,
@@ -185,7 +185,7 @@ public class DateWheel extends FrameLayout
 	protected void initDayWheel(WheelView mDayWheel)
 	{
 		Calendar calendar = Calendar.getInstance();
-		this.mDayWheel = (WheelView) findViewById(CR.getIdId(mContext, "tiger_day"));
+		this.mDayWheel = (WheelView) findViewById(CR.getViewId(mContext, "tiger_day"));
 		this.mDay = calendar.get(Calendar.DAY_OF_MONTH);
 		this.mDayWheel.setVisibleItems(VISIBLE_ITEMS);
 		this.mDayWheel.setCyclic(true);

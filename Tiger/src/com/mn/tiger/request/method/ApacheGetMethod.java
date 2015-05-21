@@ -1,4 +1,4 @@
-package com.mn.tiger.request.sync.apache;
+package com.mn.tiger.request.method;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
@@ -9,7 +9,6 @@ import org.apache.http.client.methods.HttpUriRequest;
 import android.text.TextUtils;
 
 import com.mn.tiger.log.LogTools;
-import com.mn.tiger.request.sync.method.TGHttpParams;
 
 public class ApacheGetMethod extends ApacheHttpMethod
 {

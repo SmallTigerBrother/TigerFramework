@@ -1,4 +1,4 @@
-package com.mn.tiger.request.sync.apache;
+package com.mn.tiger.request.client;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;

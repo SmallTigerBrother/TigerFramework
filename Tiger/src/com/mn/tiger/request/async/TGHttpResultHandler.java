@@ -3,7 +3,7 @@ package com.mn.tiger.request.async;
 import android.app.Activity;
 import android.content.Context;
 
-import com.mn.tiger.request.sync.receiver.TGHttpResult;
+import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.task.result.TGTaskResult;
 import com.mn.tiger.task.result.TGTaskResultHandler;
 

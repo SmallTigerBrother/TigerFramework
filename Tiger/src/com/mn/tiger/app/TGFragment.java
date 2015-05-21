@@ -1,14 +1,14 @@
 package com.mn.tiger.app;
 
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.mn.tiger.log.Logger;
 import com.mn.tiger.utility.CR;
 import com.mn.tiger.widget.TGImageButton;
 import com.mn.tiger.widget.TGNavigationBar;
@@ -18,6 +18,8 @@ import com.mn.tiger.widget.TGNavigationBar;
  */
 public abstract class TGFragment extends Fragment
 {
+	private static final Logger LOG = Logger.getLogger(TGFragment.class);
+	
 	/**
 	 * 主视图
 	 */
@@ -33,33 +35,35 @@ public abstract class TGFragment extends Fragment
 	 */
 	private TGNavigationBar navigationBar;
 	
-	private FragmentActivity activity;
+	private FrameLayout panelLayout;
 	
 	public final View onCreateView(LayoutInflater inflater, ViewGroup container, 
 			Bundle savedInstanceState) 
 	{
 		if(null == mainView)
 		{
-			mainView = inflater.inflate(CR.getLayoutId(getActivity(), "tiger_fragment"), null);
+			mainView = inflater.inflate(CR.getLayoutId(getActivity(), "tiger_content_view"), null);
 			//初始化导航条
-			navigationBar = (TGNavigationBar) mainView.findViewById(CR.getIdId(getActivity(),
+			navigationBar = (TGNavigationBar) mainView.findViewById(CR.getViewId(getActivity(),
 					"navigationbar"));
 			initNavigationResource(navigationBar);
-			if(navigationBarVisible)
+			setNavigationBarVisible(navigationBarVisible);
+			
+			//加入自定义视图
+			panelLayout = (FrameLayout) mainView.findViewById(CR.getViewId(getActivity(),
+					"panel"));
+			initPanelLayout(panelLayout);
+			FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+					FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+			View contentView = onCreateView(inflater, savedInstanceState);
+			if(null != contentView)
 			{
-				navigationBar.setVisibility(View.VISIBLE);
+				panelLayout.addView(onCreateView(inflater, savedInstanceState), layoutParams);
 			}
 			else
 			{
-				navigationBar.setVisibility(View.GONE);
+				LOG.e("[Method:onCreateView]  the contentView can not be null");
 			}
-			
-			//加入自定义视图
-			FrameLayout paneLayout = (FrameLayout) mainView.findViewById(CR.getIdId(getActivity(),
-					"panel"));
-			FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-					FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-			paneLayout.addView(onCreateView(inflater, savedInstanceState), layoutParams);
 		}
 		else
 		{
@@ -90,6 +94,17 @@ public abstract class TGFragment extends Fragment
 			Bundle savedInstanceState);
 	
 	/**
+	 * 设置主视图
+	 * @param view
+	 */
+	protected void setContentView(View view)
+	{
+		FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+				FrameLayout.LayoutParams.MATCH_PARENT);
+		panelLayout.addView(view, layoutParams);
+	}
+	
+	/**
 	 * 该方法的作用: 初始化导航条资源
 	 * @date 2013-11-8
 	 * @param navigationBar
@@ -97,6 +112,16 @@ public abstract class TGFragment extends Fragment
 	protected void initNavigationResource(TGNavigationBar navigationBar)
 	{
 	}
+	
+	/**
+	 * 初始化panelLayout
+	 * @param panelLayout
+	 */
+	protected void initPanelLayout(FrameLayout panelLayout)
+	{
+		
+	}
+
 	
 	/**
 	 * 该方法的作用: 获取导航条左按钮
@@ -221,24 +246,22 @@ public abstract class TGFragment extends Fragment
 	public void setNavigationBarVisible(boolean navigationBarVisible)
 	{
 		this.navigationBarVisible = navigationBarVisible;
-	}
-	
-	/**
-	 * 设置activity
-	 * @param activity
-	 */
-	public void setActivity(FragmentActivity activity)
-	{
-		this.activity = activity;
-	}
-	
-	protected FragmentActivity getFragmentActivity()
-	{
-		if(null == activity)
+		if(null != navigationBar)
 		{
-			return getActivity();
+			if(navigationBarVisible)
+			{
+				navigationBar.setVisibility(View.VISIBLE);
+			}
+			else
+			{	
+				navigationBar.setVisibility(View.GONE);
+			}
 		}
-		
-		return activity;
+	}
+	
+	@Override
+	public void onDestroy()
+	{
+		super.onDestroy();
 	}
 }

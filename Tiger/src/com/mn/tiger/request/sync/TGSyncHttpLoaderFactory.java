@@ -1,20 +1,16 @@
 package com.mn.tiger.request.sync;
 
+import com.mn.tiger.log.Logger;
+
 
 public class TGSyncHttpLoaderFactory
 {
+	private static final Logger LOG = Logger.getLogger(TGSyncHttpLoaderFactory.class);
+	
 	public static AbstractSyncHttpLoader createSyncHttpLoader(HttpImplementionType syncHttpLoaderType)
 	{
-		switch (syncHttpLoaderType)
-		{
-			case HttpUrlConnection:
-				return new TGSyncHttpLoader();
-				
-			case ApacheHttpClient:
-				return new ApacheSyncHttpLoader();
-
-			default:
-				return new TGSyncHttpLoader();
-		}
+		LOG.d("[Method:createSyncHttpLoader] HttpImplementionType = " + syncHttpLoaderType.name());
+		
+		return new ApacheSyncHttpLoader();
 	}
 }

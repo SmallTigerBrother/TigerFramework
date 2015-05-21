@@ -17,8 +17,6 @@ import com.mn.tiger.utility.Commons;
  */
 public enum TGErrorMsgEnum
 {
-	JSON_FORMAT_ERROR(10008, "Json数据格式不正确", "The format of json is error."),
-	
 	/** 文件下载错误码 */
 	FAILED_CHECK_FILE_MD5(10001, "下载文件与服务端文件MD5校验不一致", "download file MD5 is not the same with server."),
 	FAILED_GET_FILE_SIZE(10002, "获取文件大小失败", "Failed to get file size"), 
@@ -35,10 +33,7 @@ public enum TGErrorMsgEnum
 	VERIFY_UNSUCCESSFULLY(10016,"校验失败", "Verify unsuccessfully."), 
 	SYSTEM_ERROR(10017, "系统错误", "System error"), 
 	FILE_NOT_EXITS(10018,"文件不存在", "file not exits"), 
-	FILE_IS_EMPTY(10019, "文件内容为空", "file is empty"),
-
-	// 定位异常
-	LOCATE_CONFIGURATION_ERROR(10020, "地图配置异常", "Configuration error of Map");
+	FILE_IS_EMPTY(10019, "文件内容为空", "file is empty");
 
 	public final int code;
 	public final String cnMsg;
@@ -71,7 +66,7 @@ public enum TGErrorMsgEnum
 			try
 			{
 				// 先获取资源文件的对应错误提示信息
-				errorMsg = context.getString(CR.getStringsId(context, error.name()));
+				errorMsg = context.getString(CR.getStringId(context, error.name()));
 			}
 			catch (NotFoundException e)
 			{

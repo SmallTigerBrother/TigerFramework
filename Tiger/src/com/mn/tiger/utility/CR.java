@@ -20,7 +20,7 @@ public class CR
 		return res.getIdentifier(name, "layout", context.getPackageName());
 	}
 
-	public static int getStringsId(Context context, String name)
+	public static int getStringId(Context context, String name)
 	{
 		Resources res = context.getResources();
 		return res.getIdentifier(name, "string", context.getPackageName());
@@ -32,7 +32,7 @@ public class CR
 		return res.getIdentifier(name, "color", context.getPackageName());
 	}
 
-	public static int getIdId(Context context, String name)
+	public static int getViewId(Context context, String name)
 	{
 		Resources res = context.getResources();
 		return res.getIdentifier(name, "id", context.getPackageName());

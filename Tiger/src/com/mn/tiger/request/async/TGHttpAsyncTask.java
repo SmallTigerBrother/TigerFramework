@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.mn.tiger.log.LogTools;
-import com.mn.tiger.request.TGHttpLoader;
+import com.mn.tiger.request.HttpType;
 import com.mn.tiger.request.TGHttpLoader.OnLoadCallback;
 import com.mn.tiger.request.async.task.TGDeleteTask;
 import com.mn.tiger.request.async.task.TGGetTask;
@@ -17,9 +17,9 @@ import com.mn.tiger.request.async.task.TGHttpTask;
 import com.mn.tiger.request.async.task.TGPostTask;
 import com.mn.tiger.request.async.task.TGPutTask;
 import com.mn.tiger.request.error.TGHttpErrorHandler;
+import com.mn.tiger.request.method.TGHttpParams;
+import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.request.sync.HttpImplementionType;
-import com.mn.tiger.request.sync.method.TGHttpParams;
-import com.mn.tiger.request.sync.receiver.TGHttpResult;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.task.TGTaskManager;
 import com.mn.tiger.task.invoke.TGTaskParams;
@@ -48,12 +48,12 @@ public class TGHttpAsyncTask<T>
 	 */
 	private String requestUrl;
 	
-	private HttpImplementionType httpImplementationType = HttpImplementionType.HttpUrlConnection;
+	private HttpImplementionType httpImplementationType = HttpImplementionType.ApacheHttpClient;
 	
 	/**
 	 * 请求类型，默认为Post类型
 	 */
-	private int requestType = TGHttpLoader.REQUEST_GET;
+	private int requestType = HttpType.REQUEST_GET;
 	
 	/**
 	 * 网络请求headers参数
@@ -194,8 +194,8 @@ public class TGHttpAsyncTask<T>
 	 */
 	protected TGTaskParams initHttpParams(TGHttpParams params)
 	{
-		if(requestType > TGHttpLoader.REQUEST_PUT || 
-				requestType < TGHttpLoader.REQUEST_POST)
+		if(requestType > HttpType.REQUEST_PUT || 
+				requestType < HttpType.REQUEST_POST)
 		{
 			throw new RuntimeException("Your requestType is invalid!");
 		}
@@ -317,19 +317,19 @@ public class TGHttpAsyncTask<T>
 		{
 			switch (requestType)
 			{
-				case TGHttpLoader.REQUEST_GET:
+				case HttpType.REQUEST_GET:
 					taskClsName = TGGetTask.class.getName();
 					
 					break;
-				case TGHttpLoader.REQUEST_POST:
+				case HttpType.REQUEST_POST:
 					taskClsName = TGPostTask.class.getName();
 					
 					break;
-				case TGHttpLoader.REQUEST_PUT:
+				case HttpType.REQUEST_PUT:
 					taskClsName = TGPutTask.class.getName();
 					
 					break;
-				case TGHttpLoader.REQUEST_DELETE:
+				case HttpType.REQUEST_DELETE:
 					taskClsName = TGDeleteTask.class.getName();
 					
 					break;
@@ -509,6 +509,16 @@ public class TGHttpAsyncTask<T>
 	public void setRequestUrl(String requestUrl)
 	{
 		this.requestUrl = requestUrl;
+	}
+	
+	public String getRequestUrl()
+	{
+		return requestUrl;
+	}
+	
+	public HashMap<String, String> getStringParams()
+	{
+		return StringParams;
 	}
 	
 	/**

@@ -178,7 +178,7 @@ public class TGDateWheelDialog extends TGDialog
 	protected void setupDialog()
 	{
 		this.addBodyContentView();
-		this.setRightButton(this.mContext.getString(CR.getStringsId(mContext, "tiger_setting")),
+		this.setRightButton(this.mContext.getString(CR.getStringId(mContext, "tiger_setting")),
 				new OnClickListener()
 				{
 					@Override
@@ -193,7 +193,7 @@ public class TGDateWheelDialog extends TGDialog
 					}
 				});
 		this.setLeftButton(
-				this.mContext.getString(CR.getStringsId(mContext, "tiger_alert_dialog_cancel")),
+				this.mContext.getString(CR.getStringId(mContext, "tiger_alert_dialog_cancel")),
 				new OnClickListener()
 				{
 					@Override
@@ -267,7 +267,7 @@ public class TGDateWheelDialog extends TGDialog
 		}
 		LinearLayout title_layout = (LinearLayout) mInflater.inflate(
 				CR.getLayoutId(mContext, "tiger_date_dialog_title"), null);
-		this.mDateTextView = (TextView) title_layout.findViewById(CR.getIdId(mContext,
+		this.mDateTextView = (TextView) title_layout.findViewById(CR.getViewId(mContext,
 				"tiger_date_selected_textview"));
 		this.mDateTextView.setSingleLine();
 		this.mDateTextView.setEllipsize(TruncateAt.END);

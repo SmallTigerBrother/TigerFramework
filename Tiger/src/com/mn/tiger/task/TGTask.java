@@ -50,7 +50,7 @@ public class TGTask implements Cloneable
 	/**
 	 * 任务状态
 	 */
-	private MPTaskState state = MPTaskState.WAITING;
+	private TGTaskState state = TGTaskState.WAITING;
 
 	/**
 	 * 任务回调启动者的messenger
@@ -106,7 +106,7 @@ public class TGTask implements Cloneable
 		LogTools.d(LOG_TAG, "[Method:executeTask]");
 		
 		// 修改任务状态为正在运行
-		state = MPTaskState.RUNNING;
+		state = TGTaskState.RUNNING;
 		
 		// 执行线程
 		Runnable taskRunnable = new Runnable()
@@ -133,7 +133,7 @@ public class TGTask implements Cloneable
 		// 通知启动
 		onTaskStart();
 
-		MPTaskState state = executeOnSubThread();
+		TGTaskState state = executeOnSubThread();
 
 		if (null == state)
 		{
@@ -174,9 +174,9 @@ public class TGTask implements Cloneable
 	 * @date 2014年3月17日
 	 * @return
 	 */
-	protected MPTaskState executeOnSubThread()
+	protected TGTaskState executeOnSubThread()
 	{
-		return MPTaskState.FINISHED;
+		return TGTaskState.FINISHED;
 	}
 
 	/**
@@ -217,7 +217,7 @@ public class TGTask implements Cloneable
 	public final void pause()
 	{
 		// 修改任务状态为暂停
-		state = MPTaskState.PAUSE;
+		state = TGTaskState.PAUSE;
 		onTaskPause();
 	}
 	
@@ -228,6 +228,7 @@ public class TGTask implements Cloneable
 	 */
 	public final void cancel()
 	{
+		state = TGTaskState.CANCEL;
 		onTaskCancel();
 	}
 	
@@ -240,9 +241,9 @@ public class TGTask implements Cloneable
 	{
 		LogTools.d(LOG_TAG, "[Method:onTaskStart]");
 		// 通知任务执行启动
-		if(state == MPTaskState.WAITING)
+		if(state == TGTaskState.WAITING)
 		{
-			state = MPTaskState.RUNNING;
+			state = TGTaskState.RUNNING;
 		}
 		// 回调任务开始接口
 		if(null != taskListener)
@@ -261,7 +262,7 @@ public class TGTask implements Cloneable
 	{
 		LogTools.d(LOG_TAG, "[Method:onTaskChanged]");
 		// 若当前任务状态为运行状态，则通知任务队列，任务执行变化
-		if (state == MPTaskState.RUNNING && null != taskListener)
+		if (state == TGTaskState.RUNNING && null != taskListener)
 		{
 			taskListener.onTaskChanged(progress);
 		}
@@ -275,7 +276,7 @@ public class TGTask implements Cloneable
 	protected void onTaskFinished()
 	{
 		// 修改任务状态为完成
-		state = MPTaskState.FINISHED;
+		state = TGTaskState.FINISHED;
 		
 		LogTools.d(LOG_TAG, "[Method:onTaskFinished]");
 		// 回调任务完成接口
@@ -295,7 +296,7 @@ public class TGTask implements Cloneable
 	protected void onTaskError(int code, Object msg)
 	{
 		// 修改任务状态为异常
-		state = MPTaskState.ERROR;
+		state = TGTaskState.ERROR;
 				
 		LogTools.d(LOG_TAG, "[Method:onTaskError]" + "-->errorCode-->" + code);
 		// 回调异常接口
@@ -385,7 +386,7 @@ public class TGTask implements Cloneable
 	 */
 	public boolean isRunning()
 	{
-		return state == MPTaskState.RUNNING;
+		return state == TGTaskState.RUNNING;
 	}
 	
 	/**
@@ -394,7 +395,7 @@ public class TGTask implements Cloneable
 	 * @date 2014年3月17日
 	 * @return
 	 */
-	public MPTaskState getTaskState()
+	public TGTaskState getTaskState()
 	{
 		return state;
 	}
@@ -405,7 +406,7 @@ public class TGTask implements Cloneable
 	 * @date 2014年8月22日
 	 * @param state
 	 */
-	protected void setTaskState(MPTaskState state)
+	protected void setTaskState(TGTaskState state)
 	{
 		this.state = state;
 	}
@@ -587,7 +588,7 @@ public class TGTask implements Cloneable
 	 * 
 	 * @date 2014年7月28日
 	 */
-	public enum MPTaskState
+	public enum TGTaskState
 	{
 		/**
 		 * 等待
@@ -609,5 +610,10 @@ public class TGTask implements Cloneable
 		 * 出错
 		 */
 		ERROR,
+		
+		/**
+		 * 取消
+		 */
+		CANCEL
 	}
 }

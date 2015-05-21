@@ -1,14 +1,15 @@
 package com.mn.tiger.app;
 
+import android.app.Activity;
+import android.app.DialogFragment;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mn.tiger.utility.CR;
@@ -18,7 +19,7 @@ import com.mn.tiger.widget.TGNavigationBar;
 /**
  * 带导航条的Activity基类
  */
-public class TGActionBarActivity extends ActionBarActivity
+public class TGActionBarActivity extends Activity
 {
 	/**
 	 * 导航条
@@ -26,15 +27,29 @@ public class TGActionBarActivity extends ActionBarActivity
 	private TGNavigationBar navigationBar;
 
 	/**
-	 * 是否显示导航条
+	 * 主视图
 	 */
-	private boolean navigationBarVisible = false;
+	private FrameLayout panelLayout;
+	
+	private DialogFragment loadingDialog;
+	
+	/**
+	 * laoding对话框显示次数
+	 */
+	private int dialogShowCount = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		super.setContentView(CR.getLayoutId(this, "tiger_content_view"));
+		panelLayout = (FrameLayout) findViewById(CR.getViewId(this, "panel"));
+		navigationBar = (TGNavigationBar) findViewById(CR.getViewId(this, "navigationbar"));
+		navigationBar.getLeftNaviButton().setVisibility(View.VISIBLE);
+		initNavigationResource(navigationBar);
+		initPanelLayout(panelLayout);
+	
 		//添加到Application中
 		((TGApplication)getApplication()).addActivityToStack(this);
 	}
@@ -42,12 +57,7 @@ public class TGActionBarActivity extends ActionBarActivity
 	@Override
 	public void setContentView(View view, LayoutParams params)
 	{
-		if (navigationBarVisible)
-		{
-			initNavigationBar();
-		}
-		
-		super.setContentView(view, params);
+		panelLayout.addView(view, params);
 	}
 	
 	@Override
@@ -56,46 +66,24 @@ public class TGActionBarActivity extends ActionBarActivity
 		LayoutInflater inflater = LayoutInflater.from(this);
 		View contentView = inflater.inflate(layoutResID, null);
 		
-		setContentView(contentView);
+		this.setContentView(contentView, new FrameLayout.LayoutParams(
+				FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
 	}
 
 	@Override
 	public void setContentView(View view)
 	{
-		if (navigationBarVisible)
+		if(null == view.getLayoutParams())
 		{
-			initNavigationBar();
-		}
-		
-		super.setContentView(view);
-	}
-	
-	/**
-	 * 初始化导航条，将导航条设置到ActionBar中
-	 */
-	private void initNavigationBar()
-	{
-		ActionBar actionBar = getSupportActionBar();
-		if(null != actionBar)
-		{
-			//将导航条设置到ActionBar中
-			navigationBar = new TGNavigationBar(this);
-			initNavigationResource(navigationBar);
-			
-			ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(
-					ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
-			
-			actionBar.setCustomView(navigationBar, layoutParams);
-			actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+			this.setContentView(view,new FrameLayout.LayoutParams(
+					FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
 		}
 		else
 		{
-			//actionbar为null有两种可能，一种是theme设置错误，一种是Window设置成NoTitle
-			throw new RuntimeException("The ActionBar is null, please check the activity or application theme, "
-					+ "and make sure you do not use Window’s feature == FEATURE_NO_TITLE");
+			this.setContentView(view, view.getLayoutParams());
 		}
 	}
-
+	
 	/**
 	 * 该方法的作用: 初始化导航条资源
 	 * @date 2013-11-8
@@ -124,6 +112,15 @@ public class TGActionBarActivity extends ActionBarActivity
 	}
 
 	/**
+	 * 初始化PanelLayout
+	 * @param panelLayout
+	 */
+	protected void initPanelLayout(FrameLayout panelLayout)
+	{
+		
+	}
+	
+	/**
 	 * 该方法的作用: 获取导航条左按钮
 	 * 
 	 * @date 2013-11-18
@@ -131,12 +128,7 @@ public class TGActionBarActivity extends ActionBarActivity
 	 */
 	public TGImageButton getLeftBarButton()
 	{
-		if (null != navigationBar)
-		{
-			return navigationBar.getLeftNaviButton();
-		}
-
-		return null;
+		return navigationBar.getLeftNaviButton();		
 	}
 
 	/**
@@ -147,12 +139,7 @@ public class TGActionBarActivity extends ActionBarActivity
 	 */
 	public TGImageButton getRightBarButton()
 	{
-		if (null != navigationBar)
-		{
-			return navigationBar.getRightNaviButton();
-		}
-
-		return null;
+		return navigationBar.getRightNaviButton();
 	}
 
 	/**
@@ -174,12 +161,7 @@ public class TGActionBarActivity extends ActionBarActivity
 	 */
 	public TextView getMiddleTextView()
 	{
-		if (null != navigationBar)
-		{
-			return navigationBar.getMiddleTextView();
-		}
-
-		return null;
+		return navigationBar.getMiddleTextView();
 	}
 
 	/**
@@ -258,10 +240,13 @@ public class TGActionBarActivity extends ActionBarActivity
 	 */
 	public void setNavigationBarVisible(boolean navigationBarVisible)
 	{
-		this.navigationBarVisible = navigationBarVisible;
-		if(!navigationBarVisible)
+		if(navigationBarVisible)
 		{
-			requestWindowFeature(Window.FEATURE_NO_TITLE);
+			navigationBar.setVisibility(View.VISIBLE);
+		}
+		else
+		{
+			navigationBar.setVisibility(View.GONE);
 		}
 	}
 	
@@ -271,5 +256,46 @@ public class TGActionBarActivity extends ActionBarActivity
 		//方式flyme系统中弹出清理内存工具条时，应用崩溃
 		return false;
 	}
-
+	
+	/**
+	 * 显示进度对话框
+	 */
+	public void showLoadingDialog()
+	{
+		if(null == loadingDialog)
+		{
+			loadingDialog = initLoadingDialog();
+		}
+		
+		if(null != loadingDialog)
+		{
+			if(dialogShowCount <= 0)
+			{
+				dialogShowCount = 0;
+				loadingDialog.show(getFragmentManager(), "loadingDialog");
+			}
+			dialogShowCount++;
+		}
+	}
+	
+	/**
+	 * 隐藏进度对话框
+	 */
+	public void dismissLoadingDialog()
+	{
+		dialogShowCount--;
+		if(loadingDialog != null && dialogShowCount<= 0)
+		{
+			loadingDialog.dismissAllowingStateLoss();
+		}
+	}
+	
+	/**
+	 * 初始化进度对话框
+	 * @return
+	 */
+	protected DialogFragment initLoadingDialog()
+	{
+		return null;
+	}
 }

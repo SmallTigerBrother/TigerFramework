@@ -105,15 +105,15 @@ public class TimeWheel extends FrameLayout
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(CR.getLayoutId(mContext, "tiger_date_wheel_layout"), this, true);
 		//hourWheel
-		this.mHourWheel = (WheelView) findViewById(CR.getIdId(mContext, "tiger_year"));	
+		this.mHourWheel = (WheelView) findViewById(CR.getViewId(mContext, "tiger_year"));	
 		initHourWheel(mHourWheel);
 		
 		//minuteWheel
-		this.mMinuteWheel = (WheelView) findViewById(CR.getIdId(mContext, "tiger_month"));
+		this.mMinuteWheel = (WheelView) findViewById(CR.getViewId(mContext, "tiger_month"));
 		initMinuteWheel(mMinuteWheel);
 
 		//secondWheel
-		this.mSecondWheel = (WheelView) findViewById(CR.getIdId(mContext, "tiger_day"));
+		this.mSecondWheel = (WheelView) findViewById(CR.getViewId(mContext, "tiger_day"));
 		initSecondWheel(mSecondWheel);
 		
 		this.init(mHour, mMinute, mSecond, null);

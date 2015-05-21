@@ -54,9 +54,9 @@ public class TGHorizontalProgressDialog extends TGDialog implements IProgressDia
 		super.setBodyContentView(view, params);
 
 		progressBar = (ProgressBar) view.findViewById(
-				CR.getIdId(getContext(), "tiger_progress_bar"));
+				CR.getViewId(getContext(), "tiger_progress_bar"));
 		progressText = (TextView) view.findViewById(
-				CR.getIdId(getContext(), "tiger_progress_text"));
+				CR.getViewId(getContext(), "tiger_progress_text"));
 		
 	}
 

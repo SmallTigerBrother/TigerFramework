@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.mn.tiger.log.LogTools;
+import com.mn.tiger.request.error.TGHttpError;
+import com.mn.tiger.request.method.TGHttpParams;
+import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.request.sync.HttpImplementionType;
-import com.mn.tiger.request.sync.method.TGHttpParams;
-import com.mn.tiger.request.sync.receiver.TGHttpResult;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.utility.MD5;
+import com.mn.tiger.utility.NetworkUtils;
 
 /**
  * 该类作用及功能说明 Http请求任务类
@@ -57,21 +59,31 @@ public abstract class TGHttpTask extends TGTask
 	private String cacheKey = "";
 	
 	@Override
-	protected MPTaskState executeOnSubThread()
+	protected TGTaskState executeOnSubThread()
 	{
 		//先返回Cache中的数据
 		sendCachedResult();
 		
-		// 执行网络访问（不带异常处理）；异常处理下放到Activity中执行,
-		TGHttpResult result = executeHttpRequest();
-		if (getTaskState() == MPTaskState.RUNNING)
+		if(NetworkUtils.isConnectivityAvailable(getContext()))
 		{
-			// 返回网络访问结果
-			sendTaskResult(parseRequestResult(result));
+			// 执行网络访问（不带异常处理）；异常处理下放到Activity中执行,
+			TGHttpResult result = executeHttpRequest();
+			if (getTaskState() == TGTaskState.RUNNING)
+			{
+				// 返回网络访问结果
+				sendTaskResult(parseRequestResult(result));
+			}
+		}
+		else
+		{
+			TGHttpResult httpResult = new TGHttpResult();
+			httpResult.setResponseCode(TGHttpError.NO_NETWORK);
+			httpResult.setResult(TGHttpError.getDefaultErrorMsg(getContext(), TGHttpError.NO_NETWORK));
+			sendTaskResult(httpResult);
 		}
 
 		//设置任务执行状态
-		setTaskState(MPTaskState.FINISHED);
+		setTaskState(TGTaskState.FINISHED);
 		
 		return getTaskState();
 	}
@@ -156,7 +168,7 @@ public abstract class TGHttpTask extends TGTask
 	protected void sendTaskResult(Object result)
 	{
 		//若当前任务仍在运行，返回请求结果
-		if(getTaskState() == MPTaskState.RUNNING)
+		if(getTaskState() == TGTaskState.RUNNING)
 		{
 			LogTools.d(LOG_TAG, "[Method:sendTaskResult]");
 			//发送执行结果

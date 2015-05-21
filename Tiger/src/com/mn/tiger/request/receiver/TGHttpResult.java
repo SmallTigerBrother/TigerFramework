@@ -1,4 +1,4 @@
-package com.mn.tiger.request.sync.receiver;
+package com.mn.tiger.request.receiver;
 
 import java.io.Serializable;
 import java.util.ArrayList;

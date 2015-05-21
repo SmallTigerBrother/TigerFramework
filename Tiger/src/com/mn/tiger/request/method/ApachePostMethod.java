@@ -1,10 +1,8 @@
-package com.mn.tiger.request.sync.apache;
+package com.mn.tiger.request.method;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
-
-import com.mn.tiger.request.sync.method.TGHttpParams;
 
 public class ApachePostMethod extends ApacheHttpMethod
 {
