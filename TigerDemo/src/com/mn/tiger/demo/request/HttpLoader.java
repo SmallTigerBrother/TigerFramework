@@ -7,10 +7,11 @@ import android.content.Context;
 import android.os.Build;
 
 import com.google.gson.Gson;
-import com.mn.tiger.log.LogTools;
+import com.mn.tiger.log.Logger;
+import com.mn.tiger.request.HttpType;
 import com.mn.tiger.request.TGHttpLoader;
 import com.mn.tiger.request.async.TGHttpAsyncTask;
-import com.mn.tiger.request.sync.receiver.TGHttpResult;
+import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.utility.PackageUtils;
 
 /**
@@ -19,6 +20,8 @@ import com.mn.tiger.utility.PackageUtils;
  */
 public class HttpLoader<T> extends TGHttpLoader<T>
 {
+	private static final Logger LOG = Logger.getLogger(TGHttpLoader.class);
+	
 	public HttpLoader()
 	{
 	}
@@ -72,7 +75,7 @@ public class HttpLoader<T> extends TGHttpLoader<T>
 				}
 				catch (Exception e)
 				{
-					LogTools.e(LOG_TAG, e);
+					LOG.e(e);
 				}
 			}
 			
@@ -80,7 +83,7 @@ public class HttpLoader<T> extends TGHttpLoader<T>
 		}
 		catch (JSONException e)
 		{
-			LogTools.e(LOG_TAG, e);
+			LOG.e(e);
 		}
 		
 		return null;
@@ -93,7 +96,7 @@ public class HttpLoader<T> extends TGHttpLoader<T>
 	{
 		public InternalAsyncTask()
 		{
-			super("", TGHttpLoader.REQUEST_UNKNOWN, null);
+			super("", HttpType.REQUEST_GET, null);
 		}
 		
 		@SuppressWarnings("unchecked")

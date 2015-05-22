@@ -1,8 +1,8 @@
 package com.mn.tiger.demo.widget.viewpager.horizontal.fragment;
 
+import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 
 import com.mn.tiger.app.TGTabActivity;

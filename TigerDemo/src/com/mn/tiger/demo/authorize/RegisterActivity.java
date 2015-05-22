@@ -1,9 +1,10 @@
 package com.mn.tiger.demo.authorize;
 
+import android.annotation.SuppressLint;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-
 import com.mn.tiger.annonation.ViewById;
 import com.mn.tiger.app.TGActionBarActivity;
 import com.mn.tiger.app.TGFragment;
@@ -29,6 +29,7 @@ import com.mn.tiger.widget.dialog.TGDialog;
 /**
  * 注册界面
  */
+@SuppressLint("ValidFragment")
 public class RegisterActivity extends TGActionBarActivity implements DialogInterface.OnClickListener
 {
 	/**
@@ -96,16 +97,13 @@ public class RegisterActivity extends TGActionBarActivity implements DialogInter
 	private void setupViews()
 	{
 		inputMobileFragment = new InputMobileFragment();
-		inputMobileFragment.setActivity(this);
 		
 		inputCodeFragment = new InputVertificationCodeFragment();
-		inputCodeFragment.setActivity(this);
 		
 		inputPasswordFragment = new InputPasswordFragment();
-		inputPasswordFragment.setActivity(this);
 		
 		//显示输入手机号界面
-		FragmentManager fragmentManager = getSupportFragmentManager();
+		FragmentManager fragmentManager = getFragmentManager();
 		fragmentManager.beginTransaction().add(R.id.register_main, inputMobileFragment).commit();
 	}
 	
@@ -114,7 +112,7 @@ public class RegisterActivity extends TGActionBarActivity implements DialogInter
 	 */
 	private void showInputCodeFragment()
 	{
-		FragmentManager fragmentManager = getSupportFragmentManager();
+		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		transaction.replace(R.id.register_main, inputCodeFragment).commit();
 		inputCodeFragment.startCountDown();
@@ -125,7 +123,7 @@ public class RegisterActivity extends TGActionBarActivity implements DialogInter
 	 */
 	private void showInputPasswordFragment()
 	{
-		FragmentManager fragmentManager = getSupportFragmentManager();
+		FragmentManager fragmentManager = getFragmentManager();
 		fragmentManager.beginTransaction().replace(R.id.register_main, inputPasswordFragment).commit();
 	}
 	
@@ -266,6 +264,7 @@ public class RegisterActivity extends TGActionBarActivity implements DialogInter
 		@ViewById(id = R.id.input_mobile_protocol)
 		private CheckBox protocalCheckBox;
 		
+		@SuppressLint("ValidFragment")
 		public InputMobileFragment()
 		{
 			super();
@@ -316,6 +315,7 @@ public class RegisterActivity extends TGActionBarActivity implements DialogInter
 		@ViewById(id = R.id.input_code_next_btn)
 		private Button nextButton;
 
+		@SuppressLint("ValidFragment")
 		public InputVertificationCodeFragment()
 		{
 			super();
@@ -412,6 +412,7 @@ public class RegisterActivity extends TGActionBarActivity implements DialogInter
 		@ViewById(id = R.id.register_over_btn)
 		private Button registerOverBtn;
 		
+		@SuppressLint("ValidFragment")
 		public InputPasswordFragment()
 		{
 			super();

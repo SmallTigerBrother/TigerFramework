@@ -20,7 +20,6 @@ import com.mn.tiger.demo.activity.SlidingActivity;
 import com.mn.tiger.demo.authorize.AuthorizeDemoActivity;
 import com.mn.tiger.demo.datastorage.DataStorageDemoActivity;
 import com.mn.tiger.demo.download.DownloadDemoActivity;
-import com.mn.tiger.demo.request.RequestDemoActivity;
 import com.mn.tiger.demo.share.ShareDemoActivity;
 import com.mn.tiger.demo.widget.GridListViewActivity;
 import com.mn.tiger.demo.widget.dialog.DialogDemoActivity;
@@ -74,7 +73,6 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		demoModels.add(DemoModel.ShareDemo);
 		demoModels.add(DemoModel.PullToRefreshSwipeListView);
 		demoModels.add(DemoModel.GridListView);
-		demoModels.add(DemoModel.HttpRequest);
 		
 		demoListView.setAdapter(new TGListAdapter<DemoModel>(this, demoModels, -1, 
 				ViewHolder.class));
@@ -145,10 +143,6 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 				intent.setClass(this, DownloadDemoActivity.class);
 				break;
 				
-			case RequestDemo:
-				intent.setClass(this, RequestDemoActivity.class);
-				break;
-				
 			case DialogDemo:
 				intent.setClass(this, DialogDemoActivity.class);
 				break;
@@ -171,10 +165,6 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 				
 			case GridListView:
 				intent.setClass(this, GridListViewActivity.class);
-				break;
-				
-			case HttpRequest:
-				intent.setClass(this, RequestDemoActivity.class);
 				break;
 				
 			default:
@@ -244,9 +234,7 @@ public class MainActivity extends TGActionBarActivity implements OnItemClickList
 		
 		PullToRefreshSwipeListView("PullToRefreshSwipeListViewDemo"),
 		
-		GridListView("GridListView"),
-		
-		HttpRequest("HttpRequest");
+		GridListView("GridListView");
 		
 		private DemoModel(String demoType)
 		{

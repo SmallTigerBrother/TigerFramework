@@ -5,7 +5,7 @@ import android.content.Context;
 
 import com.mn.tiger.request.TGHttpLoader.OnLoadCallback;
 import com.mn.tiger.request.error.TGHttpError;
-import com.mn.tiger.request.sync.receiver.TGHttpResult;
+import com.mn.tiger.request.receiver.TGHttpResult;
 import com.mn.tiger.utility.ToastUtils;
 
 /**
