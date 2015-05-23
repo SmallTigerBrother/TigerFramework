@@ -31,10 +31,13 @@ public class TGActionBarActivity extends Activity
 	 */
 	private FrameLayout panelLayout;
 	
+	/**
+	 * 加载框
+	 */
 	private DialogFragment loadingDialog;
 	
 	/**
-	 * laoding对话框显示次数
+	 * laoding对话框显示次数（使用计数器，防止对话框无法显示，或者无法消失的问题）
 	 */
 	private int dialogShowCount = 0;
 	

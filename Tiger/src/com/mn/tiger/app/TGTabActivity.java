@@ -1,5 +1,6 @@
 package com.mn.tiger.app;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import android.app.Fragment;
@@ -27,7 +28,7 @@ import com.mn.tiger.widget.viewpager.TGFragmentPagerAdapter;
  * 带底部Tab的FragmentActivity
  * @author Dalang
  */
-public class TGTabActivity extends TGActionBarActivity implements 
+public abstract class TGTabActivity extends TGActionBarActivity implements 
     OnPageChangeListener, OnTabChangeListener
 {
 	private Logger LOG = Logger.getLogger(TGTabActivity.class);
@@ -51,6 +52,8 @@ public class TGTabActivity extends TGActionBarActivity implements
 		
 		tabView = (TGTabView) findViewById(R.id.tiger_tab_bar);
 		viewPager = (ViewPager) findViewById(R.id.tiger_view_pager);
+		
+		setTabs(onInitTabs());
 	}
 	
 	/**
@@ -58,18 +61,42 @@ public class TGTabActivity extends TGActionBarActivity implements
 	 * @param tabModels 所有的tab
 	 * @param fragments 所有的fragment
 	 */
-	public void setTabs(TabModel[] tabModels, Fragment[] fragments)
+	public void setTabs(TabModel[] tabModels)
 	{
-		TGFragmentPagerAdapter pagerAdapter = new TGFragmentPagerAdapter(
-				getFragmentManager(), Arrays.asList(fragments));
-		viewPager.setAdapter(pagerAdapter);
-		viewPager.setOnPageChangeListener(this);
-		
-		tabView.setAdapter(new TGListAdapter<TabModel>(this, Arrays.asList(tabModels),
-				R.layout.tiger_fragment_tab_item, TabViewHolder.class));
-		tabView.setOnTabChangeListener(this);
-		tabView.setSelection(0);
+		if(null != tabModels && tabModels.length > 0)
+		{
+			TGFragmentPagerAdapter pagerAdapter = new TGFragmentPagerAdapter(
+					getFragmentManager(), getFragmentsFromTabs(tabModels));
+			viewPager.setAdapter(pagerAdapter);
+			viewPager.setOnPageChangeListener(this);
+			
+			tabView.setAdapter(new TGListAdapter<TabModel>(this, Arrays.asList(tabModels),
+					R.layout.tiger_fragment_tab_item, TabViewHolder.class));
+			tabView.setOnTabChangeListener(this);
+			tabView.setSelection(0);
+		}
 	}
+	
+	/**
+	 * 从tabmodels读取Fragment数组
+	 * @param tabModels
+	 * @return
+	 */
+	private ArrayList<Fragment> getFragmentsFromTabs(TabModel[] tabModels)
+	{
+		ArrayList<Fragment> fragments = new ArrayList<Fragment>();
+		for (int i = 0; i < tabModels.length; i++)
+		{
+			fragments.add(tabModels[i].getFragment());
+		}
+		return fragments;
+	}
+	
+	/**
+	 * 初始化tabs
+	 * @return
+	 */
+	protected abstract TabModel[] onInitTabs();
 
 	@Override
 	public void onTabChanged(TGTabView tabView, int lastTabIndex, int currentTabIndex)
@@ -304,6 +331,11 @@ public class TGTabActivity extends TGActionBarActivity implements
 		 */
 		private int highlightTypeface = Typeface.NORMAL;
 		
+		/**
+		 * tab对应的Fragmengt
+		 */
+		private Fragment fragment;
+		
 		public TabModel()
 		{
 		}
@@ -406,6 +438,16 @@ public class TGTabActivity extends TGActionBarActivity implements
 		public int getHighlightTypeface()
 		{
 			return highlightTypeface;
+		}
+		
+		public void bindFragment(Fragment fragment)
+		{
+			this.fragment = fragment;
+		}
+		
+		public Fragment getFragment()
+		{
+			return fragment;
 		}
 	}
 	

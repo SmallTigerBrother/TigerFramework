@@ -35,6 +35,9 @@ public abstract class TGFragment extends Fragment
 	 */
 	private TGNavigationBar navigationBar;
 	
+	/**
+	 * 最底层的Layout
+	 */
 	private FrameLayout panelLayout;
 	
 	public final View onCreateView(LayoutInflater inflater, ViewGroup container, 
