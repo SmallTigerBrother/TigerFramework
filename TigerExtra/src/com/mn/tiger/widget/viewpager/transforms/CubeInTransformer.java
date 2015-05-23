@@ -16,8 +16,6 @@
 
 package com.mn.tiger.widget.viewpager.transforms;
 
-import com.nineoldandroids.view.ViewHelper;
-
 import android.view.View;
 
 public class CubeInTransformer extends ABaseTransformer
@@ -26,9 +24,9 @@ public class CubeInTransformer extends ABaseTransformer
 	protected void onTransform(View view, float position)
 	{
 		// Rotate the fragment on the left or right edge
-		ViewHelper.setPivotX(view, position > 0 ? 0 : view.getWidth());
-		ViewHelper.setPivotY(view, 0);
-		ViewHelper.setRotationY(view, -90f * position);
+		view.setPivotX(position > 0 ? 0 : view.getWidth());
+		view.setPivotY(0);
+		view.setRotationY(-90f * position);
 	}
 
 	@Override

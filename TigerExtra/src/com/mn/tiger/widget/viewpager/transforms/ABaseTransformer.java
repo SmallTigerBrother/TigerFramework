@@ -16,7 +16,6 @@
 
 package com.mn.tiger.widget.viewpager.transforms;
 
-import com.nineoldandroids.view.ViewHelper;
 
 import android.support.v4.view.ViewPager.PageTransformer;
 import android.view.View;
@@ -102,23 +101,23 @@ public abstract class ABaseTransformer implements PageTransformer
 	protected void onPreTransform(View page, float position)
 	{
 		final float width = page.getWidth();
-		ViewHelper.setRotationX(page, 0);
-		ViewHelper.setRotationY(page, 0);
-		ViewHelper.setRotation(page, 0);
-		ViewHelper.setScaleX(page, 1);
-		ViewHelper.setScaleY(page, 1);
-		ViewHelper.setPivotX(page, 0);
-		ViewHelper.setPivotY(page, 0);
-		ViewHelper.setTranslationY(page, 0);
-		ViewHelper.setTranslationX(page, isPagingEnabled() ? 0f : -width * position);
+		page.setRotationX(0);
+		page.setRotationY(0);
+		page.setRotation(0);
+		page.setScaleX(1);
+		page.setScaleY(1);
+		page.setPivotX(0);
+		page.setPivotY(0);
+		page.setTranslationY(0);
+		page.setTranslationX(isPagingEnabled() ? 0f : -width * position);
 
 		if (hideOffscreenPages())
 		{
-			ViewHelper.setAlpha(page, position <= -1f || position >= 1f ? 0f : 1f);
+			page.setAlpha(position <= -1f || position >= 1f ? 0f : 1f);
 		}
 		else
 		{
-			ViewHelper.setAlpha(page, 1f);
+			page.setAlpha(1f);
 		}
 	}
 

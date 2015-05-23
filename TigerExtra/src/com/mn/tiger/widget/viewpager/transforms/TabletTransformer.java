@@ -16,7 +16,6 @@
 
 package com.mn.tiger.widget.viewpager.transforms;
 
-import com.nineoldandroids.view.ViewHelper;
 
 import android.graphics.Camera;
 import android.graphics.Matrix;
@@ -34,11 +33,11 @@ public class TabletTransformer extends ABaseTransformer
 	{
 		final float rotation = (position < 0 ? 30f : -30f) * Math.abs(position);
 
-		ViewHelper.setTranslationX(view, getOffsetXForRotation(rotation, view.getWidth(), 
+		view.setTranslationX(getOffsetXForRotation(rotation, view.getWidth(), 
 				view.getHeight()));
-		ViewHelper.setPivotX(view, view.getWidth() * 0.5f);
-		ViewHelper.setPivotY(view, 0);
-		ViewHelper.setRotationY(view, rotation);
+		view.setPivotX(view.getWidth() * 0.5f);
+		view.setPivotY(0);
+		view.setRotationY(rotation);
 	}
 
 	protected static final float getOffsetXForRotation(float degrees, int width, int height)

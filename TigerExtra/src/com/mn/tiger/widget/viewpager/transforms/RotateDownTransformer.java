@@ -16,7 +16,6 @@
 
 package com.mn.tiger.widget.viewpager.transforms;
 
-import com.nineoldandroids.view.ViewHelper;
 
 import android.view.View;
 
@@ -32,9 +31,9 @@ public class RotateDownTransformer extends ABaseTransformer
 		final float height = view.getHeight();
 		final float rotation = ROT_MOD * position * -1.25f;
 
-		ViewHelper.setPivotX(view, width * 0.5f);
-		ViewHelper.setPivotY(view, height);
-		ViewHelper.setRotation(view, rotation);
+		view.setPivotX(width * 0.5f);
+		view.setPivotY(height);
+		view.setRotation(rotation);
 	}
 
 	@Override

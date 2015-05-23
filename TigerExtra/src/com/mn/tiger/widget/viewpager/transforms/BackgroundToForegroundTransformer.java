@@ -16,8 +16,6 @@
 
 package com.mn.tiger.widget.viewpager.transforms;
 
-import com.nineoldandroids.view.ViewHelper;
-
 import android.view.View;
 
 public class BackgroundToForegroundTransformer extends ABaseTransformer
@@ -29,11 +27,11 @@ public class BackgroundToForegroundTransformer extends ABaseTransformer
 		final float width = view.getWidth();
 		final float scale = min(position < 0 ? 1f : Math.abs(1f - position), 0.5f);
 
-		ViewHelper.setScaleX(view, scale);
-		ViewHelper.setScaleY(view, scale);
-		ViewHelper.setPivotX(view, width * 0.5f);
-		ViewHelper.setPivotY(view, height * 0.5f);
-		ViewHelper.setTranslationX(view, position < 0 ? width * position : -width * position * 0.25f);
+		view.setScaleX(scale);
+		view.setScaleY(scale);
+		view.setPivotX(width * 0.5f);
+		view.setPivotY(height * 0.5f);
+		view.setTranslationX(position < 0 ? width * position : -width * position * 0.25f);
 	}
 
 }

@@ -16,7 +16,6 @@
 
 package com.mn.tiger.widget.viewpager.transforms;
 
-import com.nineoldandroids.view.ViewHelper;
 
 import android.view.View;
 
@@ -38,23 +37,23 @@ public class ZoomOutSlideTransformer extends ABaseTransformer
 			final float horzMargin = view.getWidth() * (1 - scaleFactor) / 2;
 
 			// Center vertically
-			ViewHelper.setPivotY(view, 0.5f * height);
+			view.setPivotY(0.5f * height);
 
 			if (position < 0)
 			{
-				ViewHelper.setTranslationX(view, horzMargin - vertMargin / 2);
+				view.setTranslationX(horzMargin - vertMargin / 2);
 			}
 			else
 			{
-				ViewHelper.setTranslationX(view, -horzMargin + vertMargin / 2);
+				view.setTranslationX(-horzMargin + vertMargin / 2);
 			}
 
 			// Scale the page down (between MIN_SCALE and 1)
-			ViewHelper.setScaleX(view, scaleFactor);
-			ViewHelper.setScaleY(view, scaleFactor);
+			view.setScaleX(scaleFactor);
+			view.setScaleY(scaleFactor);
 
 			// Fade the page relative to its size.
-			ViewHelper.setAlpha(view, MIN_ALPHA + (scaleFactor - MIN_SCALE) / (1 - MIN_SCALE) * (1 - MIN_ALPHA));
+			view.setAlpha(MIN_ALPHA + (scaleFactor - MIN_SCALE) / (1 - MIN_SCALE) * (1 - MIN_ALPHA));
 		}
 	}
 

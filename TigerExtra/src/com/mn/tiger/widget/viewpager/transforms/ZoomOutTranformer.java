@@ -16,7 +16,6 @@
 
 package com.mn.tiger.widget.viewpager.transforms;
 
-import com.nineoldandroids.view.ViewHelper;
 
 import android.view.View;
 
@@ -26,14 +25,14 @@ public class ZoomOutTranformer extends ABaseTransformer
 	protected void onTransform(View view, float position)
 	{
 		final float scale = 1f + Math.abs(position);
-		ViewHelper.setScaleX(view, scale);
-		ViewHelper.setScaleY(view, scale);
-		ViewHelper.setPivotX(view, view.getWidth() * 0.5f);
-		ViewHelper.setPivotY(view, view.getHeight() * 0.5f);
-		ViewHelper.setAlpha(view, position < -1f || position > 1f ? 0f : 1f - (scale - 1f));
+		view.setScaleX(scale);
+		view.setScaleY(scale);
+		view.setPivotX(view.getWidth() * 0.5f);
+		view.setPivotY(view.getHeight() * 0.5f);
+		view.setAlpha(position < -1f || position > 1f ? 0f : 1f - (scale - 1f));
 		if (position == -1)
 		{
-			ViewHelper.setTranslationX(view, view.getWidth() * -1);
+			view.setTranslationX(view.getWidth() * -1);
 		}
 	}
 
