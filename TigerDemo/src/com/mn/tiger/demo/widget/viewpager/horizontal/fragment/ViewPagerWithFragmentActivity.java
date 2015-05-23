@@ -1,8 +1,6 @@
 package com.mn.tiger.demo.widget.viewpager.horizontal.fragment;
 
-import android.app.Fragment;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 
 import com.mn.tiger.app.TGTabActivity;
@@ -33,15 +31,8 @@ public class ViewPagerWithFragmentActivity extends TGTabActivity implements
 	private String[] tabNames = {"Fragment_1", "Fragment_2", "Fragment_3"};
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
+	protected TabModel[] onInitTabs()
 	{
-		super.onCreate(savedInstanceState);
-		
-		Fragment[] fragments = new Fragment[3];
-		fragments[0] = new PagerFragment_1();
-		fragments[1] = new PagerFragment_2();
-		fragments[2] = new PagerFragment_3();
-		
 		TabModel[] tabModels = new TabModel[3];
 		TabModel tabModel;
 		for(int i = 0 ; i < tabNames.length; i++)
@@ -52,9 +43,27 @@ public class ViewPagerWithFragmentActivity extends TGTabActivity implements
 			tabModel.setHighlightResName(highLightIconResName[i]);
 			tabModel.setHighlightTextColor(Color.BLUE);
 			tabModel.setHighlightTextSize(24f);
+			
+			switch (i)
+			{
+				case 0:
+					tabModel.bindFragment(new PagerFragment_1());
+					break;
+					
+				case 1:
+					tabModel.bindFragment(new PagerFragment_2());
+					break;
+					
+				case 2:
+					tabModel.bindFragment(new PagerFragment_3());
+					break;
+				default:
+					break;
+			}
+			
 			tabModels[i] = tabModel;
 		}
 		
-		setTabs(tabModels, fragments);
+		return tabModels;
 	}
 }
