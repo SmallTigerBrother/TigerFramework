@@ -43,6 +43,11 @@ public abstract class TGTabActivity extends TGActionBarActivity implements
 	 */
 	private ViewPager viewPager;
 	
+	/**
+	 * tab数据
+	 */
+	private TabModel[] tabModels;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -63,6 +68,8 @@ public abstract class TGTabActivity extends TGActionBarActivity implements
 	 */
 	public void setTabs(TabModel[] tabModels)
 	{
+		this.tabModels = tabModels;
+		
 		if(null != tabModels && tabModels.length > 0)
 		{
 			TGFragmentPagerAdapter pagerAdapter = new TGFragmentPagerAdapter(
@@ -97,6 +104,11 @@ public abstract class TGTabActivity extends TGActionBarActivity implements
 	 * @return
 	 */
 	protected abstract TabModel[] onInitTabs();
+	
+	public TabModel[] getTabModels()
+	{
+		return tabModels;
+	}
 
 	@Override
 	public void onTabChanged(TGTabView tabView, int lastTabIndex, int currentTabIndex)
