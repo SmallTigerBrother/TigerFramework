@@ -1,7 +1,6 @@
 package com.mn.tiger.demo.widget.searchview.actionbar;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 
 import com.mn.tiger.annonation.ViewById;
@@ -45,7 +44,7 @@ public class SearchViewInActionBarActivity extends TGActionBarActivity implement
 		navigationBar.removeAllViews();
 		searchView = new TGSearchView(this);
 		TGNavigationBar.LayoutParams layoutParams = new TGNavigationBar.LayoutParams(
-				ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
+				TGNavigationBar.LayoutParams.MATCH_PARENT, TGNavigationBar.LayoutParams.MATCH_PARENT);
 		layoutParams.bottomMargin = DisplayUtils.dip2px(this, 4);
 		layoutParams.topMargin = DisplayUtils.dip2px(this, 4);
 		navigationBar.addView(searchView, layoutParams);
