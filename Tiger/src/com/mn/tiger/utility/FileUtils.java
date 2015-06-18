@@ -683,6 +683,36 @@ public class FileUtils
 		}
 		return null;
 	}
+	
+	/**
+	 * 从Asset的文件中读取字符串
+	 * @param context
+	 * @param fileName
+	 * @return
+	 */
+	public static String readStringFromAsset(Context context, String fileName)
+	{
+		try
+		{
+			BufferedInputStream inputStream = new BufferedInputStream(context.getAssets().open(fileName));
+			StringBuilder stringBuilder = new StringBuilder();
+			byte[] buffer = new byte[4 * 1024];
+			int length = 0;
+			while ((length = inputStream.read(buffer)) != -1)
+			{
+				stringBuilder.append(new String(buffer, 0, length));
+			}
+			
+			return stringBuilder.toString();
+		}
+		catch (IOException e)
+		{
+			LogTools.e(LOG_TAG, e.getMessage(), e);
+		}
+		
+		return null;
+	}
+
 
 	/**
 	 * 该方法的作用:创建文件，并修改读写权限
@@ -852,8 +882,8 @@ public class FileUtils
 				return size;
 			}
 			else
-			{// 如果是文件则直接返回其大小,以“兆”为单位
-				double size = (double) file.length() / 1024 / 1024;
+			{// 如果是文件则直接返回其大小
+				double size = (double) file.length();
 				return size;
 			}
 		}
