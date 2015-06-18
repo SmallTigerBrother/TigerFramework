@@ -23,6 +23,7 @@ import com.mn.tiger.widget.tab.TGTabView;
 import com.mn.tiger.widget.tab.TGTabView.LayoutParams;
 import com.mn.tiger.widget.tab.TGTabView.OnTabChangeListener;
 import com.mn.tiger.widget.viewpager.TGFragmentPagerAdapter;
+import com.mn.tiger.widget.viewpager.TGViewPager;
 
 /**
  * 带底部Tab的FragmentActivity
@@ -41,7 +42,7 @@ public abstract class TGTabActivity extends TGActionBarActivity implements
 	/**
 	 * ViewPager
 	 */
-	private ViewPager viewPager;
+	private TGViewPager viewPager;
 	
 	/**
 	 * tab数据
@@ -56,9 +57,18 @@ public abstract class TGTabActivity extends TGActionBarActivity implements
 		setContentView(R.layout.tiger_tab_activity);
 		
 		tabView = (TGTabView) findViewById(R.id.tiger_tab_bar);
-		viewPager = (ViewPager) findViewById(R.id.tiger_view_pager);
+		viewPager = (TGViewPager) findViewById(R.id.tiger_view_pager);
 		
 		setTabs(onInitTabs());
+	}
+	
+	/**
+	 * 设置也页面是否可以滑动
+	 * @param canScroll
+	 */
+	protected void setPageCanScroll(boolean canScroll)
+	{
+		viewPager.setCanScroll(canScroll);
 	}
 	
 	/**

@@ -10,11 +10,11 @@
         android:layout_alignParentBottom="true">
     </com.mn.tiger.widget.tab.TGTabView>
     
-    <android.support.v4.view.ViewPager
+    <com.mn.tiger.widget.viewpager.TGViewPager
         android:id="@+id/tiger_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/tiger_tab_bar"
-        ></android.support.v4.view.ViewPager>
+        ></com.mn.tiger.widget.viewpager.TGViewPager>
 
 </RelativeLayout>
