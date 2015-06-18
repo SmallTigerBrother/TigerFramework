@@ -88,6 +88,18 @@ public class TGUploadObservable extends Observable<TGUploadObserver>
 				}
 				unregisterAll();
 				break;
+				
+			case TGUploadManager.UPLOAD_CANCEL:
+				for (TGUploadObserver observer : mObservers)
+				{
+					if(observer != null)
+					{
+						observer.onCancel(uploader);
+					}
+				}
+				unregisterAll();
+				break;
+				
 			case TGUploadManager.UPLOAD_STARTING:
 				for (TGUploadObserver observer : mObservers)
 				{

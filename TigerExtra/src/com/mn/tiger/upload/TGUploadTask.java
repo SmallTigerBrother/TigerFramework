@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.mn.tiger.log.LogTools;
 import com.mn.tiger.task.TGTask;
-import com.mn.tiger.upload.observe.TGUploadObserveController;
 
 /**
  * 
@@ -27,12 +26,7 @@ public class TGUploadTask extends TGTask
 	/**
 	 * 上传信息 
 	 */
-	protected TGUploadParams mpUploadParams;
-	
-	/**
-	 * 上传任务监听
-	 */
-	private IUploadListener uploadListener = new DefaultUploadListener();
+	private TGUploadParams uploadParams;
 	
 	/**
 	 * 构造函数
@@ -68,7 +62,6 @@ public class TGUploadTask extends TGTask
 	protected void uploadInBackground()
 	{
 		LogTools.p(LOG_TAG, "[Metohd:uploadInBackground]" + "; taskid: " + this.getTaskID());
-		mpUploadParams = getUploadParams();
 		
 		executeUpload();
 	}
@@ -86,9 +79,12 @@ public class TGUploadTask extends TGTask
 			return null;
 		}
 		
-		Bundle params = (Bundle) getParams();
-		TGUploadParams uploadParams = (TGUploadParams) params.getSerializable("uploadParams");
-
+		if(null == uploadParams)
+		{
+			Bundle params = (Bundle) getParams();
+			uploadParams = (TGUploadParams) params.getSerializable("uploadParams");
+		}
+		
 		return uploadParams;
 	}
 	
@@ -100,15 +96,35 @@ public class TGUploadTask extends TGTask
 	protected void executeUpload()
 	{
 		// 上传
-		uploadStrategy = new TGUploadStrategy(getContext(), this, uploadListener);
-		uploadStrategy.upload(mpUploadParams);
+		uploadStrategy = new TGUploadStrategy(getContext(), this);
+		uploadStrategy.upload(getUploadParams());
 	}
 	
 	@Override
 	protected void onTaskCancel() 
 	{
-		TGUploadObserveController.getInstance().unregisterObserverByKey(String.valueOf(this.getTaskID()));
+		TGUploader uploader = TGUploader.getInstanse(getUploadParams());
+		onUploadCanceled(uploader);
+		
+		if(null != uploadStrategy)
+		{
+			uploadStrategy.shutdown();
+		}
 		super.onTaskCancel();
+	}
+	
+	@Override
+	protected void onTaskPause()
+	{
+		TGUploader uploader = TGUploader.getInstanse(getUploadParams());
+		onUploadStop(uploader);
+		
+		if(null != uploadStrategy)
+		{
+			uploadStrategy.shutdown();
+		}
+		
+		super.onTaskPause();
 	}
 	
 	/**
@@ -123,67 +139,79 @@ public class TGUploadTask extends TGTask
 	}
 	
 	/**
-	 * 
-	 * 该类作用及功能说明: 默认上传监听
-	 * 
-	 * @date 2014年8月25日
+	 * 上传任务启动时的回调方法
+	 * @param uploader
 	 */
-	public class DefaultUploadListener implements IUploadListener
+	void onUploadStart(TGUploader uploader)
 	{
-		private final String LOG_TAG = this.getClass().getSimpleName();
-		
-		@Override
-		public void uploadStart(TGUploader uploader)
-		{
-			LogTools.p(LOG_TAG, "[Metohd:uploadStart]");
-			sendUploadResult(uploader);
-		}
-		
-		@Override
-		public void uploadSucceed(TGUploader uploader)
-		{
-			LogTools.p(LOG_TAG, "[Metohd:uploadSucceed]" + "; taskid: " + TGUploadTask.this.getTaskID());
-			sendUploadResult(uploader);
-			onTaskFinished();
-		}
-		
-		@Override
-		public void uploadProgress(TGUploader uploader, int progress)
-		{
-			LogTools.d(LOG_TAG, "[Metohd:uploadProgress]" + "; taskid: " + TGUploadTask.this.getTaskID());
-			sendUploadResult(uploader);
-			onTaskChanged(progress);
-		}
-		
-		@Override
-		public void uploadFailed(TGUploader uploader)
-		{
-			LogTools.p(LOG_TAG, "[Metohd:uploadFailed]" + "; taskid: " + TGUploadTask.this.getTaskID());
-			sendUploadResult(uploader);
-			
-			onTaskError(uploader.getErrorCode(), uploader.getErrorMsg());
-		}
-		
-		@Override
-		public void uploadCanceled(TGUploader uploader)
-		{
-			LogTools.p(LOG_TAG, "[Metohd:uploadCanceled]" + "; taskid: " + TGUploadTask.this.getTaskID());
-			sendUploadResult(uploader);
-		}
-		
-		@Override
-		public void uploadStop(TGUploader uploader)
-		{
-			LogTools.p(LOG_TAG, "[Metohd:uploadStop]" + "; taskid: " + TGUploadTask.this.getTaskID());
-			sendUploadResult(uploader);
-		}
-		
-		private void sendUploadResult(TGUploader uploader)
-		{
-			sendTaskResult(uploader);
-		}
+		LogTools.p(LOG_TAG, "[Metohd:uploadStart]");
+		sendUploadResult(uploader);
 	}
-
+	
+	/**
+	 * 上传任务成功的回调方法
+	 * @param uploader
+	 */
+	void onUploadSuccess(TGUploader uploader)
+	{
+		LogTools.p(LOG_TAG, "[Metohd:uploadSucceed]" + "; taskid: " + TGUploadTask.this.getTaskID());
+		sendUploadResult(uploader);
+		onTaskFinished();
+	}
+	
+	/**
+	 * 上传进度回调方法
+	 * @param uploader
+	 * @param progress
+	 */
+	void onUploadProgress(TGUploader uploader, int progress)
+	{
+		LogTools.d(LOG_TAG, "[Metohd:uploadProgress]" + "; taskid: " + TGUploadTask.this.getTaskID());
+		sendUploadResult(uploader);
+		onTaskChanged(progress);
+	}
+	
+	/**
+	 * 上传失败的回调方法
+	 * @param uploader
+	 */
+	void onUploadFailed(TGUploader uploader)
+	{
+		LogTools.p(LOG_TAG, "[Metohd:uploadFailed]" + "; taskid: " + TGUploadTask.this.getTaskID());
+		sendUploadResult(uploader);
+		
+		onTaskError(uploader.getErrorCode(), uploader.getErrorMsg());
+	}
+	
+	/**
+	 * 上传取消的回调方法
+	 * @param uploader
+	 */
+	void onUploadCanceled(TGUploader uploader)
+	{
+		LogTools.p(LOG_TAG, "[Metohd:uploadCanceled]" + "; taskid: " + TGUploadTask.this.getTaskID());
+		sendUploadResult(uploader);
+	}
+	
+	/**
+	 * 上传停止的回调方法
+	 * @param uploader
+	 */
+	void onUploadStop(TGUploader uploader)
+	{
+		LogTools.p(LOG_TAG, "[Metohd:uploadStop]" + "; taskid: " + TGUploadTask.this.getTaskID());
+		sendUploadResult(uploader);
+	}
+	
+	/**
+	 * 发送上传结果
+	 * @param uploader
+	 */
+	private void sendUploadResult(TGUploader uploader)
+	{
+		sendTaskResult(uploader);
+	}
+	
 	public IUploadStrategy getUploadStrategy()
 	{
 		return uploadStrategy;
@@ -194,23 +222,4 @@ public class TGUploadTask extends TGTask
 		this.uploadStrategy = uploadStrategy;
 	}
 
-	public TGUploadParams getMpUploadParams()
-	{
-		return mpUploadParams;
-	}
-
-	public void setMpUploadParams(TGUploadParams mpUploadParams)
-	{
-		this.mpUploadParams = mpUploadParams;
-	}
-
-	public IUploadListener getUploadListener()
-	{
-		return uploadListener;
-	}
-
-	public void setUploadListener(IUploadListener uploadListener)
-	{
-		this.uploadListener = uploadListener;
-	}
 }

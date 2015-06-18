@@ -1,11 +1,13 @@
 package com.mn.tiger.upload;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mn.tiger.datastorage.TGDBManager;
 import com.mn.tiger.datastorage.db.exception.DbException;
 import com.mn.tiger.datastorage.db.sqlite.WhereBuilder;
@@ -38,12 +40,12 @@ public class TGUploadDBHelper
 	/**
 	 * 数据库名称
 	 */
-	private static String database_name = "tiger_upload.db";
+	private static String DATABASE_NAME = "tiger_upload.db";
 
 	/**
 	 * 数据库版本
 	 */
-	private static int database_version = 1;
+	private static int DATABASE_VERSION = 1;
 
 	/** 本地文件path */
 	private final String UPLOADER_COLUMN_FILE_PATH = "filePath";
@@ -90,7 +92,7 @@ public class TGUploadDBHelper
 	private TGDBManager getDB(Context context)
 	{
 		TGDBManager db = TGDBManager.create(context, context.getApplicationInfo().dataDir
-				+ File.separator + Constant.STORE_DATABASE_PATH, database_name, database_version,
+				+ File.separator + Constant.STORE_DATABASE_PATH, DATABASE_NAME, DATABASE_VERSION,
 				new AbsDbUpgrade()
 				{
 					@Override
@@ -122,13 +124,14 @@ public class TGUploadDBHelper
 	 * 
 	 * @throws DbException
 	 */
-	public synchronized TGUploader getUploader(String filePath)
+	public synchronized TGUploader getUploader(HashMap<String, String> fileParams)
 	{
 		TGUploader uploader = null;
 		try
 		{
 			uploader = dbManager.findFirst(TGUploader.class,
-					WhereBuilder.b(UPLOADER_COLUMN_FILE_PATH, "=", filePath));
+					WhereBuilder.b(UPLOADER_COLUMN_FILE_PATH, "=", 
+							new Gson().toJson(fileParams, new TypeToken<HashMap<String,String>>(){}.getType())));
 		}
 		catch (DbException e)
 		{
@@ -177,29 +180,6 @@ public class TGUploadDBHelper
 		}
 
 		return uploaderList;
-	}
-
-	/**
-	 * 查询断点记录
-	 * 
-	 * @throws DbException
-	 */
-	public synchronized TGUploader getBreakPointUploader(String filePath)
-	{
-		TGUploader uploader = null;
-		try
-		{
-			uploader = dbManager.findFirst(
-					TGUploader.class,
-					WhereBuilder.b(UPLOADER_COLUMN_FILE_PATH, "=", filePath).and("uploadStatus",
-							"<>", TGUploadManager.UPLOAD_UPLOADING));
-		}
-		catch (DbException e)
-		{
-			LogTools.e(LOG_TAG, e.getMessage(), e);
-		}
-
-		return uploader;
 	}
 
 	/**
@@ -278,26 +258,5 @@ public class TGUploadDBHelper
 		{
 			LogTools.e(LOG_TAG, e.getMessage(), e);
 		}
-	}
-
-	/**
-	 * 
-	 * 该方法的作用: 获取所有上传信息
-	 * 
-	 * @date 2014年8月29日
-	 * @return
-	 */
-	public List<TGUploader> findAllUploader()
-	{
-		try
-		{
-			return dbManager.findAll(TGUploader.class);
-		}
-		catch (DbException e)
-		{
-			LogTools.e(LOG_TAG, e.getMessage(), e);
-		}
-
-		return new ArrayList<TGUploader>();
 	}
 }

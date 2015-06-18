@@ -5,9 +5,12 @@ import java.net.HttpURLConnection;
 import android.content.Context;
 
 import com.mn.tiger.log.LogTools;
+import com.mn.tiger.request.client.ApacheHttpClient;
+import com.mn.tiger.request.method.ApachePostMethod;
+import com.mn.tiger.request.method.ProgressEntiryWrapper.ProgressListener;
+import com.mn.tiger.request.method.TGHttpParams;
 import com.mn.tiger.request.receiver.TGHttpResult;
-import com.mn.tiger.upload.TGUploadPostMethod.IUploadSendListener;
-import com.mn.tiger.utility.FileUtils;
+import com.mn.tiger.task.TGTask.TGTaskState;
 
 /**
  * 
@@ -15,7 +18,7 @@ import com.mn.tiger.utility.FileUtils;
  * 
  * @date 2014年7月30日
  */
-public class TGUploadStrategy implements IUploadStrategy
+public class TGUploadStrategy implements IUploadStrategy, ProgressListener
 {
 	/**
 	 * 日志标识
@@ -28,11 +31,6 @@ public class TGUploadStrategy implements IUploadStrategy
 	protected Context context;
 
 	/**
-	 * 上传监听
-	 */
-	protected IUploadListener uploadListener;
-
-	/**
 	 * 上传任务
 	 */
 	protected TGUploadTask uploadTask = null;
@@ -40,9 +38,14 @@ public class TGUploadStrategy implements IUploadStrategy
 	/**
 	 * 上传信息
 	 */
-	protected TGUploader mpUploader;
+	protected TGUploader uploader;
 	
-
+	private ApacheHttpClient httpClient;
+	
+	private long contentLength = 0;
+	
+	private int progress = 0;
+	
 	/**
 	 * 构造函数
 	 * @date 2014年8月5日
@@ -50,12 +53,10 @@ public class TGUploadStrategy implements IUploadStrategy
 	 * @param uploadTask
 	 * @param listener
 	 */
-	public TGUploadStrategy(Context context, TGUploadTask uploadTask, 
-			IUploadListener listener)
+	public TGUploadStrategy(Context context, TGUploadTask uploadTask)
 	{
 		this.context = context;
 		this.uploadTask = uploadTask;
-		this.uploadListener = listener;
 	}
 
 	@Override
@@ -64,29 +65,22 @@ public class TGUploadStrategy implements IUploadStrategy
 		LogTools.p(LOG_TAG, "[Method:upload]");
 
 		// 获取上传参数
-		mpUploader = getUploader(uploadParams);
+		uploader = getUploader(uploadParams);
 		// 通知上传开始
-		uploadListener.uploadStart(mpUploader);
+		uploadTask.onUploadStart(uploader);
 		// 执行上传
-		executeUpload(context, mpUploader);
+		executeUpload(context, uploader);
 	}
 	
 	/**
-	 * 
 	 * 该方法的作用: 获取上传信息
 	 * @date 2014年8月18日
-	 * @param mpUploadParams
+	 * @param uploadParams
 	 * @return
 	 */
-	protected TGUploader getUploader(TGUploadParams mpUploadParams)
+	protected TGUploader getUploader(TGUploadParams uploadParams)
 	{
-		TGUploader uploader = null;
-		uploader = TGUploadDBHelper.getInstance(context).getBreakPointUploader(mpUploadParams.getFilePath());
-		
-		if(uploader == null)
-		{
-			uploader = createNewUploader(mpUploadParams);
-		}
+		TGUploader uploader = createNewUploader(uploadParams);;
 		uploader.setUploadStatus(TGUploadManager.UPLOAD_STARTING);
 		
 		return uploader;
@@ -98,18 +92,15 @@ public class TGUploadStrategy implements IUploadStrategy
 		uploader.setId(uploadTask.getTaskID().toString());
 		uploader.setServiceURL(uploadParams.getServiceURL());
 		uploader.setType(uploadParams.getUploadType());
-		uploader.setFilePath(uploadParams.getFilePath());
+		uploader.setStringParams(uploadParams.getStringParams());
+		uploader.setFileParams(uploadParams.getFileParams());
 		uploader.setTaskClsName(uploadParams.getTaskClsName());
-		uploader.setFileSize(FileUtils.getFileSize(uploadParams.getFilePath()));
-		uploader.setStartPosition(0);
-		uploader.setEndPosition(FileUtils.getFileSize(uploadParams.getFilePath()));
 		uploader.setParamsClsName(uploadParams.getClass().getName());
 		
 		return uploader;
 	}
 	
 	/**
-	 * 
 	 * 该方法的作用: 请求上传
 	 * @date 2014年8月5日
 	 * @param context
@@ -117,40 +108,39 @@ public class TGUploadStrategy implements IUploadStrategy
 	 */
 	protected void executeUpload(Context context, TGUploader uploader)
 	{
-//		LogTools.p(LOG_TAG, "[Method:request]");
-//
-//		// 任务结束，不执行上传
-//		if (null == uploadTask)
-//		{
-//			uploadCancel(mpUploader);
-//			return;
-//		}
-//		
-//		TGHttpClient httpClient = new DefaultHttpClient(context);
-//		// 创建post请求的方法
-//		TGUploadPostMethod postMethod = new TGUploadPostMethod(context, uploader, uploadTask, sendListener);
-//		setProperties(postMethod);
-//		
-//		TGHttpReceiver httpReceiver = new DefaultHttpReceiver(context);
-//		// 执行上传操作
-//		TGHttpResult httpResult = httpClient.executeHttpMethod(postMethod, httpReceiver);
-//
-//		dealRequestResult(uploader, httpResult);
-//		
-//		sendListener.onFinish(mpUploader);
-	}
-
-	/**
-	 * 
-	 * 该方法的作用: 设置请求头参数
-	 * @date 2014年8月26日
-	 * @param postMethod
-	 */
-	protected void setProperties(TGUploadPostMethod postMethod)
-	{
+		LogTools.p(LOG_TAG, "[Method:executeUpload]");
 		
+		// 任务结束，不执行上传
+		if (null == uploadTask)
+		{
+			uploadCancel(uploader);
+			return;
+		}
+		
+		httpClient = new ApacheHttpClient(context);
+		ApachePostMethod postMethod = new ApachePostMethod();
+		
+		TGHttpParams httpParams = uploader.convertToHttpParams();
+		httpParams.setProgressListener(this);
+		
+		contentLength = httpParams.getContentLength();
+		
+		postMethod.setReqeustParams(httpParams);
+		postMethod.setUrl(uploader.getServiceURL());
+		TGHttpResult httpResult = httpClient.execute(postMethod);
+		
+		if(!catchUploadError(uploader, httpResult))
+		{
+			uploadSuccess(uploader);
+		}
 	}
 	
+	@Override
+	public void shutdown()
+	{
+		httpClient.shutdown();
+	}
+
 	/**
 	 * 该方法的作用:处理请求结果
 	 * 
@@ -159,14 +149,18 @@ public class TGUploadStrategy implements IUploadStrategy
 	 * @param httpResult
 	 * @return
 	 */
-	protected void dealRequestResult(TGUploader uploader, TGHttpResult httpResult)
+	protected boolean catchUploadError(TGUploader uploader, TGHttpResult httpResult)
 	{
 		if (httpResult != null && httpResult.getResponseCode() != HttpURLConnection.HTTP_OK)
 		{
 			uploader.setErrorCode(httpResult.getResponseCode());
 			uploader.setErrorMsg(httpResult.getResult());
 			uploadFailed(uploader);
+			
+			return true;
 		}
+		
+		return false;
 	}
 
 	/**
@@ -180,61 +174,35 @@ public class TGUploadStrategy implements IUploadStrategy
 		return context;
 	}
 	
-	/**
-	 * 接收上传数据回调
-	 */
-	IUploadSendListener sendListener = new IUploadSendListener()
+	@Override
+	public void transferred(long num)
 	{
-		@Override
-		public void uploading(TGUploader uploader, int progress)
+		if(contentLength > 0)
 		{
-			// 回调上传中方法
-			uploadUploading(uploader, progress);
-		}
-
-		@Override
-		public void onFinish(TGUploader uploader)
-		{
-			// 上传完每一块, 记录进度到数据库
-			uploader.setCompleteSize(uploader.getCompleteSize() + uploader.getEndPosition() - uploader.getStartPosition());
-			TGUploadDBHelper.getInstance(context).updateUploader(uploader);
-			// 检测上传大小是否大于等于文件大小，如果小于文件大小，说明是分块上传，调用上传中方法
-			if(uploader.getCompleteSize() < uploader.getFileSize())
+			int currentProgress = (int) ((num * 100)/contentLength);
+			uploader.setCompleteSize(num);
+			if(currentProgress > progress)
 			{
-				int currentProgress = (int) (uploader.getCompleteSize() * 100 / uploader.getFileSize());
-				uploadUploading(uploader, currentProgress);
-				return;
+				progress = currentProgress;
+				uploading(uploader, currentProgress);
 			}
-			
-			// 回调上传成功方法
-			uploadFinish(uploader);
 		}
-
-		@Override
-		public void onFailed(TGUploader uploader)
-		{
-			uploadFailed(uploader);
-		}
-
-		@Override
-		public void onStop(TGUploader uploader)
-		{
-			uploadStop(uploader);
-		}
-	};
+	}
 	
 	/**
-	 * 
 	 * 该方法的作用: 上传过程中
 	 * @date 2014年8月19日
 	 * @param uploader
 	 */
-	private void uploadUploading(TGUploader uploader, int progress)
+	void uploading(TGUploader uploader, int progress)
 	{
 		// 修改上传状态为正在上传
 		uploader.setUploadStatus(TGUploadManager.UPLOAD_UPLOADING);
 		
-		uploadListener.uploadProgress(uploader, progress);
+		if(null != uploadTask && uploadTask.getTaskState() == TGTaskState.RUNNING)
+		{
+			uploadTask.onUploadProgress(uploader, progress);
+		}
 	}
 	
 	/**
@@ -243,20 +211,14 @@ public class TGUploadStrategy implements IUploadStrategy
 	 * @date 2014年8月19日
 	 * @param uploader
 	 */
-	private void uploadFinish(TGUploader uploader)
+	private void uploadSuccess(TGUploader uploader)
 	{
 		// 删除本地记录
 		uploader.setUploadStatus(TGUploadManager.UPLOAD_SUCCEED);
 		TGUploadDBHelper.getInstance(context).deleteUploader(uploader);
-		
-		if (uploadListener != null)
+		if(null != uploadTask && uploadTask.getTaskState() == TGTaskState.RUNNING)
 		{
-			uploadListener.uploadSucceed(uploader);
-		}
-		else
-		{
-			LogTools.e(LOG_TAG,
-					"[Method:failedUpload]  uploadListener is null,Please set uploadListener on Construct..");
+			uploadTask.onUploadSuccess(uploader);
 		}
 	}
 	
@@ -269,30 +231,20 @@ public class TGUploadStrategy implements IUploadStrategy
 	protected void uploadFailed(TGUploader uploader)
 	{
 		uploader.setUploadStatus(TGUploadManager.UPLOAD_FAILED);
-		// 如果不是分块上传，删除数据库记录
-    	if(true)
-    	{
-    		TGUploadDBHelper.getInstance(context).deleteUploader(uploader);
-    	}
+		TGUploadDBHelper.getInstance(context).deleteUploader(uploader);
 		
-		if (uploadListener != null)
+		if (null != uploadTask && uploadTask.getTaskState() == TGTaskState.RUNNING)
 		{
-			uploadListener.uploadFailed(uploader);
-		}
-		else
-		{
-			LogTools.e(LOG_TAG,
-					"[Method:failedUpload]  uploadListener is null,Please set uploadListener on Construct..");
+			uploadTask.onUploadFailed(uploader);
 		}
 	}
 	
 	/**
-	 * 
 	 * 该方法的作用: 停止上传，如果不是断点上传，删除本地文件
 	 * @date 2014年8月19日
 	 * @param uploader
 	 */
-	private void uploadStop(TGUploader uploader)
+	void uploadStop(TGUploader uploader)
 	{
 		uploader.setUploadStatus(TGUploadManager.UPLOAD_PAUSE);
 		// 如果不是分块上传，删除数据库记录
@@ -301,14 +253,9 @@ public class TGUploadStrategy implements IUploadStrategy
     		TGUploadDBHelper.getInstance(context).deleteUploader(uploader);
     	}
 		
-		if (uploadListener != null)
+		if (null != uploadTask && uploadTask.getTaskState() == TGTaskState.RUNNING)
 		{
-			uploadListener.uploadStop(uploader);
-		}
-		else
-		{
-			LogTools.e(LOG_TAG,
-					"[Method:failedUpload]  uploadListener is null,Please set uploadListener on Construct..");
+			uploadTask.onUploadStop(uploader);
 		}
 	}
 	
@@ -323,15 +270,10 @@ public class TGUploadStrategy implements IUploadStrategy
 		uploader.setUploadStatus(TGUploadManager.UPLOAD_PAUSE);
 		// 删除数据库记录
 		TGUploadDBHelper.getInstance(context).deleteUploader(uploader);
-		
-		if (uploadListener != null)
+		if(null != uploadTask && uploadTask.getTaskState() == TGTaskState.RUNNING)
 		{
-			uploadListener.uploadCanceled(uploader);
-		}
-		else
-		{
-			LogTools.e(LOG_TAG,
-					"[Method:failedUpload]  uploadListener is null,Please set uploadListener on Construct..");
+			uploadTask.onUploadCanceled(uploader);
 		}
 	}
+
 }

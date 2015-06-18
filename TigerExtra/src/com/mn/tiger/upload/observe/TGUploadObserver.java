@@ -112,4 +112,13 @@ public class TGUploadObserver
 	{
 		LogTools.p(TAG, "[Method:onPause]");
 	}
+	
+	/**
+	 * 取消上传回调
+	 * @param uploader
+	 */
+	public void onCancel(TGUploader uploader)
+	{
+		LogTools.p(TAG, "[Method:onCancel]");
+	}
 }

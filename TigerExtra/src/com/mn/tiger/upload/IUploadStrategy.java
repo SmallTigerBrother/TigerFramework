@@ -2,5 +2,7 @@ package com.mn.tiger.upload;
 
 public interface IUploadStrategy 
 {
-	void upload(TGUploadParams mpUploadParams);
+	void upload(TGUploadParams uploadParams);
+	
+	void shutdown();
 }
