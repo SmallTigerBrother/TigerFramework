@@ -63,12 +63,6 @@ public class TGDownloadTask extends TGTask
 			TGDownloader downloader = TGDownloader.getInstance(getContext(), mDownloadParams, this.getTaskID());
 			onDownloadPause(downloader);
 		}
-		
-		if(null != downloadStrategy)
-		{
-			downloadStrategy.shutdown();
-		}
-		
 		super.onTaskPause();
 	}
 	
@@ -79,10 +73,6 @@ public class TGDownloadTask extends TGTask
 		{
 			TGDownloader downloader = TGDownloader.getInstance(getContext(), mDownloadParams, this.getTaskID());
 			onDownloadCancel(downloader);
-		}
-		if(null != downloadStrategy)
-		{
-			downloadStrategy.shutdown();
 		}
 		super.onTaskCancel();
 	}
