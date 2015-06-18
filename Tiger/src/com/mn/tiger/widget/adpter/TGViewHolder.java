@@ -3,8 +3,7 @@ package com.mn.tiger.widget.adpter;
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.mn.tiger.utility.ViewInjector;
+import butterknife.ButterKnife;
 
 /**
  * 自定义的ViewHolder
@@ -34,7 +33,7 @@ public abstract class TGViewHolder<T>
 	 */
 	public View initView(View convertView, ViewGroup parent)
 	{
-		ViewInjector.initInjectedView(this, convertView);
+		ButterKnife.bind(this, convertView);
 		return convertView;
 	}
 	

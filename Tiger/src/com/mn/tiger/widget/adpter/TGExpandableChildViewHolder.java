@@ -1,10 +1,9 @@
 package com.mn.tiger.widget.adpter;
 
+import butterknife.ButterKnife;
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.mn.tiger.utility.ViewInjector;
 
 public abstract class TGExpandableChildViewHolder<T>
 {
@@ -27,7 +26,7 @@ public abstract class TGExpandableChildViewHolder<T>
 	 */
 	public View initView(View convertView)
 	{
-		ViewInjector.initInjectedView(this, convertView);
+		ButterKnife.bind(this, convertView);
 		return convertView;
 	}
 	

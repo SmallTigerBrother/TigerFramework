@@ -4,8 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
-import com.mn.tiger.utility.ViewInjector;
+import butterknife.ButterKnife;
 
 /**
  * 用ListView伪装的GridView使用的ViewHolder
@@ -69,7 +68,7 @@ public abstract class TGGridListViewHolder<T> extends TGViewHolder<T>
 				childGridView.setEnabled(true);
 				
 				//再需要时进行注入赋值
-				ViewInjector.initInjectedView(this, childGridView);
+				ButterKnife.bind(this, childGridView);
 				this.fillData(position, i, childData, childGridView, rowLayout, parent);
 			}
 			else
