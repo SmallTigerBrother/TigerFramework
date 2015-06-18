@@ -9,4 +9,6 @@ package com.mn.tiger.download;
 public interface IDownloadStrategy
 {
 	void download(TGDownloadParams downloadParams);
+	
+	void shutdown();
 }

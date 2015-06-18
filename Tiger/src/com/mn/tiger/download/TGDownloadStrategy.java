@@ -110,4 +110,10 @@ public class TGDownloadStrategy implements IDownloadStrategy
 
 		return httpMethod;
 	}
+	
+	@Override
+	public void shutdown()
+	{
+		downloadHttpClient.shutdown();
+	}
 }
