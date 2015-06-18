@@ -14,7 +14,7 @@ public class ApachePostMethod extends ApacheHttpMethod
 		return request;
 	}
 	
-	private HttpEntity paramsToEntity(TGHttpParams params)
+	protected HttpEntity paramsToEntity(TGHttpParams params)
 	{
 		HttpEntity entity = null;
 

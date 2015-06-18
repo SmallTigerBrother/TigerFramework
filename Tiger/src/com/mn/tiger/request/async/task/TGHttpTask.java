@@ -9,8 +9,8 @@ import com.mn.tiger.log.LogTools;
 import com.mn.tiger.request.error.TGHttpError;
 import com.mn.tiger.request.method.TGHttpParams;
 import com.mn.tiger.request.receiver.TGHttpResult;
-import com.mn.tiger.request.sync.HttpImplementionType;
 import com.mn.tiger.task.TGTask;
+import com.mn.tiger.test.mock.HttpMockTester;
 import com.mn.tiger.utility.MD5;
 import com.mn.tiger.utility.NetworkUtils;
 
@@ -67,7 +67,16 @@ public abstract class TGHttpTask extends TGTask
 		if(NetworkUtils.isConnectivityAvailable(getContext()))
 		{
 			// 执行网络访问（不带异常处理）；异常处理下放到Activity中执行,
-			TGHttpResult result = executeHttpRequest();
+			TGHttpResult result;
+			if(!HttpMockTester.TEST_ABLE)
+			{
+				result = executeHttpRequest();
+			}
+			else
+			{
+				result = HttpMockTester.getMockTestData(getRequestUrl());
+			}
+			
 			if (getTaskState() == TGTaskState.RUNNING)
 			{
 				// 返回网络访问结果
@@ -191,12 +200,6 @@ public abstract class TGHttpTask extends TGTask
 		}
 		
 		return cacheKey;
-	}
-	
-	public HttpImplementionType getHttpImplementionType()
-	{
-		Bundle httpParams = (Bundle)getParams();
-		return HttpImplementionType.valueOf(httpParams.getString(PARAM_HTTP_IMPLEMENTATION_TYPE));
 	}
 	
 	/**

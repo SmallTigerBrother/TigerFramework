@@ -12,8 +12,7 @@ import com.mn.tiger.request.async.TGHttpAsyncTask;
 import com.mn.tiger.request.async.task.IRequestParser;
 import com.mn.tiger.request.method.TGHttpParams;
 import com.mn.tiger.request.receiver.TGHttpResult;
-import com.mn.tiger.request.sync.HttpImplementionType;
-import com.mn.tiger.request.sync.TGSyncHttpLoaderFactory;
+import com.mn.tiger.request.sync.ApacheSyncHttpLoader;
 
 /**
  * Http请求类（包含异步、同步方法）
@@ -57,7 +56,7 @@ public class TGHttpLoader<T> implements IRequestParser
 	public TGHttpResult loadByGetSync(Context context, String requestUrl, 
 			TGHttpParams parameters, Map<String, String> properties)
 	{
-		return TGSyncHttpLoaderFactory.createSyncHttpLoader(HttpImplementionType.ApacheHttpClient).loadByGetSync(
+		return new ApacheSyncHttpLoader().loadByGetSync(
 				context, requestUrl, parameters, properties);
 	}
 	
@@ -86,7 +85,7 @@ public class TGHttpLoader<T> implements IRequestParser
 	public TGHttpResult loadByPostSync(Context context, String requestUrl, 
 			TGHttpParams parameters, Map<String, String> properties)
 	{
-		return TGSyncHttpLoaderFactory.createSyncHttpLoader(HttpImplementionType.ApacheHttpClient).loadByPostSync(
+		return new ApacheSyncHttpLoader().loadByPostSync(
 				context, requestUrl, parameters, properties);
 	}
 	
@@ -115,7 +114,7 @@ public class TGHttpLoader<T> implements IRequestParser
 	public TGHttpResult loadByPutSync(Context context, String requestUrl, 
 			TGHttpParams parameters, Map<String, String> properties)
 	{
-		return TGSyncHttpLoaderFactory.createSyncHttpLoader(HttpImplementionType.ApacheHttpClient).loadByPutSync(
+		return new ApacheSyncHttpLoader().loadByPutSync(
 				context, requestUrl, parameters, properties);
 	}
 	
@@ -144,7 +143,7 @@ public class TGHttpLoader<T> implements IRequestParser
 	public TGHttpResult loadByDeleteSync(Context context, String requestUrl, 
 			TGHttpParams parameters, Map<String, String> properties)
 	{
-		return TGSyncHttpLoaderFactory.createSyncHttpLoader(HttpImplementionType.ApacheHttpClient).loadByDeleteSync(
+		return new ApacheSyncHttpLoader().loadByDeleteSync(
 				context, requestUrl, parameters, properties);
 	}
 	

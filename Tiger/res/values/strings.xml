@@ -9,6 +9,7 @@
     <string name="tiger_alertdialog_str_un">抱歉,请稍后再试!</string>
     <string name="tiger_alert_dialog_title_network_error">联网提示</string>
     <string name="tiger_nodata">没有找到数据！</string>
+    <string name="mock_test_error">请确定已设置正确的测试数据</string>
 
 
     <string name="tiger_try_later">抱歉,请稍后再试!</string>

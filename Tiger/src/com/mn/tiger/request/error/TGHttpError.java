@@ -16,6 +16,8 @@ public class TGHttpError
 	
 	public static final int ERROR_URL = 10004;
 	
+	public static final int MOCK_TEST_ERROR = 20000;
+	
 	public static String getDefaultErrorMsg(Context context, int errorCode)
 	{
 		switch (errorCode)
@@ -34,6 +36,9 @@ public class TGHttpError
 
 			case ERROR_URL:
 				return "";
+				
+			case MOCK_TEST_ERROR:
+				return context.getString(R.string.mock_test_error);
 				
 			default:
 				break;

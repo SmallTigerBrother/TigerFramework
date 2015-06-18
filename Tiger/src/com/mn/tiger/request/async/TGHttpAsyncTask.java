@@ -16,9 +16,9 @@ import com.mn.tiger.request.async.task.TGGetTask;
 import com.mn.tiger.request.async.task.TGHttpTask;
 import com.mn.tiger.request.async.task.TGPostTask;
 import com.mn.tiger.request.async.task.TGPutTask;
+import com.mn.tiger.request.error.TGHttpErrorHandler;
 import com.mn.tiger.request.method.TGHttpParams;
 import com.mn.tiger.request.receiver.TGHttpResult;
-import com.mn.tiger.request.sync.HttpImplementionType;
 import com.mn.tiger.task.TGTask;
 import com.mn.tiger.task.TGTaskManager;
 import com.mn.tiger.task.invoke.TGTaskParams;
@@ -46,8 +46,6 @@ public class TGHttpAsyncTask<T>
 	 * 请求URL
 	 */
 	private String requestUrl;
-	
-	private HttpImplementionType httpImplementationType = HttpImplementionType.ApacheHttpClient;
 	
 	/**
 	 * 请求类型，默认为Post类型
@@ -210,7 +208,6 @@ public class TGHttpAsyncTask<T>
 		
 		data.putString(TGHttpTask.PARAM_PARSERCLSNAME, parserClsName);
 		data.putString(TGHttpTask.PARAM_RESLUTCLSNAME, resultClsName);
-		data.putString(TGHttpTask.PARAM_HTTP_IMPLEMENTATION_TYPE, httpImplementationType.name());
 		
 		TGTaskParams taskParams = TGTaskManager.createTaskParams(data, 
 				getTaskClsName(requestType), initHttpResultHandler());
@@ -289,16 +286,7 @@ public class TGHttpAsyncTask<T>
 	 */
 	protected boolean hasError(TGHttpResult httpResult)
 	{
-		int code = httpResult.getResponseCode();
-
-		if (code < 300 && code >= 200)
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
+		return TGHttpErrorHandler.hasHttpError(httpResult);
 	}
 	
 	/**
@@ -536,14 +524,5 @@ public class TGHttpAsyncTask<T>
 	public void setLoadCallback(OnLoadCallback<T> callback)
 	{
 		this.loadCallback = callback;
-	}
-	
-	/**
-	 * 设置Http请求实现方式
-	 * @param httpImplementationType
-	 */
-	public void setHttpImplementationType(HttpImplementionType httpImplementationType)
-	{
-		this.httpImplementationType = httpImplementationType;
 	}
 }

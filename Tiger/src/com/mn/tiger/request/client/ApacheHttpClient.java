@@ -183,6 +183,13 @@ public class ApacheHttpClient
 	}
 	
 	/**
+	 * 停止请求
+	 */
+	public void shutdown()
+	{
+		httpClient.getConnectionManager().shutdown();
+	}
+	/**
 	 * 处理Http请求结果
 	 * @param response
 	 * @param charset
