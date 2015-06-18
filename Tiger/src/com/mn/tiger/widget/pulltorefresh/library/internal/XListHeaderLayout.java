@@ -9,18 +9,18 @@ import android.widget.LinearLayout;
 import com.mn.tiger.R;
 import com.mn.tiger.widget.pulltorefresh.library.PullToRefreshBase;
 import com.mn.tiger.widget.pulltorefresh.library.PullToRefreshBase.Orientation;
-import com.mn.tiger.widget.xlistview.XListViewHeader;
+import com.mn.tiger.widget.pulltorefresh.loading.LoadingHeaderView;
 
 public class XListHeaderLayout extends LoadingLayout
 {
-	private XListViewHeader header;
+	private LoadingHeaderView header;
 	
 	public XListHeaderLayout(Context context, PullToRefreshBase.Mode mode)
 	{
 		super(context, mode, Orientation.VERTICAL);
 		FrameLayout mInnerLayout = (FrameLayout) findViewById(R.id.fl_inner);
 		mInnerLayout.removeAllViews();
-		header = new XListViewHeader(context);
+		header = new LoadingHeaderView(context);
 		//覆盖原有的layoutparams
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -53,7 +53,7 @@ public class XListHeaderLayout extends LoadingLayout
 	{
 		if(null != header)
 		{
-			header.setState(XListViewHeader.STATE_NORMAL);
+			header.setState(LoadingHeaderView.STATE_NORMAL);
 		}
 	}
 
@@ -62,7 +62,7 @@ public class XListHeaderLayout extends LoadingLayout
 	{
 		if(null != header)
 		{
-			header.setState(XListViewHeader.STATE_REFRESHING);
+			header.setState(LoadingHeaderView.STATE_REFRESHING);
 		}
 	}
 
@@ -71,7 +71,7 @@ public class XListHeaderLayout extends LoadingLayout
 	{
 		if(null != header)
 		{
-			header.setState(XListViewHeader.STATE_READY);
+			header.setState(LoadingHeaderView.STATE_READY);
 		}
 	}
 

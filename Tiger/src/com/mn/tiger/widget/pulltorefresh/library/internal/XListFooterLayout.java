@@ -9,19 +9,19 @@ import android.widget.LinearLayout;
 import com.mn.tiger.R;
 import com.mn.tiger.widget.pulltorefresh.library.PullToRefreshBase;
 import com.mn.tiger.widget.pulltorefresh.library.PullToRefreshBase.Orientation;
-import com.mn.tiger.widget.xlistview.XListViewFooter;
+import com.mn.tiger.widget.pulltorefresh.loading.LoadingFooterView;
 
 
 public class XListFooterLayout extends LoadingLayout
 {
-	private XListViewFooter footer;
+	private LoadingFooterView footer;
 	
 	public XListFooterLayout(Context context, PullToRefreshBase.Mode mode)
 	{
 		super(context, mode, Orientation.VERTICAL);
 		FrameLayout mInnerLayout = (FrameLayout) findViewById(R.id.fl_inner);
 		mInnerLayout.removeAllViews();
-		footer = new XListViewFooter(context);
+		footer = new LoadingFooterView(context);
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.MATCH_PARENT, 
 				LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -52,7 +52,7 @@ public class XListFooterLayout extends LoadingLayout
 	{
 		if(null != footer)
 		{
-			footer.setState(XListViewFooter.STATE_NORMAL);
+			footer.setState(LoadingFooterView.STATE_NORMAL);
 		}
 	}
 
@@ -61,7 +61,7 @@ public class XListFooterLayout extends LoadingLayout
 	{
 		if(null != footer)
 		{
-			footer.setState(XListViewFooter.STATE_LOADING);
+			footer.setState(LoadingFooterView.STATE_LOADING);
 		}
 	}
 
@@ -70,7 +70,7 @@ public class XListFooterLayout extends LoadingLayout
 	{
 		if(null != footer)
 		{
-			footer.setState(XListViewFooter.STATE_READY);
+			footer.setState(LoadingFooterView.STATE_READY);
 		}
 	}
 
@@ -79,7 +79,7 @@ public class XListFooterLayout extends LoadingLayout
 	{
 		if(null != footer)
 		{
-			footer.setState(XListViewFooter.STATE_READY);
+			footer.setState(LoadingFooterView.STATE_READY);
 		}
 	}
 }

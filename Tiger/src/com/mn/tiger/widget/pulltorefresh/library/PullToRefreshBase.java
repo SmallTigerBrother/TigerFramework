@@ -32,9 +32,7 @@ import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.mn.tiger.widget.pulltorefresh.library.internal.FlipLoadingLayout;
 import com.mn.tiger.widget.pulltorefresh.library.internal.LoadingLayout;
-import com.mn.tiger.widget.pulltorefresh.library.internal.RotateLoadingLayout;
 import com.mn.tiger.widget.pulltorefresh.library.internal.ViewCompat;
 import com.mn.tiger.widget.pulltorefresh.library.internal.XListFooterLayout;
 import com.mn.tiger.widget.pulltorefresh.library.internal.XListHeaderLayout;
@@ -78,7 +76,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 	private Mode mMode = Mode.getDefault();
 
 	private Mode mCurrentMode;
-	T mRefreshableView;
+	protected T mRefreshableView;
 	private FrameLayout mRefreshableViewWrapper;
 
 	private boolean mShowViewWhileRefreshing = true;
@@ -165,6 +163,29 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 		return false;
 	}
 
+	/**
+	 * 启动刷新或者加载
+	 * @return
+	 */
+	public final boolean startRefreshOrLoad()
+	{
+		if (mMode.showHeaderLoadingLayout() && isReadyForPullStart())
+		{
+			smoothScrollTo(-getHeaderSize(), SMOOTH_SCROLL_DURATION_MS, 0, null);
+			mState = State.REFRESHING;
+			return true;
+		}
+		else if (mMode.showFooterLoadingLayout() && isReadyForPullEnd())
+		{
+			smoothScrollTo(getFooterSize(), SMOOTH_SCROLL_DURATION_MS, 0, null);
+			mState = State.REFRESHING;
+			return true;
+		}
+
+		return false;
+	}
+
+	
 	public final Mode getCurrentMode()
 	{
 		return mCurrentMode;
@@ -583,12 +604,12 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 		mLayoutVisibilityChangesEnabled = false;
 	}
 
-	protected final LoadingLayout getFooterLayout()
+	public final LoadingLayout getFooterLayout()
 	{
 		return mFooterLayout;
 	}
 
-	protected final int getFooterSize()
+	public final int getFooterSize()
 	{
 		return mFooterLayout.getContentSize();
 	}
@@ -1308,7 +1329,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 		}
 	}
 
-	private final void smoothScrollToAndBack(int y)
+	public final void smoothScrollToAndBack(int y)
 	{
 		smoothScrollTo(y, SMOOTH_SCROLL_DURATION_MS, 0, new OnSmoothScrollFinishedListener()
 		{
@@ -1323,19 +1344,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 
 	public static enum AnimationStyle
 	{
-		/**
-		 * This is the default for Android-PullToRefresh. Allows you to use any
-		 * drawable, which is automatically rotated and used as a Progress Bar.
-		 */
-		ROTATE,
-		
-		XLIST,
-
-		/**
-		 * This is the old default, and what is commonly used on iOS. Uses an
-		 * arrow image which flips depending on where the user has scrolled.
-		 */
-		FLIP;
+		XLIST;
 
 		static AnimationStyle getDefault()
 		{
@@ -1358,12 +1367,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 				case 0x0:
 				default:
 					return XLIST;
-					
-				case 0x1:
-					return ROTATE;
-					
-				case 0x2:
-					return FLIP;
 			}
 		}
 
@@ -1381,10 +1384,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 							default:
 							return new XListFooterLayout(context, mode);
 					}
-				case ROTATE:
-					return new RotateLoadingLayout(context, mode, scrollDirection);
-				case FLIP:
-					return new FlipLoadingLayout(context, mode, scrollDirection);
 			}
 		}
 	}
