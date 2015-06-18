@@ -380,7 +380,7 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 		protected View initPageView(int viewType) throws InstantiationException,
 		IllegalAccessException
 		{
-			return new ImageView(getActivity());
+			return imageViewHolder.initPageView(viewType);
 		}
 
 		@Override
@@ -388,7 +388,7 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 		{
 			if (null != pageData && pageData.size() > position && null != imageViewHolder)
 			{
-				imageViewHolder.fillData((ImageView) viewOfPage, pageData.get(position),
+				imageViewHolder.fillData(viewOfPage, pageData.get(position),
 						position, viewType);
 			}
 		}
@@ -400,7 +400,9 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 	 */
 	public static interface IImageViewHolder<T>
 	{
-		public void fillData(ImageView imageView, T itemData, int position, int viewType);
+		public View initPageView(int viewType);
+		
+		public void fillData(View viewOfPage, T itemData, int position, int viewType);
 	}
 
 	/**
