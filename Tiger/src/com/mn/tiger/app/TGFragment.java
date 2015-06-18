@@ -61,7 +61,7 @@ public abstract class TGFragment extends Fragment
 			View contentView = onCreateView(inflater, savedInstanceState);
 			if(null != contentView)
 			{
-				panelLayout.addView(onCreateView(inflater, savedInstanceState), layoutParams);
+				panelLayout.addView(contentView, layoutParams);
 			}
 			else
 			{
