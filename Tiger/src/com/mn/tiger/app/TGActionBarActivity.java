@@ -13,13 +13,14 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mn.tiger.utility.CR;
+import com.mn.tiger.utility.ToastUtils;
 import com.mn.tiger.widget.TGImageButton;
 import com.mn.tiger.widget.TGNavigationBar;
 
 /**
  * 带导航条的Activity基类
  */
-public class TGActionBarActivity extends Activity
+public class TGActionBarActivity extends Activity implements IView
 {
 	/**
 	 * 导航条
@@ -301,4 +302,15 @@ public class TGActionBarActivity extends Activity
 	{
 		return null;
 	}
+	
+	public void showToast(int textResId)
+	{
+		ToastUtils.showToast(this, textResId);
+	}
+	
+	public void showToast(String text)
+	{
+		ToastUtils.showToast(this, text);
+	}
+
 }

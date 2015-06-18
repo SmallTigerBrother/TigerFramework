@@ -10,13 +10,14 @@ import android.widget.TextView;
 
 import com.mn.tiger.log.Logger;
 import com.mn.tiger.utility.CR;
+import com.mn.tiger.utility.ToastUtils;
 import com.mn.tiger.widget.TGImageButton;
 import com.mn.tiger.widget.TGNavigationBar;
 
 /**
  * 自定义Fragment基类
  */
-public abstract class TGFragment extends Fragment
+public abstract class TGFragment extends Fragment implements IView
 {
 	private static final Logger LOG = Logger.getLogger(TGFragment.class);
 	
@@ -262,9 +263,14 @@ public abstract class TGFragment extends Fragment
 		}
 	}
 	
-	@Override
-	public void onDestroy()
+	public void showToast(int textResId)
 	{
-		super.onDestroy();
+		ToastUtils.showToast(getActivity(), textResId);
 	}
+	
+	public void showToast(String text)
+	{
+		ToastUtils.showToast(getActivity(), text);
+	}
+
 }
