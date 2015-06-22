@@ -325,7 +325,7 @@ public class DotIndicatorBannerPagerView<T> extends RelativeLayout implements On
 		}
 
 		@Override
-		protected View initView(ViewGroup parent)
+		protected View initView(ViewGroup parent, int position)
 		{
 			// 初始化indicator
 			ImageView imageView = new ImageView(getActivity());

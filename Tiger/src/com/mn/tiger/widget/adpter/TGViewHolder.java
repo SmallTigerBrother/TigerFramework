@@ -31,7 +31,7 @@ public abstract class TGViewHolder<T>
 	 * @param convertView
 	 * @return 需要返回convertView
 	 */
-	public View initView(View convertView, ViewGroup parent)
+	public View initView(View convertView, ViewGroup parent, int position)
 	{
 		ButterKnife.bind(this, convertView);
 		return convertView;

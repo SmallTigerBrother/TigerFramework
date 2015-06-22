@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 public abstract class TGGridListViewHolder<T> extends TGViewHolder<T>
 {
 	@Override
-	public View initView(View convertView, ViewGroup parent)
+	public View initView(View convertView, ViewGroup parent, int position)
 	{
 		int columnNum = ((TGGridListAdapter<T>)getAdapter()).getColumnNum();
 		

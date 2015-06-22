@@ -249,9 +249,9 @@ public abstract class TGTabActivity extends TGActionBarActivity implements
 		private TGBadgeView badgeView;
 		
 		@Override
-		public View initView(View convertView, ViewGroup parent)
+		public View initView(View convertView, ViewGroup parent, int position)
 		{
-			View view = super.initView(convertView, parent);
+			View view = super.initView(convertView, parent, position);
 			//设置tab均分
 			LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, 
 					LayoutParams.WRAP_CONTENT, 1);
