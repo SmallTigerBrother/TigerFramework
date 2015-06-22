@@ -23,9 +23,9 @@ public abstract class SwipeListViewHolder<T> extends TGViewHolder<T>
 	private View backView;
 
 	@Override
-	public View initView(View convertView, ViewGroup parent)
+	public View initView(View convertView, ViewGroup parent, int position)
 	{
-		View mainView = super.initView(convertView, parent);
+		View mainView = super.initView(convertView, parent, position);
 		// 初始化前视图
 		frontView = mainView.findViewById(getFrontViewId());
 		// 初始化后视图
