@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,58 +17,58 @@ import android.widget.BaseAdapter;
  * @see JDK1.6,android-8
  * @date 2012-12-31
  */
-public class TGListAdapter<T> extends BaseAdapter 
+public class TGListAdapter<T> extends BaseAdapter
 {
 	/**
 	 * 日志标签
 	 */
 	protected final String LOG_TAG = this.getClass().getSimpleName();
-	
+
 	/**
 	 * 运行环境
 	 */
-	private Activity activity;
-	
+	private Context context;
+
 	/**
 	 * 列表填充数据
 	 */
 	private List<T> items = null;
-	
+
 	/**
 	 * 列表行视图layoutId
 	 */
 	private int convertViewLayoutId;
-	
+
 	/**
 	 * viewholder类，用于视图重用，初始化列表行和填充列表行数据
 	 */
 	private Class<? extends TGViewHolder<T>> viewHolderClass;
-	
+
 	/**
-	 * @param activity
+	 * @param context
 	 * @param items 列表填充数据
 	 * @param convertViewLayoutId  列表行视图layoutId
 	 * @param viewHolderClass ViewHolder类名
 	 */
-	public TGListAdapter(Activity activity, List<T> items,int convertViewLayoutId, 
-			Class<? extends TGViewHolder<T>> viewHolderClass)
+	public TGListAdapter(Context context, List<T> items,int convertViewLayoutId,
+						 Class<? extends TGViewHolder<T>> viewHolderClass)
 	{
-		this.activity = activity;
+		this.context = context;
 		this.items = new ArrayList<T>();
 		if(null != items)
 		{
 			this.items.addAll(items);
 		}
-		
+
 		this.convertViewLayoutId = convertViewLayoutId;
 		this.viewHolderClass = viewHolderClass;
 	}
-	
+
 	/**
 	 * @see BaseAdapter#getCount()
 	 */
 	@Override
-	public int getCount() 
+	public int getCount()
 	{
 		return items.size();
 	}
@@ -77,7 +77,7 @@ public class TGListAdapter<T> extends BaseAdapter
 	 * @see BaseAdapter#getItem(int)
 	 */
 	@Override
-	public Object getItem(int position) 
+	public Object getItem(int position)
 	{
 		return items.get(position);
 	}
@@ -86,7 +86,7 @@ public class TGListAdapter<T> extends BaseAdapter
 	 * @see BaseAdapter#getItemId(int)
 	 */
 	@Override
-	public long getItemId(int position) 
+	public long getItemId(int position)
 	{
 		return position;
 	}
@@ -101,12 +101,12 @@ public class TGListAdapter<T> extends BaseAdapter
 		{
 			convertView = initView(parent, position);
 		}
-		
+
 		fillData(position, convertView, parent);
-		
+
 		return convertView;
 	}
-	
+
 	/**
 	 * 初始化convertView（仅在无法重用视图时调用）
 	 * @return
@@ -119,22 +119,22 @@ public class TGListAdapter<T> extends BaseAdapter
 		{
 			try
 			{
-				convertView = LayoutInflater.from(activity).inflate(convertViewLayoutId, null);
+				convertView = LayoutInflater.from(context).inflate(convertViewLayoutId, null);
 			}
 			catch (Exception e)
 			{
 				throw new RuntimeException(e);
 			}
 		}
-		
+
 		viewHolder = initViewHolder();
 		viewHolder.setLayoutId(convertViewLayoutId);
 		convertView = viewHolder.initView(convertView, parent, position);
 		convertView.setTag(viewHolder);
-		
+
 		return convertView;
 	}
-	
+
 	/**
 	 * 填充列表行数据（每次调用getView时都会调用）
 	 * @param position
@@ -147,7 +147,7 @@ public class TGListAdapter<T> extends BaseAdapter
 		TGViewHolder<T> viewHolder = (TGViewHolder<T>) convertView.getTag();
 		//填充列表行数据
 		viewHolder.fillData(parent, convertView, items.get(position), position);
-		
+
 		//更新列表行尺寸
 		viewHolder.updateViewDimension(parent, convertView, items.get(position), position);
 	}
@@ -162,17 +162,17 @@ public class TGListAdapter<T> extends BaseAdapter
 		try
 		{
 			viewHolder = viewHolderClass.newInstance();
-			viewHolder.setActivity(activity);
+			viewHolder.setContext(context);
 			viewHolder.setAdapter(this);
 		}
 		catch (Exception e)
 		{
 			throw new RuntimeException(e);
 		}
-		
+
 		return viewHolder;
 	}
-	
+
 	/**
 	 * 该方法的作用:更新列表数据
 	 * @date 2013-1-17
@@ -187,7 +187,7 @@ public class TGListAdapter<T> extends BaseAdapter
 			notifyDataSetChanged();
 		}
 	}
-	
+
 	/**
 	 * 更新列表行数据
 	 * @param data
@@ -201,7 +201,7 @@ public class TGListAdapter<T> extends BaseAdapter
 			notifyDataSetChanged();
 		}
 	}
-	
+
 	/**
 	 * 向列表行追加数据
 	 * @param data
@@ -214,7 +214,7 @@ public class TGListAdapter<T> extends BaseAdapter
 			notifyDataSetChanged();
 		}
 	}
-	
+
 	/**
 	 * 向列表行追加数据
 	 * @param data
@@ -227,7 +227,7 @@ public class TGListAdapter<T> extends BaseAdapter
 			notifyDataSetChanged();
 		}
 	}
-	
+
 	/**
 	 * 该方法的作用:
 	 * 获取列表数据
@@ -238,7 +238,7 @@ public class TGListAdapter<T> extends BaseAdapter
 	{
 		return this.items;
 	}
-	
+
 	/**
 	 * 获取列表第一个元素
 	 * @return 若列表无数据，返回null
@@ -251,7 +251,7 @@ public class TGListAdapter<T> extends BaseAdapter
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 获取列表最后一个元素
 	 * @return 若列表无数据，返回null
@@ -264,20 +264,20 @@ public class TGListAdapter<T> extends BaseAdapter
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 删除列表行
 	 * @param position 列表行位置
 	 */
 	public void removeItem(int position)
 	{
-		if(items.size() > position)
+		if(items.size() > position && position >= 0)
 		{
 			items.remove(position);
 			notifyDataSetChanged();
 		}
 	}
-	
+
 	/**
 	 * 删除列表行
 	 * @param item 列表行数据
@@ -290,9 +290,18 @@ public class TGListAdapter<T> extends BaseAdapter
 			notifyDataSetChanged();
 		}
 	}
-	
-	protected Activity getActivity()
+
+	/**
+	 * 清除所有数据
+	 */
+	public void removeAll()
 	{
-		return activity;
+		items.clear();
+		notifyDataSetChanged();
+	}
+
+	protected Context getContext()
+	{
+		return context;
 	}
 }

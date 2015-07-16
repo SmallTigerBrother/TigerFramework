@@ -79,7 +79,7 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 	private int tabPaddingLeftRight = 24;
 	private int tabPaddingTop = 8;
 	private int tabPaddingBottom = 8;
-	private int dividerWidth = 1;
+	private int dividerWidth = 2;
 
 	private int tabTextSize = 12;
 	private int tabTextColor = 0xFF666666;
@@ -256,6 +256,8 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 				v.setBackgroundResource(tabBackgroundResId);
 			}
 
+			v.setPadding(tabPaddingLeftRight, tabPaddingTop, tabPaddingLeftRight, tabPaddingBottom);
+
 			if (v instanceof TextView)
 			{
 				TextView tab = (TextView) v;
@@ -407,6 +409,11 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 		}
 	}
 	
+	public View getTab(int position)
+	{
+		return tabsContainer.getChildAt(position);
+	}
+	
 	private class PageListener implements OnPageChangeListener
 	{
 		@Override
@@ -512,6 +519,13 @@ public class TGPagerSlidingTabStrip extends HorizontalScrollView
 	{
 		this.dividerPadding = dividerPaddingPx;
 		invalidate();
+	}
+
+	public void setDividerWidth(int dividerWidth)
+	{
+		this.dividerWidth = dividerWidth;
+		this.dividerPaint.setStrokeWidth(dividerWidth);
+		updateTabStyles();
 	}
 
 	public void setScrollOffset(int scrollOffsetPx)

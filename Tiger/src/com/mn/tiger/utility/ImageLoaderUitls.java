@@ -4,6 +4,7 @@ import android.widget.ImageView;
 
 import com.mn.tiger.app.TGApplication;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 /**
@@ -20,6 +21,17 @@ public class ImageLoaderUitls
 	{
 		TGApplication.getInstance().getImageLoader().displayImage(uri, imageView);
 	}
+	
+	/**
+	 * 异步加载图片
+	 * @param uri 图片地址
+	 * @param imageAware
+	 */
+	public static void displayImage(String uri, ImageAware imageAware)
+	{
+		TGApplication.getInstance().getImageLoader().displayImage(uri, imageAware);
+	}
+
 	
 	/**
 	 * 异步加载图片 

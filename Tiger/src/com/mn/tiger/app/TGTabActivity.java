@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -74,7 +75,6 @@ public abstract class TGTabActivity extends TGActionBarActivity implements
 	/**
 	 * 设置Tab和Fragment
 	 * @param tabModels 所有的tab
-	 * @param fragments 所有的fragment
 	 */
 	public void setTabs(TabModel[] tabModels)
 	{
@@ -174,7 +174,16 @@ public abstract class TGTabActivity extends TGActionBarActivity implements
 	{
 		return tabView;
 	}
-	
+
+	/**
+	 * 获取当前选中的tab的索引
+	 * @return
+	 */
+	protected int getCurrentTab()
+	{
+		return tabView.getCurrentTab();
+	}
+
 	/**
 	 * 获取ViewPager
 	 * @return
@@ -259,7 +268,7 @@ public abstract class TGTabActivity extends TGActionBarActivity implements
 			
 			imageView = (ImageView) view.findViewById(R.id.tab_item_image);
 			textView = (TextView) view.findViewById(R.id.tab_item_name);
-			badgeView = new TGBadgeView(getActivity(), imageView);
+			badgeView = new TGBadgeView(getContext(), imageView);
 			badgeView.setBadgePosition(TGBadgeView.POSITION_TOP_RIGHT);
 			badgeView.setBadgeMargin(0, 1, 1, 0);
 			
@@ -270,11 +279,19 @@ public abstract class TGTabActivity extends TGActionBarActivity implements
 		public void fillData(ViewGroup parent, View convertView, TabModel itemData, int position)
 		{
 			TGTabView.displayImage(itemData.getDefaultResName(), imageView);
-			textView.setText(itemData.getTabName());
-			textView.setTextColor(itemData.getDefaultTextColor());
-			textView.setTextSize(itemData.getDefaultTextSize());
-			textView.setTypeface(Typeface.defaultFromStyle(itemData.getDefaultTypeface()));
-			
+			if(TextUtils.isEmpty(itemData.getTabName()))
+			{
+				textView.setVisibility(View.GONE);
+			}
+			else
+			{
+				textView.setVisibility(View.VISIBLE);
+				textView.setText(itemData.getTabName());
+				textView.setTextColor(itemData.getDefaultTextColor());
+				textView.setTextSize(itemData.getDefaultTextSize());
+				textView.setTypeface(Typeface.defaultFromStyle(itemData.getDefaultTypeface()));
+			}
+
 			if(itemData.getBadgeBackgroundResId() != 0)
 			{
 				badgeView.setImageResource(itemData.getBadgeBackgroundResId());

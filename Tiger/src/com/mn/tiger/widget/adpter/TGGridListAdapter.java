@@ -39,6 +39,15 @@ public class TGGridListAdapter<T> extends TGListAdapter<T>
 	}
 	
 	/**
+	 * 设置列表行数
+	 * @param columnNum
+	 */
+	public void setColumnNum(int columnNum)
+	{
+		this.columnNum = columnNum;
+	}
+	
+	/**
 	 * 获取列数
 	 * @return
 	 */

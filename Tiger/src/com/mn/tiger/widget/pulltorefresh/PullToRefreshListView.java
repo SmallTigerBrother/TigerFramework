@@ -1,6 +1,7 @@
 package com.mn.tiger.widget.pulltorefresh;
 
 import com.mn.tiger.widget.pulltorefresh.library.IPullToRefreshAdapterView;
+import com.mn.tiger.widget.pulltorefresh.library.IPullToRefreshListenable;
 import com.mn.tiger.widget.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.mn.tiger.widget.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 
@@ -16,7 +17,7 @@ import android.widget.ListView;
 /**
  * 拖动刷新瀑布流
  */
-public class PullToRefreshListView extends ListView implements IPullToRefreshAdapterView
+public class PullToRefreshListView extends ListView implements IPullToRefreshAdapterView,IPullToRefreshListenable
 {
 	private PullToRefreshAdapterViewImp pullToRefreshViewImp;
 	

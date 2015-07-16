@@ -1,6 +1,6 @@
 package com.mn.tiger.widget.adpter;
 
-import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.ButterKnife;
@@ -10,22 +10,22 @@ import butterknife.ButterKnife;
  */
 public abstract class TGViewHolder<T>
 {
-	private Activity activity;
-	
+	private Context context;
+
 	/**
 	 * 列表航layoutID
 	 */
 	private int layoutId;
-	
+
 	/**
 	 * 搭配使用的Adapter
 	 */
 	private TGListAdapter<T> adapter;
-	
+
 	public TGViewHolder()
 	{
 	}
-	
+
 	/**
 	 * 初始化列表行视图
 	 * @param convertView
@@ -36,7 +36,7 @@ public abstract class TGViewHolder<T>
 		ButterKnife.bind(this, convertView);
 		return convertView;
 	}
-	
+
 	/**
 	 * 获取匹配的Adapter
 	 * @return
@@ -54,7 +54,7 @@ public abstract class TGViewHolder<T>
 	{
 		this.adapter = adapter;
 	}
-	
+
 	/**
 	 * 更新列表行的尺寸
 	 * @param itemData
@@ -62,9 +62,9 @@ public abstract class TGViewHolder<T>
 	 */
 	protected void updateViewDimension(ViewGroup parent, View convertView, T itemData, int position)
 	{
-		
+
 	}
-	
+
 	/**
 	 * 填充数据
 	 * @param itemData
@@ -72,24 +72,28 @@ public abstract class TGViewHolder<T>
 	 */
 	public abstract void fillData(ViewGroup parent, View convertView, T itemData, int position);
 
-	protected Activity getActivity()
+	protected Context getContext()
 	{
-		return activity;
+		return context;
 	}
 
-	void setActivity(Activity activity)
+	void setContext(Context context)
 	{
-		this.activity = activity;
+		this.context = context;
 	}
-	
+
 	void setLayoutId(int layoutId)
 	{
 		this.layoutId = layoutId;
 	}
-	
+
 	protected int getLayoutId()
 	{
 		return layoutId;
 	}
 
+	protected int getColor(int resId)
+	{
+		return getContext().getResources().getColor(resId);
+	}
 }

@@ -23,7 +23,7 @@ public class TGRecyclePagerAdapter<T> extends PagerAdapter
 	/**
 	 * 忽略类型
 	 */
-	static final int IGNORE_ITEM_VIEW_TYPE = AdapterView.ITEM_VIEW_TYPE_IGNORE;
+	public static final int IGNORE_ITEM_VIEW_TYPE = AdapterView.ITEM_VIEW_TYPE_IGNORE;
 
 	private Activity activity;
 
@@ -82,7 +82,7 @@ public class TGRecyclePagerAdapter<T> extends PagerAdapter
 	@Override
 	public Object instantiateItem(ViewGroup container, int position)
 	{
-		int viewType = IGNORE_ITEM_VIEW_TYPE;
+		int viewType = getViewType(position);
 		if(null != pagerViewHolder)
 		{
 			viewType = pagerViewHolder.getItemViewType(pagerData, position);
@@ -107,6 +107,16 @@ public class TGRecyclePagerAdapter<T> extends PagerAdapter
 		}
 		
 		return view;
+	}
+
+	/**
+	 * 获取视图类型
+	 * @param position
+	 * @return
+	 */
+	public int getViewType(int position)
+	{
+		return IGNORE_ITEM_VIEW_TYPE;
 	}
 	
 	/**

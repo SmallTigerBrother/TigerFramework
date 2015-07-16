@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.widget.ListAdapter;
 
 import com.mn.tiger.widget.pulltorefresh.library.IPullToRefreshAdapterView;
+import com.mn.tiger.widget.pulltorefresh.library.IPullToRefreshListenable;
 import com.mn.tiger.widget.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.mn.tiger.widget.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.mn.tiger.widget.viewflow.MultiColumnListView;
@@ -16,7 +17,7 @@ import com.mn.tiger.widget.viewflow.internal.PLA_AbsListView;
 /**
  * 拖动刷新瀑布流
  */
-public class PullToRefreshMultiColumnListView extends MultiColumnListView implements IPullToRefreshAdapterView
+public class PullToRefreshMultiColumnListView extends MultiColumnListView implements IPullToRefreshAdapterView,IPullToRefreshListenable
 {
 	private PullToRefreshAdapterViewImp pullToRefreshViewImp;
 	

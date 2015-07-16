@@ -1,10 +1,11 @@
 package com.mn.tiger.widget.adpter;
 
+import butterknife.ButterKnife;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import butterknife.ButterKnife;
+
 
 /**
  * 用ListView伪装的GridView使用的ViewHolder
@@ -14,12 +15,12 @@ import butterknife.ButterKnife;
 public abstract class TGGridListViewHolder<T> extends TGViewHolder<T>
 {
 	@Override
-	public View initView(View convertView, ViewGroup parent, int position)
+	public View initView(View convertView, ViewGroup parent,int position)
 	{
 		int columnNum = ((TGGridListAdapter<T>)getAdapter()).getColumnNum();
 		
 		//默认使用LinearLayout作为convertView
-		LinearLayout linearLayout = new LinearLayout(getActivity());
+		LinearLayout linearLayout = new LinearLayout(getContext());
 		linearLayout.setOrientation(LinearLayout.HORIZONTAL);
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT, 1);
@@ -44,7 +45,7 @@ public abstract class TGGridListViewHolder<T> extends TGViewHolder<T>
 	protected View initChildGridView(int columIndex ,LinearLayout rowLayout, ViewGroup parent)
 	{
 		//初始化子Grid视图
-		return LayoutInflater.from(getActivity()).inflate(getLayoutId(), null);
+		return LayoutInflater.from(getContext()).inflate(getLayoutId(), null);
 	}
 	
 	@SuppressWarnings("unchecked")
